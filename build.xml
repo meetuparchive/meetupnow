@@ -25,7 +25,16 @@
 	<include name="**/*.jar" />
       </fileset>
     </copy>
-
+	
+    <copy
+	todir="war/WEB-INF"
+	flatten="true">
+	<fileset dir="lib">
+		<include name="appengine-web.xml" />
+		<include name="logging.properties" />
+		<include name="web.xml" />
+	</fileset>
+    </copy>
     <copy
 	todir="war/WEB-INF/classes/META-INF"
 	flatten="true">
