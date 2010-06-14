@@ -1,0 +1,19 @@
+#mew_header {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	background: white;
+	height: 6em;
+	border-bottom: 2px solid #888888;
+}
+	#mew_headerBody{
+		position: relative;
+		height: 100%;
+	}
+		#mew_logo{
+			position: absolute;
+			top: 1.2em;
+			left: 1em;
+			z-index: 1000;
+		}
