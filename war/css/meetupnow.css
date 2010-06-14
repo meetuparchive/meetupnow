@@ -17,3 +17,7 @@
 			left: 1em;
 			z-index: 1000;
 		}
+#mn_pageBody {
+	width:960px;
+	padding-top:6em;
+}
