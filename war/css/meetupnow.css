@@ -9,7 +9,7 @@ body {
 	font-family: verdana, arial, sans-serif;
 	color: #272727;
 	font-weight: normal;
-	font-size: 75%; /* pre-4.0 size */
+	font-size: .7em;
 }
 .linked,
 a,
@@ -25,13 +25,17 @@ a:hover {
 a:hover {
 	text-decoration: underline;
 }
+img{
+	border: none;
+}
+
 #mew_header {
 	position: absolute;
 	top: 0;
 	left: 0;
 	width: 100%;
 	background: white;
-	height: 6em;
+	height: 36px;
 	border-bottom: 2px solid #888888;
 }
 	#mew_headerBody{
@@ -42,11 +46,64 @@ a:hover {
 	}
 		#mew_logo{
 			position: absolute;
-			top: 1.2em;
-			left: 1em;
+			top: 6px;
+			left: 0;
 			z-index: 1000;
 		}
-#mn_pageBody {
-	width:960px;
-	padding-top:6em;
+		#mew_userNav {
+			float: right;
+			clear: left;
+			text-align: right;
+			margin-top: 1em;
+		}
+		
+#mn_page {
+	margin-top: 36px;
+	background: #f2f2f2;
 }
+	#mn_pageBody {
+		width:960px;
+		margin: 0 auto;
+		padding-top:24px;
+		min-height: 200px;
+	}
+		#mn_context {
+			position:relative;
+			width:100%;
+		}
+			#mn_document {
+			
+			}
+				#mn_box {
+					
+				}
+					.d_box {
+						margin-bottom: 1em;
+						background: white;
+						border-radius: 5px;
+						-moz-border-radius: 5px;
+						-webkit-border-radius: 5px;
+						position: relative;
+						padding: 1px 0 0;
+					}
+						.d_boxBody {
+							background: #393633;
+							position:relative;
+							z-index: 1;
+							margin: 0 !important;
+							padding: 0 !important;
+							border-radius: 5px;
+							-moz-border-radius: 5px;
+							-webkit-border-radius: 5px;
+						}
+							#mn_page .d_box .d_boxHead, 
+							#mn_page .d_box .d_boxSection {
+								line-height: 18px;
+								padding: 12px;
+							}
+							.d_boxHead {
+								font-size: 1em;
+							}
+							.d_boxSection {
+							
+							}
