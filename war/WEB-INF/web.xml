@@ -6,7 +6,7 @@
 <web-app xmlns="http://java.sun.com/xml/ns/javaee" version="2.5">
     <servlet>
         <servlet-name>MeetupNow</servlet-name>
-        <servlet-class>MeetupNow.MeetupNowServlet</servlet-class>
+        <servlet-class>meetupnow.MeetupNowServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>MeetupNow</servlet-name>
