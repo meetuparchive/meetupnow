@@ -25,7 +25,7 @@ public class OAuthServlet extends HttpServlet {
 		
 		String token = "";
 		String verify = "";
-		String callback = "/";
+		String callback = "";
 		if (req.getQueryString() != null) {
 			token = getArg("oauth_token",req.getQueryString());
 			verify = getArg("oauth_verifier",req.getQueryString());
@@ -39,7 +39,7 @@ public class OAuthServlet extends HttpServlet {
 		prop.setProperty("request.token.url","http://www.meetup.com/oauth/request/");
 		prop.setProperty("access.token.verb","POST");
 		prop.setProperty("access.token.url","http://www.meetup.com/oauth/access/");
-		prop.setProperty("callback.url",req.getRequestURL().toString());
+		prop.setProperty("callback.url",req.getRequestURL().toString()+"?callback="+callback);
 
 		//Create scribe object
 		Scribe scribe = new Scribe(prop);
