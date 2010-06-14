@@ -14,7 +14,7 @@
   </path>
 
   <target name="copyjars"
-      description="Copies the App Engine JARs to the WAR.">
+      description="Copies the App Engine JARs + more to the WAR.">
     <copy
         todir="war/WEB-INF/lib"
         flatten="true">
@@ -24,6 +24,14 @@
       <fileset dir="lib">
 	<include name="**/*.jar" />
       </fileset>
+    </copy>
+
+    <copy
+	todir="war/WEB-INF/classes/META-INF"
+	flatten="true">
+	<fileset dir="lib">
+		<include name="jdoconfig.xml" />
+	</fileset>
     </copy>
   </target>
 
