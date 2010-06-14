@@ -20,7 +20,7 @@ import meetupnow.PMF;
 
 import javax.servlet.http.Cookie;
 
-public class OAuthServlet extends HttpServlet {
+public class UserActions extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 	}
