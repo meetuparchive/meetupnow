@@ -22,7 +22,7 @@ import meetupnow.PMF;
 
 public class UserActions extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-		String API_URL = "http://api.meetup.com/ew/events/?urlname=MUNTest&zip=10012&venuename=somewhere";
+		String API_URL = "http://api.meetup.com/ew/event/?urlname=MUNTest&zip=10012&time=1276644600000&venuename=somewhere";
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
     		if (cookies != null) {
@@ -55,7 +55,7 @@ public class UserActions extends HttpServlet {
 				JSONObject json = new JSONObject();
 				try {
 					json = new JSONObject(APIresponse.getBody());
-					
+
 					resp.getWriter().println(json.toString());
 					String[] names = JSONObject.getNames(json.getJSONArray("results").getJSONObject(0));
 					for (int j = 0; j < json.getJSONArray("results").length(); j++) {
