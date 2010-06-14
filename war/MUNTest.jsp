@@ -46,7 +46,7 @@ TEST
 			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
 			if (users.iterator().hasNext()) {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-				Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/groups.json/?zip=11211&page=5&order=ctime&desc=true");
+				Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?urlname=muntest");
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
 				JSONObject json = new JSONObject();
