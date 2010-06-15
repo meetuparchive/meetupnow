@@ -36,6 +36,14 @@
         <servlet-name>EventRegister</servlet-name>
         <url-pattern>/EventRegister</url-pattern>
     </servlet-mapping>
+    <servlet>
+	<servlet-name>EventCreate</servlet-name>
+        <servlet-class>meetupnow.EventCreateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EventCreate</servlet-name>
+        <url-pattern>/EventCreate</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>
