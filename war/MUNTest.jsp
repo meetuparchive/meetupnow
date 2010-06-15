@@ -68,7 +68,15 @@ UPCOMING EVENTS
 							JSONObject item = results.getJSONObject(j);
 %>
 
-<p><b><%=j %>:</b> <%= (item.getString("city")+", "+item.getString("country")+" "+item.getString("zip")) %> </p>
+<p><b><%=j %>:</b> <%= (item.getString("city")+", "+item.getString("country")+" "+item.getString("zip")) %> 
+<%
+						try {
+%>
+<%=item.getString("venue_name")%>	
+<%
+						} catch (Exception e) {}
+%>			
+</p>
 <p> &nbsp <%= (item.getString("rsvp_count")+" people are in.") %> 
 <%
 

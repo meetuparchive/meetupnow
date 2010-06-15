@@ -41,11 +41,11 @@ public class EventCreateServlet extends HttpServlet {
 			hour = getArg("hour",req.getQueryString());
 			minute = getArg("minute",req.getQueryString());
 			venue = getArg("venue",req.getQueryString());
+
 		}
+		String millitime= getMilliTime(year,month,day,hour,minute);
 
-		String millitime= "2276644600000";
-
-		String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venuename="+venue+"&time="+millitime;
+		String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venue_name="+venue+"&time="+millitime;
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
     		if (cookies != null) {
@@ -83,6 +83,12 @@ public class EventCreateServlet extends HttpServlet {
 			resp.sendRedirect(callback);
 		}
 
+	}
+
+	public static String getMilliTime(String year, String month, String day, String hour, String min) {
+		Calendar cal = Calendar.getInstance();
+		cal.set(Integer.parseInt(year),Integer.parseInt(month) - 1,Integer.parseInt(day) +1 ,Integer.parseInt(hour),Integer.parseInt(min));
+		return ""+cal.getTimeInMillis();
 	}
 
 	//Parses a given query string and returns the value of reqVar, if it exists
