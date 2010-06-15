@@ -70,9 +70,18 @@ UPCOMING EVENTS
 
 <p><b><%=j %>:</b> <%= (item.getString("city")+", "+item.getString("country")+" "+item.getString("zip")) %> </p>
 <p> &nbsp <%= (item.getString("rsvp_count")+" people are in.") %> 
-&nbsp <a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI() %>">I'm In</a> </p>
-<%						
+<%
 
+							if (users.get(0).isAttending(item.getString("id"))) {
+%>
+&nbsp &nbsp You're In!
+<%
+							}
+							else {
+%>
+&nbsp &nbsp <a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI() %>">I'm In</a> </p>
+<%						
+							}
 						}
 					} catch (JSONException j) {
 			
