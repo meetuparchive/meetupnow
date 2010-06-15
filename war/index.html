@@ -2,9 +2,22 @@
 <html>
 <head>
 	<title>Meetup Now</title>
+	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript">
+	  function initialize() {
+	    var myLatlng = new google.maps.LatLng(-34.397, 150.644);
+	    var myOptions = {
+	      zoom: 8,
+	      center: myLatlng,
+	      mapTypeId: google.maps.MapTypeId.ROADMAP
+	    }
+	    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
+	  }
+	</script>
 </head>
-<body id="meetupNowBody">
+<body id="meetupNowBody" onload="initialize()">
 	
 <div id="mew_header">
 	<div id="mew_headerBody">
@@ -25,21 +38,30 @@
 					<div class="d_box">
 						<div class="d_boxBody">
 							<div class="d_boxHead">
-								<img src="images/mew_boxhead.png" alt="Meetup Now">
+								<img src="images/mn_banner.png" alt="Meetup Now">
 							</div>
 							<div class="d_boxSection">
-							
-							</div>
-						</div>
-					</div>
+								<div id="d_boxContent">
+									<div class="map_context">
+										<span class="map_title title">Happening NOW near you...</span>
+										<div id="map_canvasContainer">
+											<div id="map_canvas">
+											
+											</div><!-- map_canvas -->
+										</div><!-- map_canvasContainer -->
+									</div><!-- map_context -->
+								</div><!-- d_boxContent -->
+							</div><!-- d_boxSection -->
+						</div><!-- d_boxBody -->
+					</div><!-- d_box -->
 				</div><!-- mn_box -->
 			</div><!-- mn_document -->
 		</div><!-- mn_context -->
 		<a href="/MeetupNow">Meetup Now</a>
 	</div><!-- mn_pageBody -->
 </div><!-- mn_page -->
-	<a href="/MeetupNow">Meetup Now</a>
-	<br>
-	<a href="/MUNTest.jsp">API test call</a>
+	<a href="/MeetupNow">Meetup Now</a><br>
+	<a href="/MUNTest.jsp">API test call</a><br>
+	<a href="/CreateEvent.jsp">Create Event</a>
 </body>
 </html>
