@@ -123,13 +123,16 @@ public class MeetupUser {
 
 	//Returns true if user is attending given event
 	public boolean isAttending(String ev_id) {
-		StringTokenizer st = new StringTokenizer(events,",");
-		while (st.hasMoreTokens()) {
-			if (st.nextToken().equals(ev_id)) {
-				return true;
+		if (ev_id != null) {
+			StringTokenizer st = new StringTokenizer(events,",");
+			while (st.hasMoreTokens()) {
+				if (st.nextToken().equals(ev_id)) {
+					return true;
+				}
 			}
+			return false;
 		}
-		return false;
+		else return false;
 	}
 
 	public void removeEvent(String ev_id) {

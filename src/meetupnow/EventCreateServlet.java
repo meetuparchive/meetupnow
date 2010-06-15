@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.List;
+import java.util.Calendar;
 import javax.servlet.http.*;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
@@ -44,7 +45,7 @@ public class EventCreateServlet extends HttpServlet {
 
 		String millitime= "2276644600000";
 
-		String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venue_name="+venue+"&time="+millitime;
+		String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venuename="+venue+"&time="+millitime;
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
     		if (cookies != null) {
@@ -67,9 +68,7 @@ public class EventCreateServlet extends HttpServlet {
 		query.setFilter("accToken == accTokenParam");
 		query.declareParameters("String accTokenParam");
 
-		Transaction tx = pm.currentTransaction();
 		try {
-			tx.begin();
 			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
 			if (users.iterator().hasNext()) {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
@@ -78,12 +77,7 @@ public class EventCreateServlet extends HttpServlet {
 				Response APIresponse = APIrequest.send();
 
 			}
-			tx.commit();
-		} catch (Exception e) {
-			if (tx.isActive()) {
-				tx.rollback();
-			}
-		}
+		} 
 		finally {
 			query.closeAll();
 			resp.sendRedirect(callback);
@@ -102,4 +96,5 @@ public class EventCreateServlet extends HttpServlet {
 		}
 		return "";
 	}
+
 }
