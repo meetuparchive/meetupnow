@@ -26,7 +26,14 @@ a:hover {
 img{
 	border: none;
 }
-
+.title {
+	display: block;
+	font: normal bold 1.4em/1.8em helvetica, arial, verdana, san-serif;
+}
+.subtitle{
+	display: block;
+	font: normal bold 1.2em/1.6em helvetica, arial, verdana, san-serif;
+}
 #mew_header {
 	position: absolute;
 	top: 0;
@@ -103,31 +110,45 @@ img{
 								font-size: 1em;
 							}
 							.d_boxSection {
-}
+								
+							}
 								#d_boxContent {
 									background-color: #ffffff;
 									border-radius: 5px;
 									-moz-border-radius: 5px;
 									-webkit-border-radius: 5px;
-}
+									overflow: hidden;
+									padding-right: 12px;
+									padding-left: 12px;
+								}
 
-.map_context {
-	padding: 12px;
+								.map_context {
+									position: relative;
+									float: left;
+									width: 600px;
+								}
+								
+									#map_canvasContainer {
+										width: 600px;
+										height: 300px;
+									}
+										#map_canvas {
+											width: 100%;
+											height: 100%;
+										}
+								
+								#mn_description {
+									position: relative;
+									float: right;
+									margin-top: 2.5em;
+									height: 276px;
+									width: 270px;
+									padding: 12px;
+									text-align: center;
+									background-color: #FCC47E;
+								}
+
+#mn_geoListContext {
+	position: relative;
+	background-color: silver;
 }
-	.title {
-	display: block;
-	font-family: helvetica neue, arial, verdana, san-serif;
-	font-weight: bold;
-	font-variant: normal;
-	font-size: 1.2em;
-	margin-bottom: 4px;
-}
-	#map_canvasContainer {
-		width: 600px;
-		height: 300px;
-	}
-		#map_canvas {
-			width: 100%;
-			height: 100%;
-		}
-		
