@@ -86,6 +86,23 @@ public class OAuthServlet extends HttpServlet {
 					} catch (JSONException j) {
 		
 					}
+					//GET RSVP INFO
+					String RSVP_URL = "http://api.meetup.com/ew/rsvps/?member_id="+users.get(0).getID();
+					Request RSVPrequest = new Request(Request.Verb.GET, RSVP_URL);
+					scribe.signRequest(RSVPrequest,accessToken);
+					Response RSVPresponse = RSVPrequest.send();
+					JSONObject json2 = new JSONObject();
+					JSONArray ev_list;
+					try {
+						json2 = new JSONObject(RSVPresponse.getBody());
+						
+						ev_list = json2.getJSONArray("results");
+						for (int i = 0; i < ev_list.length(); i++) {	
+							users.get(0).addEvent(ev_list.getJSONObject(i).getString("event_id"));	
+						}
+					} catch (JSONException j) {
+		
+					}
 				
 				}
 				tx.commit();

@@ -24,9 +24,11 @@ public class EventRegisterServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String ev_id = "";
 		String callback = "";
+		String action = "";
 		if (req.getQueryString() != null) {
 			ev_id = getArg("id",req.getQueryString());
 			callback = getArg("callback",req.getQueryString());
+			action = getArg("action",req.getQueryString());
 		}
 
 		String API_URL = "http://api.meetup.com/ew/rsvp/?event_id="+ev_id;
@@ -52,14 +54,22 @@ public class EventRegisterServlet extends HttpServlet {
 		query.setFilter("accToken == accTokenParam");
 		query.declareParameters("String accTokenParam");
 
+		Transaction tx = pm.currentTransaction();
 		try {
+			tx.begin();
 			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
 			if (users.iterator().hasNext()) {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
+				users.get(0).addEvent(ev_id);
 
+			}
+			tx.commit();
+		} catch (Exception e) {
+			if (tx.isActive()) {
+				tx.rollback();
 			}
 		}
 		finally {
