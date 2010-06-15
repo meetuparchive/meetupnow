@@ -28,6 +28,14 @@
         <servlet-name>UserActions</servlet-name>
         <url-pattern>/UserActions</url-pattern>
     </servlet-mapping>
+    <servlet>
+	<servlet-name>EventRegister</servlet-name>
+        <servlet-class>meetupnow.EventRegisterServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>EventRegister</servlet-name>
+        <url-pattern>/EventRegister</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.html</welcome-file>
     </welcome-file-list>

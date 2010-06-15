@@ -50,19 +50,19 @@ TEST
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
 				JSONObject json = new JSONObject();
+				JSONArray results;
 				try {
 					json = new JSONObject(APIresponse.getBody());
-					String[] names = JSONObject.getNames(json.getJSONArray("results").getJSONObject(0));
-					for (int j = 0; j < json.getJSONArray("results").length(); j++) {
+					results = json.getJSONArray("results");
+					String[] names = JSONObject.getNames(results.getJSONObject(0));
+					for (int j = 0; j < results.length(); j++) {
+						JSONObject item = results.getJSONObject(j);
 %>
-<p>[<b><%=j %></b>]</p>
+
+<p>[<b><%=j %></b>] <%= (item.getString("city")+", "+item.getString("country")+" "+item.getString("zip")) %> 
+<a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI() %>">I'm In</a> </p>
 <%						
-						for (int i = 0; i < names.length; i++) {
-							String temp = json.getJSONArray("results").getJSONObject(j).getString(names[i]);
-%>	
-<p><%= (names[i]+": "+temp) %></p>					
-<%
-						}	
+
 					}
 				} catch (JSONException j) {
 		
