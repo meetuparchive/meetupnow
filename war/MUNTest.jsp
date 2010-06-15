@@ -46,7 +46,7 @@ TEST
 			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
 			if (users.iterator().hasNext()) {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-				Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?urlname=muntest");
+				Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?urlname=muntest&fields=rsvp_count");
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
 				JSONObject json = new JSONObject();
@@ -59,8 +59,9 @@ TEST
 						JSONObject item = results.getJSONObject(j);
 %>
 
-<p>[<b><%=j %></b>] <%= (item.getString("city")+", "+item.getString("country")+" "+item.getString("zip")) %> 
-<a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI() %>">I'm In</a> </p>
+<p><b><%=j %>:</b> <%= (item.getString("city")+", "+item.getString("country")+" "+item.getString("zip")) %> </p>
+<p> &nbsp <%= (item.getString("rsvp_count")+" people are in.") %> 
+&nbsp <a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI() %>">I'm In</a> </p>
 <%						
 
 					}
