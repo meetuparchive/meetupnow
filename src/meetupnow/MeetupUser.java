@@ -27,6 +27,12 @@ public class MeetupUser {
 	@Persistent
 	private String accTokenSecret;
 
+	@Persistent
+	private String name;
+
+	@Persistent
+	private String mu_id;
+
 	public MeetupUser() {
 		reqToken = null;
 		reqTokenSecret = null;
@@ -69,6 +75,22 @@ public class MeetupUser {
 
 	public void setAccTokenSecret(String a) {
 		accTokenSecret = a;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String n) {
+		name = n;
+	}
+
+	public String getID() {
+		return mu_id;
+	}
+
+	public void setID(String n) {
+		mu_id = n;
 	}
 
 }

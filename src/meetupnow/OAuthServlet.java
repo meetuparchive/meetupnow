@@ -12,12 +12,12 @@ import java.util.StringTokenizer;
 import java.util.List;
 
 import org.scribe.oauth.*;
-
+import org.scribe.http.*;
 import org.apache.commons.codec.*;
 
 import meetupnow.MeetupUser;
 import meetupnow.PMF;
-
+import org.json.*;
 import javax.servlet.http.Cookie;
 
 public class OAuthServlet extends HttpServlet {
@@ -67,9 +67,27 @@ public class OAuthServlet extends HttpServlet {
 					//SETCOOKIE
 					Cookie c = new Cookie("meetup_access", accessToken.getToken());
       					resp.addCookie(c);
-				}
-				
 
+					//GET USER INFO
+					String API_URL = "http://api.meetup.com/members/?relation=self";
+					
+					Request APIrequest = new Request(Request.Verb.GET, API_URL);
+					scribe.signRequest(APIrequest,accessToken);
+					Response APIresponse = APIrequest.send();
+					JSONObject json = new JSONObject();
+					JSONObject user;
+					try {
+						json = new JSONObject(APIresponse.getBody());
+						user = json.getJSONArray("results").getJSONObject(0);
+	
+						users.get(0).setName(user.getString("name"));
+						users.get(0).setID(user.getString("id"));
+						
+					} catch (JSONException j) {
+		
+					}
+				
+				}
 				tx.commit();
 			} catch (Exception e) {
 				if (tx.isActive()) {
