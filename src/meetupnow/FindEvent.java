@@ -23,9 +23,22 @@ import meetupnow.PMF;
 public class FindEvent extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
-		String GEOCODE_URL = "http://maps.google.com/maps/api/geocode/json?address=New+York+City+NY&sensor=true";
+
 		String key = "empty";
+		String callback = "";
+		String zip = "";
+		String distance = "";
+
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
+		resp.setContentType("text/html");
+		
+		if (req.getQueryString() != null) {
+			callback = getArg("callback",req.getQueryString());
+			zip = getArg("zip",req.getQueryString());
+			distance = getArg("dist",req.getQueryString());
+		}
+		String GEOCODE_URL = "http://maps.google.com/maps/api/geocode/json?address=" + zip + "&sensor=true";
+		//resp.getWriter().println(GEOCODE_URL);
     		if (cookies != null) {
       			for (int i = 0; i < cookies.length; i++) {
         			if (cookies[i].getName().equals("meetup_access")) {
@@ -57,28 +70,26 @@ public class FindEvent extends HttpServlet {
 				try {
 					json = new JSONObject(APIresponse.getBody());
 
-					//resp.getWriter().println(json.toString());
-					//resp.getWriter().println(json.getJSONArray("results").getJSONObject(0).getJSONArray("geometry"));
 					String[] names = JSONObject.getNames(json.getJSONArray("results").getJSONObject(0));
 
 				
 					String Lng = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
 					String Lat = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
-					String API_URL = "http://api.meetup.com/ew/events.json/?urlname=muntest&lat=" + Lat + "&lon=" + Lng + "&radius=10";
-					resp.getWriter().println(API_URL);
+					String API_URL = "http://api.meetup.com/ew/events.json/?urlname=muntest&lat=" + Lat + "&lon=" + Lng + "&radius=" + distance;
+
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					APIresponse = APIrequest.send();
 					JSONObject meetup_json = new JSONObject();
 					try {
 						meetup_json = new JSONObject(APIresponse.getBody());
-						resp.getWriter().println(meetup_json.toString());
+
 						names = JSONObject.getNames(meetup_json.getJSONArray("results").getJSONObject(0));
 						for (int j = 0; j < meetup_json.getJSONArray("results").length(); j++) {
-					
+							resp.getWriter().println( "[<b>" + (j+1) + "</b>]<br>" );
 							for (int i = 0; i < names.length; i++) {
 								String temp = meetup_json.getJSONArray("results").getJSONObject(j).getString(names[i]);
-								resp.getWriter().println(temp);
+								resp.getWriter().println(names[i] + ": " + temp + "<br>");
 							}	
 						}
 					} catch (JSONException k) {
@@ -94,5 +105,16 @@ public class FindEvent extends HttpServlet {
 			query.closeAll();
 		}
 
+	}
+	//Parses a given query string and returns the value of reqVar, if it exists
+	public static String getArg(String reqVar, String query) {
+		StringTokenizer st = new StringTokenizer(query,"&");
+		while (st.hasMoreTokens()) {
+			String temp = st.nextToken();
+			if (temp.startsWith(reqVar)) {
+				return temp.substring(reqVar.length() + 1);
+			}	
+		}
+		return "";
 	}
 }
