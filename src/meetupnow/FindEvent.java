@@ -73,6 +73,14 @@ public class FindEvent extends HttpServlet {
 					try {
 						meetup_json = new JSONObject(APIresponse.getBody());
 						resp.getWriter().println(meetup_json.toString());
+						names = JSONObject.getNames(meetup_json.getJSONArray("results").getJSONObject(0));
+						for (int j = 0; j < meetup_json.getJSONArray("results").length(); j++) {
+					
+							for (int i = 0; i < names.length; i++) {
+								String temp = meetup_json.getJSONArray("results").getJSONObject(j).getString(names[i]);
+								resp.getWriter().println(temp);
+							}	
+						}
 					} catch (JSONException k) {
 
 					}
