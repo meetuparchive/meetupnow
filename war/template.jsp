@@ -80,7 +80,15 @@
 							</div>
 							<div class="d_boxSection">
 								<div id="d_boxContent">
+									<div id="mn_geoListContext">
+										<div id="mn_geoListHeader">
 
+										</div><!-- mn_geoListHeader -->
+
+										<div id="mn_geoListFooter">
+
+										</div><!-- mn_geoListFooter -->
+									</div><!-- mn_geoListContext -->
 								</div><!-- d_boxContent -->
 							</div><!-- d_boxSection -->
 						</div><!-- d_boxBody -->
