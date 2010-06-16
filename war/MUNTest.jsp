@@ -58,7 +58,7 @@
 					
 %>
 <p><%=users.get(0).getName()%>
-<a href ="/logout?callback=">LOGOUT</a></p>
+<a href ="/logout?callback=MUNTest.jsp">LOGOUT</a></p>
 
 </div>
 	</div><!-- mew_headerBody -->
@@ -139,6 +139,7 @@ if (users.iterator().hasNext()) {
 		</div><!-- mn_context -->
 	</div><!-- mn_pageBody -->
 </div><!-- mn_page -->
+<a href="/">Home</a><br>
 <%
 			} finally {
 				query.closeAll();

@@ -111,5 +111,6 @@
 		</div><!-- mn_context -->
 	</div><!-- mn_pageBody -->
 </div><!-- mn_page -->
+<a href="/">Home</a><br>
 </body>
 </html>
