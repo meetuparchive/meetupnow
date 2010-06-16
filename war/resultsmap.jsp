@@ -51,7 +51,9 @@
 			distance = OAuthServlet.getArg("dist",request.getQueryString());
 		}
 		else{
-			response.sendRedirect("");
+			callback = "";
+			zip = "10012";
+			distance = "20";
 		}
 		String GEOCODE_URL = "http://maps.google.com/maps/api/geocode/json?address=" + zip + "&sensor=true";
 
@@ -131,7 +133,7 @@
 
 
 		$.each(JSON_result.results, function(i, ev) {
-			if ((ev.lon != '') && (ev.venue_name != undefined)){
+			if (ev.lon != ''){
 				
 				random_offset = (2*Math.random() - 1)/500;
 				random_offset2 = (2*Math.random() - 1)/500;
@@ -154,8 +156,7 @@
 						date_string = date_string + date.getMinutes();
 					}
 					var link = '<b><a href="' + ev.meetup_url + '" style="color:Blue">' + ev.container.name + '</a></b><br>WHERE: ' + ev.venue_name + '<br>WHEN: ' + date_string + '<br>';
-												
-												
+						
 					var win = new google.maps.InfoWindow({
 						content: link,
 					});
