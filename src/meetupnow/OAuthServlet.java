@@ -80,6 +80,8 @@ public class OAuthServlet extends HttpServlet {
 	
 						users.get(0).setName(user.getString("name"));
 						users.get(0).setID(user.getString("id"));
+						users.get(0).setLat(user.getString("lat"));
+						users.get(0).setLon(user.getString("lon"));
 						
 					} catch (JSONException j) {
 						//User does not exist?

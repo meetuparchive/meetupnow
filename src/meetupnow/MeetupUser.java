@@ -38,6 +38,12 @@ public class MeetupUser {
 	@Persistent
 	private String events;	//A single string of event IDs, seperated by commas
 
+	@Persistent
+	private String lat;
+
+	@Persistent
+	private String lon;
+
 	public MeetupUser() {
 		reqToken = null;
 		reqTokenSecret = null;
@@ -45,12 +51,30 @@ public class MeetupUser {
 		accTokenSecret = null;
 		name = null;
 		mu_id = null;
+		lat = null;
+		lon = null;
 		events = "";
 	}
 
    	public Key getKey() {
     	    	return key;
     	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public String getLon() {
+		return lon;
+	}
+	
+	public void setLat(String l) {
+		lat = l;
+	}
+
+	public void setLon(String l) {
+		lon = l;
+	}
 
 	public String getReqToken() {
 		return reqToken;
