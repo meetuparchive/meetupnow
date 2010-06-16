@@ -94,6 +94,7 @@
 			<input type="int" name="hour" size="2" value="H"></input>:
 			<input type="int" name="minute" size="2" value="M"></input> Enter a Time <br>
 			<input type="text" name="venue"></input> Where should we meet? <br>
+			<input type="text" name="desc"></input> What's this meetup all about? <br>
 			<input type="hidden" name="callback" value="MUNTest.jsp"></input>
 			<input type="submit" value="Create"></input>
 		</form>
