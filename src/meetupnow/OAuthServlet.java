@@ -23,6 +23,7 @@ import javax.servlet.http.Cookie;
 public class OAuthServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
+		//Get arguments from query line: request token, verifier, and a callback URL
 		String token = "";
 		String verify = "";
 		String callback = "";
@@ -32,6 +33,7 @@ public class OAuthServlet extends HttpServlet {
 			callback = getArg("callback",req.getQueryString());
 		}
 
+		//Set the properties of the Scribe Object
 		Properties prop = new Properties();
 		prop.setProperty("consumer.key","12345");
 		prop.setProperty("consumer.secret","67890");
@@ -41,24 +43,20 @@ public class OAuthServlet extends HttpServlet {
 		prop.setProperty("access.token.url","http://www.meetup.com/oauth/access/");
 		prop.setProperty("callback.url",req.getRequestURL().toString()+"?callback="+callback);
 
-		//Create scribe object
-		Scribe scribe = new Scribe(prop);
-
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
+		Scribe scribe = new Scribe(prop);				//Create Scribe Object
+		PersistenceManager pm = PMF.get().getPersistenceManager();	//Initialize Persistance Manager
 		if (!token.equals("")) {  //If access key is obtained
 
 			Token requestToken = null;
-
 			Query query = pm.newQuery(MeetupUser.class);
 			query.setFilter("reqToken == reqTokenParam");
-			query.declareParameters("String reqTokenParam");
-
-			Transaction tx = pm.currentTransaction();
+			query.declareParameters("String reqTokenParam");	//Setup Query
+			Transaction tx = pm.currentTransaction();		//Begin Transaction
 			try {
 				tx.begin();
-				List<MeetupUser> users = (List<MeetupUser>) query.execute(token);
+				List<MeetupUser> users = (List<MeetupUser>) query.execute(token);	//Execute Query
 				if (users.iterator().hasNext()) {
+					//Recreate requestToken and get Access Token
 					requestToken = new Token(users.get(0).getReqToken(),users.get(0).getReqTokenSecret());
 					Token accessToken = scribe.getAccessToken(requestToken, verify);
 					users.get(0).setAccToken(accessToken.getToken());
@@ -70,7 +68,7 @@ public class OAuthServlet extends HttpServlet {
 
 					//GET USER INFO
 					String API_URL = "http://api.meetup.com/members/?relation=self";
-					
+					//Sign request and get user info response
 					Request APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					Response APIresponse = APIrequest.send();
@@ -84,10 +82,11 @@ public class OAuthServlet extends HttpServlet {
 						users.get(0).setID(user.getString("id"));
 						
 					} catch (JSONException j) {
-		
+						//User does not exist?
 					}
 					//GET RSVP INFO
 					String RSVP_URL = "http://api.meetup.com/ew/rsvps/?member_id="+users.get(0).getID();
+					//Request all RSVPs to populate database, save API calls later
 					Request RSVPrequest = new Request(Request.Verb.GET, RSVP_URL);
 					scribe.signRequest(RSVPrequest,accessToken);
 					Response RSVPresponse = RSVPrequest.send();
@@ -95,7 +94,6 @@ public class OAuthServlet extends HttpServlet {
 					JSONArray ev_list;
 					try {
 						json2 = new JSONObject(RSVPresponse.getBody());
-						
 						ev_list = json2.getJSONArray("results");
 						for (int i = 0; i < ev_list.length(); i++) {	
 							users.get(0).addEvent(ev_list.getJSONObject(i).getString("event_id"));	
@@ -105,6 +103,7 @@ public class OAuthServlet extends HttpServlet {
 					}
 				
 				}
+				//End Transaction
 				tx.commit();
 			} catch (Exception e) {
 				if (tx.isActive()) {
@@ -118,7 +117,7 @@ public class OAuthServlet extends HttpServlet {
 			
 			
 
-		} else {
+		} else {	//IF NOT LOGGED IN - create new user session in database
 			//Get request Token
 			Token requestToken = scribe.getRequestToken();
 
@@ -130,7 +129,7 @@ public class OAuthServlet extends HttpServlet {
 			} finally {
 				pm.close();
 			}
-		
+			//Authorize token and redirect here
 			resp.sendRedirect("http://www.meetup.com/authorize/?callback="+callback+"&oauth_token="+requestToken.getToken());
 		
 		}

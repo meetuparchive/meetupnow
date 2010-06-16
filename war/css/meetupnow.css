@@ -64,7 +64,7 @@ img{
 		
 #mn_page {
 	margin-top: 36px;
-	background: #F9F8EE;
+	background: #F2EFE9;
 }
 	#mn_pageBody {
 		width:960px;
@@ -113,20 +113,24 @@ img{
 								
 							}
 								#d_boxContent {
-									background-color: #ffffff;
+									background-color: #065073;
 									border-radius: 5px;
 									-moz-border-radius: 5px;
 									-webkit-border-radius: 5px;
 									overflow: hidden;
-									padding-right: 12px;
-									padding-left: 12px;
-								}
+	padding: 12px;
+}
+
+#d_boxContentTop {
+
+}
 
 								.map_context {
 									position: relative;
 									float: left;
 									width: 600px;
-								}
+	margin-bottom: 12px;
+}
 								
 									#map_canvasContainer {
 										width: 600px;
@@ -140,15 +144,26 @@ img{
 								#mn_description {
 									position: relative;
 									float: right;
-									margin-top: 2.5em;
+									/*margin-top: 2.5em;*/
 									height: 276px;
-									width: 270px;
+									width: 287px;
 									padding: 12px;
 									text-align: center;
-									background-color: #FCC47E;
-								}
+									background-color: #F2EFE9;
+	border-left: 1px solid #FF910D;
+	margin-bottom: 12px;
+}
 
 #mn_geoListContext {
-	position: relative;
 	background-color: silver;
+									border-radius: 5px;
+									-moz-border-radius: 5px;
+									-webkit-border-radius: 5px;
+	clear: both;
+	padding: 12px;
+}
+
+#mn_geoListHeader {
+	position: relative;
+
 }

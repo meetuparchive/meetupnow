@@ -21,6 +21,14 @@
         <url-pattern>/oauth</url-pattern>
     </servlet-mapping>
     <servlet>
+	<servlet-name>Logout</servlet-name>
+        <servlet-class>meetupnow.LogoutServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Logout</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet>
 	<servlet-name>UserActions</servlet-name>
         <servlet-class>meetupnow.UserActions</servlet-class>
     </servlet>
@@ -45,7 +53,7 @@
         <url-pattern>/EventCreate</url-pattern>
     </servlet-mapping>
     <welcome-file-list>
-        <welcome-file>index.html</welcome-file>
+        <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
 
 </web-app>
