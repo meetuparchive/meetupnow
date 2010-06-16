@@ -61,10 +61,9 @@ img{
 			text-align: right;
 			margin-top: 1em;
 		}
-		
 #mn_page {
 	margin-top: 36px;
-	background: #F2EFE9;
+	background: #F2F2F2;
 }
 	#mn_pageBody {
 		width:960px;
@@ -92,7 +91,7 @@ img{
 						padding: 1px 0 0;
 					}
 						.d_boxBody {
-							background: #000000;
+							background: #6191C7;
 							position:relative;
 							z-index: 1;
 							margin: 0 !important;
@@ -112,26 +111,26 @@ img{
 							.d_boxSection {
 								
 							}
-								#d_boxContent {
-									background-color: #065073;
-									border-radius: 5px;
-									-moz-border-radius: 5px;
-									-webkit-border-radius: 5px;
-									overflow: hidden;
-	padding: 12px;
-}
-
-#d_boxContentTop {
-
-}
-
+							#d_boxContent {
+								background-color: #F9F8EE;
+								border-radius: 5px;
+								-moz-border-radius: 5px;
+								-webkit-border-radius: 5px;
+								/*overflow: hidden;*/
+								/*padding: 12px;*/
+							}
+							#d_boxContentLeft {
+								position: relative;
+								width: 600px;
+								padding: 12px;
+								/*overflow: hidden;*/
+							}
 								.map_context {
-									position: relative;
-									float: left;
+									/*position: relative;*/
+									/*float: left;*/
 									width: 600px;
-	margin-bottom: 12px;
-}
-								
+									margin-bottom: 12px;
+								}
 									#map_canvasContainer {
 										width: 600px;
 										height: 300px;
@@ -140,30 +139,66 @@ img{
 											width: 100%;
 											height: 100%;
 										}
-								
+							#d_boxContentRight {
+								position: relative;
+								float: right;
+								width: 288px;
+								height: 100%;
+								padding: 12px;
+								background-color: #E6E4D7;
+								border-left: 1px solid #CCC;
+								border-radius: 0 5px 5px 0;
+								-moz-border-radius: 0 5px 5px 0;
+								-webkit-border-radius: 0 5px 5px 0;
+	
+							}
 								#mn_description {
 									position: relative;
 									float: right;
-									/*margin-top: 2.5em;*/
+									margin-top: 2.5em;
 									height: 276px;
-									width: 287px;
-									padding: 12px;
-									text-align: center;
-									background-color: #F2EFE9;
-	border-left: 1px solid #FF910D;
-	margin-bottom: 12px;
-}
-
-#mn_geoListContext {
-	background-color: silver;
+									margin-bottom: 12px;
+								}
+.button_start {
+	color: #fff;
+	font-size: 1.6em;
+	font-weight: bold;
+	display: block;
+	padding: 8px 10px;
+	background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
+	background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
+	width: 200px;
+	text-align: center;
+	border: 2px solid #A8252E;
 									border-radius: 5px;
-									-moz-border-radius: 5px;
-									-webkit-border-radius: 5px;
-	clear: both;
-	padding: 12px;
+								-moz-border-radius: 5px;
+								-webkit-border-radius: 5px;
 }
-
-#mn_geoListHeader {
-	position: relative;
-
+								#mn_geoListContext {
+									width: 598px;
+									border-radius: 2px;
+									-moz-border-radius: 2px;
+									-webkit-border-radius: 5px;
+									/*padding: 12px;*/
+									border: 1px solid #ccc;
+								}
+								#mn_geoListHeader {
+									position: relative;
+								
+								}
+a.mn_geoListItem_link {
+	display: block;
+	text-decoration: none;
+}
+.mn_geoListItem {
+	display: block;
+	width: 582px;
+	height: 30px;
+	border-top: 1px solid #CCC;
+	-moz-border-top: 1px solid #CCC;
+	-webkit-border-top: 1px solid #CCC;
+	padding: 6px 8px;
+}
+.mn_geoListItem:hover {
+	background: #D18D3A;
 }
