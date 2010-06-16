@@ -14,6 +14,7 @@ import javax.jdo.Query;
 
 import org.scribe.oauth.*;
 import org.scribe.http.*;
+import org.scribe.encoders.URL;
 import org.apache.commons.codec.*;
 import org.json.*;
 
@@ -40,12 +41,13 @@ public class EventCreateServlet extends HttpServlet {
 			year = getArg("year",req.getQueryString());
 			hour = getArg("hour",req.getQueryString());
 			minute = getArg("minute",req.getQueryString());
-			venue = getArg("venue",req.getQueryString());
+			venue = req.getParameter("venue");
 
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute);
 
-		String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venue_name="+venue+"&time="+millitime;
+		//String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venue_name="+venue+"&time="+millitime;
+		String API_URL = "http://api.meetup.com/ew/event/";
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
     		if (cookies != null) {
@@ -73,6 +75,10 @@ public class EventCreateServlet extends HttpServlet {
 			if (users.iterator().hasNext()) {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
+				APIrequest.addBodyParameter("venue_name",venue);
+				APIrequest.addBodyParameter("zip",zip);
+				APIrequest.addBodyParameter("time",millitime);
+				APIrequest.addBodyParameter("urlname","muntest");
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
 
