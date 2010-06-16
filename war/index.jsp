@@ -41,7 +41,10 @@
 	}
 
 	function use_everywhere(){
+			var bounds = new google.maps.LatLngBounds();
 
+			//create map
+			create_map();
 		<%
 
 		String key = "empty";
@@ -82,6 +85,8 @@
 			Query query = pm.newQuery(MeetupUser.class);
 			query.setFilter("accToken == accTokenParam");
 			query.declareParameters("String accTokenParam");
+
+
 		if (!key.equals("empty")) {
 	
 	
@@ -104,13 +109,13 @@
 				
 						String Lng = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
 						String Lat = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
-						String API_URL = "http://api.meetup.com/ew/events.json/?urlname=muntest&lat=" + Lat + "&lon=" + Lng + "&radius=" + distance;
+						String API_URL = "http://api.meetup.com/ew/events.json/?urlname=muntest&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
 
 						APIrequest = new Request(Request.Verb.GET, API_URL);
 						scribe.signRequest(APIrequest,accessToken);
 						APIresponse = APIrequest.send();
 
-						%>var JSON_result= <%=APIresponse.getBody().toString()%><%
+						%>var data = <%=APIresponse.getBody().toString()%><%
 						
 					
 					} catch (JSONException j) {
@@ -122,18 +127,17 @@
 				//query.closeAll();
 				//response.sendRedirect(callback);
 			}
+		}
+		else {
 
-
+				String API_URL = "http://api.meetup.com/ew/events?status=upcoming%2Cpast&radius=20.0&order=time&urlname=muntest&format=json&lat=40.7200012207&page=200&zip=10012&offset=0&lon=-74.0&sig_id=12219924&sig=049246fa720b0d6b438ed669d886218f";
+				Request APIrequest = new Request(Request.Verb.GET, API_URL);
+				Response APIresponse = APIrequest.send();
+				%>var data = <%=APIresponse.getBody().toString()%><%
+	
+		}
 		%>
-
-			var bounds = new google.maps.LatLngBounds();
-
-			//create map
-			create_map();
-			
-
-
-		$.each(JSON_result.results, function(i, ev) {
+		$.each(data.results, function(i, ev) {
 			if (ev.lon != ''){
 				
 				random_offset = (2*Math.random() - 1)/500;
@@ -171,14 +175,7 @@
 		map.fitBounds(bounds);
 
 	}
-<%
-		}
-		else {
-%>
-			create_map();
-<%
-		}
-%>
+
 	</script>
 </head>
 <body id="meetupNowBody" onload="use_everywhere()">
