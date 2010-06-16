@@ -18,7 +18,7 @@ public class LogoutServlet extends HttpServlet {
 
 		String callback = "";
 		if (req.getQueryString() != null) {
-			callback = OAuthServlet.getArg("callback",req.getQueryString());
+			callback = req.getParameter("callback");
 		}
 		javax.servlet.http.Cookie[] cookies = req.getCookies();
 

@@ -26,9 +26,8 @@ public class EventRegisterServlet extends HttpServlet {
 		String callback = "";
 		String action = "";
 		if (req.getQueryString() != null) {
-			ev_id = getArg("id",req.getQueryString());
-			callback = getArg("callback",req.getQueryString());
-			action = getArg("action",req.getQueryString());
+			ev_id = req.getParameter("id");
+			callback = req.getParameter("callback");
 		}
 
 		String API_URL = "http://api.meetup.com/ew/rsvp/?event_id="+ev_id;
@@ -79,15 +78,4 @@ public class EventRegisterServlet extends HttpServlet {
 
 	}
 
-	//Parses a given query string and returns the value of reqVar, if it exists
-	public static String getArg(String reqVar, String query) {
-		StringTokenizer st = new StringTokenizer(query,"&");
-		while (st.hasMoreTokens()) {
-			String temp = st.nextToken();
-			if (temp.startsWith(reqVar)) {
-				return temp.substring(reqVar.length() + 1);
-			}	
-		}
-		return "";
-	}
 }
