@@ -18,6 +18,7 @@ import org.json.*;
 
 import meetupnow.MeetupUser;
 import meetupnow.PMF;
+import meetupnow.Message;
 
 
 public class FindEvent extends HttpServlet {
@@ -38,7 +39,7 @@ public class FindEvent extends HttpServlet {
 			distance = getArg("dist",req.getQueryString());
 		}
 		String GEOCODE_URL = "http://maps.google.com/maps/api/geocode/json?address=" + zip + "&sensor=true";
-		//resp.getWriter().println(GEOCODE_URL);
+
     		if (cookies != null) {
       			for (int i = 0; i < cookies.length; i++) {
         			if (cookies[i].getName().equals("meetup_access")) {
@@ -54,10 +55,14 @@ public class FindEvent extends HttpServlet {
 		prop.setProperty("consumer.key","12345");
 		prop.setProperty("consumer.secret","67890");
 		Scribe scribe = new Scribe(prop);
+
 		PersistenceManager pm = PMF.get().getPersistenceManager();
+
 		Query query = pm.newQuery(MeetupUser.class);
 		query.setFilter("accToken == accTokenParam");
 		query.declareParameters("String accTokenParam");
+
+		JSONObject meetup_json = new JSONObject();
 
 		try {
 			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
@@ -80,9 +85,19 @@ public class FindEvent extends HttpServlet {
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					APIresponse = APIrequest.send();
-					JSONObject meetup_json = new JSONObject();
+					
 					try {
 						meetup_json = new JSONObject(APIresponse.getBody());
+						Message JSON_message = new Message();
+						JSON_message.setMessage(meetup_json);
+						JSON_message.setUserKey(key);
+						try {
+							pm.makePersistent(JSON_message);
+
+						} finally {
+							pm.close();
+						}
+						
 
 						names = JSONObject.getNames(meetup_json.getJSONArray("results").getJSONObject(0));
 						for (int j = 0; j < meetup_json.getJSONArray("results").length(); j++) {
@@ -103,6 +118,7 @@ public class FindEvent extends HttpServlet {
 		}
 		finally {
 			query.closeAll();
+			resp.sendRedirect(callback);
 		}
 
 	}

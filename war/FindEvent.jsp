@@ -6,11 +6,11 @@
 	</head>
 
 	<body>
-		<form name="f" action="/FindEvent" method="get">	
+		<form name="f" action="/resultsmap.jsp" method="get">	
 			<p><b><h1>Let's Meetup Now!</h1> Find An Event </b><br><br>
 			<input type="text" name="zip" size="6"></input> Enter A Zip Code <br>
 			<input type="text" name="dist"></input> How far can you go? <br>
-			<input type="hidden" name="callback" value="MUNTest.jsp"></input>
+			<input type="hidden" name="callback" value=""></input>
 			<input type="submit" value="Create"></input>
 			</p>
 		</form>
