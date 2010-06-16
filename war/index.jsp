@@ -48,25 +48,9 @@
 		<%
 
 		String key = "empty";
-		String callback = "";
-		String zip = "";
-		String distance = "";
+		String distance = "20";
 
     		javax.servlet.http.Cookie[] cookies = request.getCookies();
-
-		
-		if (request.getQueryString() != null) {
-			callback = OAuthServlet.getArg("callback",request.getQueryString());
-			zip = OAuthServlet.getArg("zip",request.getQueryString());
-			distance = OAuthServlet.getArg("dist",request.getQueryString());
-		}
-		else{
-			callback = "";
-			zip = "10012";
-			distance = "20";
-		}
-		
-		String GEOCODE_URL = "http://maps.google.com/maps/api/geocode/json?address=" + zip + "&sensor=true";
 
     		if (cookies != null) {
       			for (int i = 0; i < cookies.length; i++) {
@@ -75,65 +59,43 @@
         			}
       			}
     		}
-			Properties prop = new Properties();
-			prop.setProperty("consumer.key","12345");
-			prop.setProperty("consumer.secret","67890");
-			Scribe scribe = new Scribe(prop);
+		Properties prop = new Properties();
+		prop.setProperty("consumer.key","12345");
+		prop.setProperty("consumer.secret","67890");
+		Scribe scribe = new Scribe(prop);
 
-			PersistenceManager pm = PMF.get().getPersistenceManager();
+		PersistenceManager pm = PMF.get().getPersistenceManager();
 
-			Query query = pm.newQuery(MeetupUser.class);
-			query.setFilter("accToken == accTokenParam");
-			query.declareParameters("String accTokenParam");
+		Query query = pm.newQuery(MeetupUser.class);
+		query.setFilter("accToken == accTokenParam");
+		query.declareParameters("String accTokenParam");
 
+		Request APIrequest;
+		Response APIresponse;
+		String API_URL ="";
 
 		if (!key.equals("empty")) {
-	
-	
-
-			JSONObject meetup_json = new JSONObject();
-
 			try {
 				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
 				if (users.iterator().hasNext()) {
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-					Request APIrequest = new Request(Request.Verb.POST, GEOCODE_URL);
+					API_URL = "http://api.meetup.com/ew/events.json/?urlname=muntest&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
+					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
-					Response APIresponse = APIrequest.send();
-					JSONObject json = new JSONObject();
-					try {
-						json = new JSONObject(APIresponse.getBody());
-
-						String[] names = JSONObject.getNames(json.getJSONArray("results").getJSONObject(0));
-
-				
-						String Lng = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
-						String Lat = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
-						String API_URL = "http://api.meetup.com/ew/events.json/?urlname=muntest&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
-
-						APIrequest = new Request(Request.Verb.GET, API_URL);
-						scribe.signRequest(APIrequest,accessToken);
-						APIresponse = APIrequest.send();
-
-						%>var data = <%=APIresponse.getBody().toString()%><%
-						
-					
-					} catch (JSONException j) {
-		
-					}
+					APIresponse = APIrequest.send();
+					%>var data = <%=APIresponse.getBody().toString()%><%
 				}
 			}
 			finally {
-				//query.closeAll();
-				//response.sendRedirect(callback);
+
 			}
 		}
 		else {
 
-				String API_URL = "http://api.meetup.com/ew/events?status=upcoming%2Cpast&radius=20.0&order=time&urlname=muntest&format=json&lat=40.7200012207&page=200&zip=10012&offset=0&lon=-74.0&sig_id=12219924&sig=049246fa720b0d6b438ed669d886218f";
-				Request APIrequest = new Request(Request.Verb.GET, API_URL);
-				Response APIresponse = APIrequest.send();
-				%>var data = <%=APIresponse.getBody().toString()%><%
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming%2Cpast&radius=20.0&order=time&urlname=muntest&format=json&lat=34.0999984741&page=200&zip=90210&offset=0&lon=-118.410003662&sig_id=12219924&sig=672837c2e23e6c5fefa86c29e0f6ad51";
+			APIrequest = new Request(Request.Verb.GET, API_URL);
+			APIresponse = APIrequest.send();
+			%>var data = <%=APIresponse.getBody().toString()%><%
 	
 		}
 		%>
