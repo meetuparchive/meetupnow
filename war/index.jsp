@@ -172,7 +172,6 @@
 
 	}
 <%
-			response.sendRedirect("/oauth");
 		}
 		else {
 %>
