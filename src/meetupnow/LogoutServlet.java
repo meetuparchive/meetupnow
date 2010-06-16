@@ -5,6 +5,7 @@ import javax.servlet.http.Cookie;
 
 import java.io.IOException;
 
+//TO DO: Delete user objects from databank
 public class LogoutServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 
