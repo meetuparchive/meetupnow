@@ -14,6 +14,7 @@ import javax.jdo.Query;
 
 import org.scribe.oauth.*;
 import org.scribe.http.*;
+import org.scribe.encoders.URL;
 import org.apache.commons.codec.*;
 import org.json.*;
 
@@ -31,21 +32,24 @@ public class EventCreateServlet extends HttpServlet {
 		String hour = "";
 		String minute = "";
 		String venue = "";
+		String desc = "";
 		
 		if (req.getQueryString() != null) {
-			callback = getArg("callback",req.getQueryString());
-			zip = getArg("zip",req.getQueryString());
-			month = getArg("month",req.getQueryString());
-			day = getArg("day",req.getQueryString());
-			year = getArg("year",req.getQueryString());
-			hour = getArg("hour",req.getQueryString());
-			minute = getArg("minute",req.getQueryString());
-			venue = getArg("venue",req.getQueryString());
+			callback = req.getParameter("callback");
+			zip = req.getParameter("zip");
+			month = req.getParameter("month");
+			day = req.getParameter("day");
+			year = req.getParameter("year");
+			hour = req.getParameter("hour");
+			minute = req.getParameter("minute");
+			venue = req.getParameter("venue");
+			desc = req.getParameter("desc");
 
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute);
 
-		String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venue_name="+venue+"&time="+millitime;
+		//String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venue_name="+venue+"&time="+millitime;
+		String API_URL = "http://api.meetup.com/ew/event/";
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
     		if (cookies != null) {
@@ -73,6 +77,11 @@ public class EventCreateServlet extends HttpServlet {
 			if (users.iterator().hasNext()) {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
+				APIrequest.addBodyParameter("venue_name",venue);
+				APIrequest.addBodyParameter("zip",zip);
+				APIrequest.addBodyParameter("time",millitime);
+				APIrequest.addBodyParameter("urlname","muntest");
+				APIrequest.addBodyParameter("description",desc);
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
 
@@ -91,16 +100,5 @@ public class EventCreateServlet extends HttpServlet {
 		return ""+cal.getTimeInMillis();
 	}
 
-	//Parses a given query string and returns the value of reqVar, if it exists
-	public static String getArg(String reqVar, String query) {
-		StringTokenizer st = new StringTokenizer(query,"&");
-		while (st.hasMoreTokens()) {
-			String temp = st.nextToken();
-			if (temp.startsWith(reqVar)) {
-				return temp.substring(reqVar.length() + 1);
-			}	
-		}
-		return "";
-	}
 
 }
