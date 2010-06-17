@@ -28,10 +28,8 @@
 	<script type="text/javascript">
 
 	var map;
+	var events = $('#mn_page');
 	
-
-
-
 	function create_map(){
 		map = new google.maps.Map(document.getElementById("map_canvas"), {
       			zoom: 15,
@@ -42,7 +40,7 @@
 
 	function use_everywhere(){
 			var bounds = new google.maps.LatLngBounds();
-
+			var events = $('#mn_geoListContext');
 			//create map
 			create_map();
 		<%
@@ -110,18 +108,21 @@
 				var marker = new google.maps.Marker({ 
 					position: point,
 					map: map,
-					//title: ev.name, 
+					title: ev.name, 
 				});
-		
+				var date = new Date(ev.time);
+				var date_string = date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":";
+				if (date.getMinutes() < 10) {
+					date_string = date_string + "0" + date.getMinutes();
+				} else{
+					date_string = date_string + date.getMinutes();
+				}		
+
+				events.append('<a href="#" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + date_string + ' </span><span class="mn_geoListItem_where"> ' + ev.city + ' </span><span class="mn_geoListItem_title"> ' + ev.name + ' </span></span></a>');
+
 				//provide link for each point with event info
 				google.maps.event.addListener(marker, 'click', function() {
-					var date = new Date(ev.time);
-					var date_string = date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":";
-					if (date.getMinutes() < 10) {
-						date_string = date_string + "0" + date.getMinutes();
-					} else{
-						date_string = date_string + date.getMinutes();
-					}
+					
 					var link = '<b><a href="' + ev.meetup_url + '" style="color:Blue">' + ev.container.name + '</a></b><br>WHERE: ' + ev.venue_name + '<br>WHEN: ' + date_string + '<br>';
 						
 					var win = new google.maps.InfoWindow({
@@ -212,28 +213,12 @@
 											<div id="mn_geoListHeader">
 												<span>Today in Sports<span>
 											</div><!-- mn_geoListHeader -->
-											<a href="#" class="mn_geoListItem_link">
-												<span class="mn_geoListItem">
-													<span class="mn_geoListItem_date">6/16</span>
-													<span class="mn_geoListItem_time">1:00 pm</span>
-													<span class="mn_geoListItem_where">New York, NY</span>
-													<span class="mn_geoListItem_title">Flag Football</span>
-												</span>
-											</a>
-											<a href="#" class="mn_geoListItem_link">
-												<span class="mn_geoListItem">
-													<span class="mn_geoListItem_date">6/17</span>
-													<span class="mn_geoListItem_time">5:30 pm</span>
-													<span class="mn_geoListItem_where">Brooklyn, NY</span>
-													<span class="mn_geoListItem_title">Rugby</span>
-												</span>
-											</a>
+											
 											<div id="mn_geoListFooter">
 										
 											</div><!-- mn_geoListFooter -->
 										</div><!-- mn_geoListContext -->
 									</div><!-- d_boxContentLeft -->
-
 								</div><!-- d_boxContent -->
 							</div><!-- d_boxSection -->
 						</div><!-- d_boxBody -->
