@@ -29,6 +29,13 @@
 		</div><!-- mew_logo -->
 		<div id="mew_userNav">
 <%
+
+		String c_id = "";
+		
+		if (request.getQueryString() != null) {
+			c_id = request.getQueryString();
+		}
+
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = request.getCookies();
     		if (cookies != null) {
@@ -58,7 +65,7 @@
 					
 %>
 <p><%=users.get(0).getName()%>
-<a href ="/logout?callback=MUNTest.jsp">LOGOUT</a></p>
+<a href ="/logout?callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>">LOGOUT</a></p>
 
 </div>
 	</div><!-- mew_headerBody -->
@@ -77,13 +84,10 @@
 							<div class="d_boxSection">
 								<div id="d_boxContent">
 									<div id="mn_geoListContext">
-										<div id="mn_geoListHeader">
-											<span><b>Upcoming Events</b></span><br><br>
-										</div><!-- mn_geoListHeader -->
 <%
 if (users.iterator().hasNext()) {
 	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-	Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?status=upcoming&urlname=muntest&fields=rsvp_count");
+	Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?status=upcoming&container_id="+c_id+"&page=20&fields=rsvp_count");
 	scribe.signRequest(APIrequest,accessToken);
 	Response APIresponse = APIrequest.send();
 	JSONObject json = new JSONObject();
@@ -91,15 +95,22 @@ if (users.iterator().hasNext()) {
 	try {
 		json = new JSONObject(APIresponse.getBody());
 		results = json.getJSONArray("results");
-		String[] names = JSONObject.getNames(results.getJSONObject(0));
+%>
+										<div id="mn_geoListHeader">
+											<span><b>Upcoming Events</b></span>
+<br><%= results.getJSONObject(0).getJSONObject("container").getString("name") %>
+&nbsp &nbsp <a href="/CreateEvent.jsp?<%=c_id%>">Create A New Event</a>
+											<br><br>
+										</div><!-- mn_geoListHeader -->
+<%
 		for (int j = 0; j < results.length(); j++) {
 			JSONObject item = results.getJSONObject(j);
 %>
-<span class="mn_geoListItem"><p><b></b> <%= (item.getString("city")+", "+item.getString("country")+" "+item.getString("zip")) %> 
+<span class="mn_geoListItem"><p><b></b> <%= (item.getString("city")+", "+item.getString("country").toUpperCase()) %> 
 <%
 			try {
 %>
-<%=item.getString("venue_name")%>	
+&nbsp - &nbsp <%=item.getString("venue_name")%>	
 <%
 			} catch (Exception e) {}
 %>		
@@ -113,7 +124,7 @@ if (users.iterator().hasNext()) {
 			}
 			else {
 %>
-&nbsp &nbsp <a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI() %>">I'm In</a> </p>
+&nbsp &nbsp <a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI()+"?"+request.getQueryString() %>">I'm In</a> </p>
 <%						
 			}
 %>
