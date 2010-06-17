@@ -133,7 +133,7 @@
 					<div class="d_box">
 						<div class="d_boxBody">
 							<div class="d_boxHead">
-								<img src="images/mn_banner.png" alt="Meetup Now">
+								<img src="images/mn_banner2.png" alt="Meetup Now">
 							</div>
 							<div class="d_boxSection">
 								<div id="d_boxContent">
