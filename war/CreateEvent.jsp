@@ -28,6 +28,12 @@
 		</div><!-- mew_logo -->
 		<div id="mew_userNav">
 <%
+
+		String c_id = "";		
+		if (request.getQueryString() != null) {
+			c_id = request.getQueryString();
+		}
+
 		String key = "empty";
     		Cookie[] cookies = request.getCookies();
     		if (cookies != null) {
@@ -95,7 +101,8 @@
 			<input type="int" name="minute" size="2" value="M"></input> Enter a Time <br>
 			<input type="text" name="venue"></input> Where should we meet? <br>
 			<input type="text" name="desc"></input> What's this meetup all about? <br>
-			<input type="hidden" name="callback" value="MUNTest.jsp"></input>
+			<input type="hidden" name="callback" value="Group?<%=c_id%>"></input>
+			<input type="hidden" name="c_id" value="<%=c_id%>"></input>
 			<input type="submit" value="Create"></input>
 		</form>
 

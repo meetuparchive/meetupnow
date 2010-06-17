@@ -24,6 +24,7 @@ import meetupnow.PMF;
 
 public class EventCreateServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		String c_id = "";
 		String callback = "";
 		String zip = "";
 		String month = "";
@@ -44,11 +45,11 @@ public class EventCreateServlet extends HttpServlet {
 			minute = req.getParameter("minute");
 			venue = req.getParameter("venue");
 			desc = req.getParameter("desc");
+			c_id = req.getParameter("c_id");
 
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute);
 
-		//String API_URL = "http://api.meetup.com/ew/event/?urlname=muntest&zip="+zip+"&venue_name="+venue+"&time="+millitime;
 		String API_URL = "http://api.meetup.com/ew/event/";
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
@@ -80,7 +81,7 @@ public class EventCreateServlet extends HttpServlet {
 				APIrequest.addBodyParameter("venue_name",venue);
 				APIrequest.addBodyParameter("zip",zip);
 				APIrequest.addBodyParameter("time",millitime);
-				APIrequest.addBodyParameter("urlname","muntest");
+				APIrequest.addBodyParameter("container_id",c_id);
 				APIrequest.addBodyParameter("description",desc);
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();

@@ -99,6 +99,7 @@ if (users.iterator().hasNext()) {
 										<div id="mn_geoListHeader">
 											<span><b>Upcoming Events</b></span>
 <br><%= results.getJSONObject(0).getJSONObject("container").getString("name") %>
+&nbsp &nbsp <a href="/CreateEvent.jsp?<%=c_id%>">Create A New Event</a>
 											<br><br>
 										</div><!-- mn_geoListHeader -->
 <%
