@@ -50,9 +50,34 @@ public class EventCreateServlet extends HttpServlet {
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute);
 
+		
+
+
+		String GEOCODE_URL = "http://maps.google.com/maps/api/geocode/json?address=" + zip + "&sensor=true";
+		
 		String API_URL = "http://api.meetup.com/ew/event/";
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
+
+		Request GoogleAPIrequest = new Request(Request.Verb.POST, GEOCODE_URL);
+		Response GoogleAPIresponse = GoogleAPIrequest.send();
+		String Lat = "0";
+		String Lng = "0";
+
+		try{
+			JSONObject json = new JSONObject(GoogleAPIresponse.getBody());
+
+			String[] names = JSONObject.getNames(json.getJSONArray("results").getJSONObject(0));
+
+			Lng = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+			Lat = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
+		}
+		catch(JSONException k){
+			
+		}
+
+
+
     		if (cookies != null) {
       			for (int i = 0; i < cookies.length; i++) {
         			if (cookies[i].getName().equals("meetup_access")) {
@@ -79,10 +104,13 @@ public class EventCreateServlet extends HttpServlet {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
 				APIrequest.addBodyParameter("venue_name",venue);
-				APIrequest.addBodyParameter("zip",zip);
+				APIrequest.addBodyParameter("lat",Lat);
+				APIrequest.addBodyParameter("lon",Lng);
 				APIrequest.addBodyParameter("time",millitime);
 				APIrequest.addBodyParameter("container_id",c_id);
 				APIrequest.addBodyParameter("description",desc);
+				
+
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
 
