@@ -29,7 +29,26 @@
 
 	var map;
 	var events = $('#mn_page');
-	
+	var eventArray = new Array();	
+		
+	function topic_show(event_id){
+
+		for (var i = 0; i < eventArray.length; i++){
+			if (event_id == -1) {
+				eventArray[i].marker.setVisible(true);
+			}
+			else{
+				if (eventArray[i].id == event_id){
+					eventArray[i].marker.setVisible(true);
+				} else {
+					eventArray[i].marker.setVisible(false);
+				}
+			}
+			
+		}
+
+	}
+
 	function create_map(){
 		map = new google.maps.Map(document.getElementById("map_canvas"), {
       			zoom: 15,
@@ -39,6 +58,7 @@
 	}
 
 	function use_everywhere(){
+			var event_object;
 			var bounds = new google.maps.LatLngBounds();
 			var events = $('#mn_geoListContext');
 			//create map
@@ -97,6 +117,8 @@
 	
 		}
 		%>
+		
+		events.empty();
 		$.each(data.results, function(i, ev) {
 			if (ev.lon != ''){
 				
@@ -108,7 +130,7 @@
 				var marker = new google.maps.Marker({ 
 					position: point,
 					map: map,
-					title: ev.name, 
+					title: ev.container.name, 
 				});
 				var date = new Date(ev.time);
 				var date_string = date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":";
@@ -118,7 +140,7 @@
 					date_string = date_string + date.getMinutes();
 				}		
 
-				events.append('<a href="#" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + date_string + ' </span><span class="mn_geoListItem_where"> ' + ev.city + ' </span><span class="mn_geoListItem_title"> ' + ev.name + ' </span></span></a>');
+				events.append('<a href="javascript:topic_show(' + ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + date_string + ' </span><span class="mn_geoListItem_where"> ' + ev.city + ' </span><span class="mn_geoListItem_title"> ' + ev.container.name + ' </span></span></a>');
 
 				//provide link for each point with event info
 				google.maps.event.addListener(marker, 'click', function() {
@@ -130,10 +152,18 @@
 					});
 						win.open(map, marker);
 				});
-										
+
+				event_object = new Object;
+				event_object.id = ev.id;
+				event_object.description = ev.description;
+				event_object.marker = marker;
+	
+				eventArray.push(event_object);						
 			}
 		});
 	
+		events.append('<a href="javascript:topic_show(-1)" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> Show All </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
+
 		//fit map and set loc to adress
 		map.fitBounds(bounds);
 
@@ -192,7 +222,7 @@
 									
 									<div id="d_boxContentRight">
 										<div id="mn_description">
-											<span class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</span>
+											<span class="subtitle"></span>
 											<span class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</span>
 											<span class="title">Lorem ipsum!</span>
 											<span class="button_start">Get Started!</span>
