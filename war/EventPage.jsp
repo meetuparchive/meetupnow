@@ -157,5 +157,6 @@ Description: <%=item.getString("description") %>
 			}
 		}
 %>
+<a href="/">Home</a><br>
 </body>
 </html>

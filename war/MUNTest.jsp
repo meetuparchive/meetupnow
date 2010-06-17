@@ -85,7 +85,7 @@ if (users.iterator().hasNext()) {
 	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 	Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?status=upcoming&urlname=muntest&fields=rsvp_count");
 	scribe.signRequest(APIrequest,accessToken);
-	Response APIresponse = APIrequest.send();1021
+	Response APIresponse = APIrequest.send();
 	JSONObject json = new JSONObject();
 	JSONArray results;
 	try {
