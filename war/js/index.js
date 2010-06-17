@@ -2,7 +2,9 @@
 	var map;
 	var eventArray = new Array();	
 	var eventDescription = $('#mn_eventDescription');	
-
+	var events;
+	var current_page = 1;
+	var events_per_page = 5;
 
 	//set description to any string
 	function changeDiscription(desc){
@@ -11,23 +13,28 @@
 		eventDescription.append(desc);	
 	}
 
-	//shows only one topic on map and gives its descriptions and links on the side
+	//shows only one event on map and gives its descriptions and links on the side
 	//if event_id = -1 then shows all and no description or links
-	function topic_show(event_id){
+	function event_show(event_id){
 		changeDiscription("");
+		var array_start = (current_page - 1)*events_per_page;
 		for (var i = 0; i < eventArray.length; i++){
-			if (event_id == -1) {
-				eventArray[i].marker.setVisible(true);
-			}
-			else{
-				if (eventArray[i].id == event_id){
+			if (i < (array_start + events_per_page) && i > (array_start - 1)){
+				if (event_id == -1) {
 					eventArray[i].marker.setVisible(true);
-					changeDiscription(eventArray[i].description + '<br><br><a href="/Event?' + eventArray[i].id + '"> Event Page </a><br><a href="/Group?' + eventArray[i].cont_id + '"> Group Page </a>');
+				}
+				else{
+					if (eventArray[i].ev.id == event_id){
+						eventArray[i].marker.setVisible(true);
+						changeDiscription(eventArray[i].ev.description + '<br><br><a href="/Event?' + eventArray[i].ev.id + '"> Event Page </a><br><a href="/Group?' + eventArray[i].ev.container.id + '"> Group Page </a>');
 
 					
-				} else {
-					eventArray[i].marker.setVisible(false);
+					} else {
+						eventArray[i].marker.setVisible(false);
+					}
 				}
+			} else {
+				eventArray[i].marker.setVisible(false);			
 			}
 			
 		}
@@ -43,12 +50,62 @@
     		});
 	}
 
+	//add event to list under map
+	function add_event(event){
+		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + event.date + ' </span><span class="mn_geoListItem_where"> ' + event.ev.city + ' </span><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span></span></a>');
+	}
+
+	//go to next page if it exists
+	function nextPage(){
+		alert(current_page + "  " + events_per_page + "  " + eventArray.length);
+		if ((current_page * events_per_page) < eventArray.length){
+			current_page++;
+			update_events();
+		} 
+	}
+
+	//go back a page if it exists
+	function prevPage(){
+
+		if (current_page > 1){
+			current_page--;
+			update_events();
+		}
+	}
+
+	//updates events to a number of events on a certain page
+	function update_events(){
+		var array_start = (current_page - 1)*events_per_page;
+		
+		events.empty();
+		for (var i = 0; i < eventArray.length; i++){
+			if (i < eventArray.length){
+				if (i < (array_start + events_per_page) && i > (array_start - 1)){
+					add_event(eventArray[i]);
+					eventArray[i].marker.setVisible(true);	
+
+				} else {
+					eventArray[i].marker.setVisible(false);
+				}
+			}		
+		}
+		
+		//Next page / previous page link (when applicable)
+		events.append('<a href="javascript:nextPage()" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> next Page </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
+
+		events.append('<a href="javascript:prevPage()" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> Previous Page </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
+		
+
+		//add a show all option to list of events
+		events.append('<a href="javascript:event_show(-1)" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> Show All </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
+	}
+
 	//populates map and list with events
 	function use_everywhere(data){
 		var event_object;
 		var bounds = new google.maps.LatLngBounds();
 
-		var events = $('#mn_geoListContext');
+		events = $('#mn_geoListContext');
 
 		//create map
 		create_map();
@@ -82,7 +139,7 @@
 				}		
 
 				//add event to list
-				events.append('<a href="javascript:topic_show(' + ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + date_string + ' </span><span class="mn_geoListItem_where"> ' + ev.city + ' </span><span class="mn_geoListItem_title"> ' + ev.container.name + ' </span></span></a>');
+				
 
 				//provide link for each point with event info
 				google.maps.event.addListener(marker, 'click', function() {
@@ -97,18 +154,18 @@
 
 				//create event object
 				event_object = new Object;
-				event_object.id = ev.id;
-				event_object.description = ev.description;
+
+				event_object.ev = ev;			
+				event_object.date = date_string;
 				event_object.marker = marker;
-				event_object.cont_id = ev.container.id;
+				//add_event(event_object);
 	
 				//push object onto array
 				eventArray.push(event_object);						
 			}
 		});
-	
-		//add a show all option to list of events
-		events.append('<a href="javascript:topic_show(-1)" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> Show All </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
+		update_events(current_page);	
+		
 
 		//fit map and set loc to adress
 		map.fitBounds(bounds);
