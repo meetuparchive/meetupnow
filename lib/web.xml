@@ -52,6 +52,14 @@
         <servlet-name>EventCreate</servlet-name>
         <url-pattern>/EventCreate</url-pattern>
     </servlet-mapping>
+    <servlet>
+	<servlet-name>Event</servlet-name>
+	<jsp-file>/EventPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+	<servlet-name>Event</servlet-name>
+	<url-pattern>/Event</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

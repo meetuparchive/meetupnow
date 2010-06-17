@@ -9,6 +9,7 @@
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
 <%@ page import="org.json.*" %>
+<%@ page import="java.util.Calendar" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,6 +30,11 @@
 		</div><!-- mew_logo -->
 		<div id="mew_userNav">
 <%
+		String ev_id = "";
+		
+		if (request.getQueryString() != null) {
+			ev_id = request.getQueryString();
+		}
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = request.getCookies();
     		if (cookies != null) {
@@ -55,10 +61,11 @@
 			query.declareParameters("String accTokenParam");
 			try {
 				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+				
 					
 %>
 <p><%=users.get(0).getName()%>
-<a href ="/logout?callback=MUNTest.jsp">LOGOUT</a></p>
+<a href ="/logout?callback=">LOGOUT</a></p>
 
 </div>
 	</div><!-- mew_headerBody -->
@@ -78,56 +85,61 @@
 								<div id="d_boxContent">
 									<div id="mn_geoListContext">
 										<div id="mn_geoListHeader">
-											<span><b>Upcoming Events</b></span><br><br>
+
 										</div><!-- mn_geoListHeader -->
 <%
 if (users.iterator().hasNext()) {
 	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-	Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?status=upcoming&urlname=muntest&fields=rsvp_count");
+	Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?event_id="+ev_id);
 	scribe.signRequest(APIrequest,accessToken);
-	Response APIresponse = APIrequest.send();1021
+	Response APIresponse = APIrequest.send();
 	JSONObject json = new JSONObject();
 	JSONArray results;
 	try {
 		json = new JSONObject(APIresponse.getBody());
 		results = json.getJSONArray("results");
-		String[] names = JSONObject.getNames(results.getJSONObject(0));
-		for (int j = 0; j < results.length(); j++) {
-			JSONObject item = results.getJSONObject(j);
+		if (results.length() == 1) {
+			JSONObject item = results.getJSONObject(0);
+			Calendar cal = Calendar.getInstance();
+			cal.setTimeInMillis(Long.parseLong(item.getString("time")));
 %>
-<span class="mn_geoListItem"><p><b></b> <%= (item.getString("city")+", "+item.getString("country")+" "+item.getString("zip")) %> 
+<%=item.getJSONObject("container").getString("name") %> Event #<%=ev_id%>
+<br>
+<%=cal.getTime().toLocaleString() %>
+<br><br>
+Location: <%=item.getString("city") %>, 
 <%
-			try {
+			try{
 %>
-<%=item.getString("venue_name")%>	
-<%
-			} catch (Exception e) {}
-%>		
-</p>
-<p> &nbsp <%= (item.getString("rsvp_count")+" people are in.") %> 
-<%
-			if (users.get(0).isAttending(item.getString("id"))) {
-%>
-&nbsp &nbsp You're In!
+<%=item.getString("state") %>
+<%		
+			} catch (JSONException j) {
+%>			
+<%=item.getString("country").toUpperCase() %>
 <%
 			}
-			else {
 %>
-&nbsp &nbsp <a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI() %>">I'm In</a> </p>
-<%						
-			}
-%>
-</span><br>
+&nbsp - &nbsp <%=item.getString("venue_name") %>
+<br>
+<img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=300x200&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
+<br><br>
+Description: <%=item.getString("description") %>
 <%
+
 		}
-	} catch (JSONException j) {
+		else {
+
+		}
+
+	} catch (Exception j) {
 			
 	}
+
 }
 %>
 
 										<div id="mn_geoListFooter">
-										
+
 										</div><!-- mn_geoListFooter -->
 									</div><!-- mn_geoListContext -->
 								</div><!-- d_boxContent -->
@@ -139,7 +151,6 @@ if (users.iterator().hasNext()) {
 		</div><!-- mn_context -->
 	</div><!-- mn_pageBody -->
 </div><!-- mn_page -->
-<a href="/">Home</a><br>
 <%
 			} finally {
 				query.closeAll();
