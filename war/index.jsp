@@ -28,11 +28,20 @@
 	<script type="text/javascript">
 
 	var map;
-	var events = $('#mn_page');
-	var eventArray = new Array();	
-		
-	function topic_show(event_id){
 
+
+	var eventArray = new Array();	
+	var eventDescription = $('#mn_eventDescription');	
+	eventDescription.empty();
+
+	function changeDiscription(desc){
+		var eventDescription = $('#mn_eventDescription');
+		eventDescription.empty();
+		eventDescription.append(desc);	
+	}
+
+	function topic_show(event_id){
+		changeDiscription("");
 		for (var i = 0; i < eventArray.length; i++){
 			if (event_id == -1) {
 				eventArray[i].marker.setVisible(true);
@@ -40,6 +49,7 @@
 			else{
 				if (eventArray[i].id == event_id){
 					eventArray[i].marker.setVisible(true);
+					changeDiscription(eventArray[i].description);
 				} else {
 					eventArray[i].marker.setVisible(false);
 				}
@@ -60,7 +70,9 @@
 	function use_everywhere(){
 			var event_object;
 			var bounds = new google.maps.LatLngBounds();
+
 			var events = $('#mn_geoListContext');
+
 			//create map
 			create_map();
 		<%
