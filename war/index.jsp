@@ -37,6 +37,7 @@
 	function changeDiscription(desc){
 		var eventDescription = $('#mn_eventDescription');
 		eventDescription.empty();
+		alert(desc);
 		eventDescription.append(desc);	
 	}
 
@@ -49,7 +50,9 @@
 			else{
 				if (eventArray[i].id == event_id){
 					eventArray[i].marker.setVisible(true);
-					changeDiscription(eventArray[i].description);
+					changeDiscription(eventArray[i].description + '<br><br><a href="/Event?' + eventArray[i].id + '" Group Page </a>');
+
+					
 				} else {
 					eventArray[i].marker.setVisible(false);
 				}
