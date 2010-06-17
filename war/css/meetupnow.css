@@ -64,6 +64,7 @@ img{
 #mn_page {
 	margin-top: 36px;
 	background: #F2F2F2;
+	padding-bottom: 1.25em;
 }
 	#mn_pageBody {
 		width:960px;
@@ -206,4 +207,34 @@ a.mn_geoListItem_link {
 }
 .mn_geoListItem:hover {
 	background: #D18D3A;
+}
+#mew_footer {
+	background: #666;
+	color: #E7E7E7;
+	padding: 1.75em 0 10em;
+	width: 100%;
+}
+#mew_footerBody {
+	width: 960px;
+	margin: 0 auto;
+	padding: 0 1em;
+}
+#mew_footerRow {
+	overflow: hidden;
+	width: 100%;
+}
+#mew_footerSection {
+	border-right: 1px solid #ccc;
+	float: left;
+	margin-right: 1.75em;
+	padding-right: 1.7em;
+}
+#mew_footer a:link,
+#mew_footer a:visited,
+#mew_footer a:hover {
+	color: #fff;
+}
+#mew_footer ul li {
+	margin: 0 0 .5em;
+	padding: 0;
 }

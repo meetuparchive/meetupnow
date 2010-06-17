@@ -134,6 +134,15 @@
 						<div class="d_boxBody">
 							<div class="d_boxHead">
 								<img src="images/mn_banner2.png" alt="Meetup Now">
+								<div id="TICKER" style="overflow:hidden; width:936px" onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
+								  	<span style="font-family:Arial; font-size:12px; color:#444444" id="TICKER_BODY" width="100%">
+											<span style="background-color:#7FB51A;"> &nbsp; &nbsp; <font color="#FFFFFF"> <b>Scrolling News Ticker</b></font>&nbsp; &nbsp; </span> &nbsp; <b>You can add this ticker in your own web pages.</b>&nbsp; 
+											<span style="background-color:#FFAA00;"> &nbsp; &nbsp; <font color="#FFFFFF"> <b>Free</b></font>&nbsp; &nbsp; </span> &nbsp; <b>You can add it for free, in exchange of a link to this page.</b>&nbsp; 
+											<span style="background-color:#0088FF;"> &nbsp; &nbsp; <b><a href="http://www.mioplanet.com/rsc/develop_ticker.htm"><font color="#FFFFFF"> Desktop News Ticker</font></a></b>&nbsp; &nbsp; </span>&nbsp;
+											<b>And why not to offer to your visitors your own <a href="http://www.mioplanet.com/rsc/develop_ticker.htm"><u>Desktop News Ticker</u></a>? This is the perfect tool to attract and keep visitors... <a href="http://www.mioplanet.com/solutions/desktopticker/index.htm"><u>More info</u></a></b>&nbsp; 
+										</span>
+								</div>
+								<script type="text/javascript" src="js/webticker_lib.js" language="javascript"></script>
 							</div>
 							<div class="d_boxSection">
 								<div id="d_boxContent">
@@ -177,11 +186,23 @@
 				</div><!-- mn_box -->
 			</div><!-- mn_document -->
 		</div><!-- mn_context -->
-		<a href="/MeetupNow">Meetup Now</a>
 	</div><!-- mn_pageBody -->
 </div><!-- mn_page -->
-	<a href="/MeetupNow">Meetup Now</a><br>
-	<a href="/MUNTest.jsp">API test call</a><br>
-	<a href="/CreateEvent.jsp">Create Event</a>
+<div id="mew_footer">
+	<div id="mew_footerBody">
+		<div id="mew_footerRow">
+			<ul class="mew_footerSection">
+				<li>About Meetup Now</li>
+				<li>Placeholder</li>
+				<li>Placeholder</li>
+			</ul>
+			<ul class="mew_footerSection">
+				<li><a href="/MeetupNow">Meetup Now</a></li>
+				<li><a href="/MUNTest.jsp">API test call</a></li>
+				<li><a href="/CreateEvent.jsp">Create Event</a></li>
+			</ul>
+		</div><!-- mew_footerRow -->
+	</div><!-- mew_footerBody -->
+</div><!-- mew_footer -->
 </body>
 </html>
