@@ -57,7 +57,7 @@
 
 	//go to next page if it exists
 	function nextPage(){
-		alert(current_page + "  " + events_per_page + "  " + eventArray.length);
+
 		if ((current_page * events_per_page) < eventArray.length){
 			current_page++;
 			update_events();
@@ -79,22 +79,24 @@
 		
 		events.empty();
 		for (var i = 0; i < eventArray.length; i++){
-			if (i < eventArray.length){
-				if (i < (array_start + events_per_page) && i > (array_start - 1)){
-					add_event(eventArray[i]);
-					eventArray[i].marker.setVisible(true);	
-
-				} else {
-					eventArray[i].marker.setVisible(false);
-				}
-			}		
+			
+			if (i < (array_start + events_per_page) && i > (array_start - 1)){
+				add_event(eventArray[i]);
+				eventArray[i].marker.setVisible(true);	
+			} else {
+				eventArray[i].marker.setVisible(false);
+			}
+					
 		}
 		
 		//Next page / previous page link (when applicable)
-		events.append('<a href="javascript:nextPage()" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> next Page </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
+		if ((current_page * events_per_page) < eventArray.length){
+			events.append('<a href="javascript:nextPage()" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> next Page </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
+		}
 
-		events.append('<a href="javascript:prevPage()" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> Previous Page </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
-		
+		if (current_page > 1){
+			events.append('<a href="javascript:prevPage()" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> Previous Page </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
+		}
 
 		//add a show all option to list of events
 		events.append('<a href="javascript:event_show(-1)" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> Show All </span><span class="mn_geoListItem_where">  </span><span class="mn_geoListItem_title">  </span></span></a>');
