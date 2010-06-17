@@ -157,8 +157,13 @@ img{
 									float: right;
 									margin-top: 2.5em;
 									height: 276px;
-									margin-bottom: 12px;
 								}
+#mn_eventDescription {
+										position: relative;
+									float: right;
+									margin-top: 2.5em;
+									height: auto;
+}
 .button_start {
 	color: #fff;
 	font-size: 1.6em;
