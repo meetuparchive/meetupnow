@@ -60,6 +60,14 @@
 	<servlet-name>Event</servlet-name>
 	<url-pattern>/Event</url-pattern>
     </servlet-mapping>
+    <servlet>
+	<servlet-name>Container</servlet-name>
+	<jsp-file>/ContainerPage.jsp</jsp-file>
+    </servlet>
+    <servlet-mapping>
+	<servlet-name>Container</servlet-name>
+	<url-pattern>/Group</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
