@@ -2,18 +2,14 @@
 
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="javax.jdo.Query" %>
-<%@ page import="java.util.Properties" %>
 <%@ page import="java.util.List" %>
 <%@ page import="meetupnow.MeetupUser" %>
 <%@ page import="meetupnow.PMF" %>
-
 <%@ page import="java.io.IOException" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
-<%@ page import="org.json.*" %>
 <%@ page import="javax.servlet.http.Cookie" %>
-<%@ page import="meetupnow.OAuthServlet" %>
 
 
 
