@@ -17,7 +17,7 @@
 
 <html>
 <head>
-
+<%
 		String key = "empty";
 		String distance = "20";
 
@@ -44,6 +44,6 @@
 		Request APIrequest;
 		Response APIresponse;
 		String API_URL ="";
-
+%>
 </head>
 </html>
