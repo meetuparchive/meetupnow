@@ -26,7 +26,7 @@
 				else{
 					if (eventArray[i].ev.id == event_id){
 						eventArray[i].marker.setVisible(true);
-						changeDiscription(eventArray[i].ev.description + '<br><br><a href="/Event?' + eventArray[i].ev.id + '"> Event Page </a><br><a href="/Group?' + eventArray[i].ev.container.id + '"> Group Page </a>');
+						changeDiscription(eventArray[i].ev.description + '<br><br><a href="/Event?' + eventArray[i].ev.id + '"> Event Page </a><br>');
 
 					
 					} else {
@@ -52,7 +52,7 @@
 
 	//add event to list under map
 	function add_event(event){
-		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + event.date + ' </span><span class="mn_geoListItem_where"> ' + event.ev.city + ' </span><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span></span></a>');
+		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + event.date + ' </span><span class="mn_geoListItem_where"> ' + event.ev.city + ' </span><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' <br> ' + event.ev.rsvp_count + ' people are in </span></span></a>');
 	}
 
 	//go to next page if it exists

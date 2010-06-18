@@ -26,7 +26,7 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<script type="text/javascript" src="/js/index.js"></script>
+	<script type="text/javascript" src="/js/container.js"></script>
 	<script type="text/javascript">
 
 		
@@ -93,7 +93,18 @@
 							
 							<div class="d_boxSection">
 								<div id="d_boxContent">
-									
+									<div id="d_boxContentRight">
+										<div id="mn_description">
+											<span class="subtitle"></span>
+											<span class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</span>
+											<span class="title">Lorem ipsum!</span>
+											<span class="button_start">Get Started!</span>
+										</div><!-- mn_description -->
+										<div id="mn_eventDescription">
+												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										</div><!-- mn_eventDescription -->
+
+									</div><!-- d_boxContentRight -->
 									
 									
 									<div id="d_boxContentLeft">
