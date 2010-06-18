@@ -6,17 +6,18 @@
 <%@ page import="java.util.List" %>
 <%@ page import="meetupnow.MeetupUser" %>
 <%@ page import="meetupnow.PMF" %>
+
+<%@ page import="java.io.IOException" %>
+<%@ page import="javax.servlet.http.*" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
+<%@ page import="org.json.*" %>
+<%@ page import="javax.servlet.http.Cookie" %>
+<%@ page import="meetupnow.OAuthServlet" %>	
 
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>Meetup Now</title>
-	<link rel="stylesheet" href="css/reset.css" type="text/css" />
-	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
-	<%
+
 		String key = "empty";
 		String distance = "20";
 
@@ -44,41 +45,5 @@
 		Response APIresponse;
 		String API_URL ="";
 
-	 %>
 </head>
-<body id="meetupNowBody">
-	
-<%@ include file="jsp/header.jsp" %>
-
-<div id="mn_page">
-	<div id="mn_pageBody">
-		<div id="mn_context">
-			<div id="mn_document">
-				<div id="mn_box">
-					<div class="d_box">
-						<div class="d_boxBody">
-							<div class="d_boxHead">
-								
-							</div>
-							<div class="d_boxSection">
-								<div id="d_boxContent">
-									<div id="mn_geoListContext">
-										<div id="mn_geoListHeader">
-
-										</div><!-- mn_geoListHeader -->
-
-										<div id="mn_geoListFooter">
-
-										</div><!-- mn_geoListFooter -->
-									</div><!-- mn_geoListContext -->
-								</div><!-- d_boxContent -->
-							</div><!-- d_boxSection -->
-						</div><!-- d_boxBody -->
-					</div><!-- d_box -->
-				</div><!-- mn_box -->
-			</div><!-- mn_document -->
-		</div><!-- mn_context -->
-	</div><!-- mn_pageBody -->
-</div><!-- mn_page -->
-</body>
 </html>

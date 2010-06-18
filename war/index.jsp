@@ -30,6 +30,7 @@
 
 		
 		function loadEvents(){
+
 		<%
 
 		String key = "empty";
@@ -91,39 +92,7 @@
 </head>
 <body id="meetupNowBody" onload="loadEvents()">
 	
-<div id="mew_header">
-	<div id="mew_headerBody">
-		<div id="mew_logo">
-			<a href="http://www.meetup.com/everywhere">
-				<img src="images/meetup_ew.png" alt="Meetup" style="width: auto !important; height: auto !important">
-			</a>
-		</div><!-- mew_logo -->
-		<div id="mew_userNav">
-<%
-
-		if (key.equals("empty")) {
-%>
-<a href="/oauth">Log In</a>
-<%
-		} else {
-			//FIND USER			
-
-		
-			try {
-				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
-					
-%>
-<p><%=users.get(0).getName()%>
-<a href ="/logout?callback=">LOGOUT</a></p>
-<%
-			} finally {
-				query.closeAll();
-			}
-		}
-%>
-</div>
-	</div><!-- mew_headerBody -->
-</div><!-- mew_header -->
+<%@ include file="jsp/header.jsp" %>
 
 <div id="mn_page">
 	<div id="mn_pageBody">

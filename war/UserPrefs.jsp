@@ -18,20 +18,12 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
-</head>
-<body id="meetupNowBody">
-	
-<div id="mew_header">
-	<div id="mew_headerBody">
-		<div id="mew_logo">
-			<a href="http://www.meetup.com/everywhere">
-				<img src="images/meetup_ew.png" alt="Meetup" style="width: auto !important; height: auto !important">
-			</a>
-		</div><!-- mew_logo -->
-		<div id="mew_userNav">
-<%
+	<%
 		String key = "empty";
+		String distance = "20";
+
     		javax.servlet.http.Cookie[] cookies = request.getCookies();
+
     		if (cookies != null) {
       			for (int i = 0; i < cookies.length; i++) {
         			if (cookies[i].getName().equals("meetup_access")) {
@@ -39,37 +31,26 @@
         			}
       			}
     		}
-		if (key.equals("empty")) {
+		Properties prop = new Properties();
+		prop.setProperty("consumer.key","12345");
+		prop.setProperty("consumer.secret","67890");
+		Scribe scribe = new Scribe(prop);
 
-			response.sendRedirect("/");
-		} else {
-			//FIND USER			
+		PersistenceManager pm = PMF.get().getPersistenceManager();
 
-			Properties prop = new Properties();
-			prop.setProperty("consumer.key","12345");
-			prop.setProperty("consumer.secret","67890");
-			Scribe scribe = new Scribe(prop);
-			PersistenceManager pm = PMF.get().getPersistenceManager();
-			Query query = pm.newQuery(MeetupUser.class);
-			query.setFilter("accToken == accTokenParam");
-			query.declareParameters("String accTokenParam");
-			try {
-				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+		Query query = pm.newQuery(MeetupUser.class);
+		query.setFilter("accToken == accTokenParam");
+		query.declareParameters("String accTokenParam");
 
-				//TRY TO FIND USERINFO DATA
-				Query userQuery = pm.newQuery(UserInfo.class);
-				userQuery.setFilter("user_id == idParam");
-				userQuery.declareParameters("String idParam");
-				try {
-					List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(users.get(0).getID());
-					if (profiles.size() > 0) {
-					
-%>
-<p><%=users.get(0).getName()%>
-<a href ="/logout?callback=">LOGOUT</a></p>
+		Request APIrequest;
+		Response APIresponse;
+		String API_URL ="";
+	%>
 
-	</div><!-- mew_headerBody -->
-</div><!-- mew_header -->
+</head>
+<body id="meetupNowBody">
+	
+<%@ include file="jsp/header.jsp" %>
 
 <div id="mn_page">
 	<div id="mn_pageBody">
