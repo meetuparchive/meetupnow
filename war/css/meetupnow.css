@@ -117,7 +117,8 @@ img{
 								border-radius: 5px;
 								-moz-border-radius: 5px;
 								-webkit-border-radius: 5px;
-								/*overflow: hidden;*/
+								overflow: hidden;
+								height: 100%;
 								/*padding: 12px;*/
 							}
 							#d_boxContentLeft {
@@ -151,7 +152,7 @@ img{
 								border-radius: 0 5px 5px 0;
 								-moz-border-radius: 0 5px 5px 0;
 								-webkit-border-radius: 0 5px 5px 0;
-	
+								overflow: hidden;
 							}
 								#mn_description {
 									position: relative;
@@ -159,12 +160,12 @@ img{
 									margin-top: 2.5em;
 									height: 276px;
 								}
-#mn_eventDescription {
-										position: relative;
+								#mn_eventDescription {
+									position: relative;
 									float: right;
 									margin-top: 2.5em;
 									height: auto;
-}
+								}
 .button_start {
 	color: #fff;
 	font-size: 1.6em;
