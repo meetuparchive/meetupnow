@@ -24,6 +24,8 @@ public class OAuthServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		
 		//Get arguments from query line: request token, verifier, and a callback URL
+		String m_id = "";
+		
 		String token = "";
 		String verify = "";
 		String callback = "";
@@ -80,6 +82,7 @@ public class OAuthServlet extends HttpServlet {
 	
 						users.get(0).setName(user.getString("name"));
 						users.get(0).setID(user.getString("id"));
+						m_id = user.getString("id");
 						users.get(0).setLat(user.getString("lat"));
 						users.get(0).setLon(user.getString("lon"));
 						
@@ -116,7 +119,7 @@ public class OAuthServlet extends HttpServlet {
 			finally {
 				query.closeAll();
 				
-				resp.sendRedirect(callback);
+				resp.sendRedirect("/setprefs?callback="+callback+"&id="+m_id);
 			}
 			pm.close();
 			
