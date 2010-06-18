@@ -9,6 +9,7 @@
 <%@ page import="meetupnow.PMF" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
+<%@ page import="org.json.*" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -30,7 +31,7 @@
 		<div id="mew_userNav">
 <%
 		String key = "empty";
-    		Cookie[] cookies = request.getCookies();
+    		javax.servlet.http.Cookie[] cookies = request.getCookies();
     		if (cookies != null) {
       			for (int i = 0; i < cookies.length; i++) {
         			if (cookies[i].getName().equals("meetup_access")) {
@@ -90,8 +91,36 @@ User Preferences - <%=users.get(0).getName()%>
 <br><br>
 Recieving Notifications from the following groups:
 <br>
-<%= profiles.get(0).getGroups() %>
-<br><br>
+<%
+	String[] groups = profiles.get(0).getGroupArray();
+	if (groups.length > 0) {
+		String apiParam = groups[0];
+		for (int i = 1; i < groups.length; i++) {
+			apiParam = apiParam + "," + groups[i];
+		}
+		Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+		Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/containers/?container_id="+apiParam);
+		scribe.signRequest(APIrequest,accessToken);
+		Response APIresponse = APIrequest.send();
+		JSONObject json = new JSONObject();
+		JSONArray results;
+		try {
+			json = new JSONObject(APIresponse.getBody());
+			results = json.getJSONArray("results");
+			for (int j = 0; j < results.length(); j++) {
+%>
+-<b><a href="/Group?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %> </a></b>
+&nbsp <a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove">Remove</a>
+<br>
+<%
+			}
+		} catch (JSONException j) {
+
+		}
+	}
+
+%>
+<br>
 Email Address on file:
 <br>
 <%= profiles.get(0).getEmail() %>
@@ -134,6 +163,8 @@ What times would you like to recieve notifications? <br>
 			}
 		}
 %>
+<a href="/">Home</a><br>
 </div>
+
 </body>
 </html>

@@ -81,6 +81,31 @@ public class UserInfo {
 		String temp = groups.concat(g+",");
 		groups = temp;
 	}
+
+	public void removeGroup(String g) {
+		StringTokenizer st = new StringTokenizer(groups,",");
+		String output = "";
+		while (st.hasMoreTokens()) {
+			String temp = st.nextToken();
+			if (!temp.equals(g)) {
+				output = output.concat(temp+",");
+			}
+		}
+		
+		groups = output;
+	}
+
+	public String[] getGroupArray() {
+		StringTokenizer st = new StringTokenizer(groups,",");
+		String[] output = new String[st.countTokens()];
+		int i = 0;
+		while (st.hasMoreTokens()) {
+			output[i] = st.nextToken();
+			i++;
+		}
+		return output;
+	}
+
 	public boolean isMember(String c_id) {
 		if (c_id != null) {
 			StringTokenizer st = new StringTokenizer(groups,",");

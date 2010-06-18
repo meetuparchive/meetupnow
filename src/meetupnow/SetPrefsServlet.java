@@ -20,11 +20,13 @@ public class SetPrefsServlet extends HttpServlet {
 		String mu_id = "";
 		String email = "";
 		String group = "";
+		String action = "";
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
 			mu_id = req.getParameter("id");
 			email = req.getParameter("email");
 			group = req.getParameter("group");
+			action = req.getParameter("action");
 		}
 		javax.servlet.http.Cookie[] cookies = req.getCookies();
 
@@ -51,7 +53,11 @@ public class SetPrefsServlet extends HttpServlet {
 					profs.get(0).setEmail(email);
 				}
 				if (group != null) {
-					profs.get(0).addGroup(group);
+					if (action.equals("remove")) {
+						profs.get(0).removeGroup(group);
+					} else if (action.equals("add")){
+						profs.get(0).addGroup(group);
+					}
 				}
 				profs.get(0).incrementLoginCount();
 			

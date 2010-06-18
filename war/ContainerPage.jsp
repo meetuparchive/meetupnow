@@ -5,6 +5,7 @@
 <%@ page import="java.util.Properties" %>
 <%@ page import="java.util.List" %>
 <%@ page import="meetupnow.MeetupUser" %>
+<%@ page import="meetupnow.UserInfo" %>
 <%@ page import="meetupnow.PMF" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
@@ -99,7 +100,32 @@ if (users.iterator().hasNext()) {
 										<div id="mn_geoListHeader">
 											<span><b>Upcoming Events</b></span>
 <br><%= results.getJSONObject(0).getJSONObject("container").getString("name") %> <br>
-<a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp<%="?"+request.getQueryString()+"&group="+c_id %>">Recieve notifications from this group</a>
+
+<%
+		Query userQuery = pm.newQuery(UserInfo.class);
+		userQuery.setFilter("user_id == idParam");
+		userQuery.declareParameters("String idParam");
+		try {
+			List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(users.get(0).getID());
+			if (profiles.size() > 0) {
+				String[] groups = profiles.get(0).getGroupArray();
+				if (profiles.get(0).isMember(c_id)) {
+%>
+<a href="/UserPrefs.jsp">You recieve notifications from this group!</a>
+<%
+				}
+				else {
+%>
+<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>">Recieve notifications from this group</a>
+<%
+				}
+			}
+		} finally {
+			userQuery.closeAll();
+		}
+
+%>
+
 &nbsp &nbsp <a href="/CreateEvent.jsp?<%=c_id%>">Create A New Event</a>
 											<br><br>
 										</div><!-- mn_geoListHeader -->
