@@ -34,6 +34,7 @@ public class EventCreateServlet extends HttpServlet {
 		String minute = "";
 		String venue = "";
 		String desc = "";
+		String name = "";
 		
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
@@ -46,6 +47,7 @@ public class EventCreateServlet extends HttpServlet {
 			venue = req.getParameter("venue");
 			desc = req.getParameter("desc");
 			c_id = req.getParameter("c_id");
+			name = req.getParameter("name");
 
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute);
@@ -128,6 +130,8 @@ public class EventCreateServlet extends HttpServlet {
 				APIrequest.addBodyParameter("time",millitime);
 				APIrequest.addBodyParameter("container_id",c_id);
 				APIrequest.addBodyParameter("description",desc);
+				APIrequest.addBodyParameter("title",name);
+				APIrequest.addBodyParameter("fields","title");
 				
 
 				scribe.signRequest(APIrequest,accessToken);
