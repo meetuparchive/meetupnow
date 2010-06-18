@@ -53,5 +53,6 @@
 		</div><!-- mn_context -->
 	</div><!-- mn_pageBody -->
 </div><!-- mn_page -->
+<%@ include file="jsp/footer.jsp" %>
 </body>
 </html>
