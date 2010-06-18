@@ -67,6 +67,9 @@
 	</script>
 </head>
 <body id="meetupNowBody" onload="loadEvents()">
+
+
+
 	
 <%@ include file="jsp/header.jsp" %>
 

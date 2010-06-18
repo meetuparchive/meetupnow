@@ -16,19 +16,7 @@
 <%@ page import="meetupnow.OAuthServlet" %>
 
 
-<link rel="stylesheet" href="../css/reset.css" type="text/css" />
-<link rel="stylesheet" href="../css/meetupnow.css" type="text/css" />
-<%
 
-    		if (cookies != null) {
-      			for (int i = 0; i < cookies.length; i++) {
-        			if (cookies[i].getName().equals("meetup_access")) {
-          				key = cookies[i].getValue();
-        			}
-      			}
-    		}
-
-%>
 
 
 <div id="mew_header">
