@@ -51,7 +51,7 @@ public class EventCreateServlet extends HttpServlet {
 
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute);
-
+		String rsvpID = "";
 		
 
 
@@ -132,17 +132,26 @@ public class EventCreateServlet extends HttpServlet {
 				APIrequest.addBodyParameter("description",desc);
 				APIrequest.addBodyParameter("title",name);
 				APIrequest.addBodyParameter("fields","title");
+				APIrequest.addBodyParameter("organize","true");
 				
 
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
-				System.out.println(APIresponse.getBody());
-
+				
+				JSONObject json = new JSONObject(APIresponse.getBody());
+				rsvpID = json.getString("id");
 			}
-		} 
+		} catch (JSONException j){
+			
+		}
 		finally {
 			query.closeAll();
-			resp.sendRedirect(callback);
+			if (rsvpID.equals("")) {
+				resp.sendRedirect(callback);
+			}	
+			else {
+				resp.sendRedirect("/EventRegister?id="+rsvpID+"&callback="+callback);
+			}
 		}
 
 	}
