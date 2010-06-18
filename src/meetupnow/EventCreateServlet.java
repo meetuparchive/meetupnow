@@ -34,6 +34,7 @@ public class EventCreateServlet extends HttpServlet {
 		String minute = "";
 		String venue = "";
 		String desc = "";
+		String name = "";
 		
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
@@ -46,10 +47,11 @@ public class EventCreateServlet extends HttpServlet {
 			venue = req.getParameter("venue");
 			desc = req.getParameter("desc");
 			c_id = req.getParameter("c_id");
+			name = req.getParameter("name");
 
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute);
-
+		String rsvpID = "";
 		
 
 
@@ -121,24 +123,35 @@ public class EventCreateServlet extends HttpServlet {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
 				APIrequest.addBodyParameter("venue_name",venue);
-				APIrequest.addBodyParameter("city",City);
-				APIrequest.addBodyParameter("state",State);
-				APIrequest.addBodyParameter("country", Country);
-				//APIrequest.addBodyParameter("zip", zip);
+				//APIrequest.addBodyParameter("city",City);
+				//APIrequest.addBodyParameter("state",State);
+				//APIrequest.addBodyParameter("country", Country);
+				APIrequest.addBodyParameter("zip", zip);
 				APIrequest.addBodyParameter("time",millitime);
 				APIrequest.addBodyParameter("container_id",c_id);
 				APIrequest.addBodyParameter("description",desc);
+				APIrequest.addBodyParameter("title",name);
+				APIrequest.addBodyParameter("fields","title");
+				APIrequest.addBodyParameter("organize","true");
 				
 
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
-				System.out.println(APIresponse.getBody());
-
+				
+				JSONObject json = new JSONObject(APIresponse.getBody());
+				rsvpID = json.getString("id");
 			}
-		} 
+		} catch (JSONException j){
+			
+		}
 		finally {
 			query.closeAll();
-			resp.sendRedirect(callback);
+			if (rsvpID.equals("")) {
+				resp.sendRedirect(callback);
+			}	
+			else {
+				resp.sendRedirect("/EventRegister?id="+rsvpID+"&callback="+callback);
+			}
 		}
 
 	}

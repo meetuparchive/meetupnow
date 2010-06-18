@@ -152,7 +152,6 @@ What times would you like to recieve notifications? <br>
 		</div><!-- mn_context -->
 	</div><!-- mn_pageBody -->
 </div><!-- mn_page -->
-<%@ include file="jsp/footer.jsp" %>
 
 <%
 					}
