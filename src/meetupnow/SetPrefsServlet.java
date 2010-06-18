@@ -46,7 +46,7 @@ public class SetPrefsServlet extends HttpServlet {
 		try {
 			tx.begin();
 			List<UserInfo> profs = (List<UserInfo>) query.execute(mu_id);
-			if (profs.iterator().hasNext()) {			
+			if (profs.size() > 0) {			
 				if (email != null) {				
 					profs.get(0).setEmail(email);
 				}

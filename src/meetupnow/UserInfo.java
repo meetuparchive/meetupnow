@@ -7,6 +7,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import java.util.StringTokenizer;
+
 @PersistenceCapable
 public class UserInfo {
 	@PrimaryKey
@@ -68,8 +70,27 @@ public class UserInfo {
 		groups = g;
 	}
 
+	//Add group if not already a member
 	public void addGroup(String g) {
+		StringTokenizer st = new StringTokenizer(groups,",");
+		while (st.hasMoreTokens()) {
+			if (st.nextToken().equals(g)) {
+				return;
+			}
+		}
 		String temp = groups.concat(g+",");
 		groups = temp;
+	}
+	public boolean isMember(String c_id) {
+		if (c_id != null) {
+			StringTokenizer st = new StringTokenizer(groups,",");
+			while (st.hasMoreTokens()) {
+				if (st.nextToken().equals(c_id)) {
+					return true;
+				}
+			}
+			return false;
+		}
+		else return false;
 	}
 }

@@ -99,7 +99,7 @@ if (users.iterator().hasNext()) {
 										<div id="mn_geoListHeader">
 											<span><b>Upcoming Events</b></span>
 <br><%= results.getJSONObject(0).getJSONObject("container").getString("name") %> <br>
-<a href="/setprefs?callback=<%= request.getRequestURI()+"?"+request.getQueryString()+"&group="+c_id %>">Recieve notifications from this group</a>
+<a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp<%="?"+request.getQueryString()+"&group="+c_id %>">Recieve notifications from this group</a>
 &nbsp &nbsp <a href="/CreateEvent.jsp?<%=c_id%>">Create A New Event</a>
 											<br><br>
 										</div><!-- mn_geoListHeader -->

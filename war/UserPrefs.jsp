@@ -5,6 +5,7 @@
 <%@ page import="java.util.Properties" %>
 <%@ page import="java.util.List" %>
 <%@ page import="meetupnow.MeetupUser" %>
+<%@ page import="meetupnow.UserInfo" %>
 <%@ page import="meetupnow.PMF" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
@@ -53,6 +54,14 @@
 			query.declareParameters("String accTokenParam");
 			try {
 				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+
+				//TRY TO FIND USERINFO DATA
+				Query userQuery = pm.newQuery(UserInfo.class);
+				userQuery.setFilter("user_id == idParam");
+				userQuery.declareParameters("String idParam");
+				try {
+					List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(users.get(0).getID());
+					if (profiles.size() > 0) {
 					
 %>
 <p><%=users.get(0).getName()%>
@@ -80,8 +89,13 @@
 User Preferences - <%=users.get(0).getName()%>
 <br><br>
 Recieving Notifications from the following groups:
+<br>
+<%= profiles.get(0).getGroups() %>
 <br><br>
-Email Address on file:<br><br>
+Email Address on file:
+<br>
+<%= profiles.get(0).getEmail() %>
+<br><br>
 Change your email address?<br>
 <form name="email" action="/setprefs">
 <input type="text" name="email"></input> Email Address<br>
@@ -111,6 +125,10 @@ What times would you like to recieve notifications? <br>
 </div><!-- mn_page -->
 
 <%
+					}
+				} finally {
+					userQuery.closeAll();
+				}
 			} finally {
 				query.closeAll();
 			}
