@@ -16,39 +16,20 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
-	<%
-		String key = "empty";
-		String distance = "20";
+<%
 
-    		javax.servlet.http.Cookie[] cookies = request.getCookies();
-
-    		if (cookies != null) {
-      			for (int i = 0; i < cookies.length; i++) {
-        			if (cookies[i].getName().equals("meetup_access")) {
-          				key = cookies[i].getValue();
-        			}
-      			}
-    		}
-		Properties prop = new Properties();
-		prop.setProperty("consumer.key","12345");
-		prop.setProperty("consumer.secret","67890");
-		Scribe scribe = new Scribe(prop);
-
-		PersistenceManager pm = PMF.get().getPersistenceManager();
-
-		Query query = pm.newQuery(MeetupUser.class);
-		query.setFilter("accToken == accTokenParam");
-		query.declareParameters("String accTokenParam");
-
-		Request APIrequest;
-		Response APIresponse;
-		String API_URL ="";
-	%>
+		String c_id = "";		
+		if (request.getQueryString() != null) {
+			c_id = request.getQueryString();
+		}
+%>
+		<%@ include file="jsp/cookie.jsp" %>
 
 </head>
 <body id="meetupNowBody">
 	
 <%@ include file="jsp/header.jsp" %>
+
 
 <div id="mn_page">
 	<div id="mn_pageBody">
