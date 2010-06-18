@@ -15,8 +15,7 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ page import="meetupnow.OAuthServlet" %>
 
-<html>
-<head>
+
 <link rel="stylesheet" href="../css/reset.css" type="text/css" />
 <link rel="stylesheet" href="../css/meetupnow.css" type="text/css" />
 <%
@@ -30,8 +29,8 @@
     		}
 
 %>
-</head>
-<body id="meetupNowBody">
+
+
 <div id="mew_header">
 	<div id="mew_headerBody">
 		<div id="mew_logo">
@@ -65,5 +64,4 @@
 </div>
 	</div><!-- mew_headerBody -->
 </div><!-- mew_header -->
-</body>
-</html>
+

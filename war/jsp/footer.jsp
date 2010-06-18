@@ -1,5 +1,4 @@
-<html>
-<head>
+
 <div id="mew_footer">
 	<div id="mew_footerBody">
 		<div id="mew_footerRow">
@@ -16,5 +15,4 @@
 		</div><!-- mew_footerRow -->
 	</div><!-- mew_footerBody -->
 </div><!-- mew_footer -->
-</head>
-</html>
+

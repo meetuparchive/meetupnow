@@ -15,8 +15,7 @@
 <%@ page import="javax.servlet.http.Cookie" %>
 <%@ page import="meetupnow.OAuthServlet" %>	
 
-<html>
-<head>
+
 <%
 		String key = "empty";
 		String distance = "20";
@@ -45,5 +44,4 @@
 		Response APIresponse;
 		String API_URL ="";
 %>
-</head>
-</html>
+

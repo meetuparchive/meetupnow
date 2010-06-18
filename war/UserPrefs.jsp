@@ -164,7 +164,7 @@ What times would you like to recieve notifications? <br>
 			}
 		}
 %>
-<a href="/">Home</a><br>
+
 </div>
 
 </body>
