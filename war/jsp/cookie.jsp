@@ -13,7 +13,9 @@
 <%@ page import="org.scribe.http.*" %>
 <%@ page import="org.json.*" %>
 <%@ page import="javax.servlet.http.Cookie" %>
-<%@ page import="meetupnow.OAuthServlet" %>	
+<%@ page import="meetupnow.OAuthServlet" %>
+<%@ page import="java.util.ArrayList" %>
+
 
 
 <%
@@ -35,7 +37,7 @@
 		Scribe scribe = new Scribe(prop);
 
 		PersistenceManager pm = PMF.get().getPersistenceManager();
-
+		List<MeetupUser> users = new ArrayList<MeetupUser>();
 		Query query = pm.newQuery(MeetupUser.class);
 		query.setFilter("accToken == accTokenParam");
 		query.declareParameters("String accTokenParam");

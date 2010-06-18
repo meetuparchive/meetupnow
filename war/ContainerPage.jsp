@@ -33,15 +33,10 @@
 
 		if (!key.equals("empty")) {
 			try {
-				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+				users = (List<MeetupUser>) query.execute(key);
 					
 %>
-<p><%=users.get(0).getName()%>
-<a href ="/logout?callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>">LOGOUT</a></p>
 
-</div>
-	</div><!-- mew_headerBody -->
-</div><!-- mew_header -->
 
 <div id="mn_page">
 	<div id="mn_pageBody">

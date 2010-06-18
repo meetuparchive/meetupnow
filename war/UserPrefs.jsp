@@ -54,7 +54,7 @@
 			query.setFilter("accToken == accTokenParam");
 			query.declareParameters("String accTokenParam");
 			try {
-				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+				users = (List<MeetupUser>) query.execute(key);
 
 				//TRY TO FIND USERINFO DATA
 				Query userQuery = pm.newQuery(UserInfo.class);

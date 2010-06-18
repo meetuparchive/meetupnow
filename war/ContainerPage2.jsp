@@ -6,6 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="meetupnow.MeetupUser" %>
 <%@ page import="meetupnow.PMF" %>
+<%@ page import="meetupnow.UserInfo" %>
 
 <%@ page import="java.io.IOException" %>
 <%@ page import="javax.servlet.http.*" %>
@@ -35,13 +36,14 @@
 		<%
 
 		
+		String c_id = "654";
 
 		if (!key.equals("empty")) {
 			try {
 				users = (List<MeetupUser>) query.execute(key);
 				if (users.iterator().hasNext()) {
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-					API_URL = "http://api.meetup.com/ew/events.json/?urlname=muntest&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
+					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&container_id="+c_id+"&page=20&fields=rsvp_count";
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					APIresponse = APIrequest.send();
@@ -54,7 +56,7 @@
 		}
 		else {
 
-			API_URL = "http://api.meetup.com/ew/events?status=upcoming%2Cpast&radius=20.0&order=time&urlname=muntest&format=json&lat=34.0999984741&page=200&zip=90210&offset=0&lon=-118.410003662&sig_id=12219924&sig=672837c2e23e6c5fefa86c29e0f6ad51";
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&offset=0&format=json&page=20&fields=rsvp_count&container_id=654&sig_id=12219924&sig=d69e5f28dcdac2af44220c77b3545988";
 			APIrequest = new Request(Request.Verb.GET, API_URL);
 			APIresponse = APIrequest.send();
 			%>var data = <%=APIresponse.getBody().toString()%><%
@@ -70,6 +72,14 @@
 
 
 
+
+
+
+
+
+
+
+
 	
 <%@ include file="jsp/header.jsp" %>
 
@@ -80,37 +90,51 @@
 				<div id="mn_box">
 					<div class="d_box">
 						<div class="d_boxBody">
-							<div class="d_boxHead">
-								<img src="images/mn_banner2.png" alt="Meetup Now">
-								<div id="TICKER" style="overflow:hidden; width:936px" onmouseover="TICKER_PAUSED=true" onmouseout="TICKER_PAUSED=false">
-								  	<span style="font-family:Arial; font-size:12px; color:#444444" id="TICKER_BODY" width="100%">
-											<span style="background-color:#7FB51A;"> &nbsp; &nbsp; <font color="#FFFFFF"> <b>Scrolling News Ticker</b></font>&nbsp; &nbsp; </span> &nbsp; <b>You can add this ticker in your own web pages.</b>&nbsp; 
-											<span style="background-color:#FFAA00;"> &nbsp; &nbsp; <font color="#FFFFFF"> <b>Free</b></font>&nbsp; &nbsp; </span> &nbsp; <b>You can add it for free, in exchange of a link to this page.</b>&nbsp; 
-											<span style="background-color:#0088FF;"> &nbsp; &nbsp; <b><a href="http://www.mioplanet.com/rsc/develop_ticker.htm"><font color="#FFFFFF"> Desktop News Ticker</font></a></b>&nbsp; &nbsp; </span>&nbsp;
-											<b>And why not to offer to your visitors your own <a href="http://www.mioplanet.com/rsc/develop_ticker.htm"><u>Desktop News Ticker</u></a>? This is the perfect tool to attract and keep visitors... <a href="http://www.mioplanet.com/solutions/desktopticker/index.htm"><u>More info</u></a></b>&nbsp; 
-										</span>
-								</div>
-								<script type="text/javascript" src="js/webticker_lib.js" language="javascript"></script>
-							</div>
+							
 							<div class="d_boxSection">
 								<div id="d_boxContent">
 									
-									<div id="d_boxContentRight">
-										<div id="mn_description">
-											<span class="subtitle"></span>
-											<span class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</span>
-											<span class="title">Lorem ipsum!</span>
-											<span class="button_start">Get Started!</span>
-										</div><!-- mn_description -->
-										<div id="mn_eventDescription">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-										</div><!-- mn_eventDescription -->
-
-									</div><!-- d_boxContentRight -->
+									
 									
 									<div id="d_boxContentLeft">
 										<div class="map_context">
-											<span class="map_title title">Happening NOW near you...</span>
+											<span class="map_title title">Events for <script> data.results[0].container.name </script></span>
+										
+
+
+
+
+<%
+		Query userQuery = pm.newQuery(UserInfo.class);
+		userQuery.setFilter("user_id == idParam");
+		userQuery.declareParameters("String idParam");
+		try {
+			List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(users.get(0).getID());
+			if (profiles.size() > 0) {
+				String[] groups = profiles.get(0).getGroupArray();
+				if (profiles.get(0).isMember(c_id)) {
+%>
+<a href="/UserPrefs.jsp">You recieve notifications from this group!</a>
+<%
+				}
+				else {
+%>
+<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>">Recieve notifications from this group</a>
+<%
+				}
+			}
+		} finally {
+			userQuery.closeAll();
+		}
+
+%>
+
+
+
+
+
+
+											&nbsp &nbsp <a href="/CreateEvent.jsp?<%=c_id%>">Create A New Event</a>
 											<div id="map_canvasContainer">
 												<div id="map_canvas">
 										

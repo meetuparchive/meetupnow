@@ -24,7 +24,7 @@
 		</div><!-- mew_logo -->
 		<div id="mew_userNav">
 <%
-
+		
 		if (key.equals("empty")) {
 %>
 <a href="/oauth">Log In</a>
@@ -34,7 +34,7 @@
 
 		
 			try {
-				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+				users = (List<MeetupUser>) query.execute(key);
 					
 %>
 <p><%=users.get(0).getName()%>

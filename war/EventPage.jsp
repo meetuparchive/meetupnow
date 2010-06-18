@@ -31,7 +31,7 @@
 
 		if (!key.equals("empty")) {
 			try {
-				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+				users = (List<MeetupUser>) query.execute(key);
 %>
 <div id="mn_page">
 	<div id="mn_pageBody">
