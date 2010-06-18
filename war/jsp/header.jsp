@@ -35,8 +35,8 @@
 <div id="mew_header">
 	<div id="mew_headerBody">
 		<div id="mew_logo">
-			<a href="http://www.meetup.com/everywhere">
-				<img src="../images/meetup_ew.png" alt="Meetup" style="width: auto !important; height: auto !important">
+			<a href="/">
+				<img src="../images/mnlogo_sm.png" alt="Meetup" style="width: auto !important; height: auto !important">
 			</a>
 		</div><!-- mew_logo -->
 		<div id="mew_userNav">
