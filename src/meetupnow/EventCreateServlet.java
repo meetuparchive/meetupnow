@@ -121,10 +121,10 @@ public class EventCreateServlet extends HttpServlet {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
 				APIrequest.addBodyParameter("venue_name",venue);
-				APIrequest.addBodyParameter("city",City);
-				APIrequest.addBodyParameter("state",State);
-				APIrequest.addBodyParameter("country", Country);
-				//APIrequest.addBodyParameter("zip", zip);
+				//APIrequest.addBodyParameter("city",City);
+				//APIrequest.addBodyParameter("state",State);
+				//APIrequest.addBodyParameter("country", Country);
+				APIrequest.addBodyParameter("zip", zip);
 				APIrequest.addBodyParameter("time",millitime);
 				APIrequest.addBodyParameter("container_id",c_id);
 				APIrequest.addBodyParameter("description",desc);

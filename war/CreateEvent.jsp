@@ -16,6 +16,10 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+</head>
+<body id="meetupNowBody">
+<%@ include file="jsp/cookie.jsp" %>
+<%@ include file="jsp/header.jsp" %>
 <%
 
 		String c_id = "";		
@@ -23,14 +27,7 @@
 			c_id = request.getQueryString();
 		}
 %>
-		<%@ include file="jsp/cookie.jsp" %>
-
-</head>
-<body id="meetupNowBody">
-	
-<%@ include file="jsp/header.jsp" %>
-
-
+		
 <div id="mn_page">
 	<div id="mn_pageBody">
 		<div id="mn_context">
