@@ -7,6 +7,8 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import java.util.StringTokenizer;
+
 @PersistenceCapable
 public class UserInfo {
 	@PrimaryKey
@@ -14,38 +16,81 @@ public class UserInfo {
 	private Key key;
 
 	@Persistent
-	private String mu_id;
+	private String user_id;
 
 	@Persistent
-	private String prefs;	//Preferences in string form
+	private String groups;	//Preferences in string form
+
+	@Persistent
+	private int loginCount;
+
+	@Persistent
+	private String email;
 
 	public UserInfo() {
-		mu_id = "";
-		prefs = "";
+		user_id = "";
+		groups = "";
+		loginCount = 0;
+		email = "";
 	}
 
 	public Key getKey() {
 		return key;
 	}
 
-	public String getID() {
-		return mu_id;
+	public void setEmail(String e) {
+		email = e;
 	}
 
-	public String getPrefs() {
-		return prefs;
+	public String getEmail() {
+		return email;
+	}
+
+	public int getLoginCount() {
+		return loginCount;
+	}
+
+	public void incrementLoginCount() {
+		loginCount++;
+	} 
+
+	public String getID() {
+		return user_id;
+	}
+
+	public String getGroups() {
+		return groups;
 	}
 
 	public void setID(String id) {
-		mu_id = id;
+		user_id = id;
 	}
 
-	public void setPrefs(String p) {
-		prefs = p;
+	public void setGroups(String g) {
+		groups = g;
 	}
 
-	public void addPref(String p) {
-		String temp = prefs.concat(p+",");
-		prefs = temp;
+	//Add group if not already a member
+	public void addGroup(String g) {
+		StringTokenizer st = new StringTokenizer(groups,",");
+		while (st.hasMoreTokens()) {
+			if (st.nextToken().equals(g)) {
+				return;
+			}
+		}
+		String temp = groups.concat(g+",");
+		groups = temp;
+	}
+	public boolean isMember(String c_id) {
+		if (c_id != null) {
+			StringTokenizer st = new StringTokenizer(groups,",");
+			while (st.hasMoreTokens()) {
+				if (st.nextToken().equals(c_id)) {
+					return true;
+				}
+			}
+			return false;
+		}
+		else return false;
 	}
 }

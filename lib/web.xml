@@ -53,6 +53,14 @@
         <url-pattern>/EventCreate</url-pattern>
     </servlet-mapping>
     <servlet>
+	<servlet-name>SetPrefs</servlet-name>
+        <servlet-class>meetupnow.SetPrefsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>SetPrefs</servlet-name>
+        <url-pattern>/setprefs</url-pattern>
+    </servlet-mapping>
+    <servlet>
 	<servlet-name>Event</servlet-name>
 	<jsp-file>/EventPage.jsp</jsp-file>
     </servlet>
