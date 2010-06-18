@@ -38,6 +38,7 @@
 					
 %>
 <p><%=users.get(0).getName()%>
+<a href ="/UserPrefs.jsp">Preferences</a>
 <a href ="/logout?callback=">LOGOUT</a></p>
 <%
 			} finally {

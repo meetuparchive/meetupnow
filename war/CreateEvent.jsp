@@ -16,6 +16,10 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+</head>
+<body id="meetupNowBody">
+<%@ include file="jsp/cookie.jsp" %>
+<%@ include file="jsp/header.jsp" %>
 <%
 
 		String c_id = "";		
@@ -23,14 +27,7 @@
 			c_id = request.getQueryString();
 		}
 %>
-		<%@ include file="jsp/cookie.jsp" %>
-
-</head>
-<body id="meetupNowBody">
-	
-<%@ include file="jsp/header.jsp" %>
-
-
+		
 <div id="mn_page">
 	<div id="mn_pageBody">
 		<div id="mn_context">
@@ -49,18 +46,20 @@
 							<b>Let's Meetup Now!<br> Create an Event </b><br><br>
 
 										</div><!-- mn_geoListHeader -->
-		<form name="f" action="/EventCreate" method="get">	
-			<input type="text" name="zip" size="6"></input> Enter A Zip Code <br>
-			<input type="int" name="month" size="2" value="mm"></input>-
-			<input type="int" name="day" size="2" value="dd"></input>-
-			<input type="int" name="year" size="4" value="yyyy"></input> Enter A Date <br>
-			<input type="int" name="hour" size="2" value="H"></input>:
-			<input type="int" name="minute" size="2" value="M"></input> Enter a Time <br>
-			<input type="text" name="venue"></input> Where should we meet? <br>
-			<input type="text" name="desc"></input> What's this meetup all about? <br>
-			<input type="hidden" name="callback" value="Group?<%=c_id%>"></input>
-			<input type="hidden" name="c_id" value="<%=c_id%>"></input>
-			<input type="submit" value="Create"></input>
+		<form name="f" action="/EventCreate" method="get">
+			<input type="test" name="name" /> Give a Name to This Event <br>	
+			<input type="text" name="venue" /> At what venue will we meet? <br>
+			<input type="text" name="zip" size="6" /> Enter A Zip Code <br>
+			<input type="int" name="month" size="2" value="mm" />-
+			<input type="int" name="day" size="2" value="dd" />-
+			<input type="int" name="year" size="4" value="yyyy" /> Enter A Date <br>
+			<input type="int" name="hour" size="2" value="H" />:
+			<input type="int" name="minute" size="2" value="M" /> Enter a Time <br>
+			<br>What's this meetup all about? <br>
+			<textarea name="desc" cols="40" rows="6"></textarea> <br>
+			<input type="hidden" name="callback" value="Group?<%=c_id%>" />
+			<input type="hidden" name="c_id" value="<%=c_id%>" />
+			<input type="submit" value="Create" />
 		</form>
 
 
