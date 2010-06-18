@@ -84,7 +84,20 @@
 							</div>
 							<div class="d_boxSection">
 								<div id="d_boxContent">
-									<div id="mn_geoListContext">
+									<div id="d_boxContentRight">
+										<div id="mn_groupLogo">
+											<img src="images/generic_group.png" alt="Generic Group">
+										</div><!-- mn_groupLogo -->
+										<div id="mn_description">
+											<span class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</span>
+										</div><!-- mn_description -->
+										<div id="mn_eventDescription">
+												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+										</div><!-- mn_eventDescription -->
+
+									</div><!-- d_boxContentRight -->
+									<div id="d_boxContentLeft">
+										<div id="mn_geoListContext">
 <%
 if (users.iterator().hasNext()) {
 	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
@@ -133,41 +146,44 @@ if (users.iterator().hasNext()) {
 		for (int j = 0; j < results.length(); j++) {
 			JSONObject item = results.getJSONObject(j);
 %>
-<span class="mn_geoListItem"><p><b></b> <%= (item.getString("city")+", "+item.getString("country").toUpperCase()) %> 
+<span class="mn_geoListItem">
+<span class="mn_geoListItem_title">Replace this Static Title</span>
+<span class="mn_geoListItem_where"><%= (item.getString("city")+", "+item.getString("country").toUpperCase()) %></span>
 <%
 			try {
 %>
-&nbsp - &nbsp <%=item.getString("venue_name")%>	
+<span class="mn_geoListItem_venue"><%= item.getString("venue_name") %></span>
 <%
 			} catch (Exception e) {}
 %>		
-</p>
-<p> &nbsp <%= (item.getString("rsvp_count")+" people are in.") %> 
+
+<span class="mn_geoListItem_rsvpCount"><%= (item.getString("rsvp_count")+" people are in.") %></span>
 <%
 			if (users.get(0).isAttending(item.getString("id"))) {
 %>
-&nbsp &nbsp You're In!
+<span class="mn_geoListItem_rsvpButton">You're In!</span>
 <%
 			}
 			else {
 %>
-&nbsp &nbsp <a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI()+"?"+request.getQueryString() %>">I'm In</a> </p>
+<span class="mn_geoListItem_rsvpButton"><a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI()+"?"+request.getQueryString() %>">I'm In</a></span>
 <%						
 			}
 %>
-</span><br>
+</span>
 <%
 		}
 	} catch (JSONException j) {
-			
+		
 	}
 }
 %>
 
-										<div id="mn_geoListFooter">
+											<div id="mn_geoListFooter">
 										
-										</div><!-- mn_geoListFooter -->
-									</div><!-- mn_geoListContext -->
+											</div><!-- mn_geoListFooter -->
+										</div><!-- mn_geoListContext -->
+									</div><!-- d_boxContentLeft -->
 								</div><!-- d_boxContent -->
 							</div><!-- d_boxSection -->
 						</div><!-- d_boxBody -->
