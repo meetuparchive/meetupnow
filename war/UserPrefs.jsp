@@ -8,7 +8,6 @@
 <%@ page import="meetupnow.PMF" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
-<%@ page import="org.json.*" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -29,15 +28,8 @@
 		</div><!-- mew_logo -->
 		<div id="mew_userNav">
 <%
-
-		String c_id = "";
-		
-		if (request.getQueryString() != null) {
-			c_id = request.getQueryString();
-		}
-
 		String key = "empty";
-    		javax.servlet.http.Cookie[] cookies = request.getCookies();
+    		Cookie[] cookies = request.getCookies();
     		if (cookies != null) {
       			for (int i = 0; i < cookies.length; i++) {
         			if (cookies[i].getName().equals("meetup_access")) {
@@ -46,9 +38,8 @@
       			}
     		}
 		if (key.equals("empty")) {
-%>
-<a href="/oauth">Log In</a>
-<%
+
+			response.sendRedirect("/");
 		} else {
 			//FIND USER			
 
@@ -65,9 +56,8 @@
 					
 %>
 <p><%=users.get(0).getName()%>
-<a href ="/logout?callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>">LOGOUT</a></p>
+<a href ="/logout?callback=">LOGOUT</a></p>
 
-</div>
 	</div><!-- mew_headerBody -->
 </div><!-- mew_header -->
 
@@ -84,62 +74,30 @@
 							<div class="d_boxSection">
 								<div id="d_boxContent">
 									<div id="mn_geoListContext">
-<%
-if (users.iterator().hasNext()) {
-	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-	Request APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?status=upcoming&container_id="+c_id+"&page=20&fields=rsvp_count");
-	scribe.signRequest(APIrequest,accessToken);
-	Response APIresponse = APIrequest.send();
-	JSONObject json = new JSONObject();
-	JSONArray results;
-	try {
-		json = new JSONObject(APIresponse.getBody());
-		results = json.getJSONArray("results");
-%>
 										<div id="mn_geoListHeader">
-											<span><b>Upcoming Events</b></span>
-<br><%= results.getJSONObject(0).getJSONObject("container").getString("name") %> <br>
-<a href="/setprefs?callback=<%= request.getRequestURI()+"?"+request.getQueryString()+"&group="+c_id %>">Recieve notifications from this group</a>
-&nbsp &nbsp <a href="/CreateEvent.jsp?<%=c_id%>">Create A New Event</a>
-											<br><br>
-										</div><!-- mn_geoListHeader -->
-<%
-		for (int j = 0; j < results.length(); j++) {
-			JSONObject item = results.getJSONObject(j);
-%>
-<span class="mn_geoListItem"><p><b></b> <%= (item.getString("city")+", "+item.getString("country").toUpperCase()) %> 
-<%
-			try {
-%>
-&nbsp - &nbsp <%=item.getString("venue_name")%>	
-<%
-			} catch (Exception e) {}
-%>		
-</p>
-<p> &nbsp <%= (item.getString("rsvp_count")+" people are in.") %> 
-<%
-			if (users.get(0).isAttending(item.getString("id"))) {
-%>
-&nbsp &nbsp You're In!
-<%
-			}
-			else {
-%>
-&nbsp &nbsp <a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI()+"?"+request.getQueryString() %>">I'm In</a> </p>
-<%						
-			}
-%>
-</span><br>
-<%
-		}
-	} catch (JSONException j) {
-			
-	}
-}
-%>
 
+										</div><!-- mn_geoListHeader -->
+User Preferences - <%=users.get(0).getName()%>
+<br><br>
+Recieving Notifications from the following groups:
+<br><br>
+Email Address on file:<br><br>
+Change your email address?<br>
+<form name="email" action="/setprefs">
+<input type="text" name="email"></input> Email Address<br>
+<br>
+What times would you like to recieve notifications? <br>
+<input type="checkbox" name="time" value="morning" /> Morning
+<input type="checkbox" name="time" value="afternoon" /> Afternoon
+<input type="checkbox" name="time" value="night" /> Night
+<br>
+<br>
+<input type="hidden" name="id" value="<%= users.get(0).getID()%>" />
+<input type="hidden" name="callback" value="/" />
+<input type="submit" value="Change Preferences"></input>
+</form>
 										<div id="mn_geoListFooter">
-										
+
 										</div><!-- mn_geoListFooter -->
 									</div><!-- mn_geoListContext -->
 								</div><!-- d_boxContent -->
@@ -151,12 +109,13 @@ if (users.iterator().hasNext()) {
 		</div><!-- mn_context -->
 	</div><!-- mn_pageBody -->
 </div><!-- mn_page -->
-<a href="/">Home</a><br>
+
 <%
 			} finally {
 				query.closeAll();
 			}
 		}
 %>
+</div>
 </body>
 </html>

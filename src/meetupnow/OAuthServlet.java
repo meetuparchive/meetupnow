@@ -83,6 +83,7 @@ public class OAuthServlet extends HttpServlet {
 						users.get(0).setLat(user.getString("lat"));
 						users.get(0).setLon(user.getString("lon"));
 						
+				
 					} catch (JSONException j) {
 						//User does not exist?
 					}
@@ -114,9 +115,10 @@ public class OAuthServlet extends HttpServlet {
 			}
 			finally {
 				query.closeAll();
+				
 				resp.sendRedirect(callback);
 			}
-			
+			pm.close();
 			
 
 		} else {	//IF NOT LOGGED IN - create new user session in database
