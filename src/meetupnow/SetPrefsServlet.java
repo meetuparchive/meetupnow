@@ -10,6 +10,7 @@ import javax.jdo.Transaction;
 import javax.jdo.Query;
 import org.scribe.oauth.*;
 import org.scribe.http.*;
+import org.json.*;
 import java.util.Properties;
 
 //TO DO: Delete user objects from databank
@@ -59,6 +60,9 @@ public class SetPrefsServlet extends HttpServlet {
 						profs.get(0).removeGroup(group);
 					} else if (action.equals("add")){
 						profs.get(0).addGroup(group);
+						setAlerts(group, pm, key);
+					} else if (action.equals("update")) {
+						setAlerts(group, pm, key);
 					}
 				}
 				if (distance != null) {
@@ -87,6 +91,37 @@ public class SetPrefsServlet extends HttpServlet {
 			query.closeAll();
 			pm.close();
 			resp.sendRedirect(callback);
+		}
+
+	}
+
+	//Sets the current user's default MU alerts for the container to false.
+	public void setAlerts(String id, PersistenceManager pm, String key) {
+		Properties prop = new Properties();
+		prop.setProperty("consumer.key","12345");
+		prop.setProperty("consumer.secret","67890");
+		Scribe scribe = new Scribe(prop);
+
+		Query query = pm.newQuery(MeetupUser.class);
+		query.setFilter("accToken == accTokenParam");
+		query.declareParameters("String accTokenParam");
+
+		try {
+			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+			if (users.iterator().hasNext()) {
+				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+				String API_URL = "http://api.meetup.com/ew/container/"+id+"/alerts";
+				Request APIrequest = new Request(Request.Verb.POST, API_URL);
+				APIrequest.addBodyParameter("comments","false");
+				APIrequest.addBodyParameter("rsvps","false");
+				APIrequest.addBodyParameter("updates","false");
+
+				scribe.signRequest(APIrequest,accessToken);
+				Response APIresponse = APIrequest.send();
+			}
+		}
+		finally {
+			query.closeAll();
 		}
 
 	}

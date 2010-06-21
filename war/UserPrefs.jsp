@@ -62,7 +62,7 @@
 										</div><!-- mn_geoListHeader -->
 User Preferences - <%=users.get(0).getName()%>
 <br><br>
-Recieving Notifications from the following groups:
+Recieving Notifications from the following topics:
 <br>
 <%
 	String[] groups = profiles.get(0).getGroupArray();
