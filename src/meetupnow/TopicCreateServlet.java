@@ -11,6 +11,7 @@ import javax.servlet.http.*;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Transaction;
 import javax.jdo.Query;
+import java.lang.*;
 
 import org.scribe.oauth.*;
 import org.scribe.http.*;
@@ -25,10 +26,14 @@ import meetupnow.Topic;
 
 public class TopicCreateServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+		
+		boolean IsNewTopic = false;
+
 		String name = "";
 		String callback = "";
 		String desc = "";
 		
+		//get parameters
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
 			desc = req.getParameter("desc");
@@ -41,6 +46,7 @@ public class TopicCreateServlet extends HttpServlet {
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
 
+		//check if user logged in
     		if (cookies != null) {
       			for (int i = 0; i < cookies.length; i++) {
         			if (cookies[i].getName().equals("meetup_access")) {
@@ -57,24 +63,32 @@ public class TopicCreateServlet extends HttpServlet {
 		prop.setProperty("consumer.secret","67890");
 		Scribe scribe = new Scribe(prop);
 		PersistenceManager pm = PMF.get().getPersistenceManager();
+
+		//query user
 		Query query = pm.newQuery(MeetupUser.class);
 		query.setFilter("accToken == accTokenParam");
 		query.declareParameters("String accTokenParam");
 		
-		Query TopicQuery = pm.newQuery( Topic.class);
+		//query topic
+		Query TopicQuery = pm.newQuery(Topic.class);
 		TopicQuery.setFilter("name == nameParam");
 		TopicQuery.declareParameters("String nameParam");
 	
 		String rsvpID = "";
 
 		try {
-			System.out.println(key);
-			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
-			List<Topic> Topics = (List<Topic>) query.execute(name);
-			if (Topics.isEmpty()){
 
+			//get user and topic
+			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+			List<Topic> Topics = (List<Topic>) TopicQuery.execute(name);
+
+			//check if topic in database
+			if (Topics.isEmpty()){
+				
+				//check if user in database
 				if (users.iterator().hasNext()) {
 
+					//make api call to create new container
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 					Request APIrequest = new Request(Request.Verb.POST, API_URL);
 					APIrequest.addBodyParameter("description",desc);
@@ -85,29 +99,59 @@ public class TopicCreateServlet extends HttpServlet {
 					Response APIresponse = APIrequest.send();
 				
 					JSONObject json = new JSONObject(APIresponse.getBody());
-					rsvpID = json.getString("id");
-					Topic NewTopic = new Topic();
-					System.out.println(json.toString());
+
+					//try to get response from api call
+					try {	
+
+						//if container name not taken on meetupdatabase add it to our database				
+						rsvpID = json.getString("id");
+
+						System.out.println(users.get(0).getID() + " " + name + " " + Integer.parseInt(rsvpID));
+						Topic NewTopic = new Topic(users.get(0).getID(), name, Integer.parseInt(rsvpID));
+						try {
+							pm.makePersistent(NewTopic);
+						} finally {
+							IsNewTopic = true;
+							pm.close();
+						}
+		
+					
+					} catch (JSONException j){
+
+						//topic name taken
+						rsvpID = "";
+					}
+
 				}
 				else {
-					System.out.println(users.isEmpty());
+
+					//user name not in database
+
 				}
 			} else {
-				System.out.println(Topics);
-				rsvpID = "";
+
+				//topic already in our database
+				rsvpID = Integer.toString(Topics.get(0).getId());
 
 			}
 		} catch (JSONException j){
-			System.out.println(j);
+
 		}
 		finally {
+
+			//finally check if new topic was made
 			query.closeAll();
-			System.out.println("finally");
+
 			if (rsvpID.equals("")) {
-				//resp.sendRedirect(callback);
+				resp.sendRedirect("/errors/NewTopicError.jsp");
 			}	
 			else {
-				//resp.sendRedirect("/EventRegister?id="+rsvpID+"&callback="+callback);
+				if (IsNewTopic){
+					resp.getWriter().println("new topic!!!");
+					//resp.sendRedirect("/EventRegister?id="+rsvpID+"&callback="+callback);
+				} else{
+					resp.sendRedirect("/errors/NewTopicError.jsp");
+				}
 			}
 		}
 

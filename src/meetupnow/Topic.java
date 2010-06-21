@@ -16,7 +16,7 @@ public class Topic {
     private Key key;
 
     @Persistent
-    private User author;
+    private String author;
 
     @Persistent
     private String name;
@@ -30,7 +30,7 @@ public class Topic {
 	this.id = 0;
     }  
 
-    public Topic(User author, String name, int id) {
+    public Topic(String author, String name, int id) {
         this.author = author;
         this.name = name;
         this.id = id;
@@ -40,7 +40,7 @@ public class Topic {
         return key;
     }
 
-    public User getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
@@ -52,7 +52,7 @@ public class Topic {
         return id;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(String author) {
         this.author = author;
     }
 
