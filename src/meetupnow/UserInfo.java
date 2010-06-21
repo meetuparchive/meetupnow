@@ -27,15 +27,27 @@ public class UserInfo {
 	@Persistent
 	private String email;
 
+	@Persistent
+	private String distance;
+
 	public UserInfo() {
 		user_id = "";
 		groups = "";
 		loginCount = 0;
 		email = "";
+		distance = "";
 	}
 
 	public Key getKey() {
 		return key;
+	}
+
+	public void setDistance(String d) {
+		distance = d;
+	}
+
+	public String getDistance() {
+		return distance;
 	}
 
 	public void setEmail(String e) {

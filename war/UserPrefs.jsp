@@ -77,6 +77,12 @@ Recieving Notifications from the following groups:
 		APIresponse = APIrequest.send();
 		JSONObject json = new JSONObject();
 		JSONArray results;
+
+		//Request APItest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/container/654/alert");
+		//scribe.signRequest(APItest,accessToken);
+		//Response APIres = APItest.send();
+		//System.out.println(APIres.getBody());
+		
 		try {
 			json = new JSONObject(APIresponse.getBody());
 			results = json.getJSONArray("results");
@@ -94,13 +100,13 @@ Recieving Notifications from the following groups:
 
 %>
 <br>
-Email Address on file:
-<br>
-<%= profiles.get(0).getEmail() %>
-<br><br>
 Change your email address?<br>
 <form name="email" action="/setprefs">
-<input type="text" name="email"></input> Email Address<br>
+<input type="text" name="email" value="<%= profiles.get(0).getEmail() %>"></input> Email Address<br>
+<br>
+How far would you travel for a meetup?<br>
+<input type="text" name="distance" value="<%= profiles.get(0).getDistance() %>" size="4"/> miles
+<br>
 <br>
 What times would you like to recieve notifications? <br>
 <input type="checkbox" name="time" value="morning" /> Morning
