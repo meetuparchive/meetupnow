@@ -86,6 +86,9 @@ Location: <%=item.getString("city") %>,
 <img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=300x200&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
 <br><br>
 Description: <%=item.getString("description") %>
+<br>
+<br>
+Comments: <br>
 <%
 
 		}
@@ -96,7 +99,29 @@ Description: <%=item.getString("description") %>
 	} catch (Exception j) {
 			
 	}
+	Request CommentRequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/comments/?event_id="+ev_id);
+	scribe.signRequest(CommentRequest,accessToken);
+	Response CommentResponse = CommentRequest.send();
+	JSONObject j2 = new JSONObject();
+	JSONArray cResults;
+	try {
+		j2 = new JSONObject(CommentResponse.getBody());
+		cResults = j2.getJSONArray("results");
+		for (int i = 0; i < cResults.length(); i++) {
+			JSONObject comment = cResults.getJSONObject(i);
+			System.out.println(comment.toString());
+%>
+<%=i+1%>: &nbsp <%=comment.getString("comment")%> <br>
 
+
+<%		
+
+		}
+
+	} catch (Exception j) {
+
+	}
+	
 }
 %>
 
