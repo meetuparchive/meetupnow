@@ -21,6 +21,14 @@
         <url-pattern>/oauth</url-pattern>
     </servlet-mapping>
     <servlet>
+	<servlet-name>Comment</servlet-name>
+        <servlet-class>meetupnow.CommentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Comment</servlet-name>
+        <url-pattern>/comment</url-pattern>
+    </servlet-mapping>
+    <servlet>
 	<servlet-name>Logout</servlet-name>
         <servlet-class>meetupnow.LogoutServlet</servlet-class>
     </servlet>

@@ -94,7 +94,14 @@ Location: <%=item.getString("city") %>,
 Description: <%=item.getString("description") %>
 <br>
 <br>
-What people are saying: <br>
+Add a comment
+<form action="/comment" method="get">
+<textarea name="comment" cols="40" rows="3"></textarea>
+<input type="hidden" name="id" value="<%=ev_id%>" />
+<input type="hidden" name="callback" value="Event?<%=ev_id%>" />
+<input type="submit" value="Submit" />
+</form>
+What people are saying: <br><br>
 <%
 
 		}
@@ -117,7 +124,7 @@ What people are saying: <br>
 			JSONObject comment = cResults.getJSONObject(i);
 			cal.setTimeInMillis(Long.parseLong(comment.getString("time")));
 %>
-<%=comment.getJSONObject("member").getString("name") %> @ <%=df.format(cal.getTime()) %> <br> &nbsp &nbsp - &nbsp <%=comment.getString("comment")%> <br>
+<i><%=comment.getJSONObject("member").getString("name") %> @ <%=df.format(cal.getTime()) %></i> <br> &nbsp &nbsp - &nbsp <%=comment.getString("comment")%> <br>
 
 
 <%		
