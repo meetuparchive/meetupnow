@@ -84,6 +84,14 @@
 	<servlet-name>Container</servlet-name>
 	<url-pattern>/Group</url-pattern>
     </servlet-mapping>
+    <servlet>
+	<servlet-name>TopicCreate</servlet-name>
+        <servlet-class>meetupnow.TopicCreateServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>TopicCreate</servlet-name>
+        <url-pattern>/TopicCreate</url-pattern>
+    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
