@@ -29,6 +29,14 @@
         <url-pattern>/comment</url-pattern>
     </servlet-mapping>
     <servlet>
+	<servlet-name>Test</servlet-name>
+        <servlet-class>meetupnow.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Test</servlet-name>
+        <url-pattern>/test</url-pattern>
+    </servlet-mapping>
+    <servlet>
 	<servlet-name>Logout</servlet-name>
         <servlet-class>meetupnow.LogoutServlet</servlet-class>
     </servlet>
