@@ -52,7 +52,13 @@
 
 	//add event to list under map
 	function add_event(event){
-		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + event.date + ' </span><span class="mn_geoListItem_where"> ' + event.ev.city + ' </span><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' <br> ' + event.ev.rsvp_count + ' people are in </span></span></a>');
+		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="mn_geoListItem_date"> ' + event.date + ' </span><span class="mn_geoListItem_where"> ' + event.ev.city + ' </span><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' <br> ' + event.ev.rsvp_count + ' people are in </span>');
+		if (event.ev.attending == "yes"){
+			events.append('<span class="mn_geoListItem_rsvpButton">You\'re In!</span>');
+		} else {
+			events.append('<span class="mn_geoListItem_rsvpButton"><a href="/EventRegister?id=' + event.ev.id + '&callback=ContainerPage2.jsp?' + event.ev.container.id + '">I\'m In</a></span>');
+		}
+		events.append('</span></a>');
 	}
 
 	//go to next page if it exists

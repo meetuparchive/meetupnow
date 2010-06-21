@@ -70,7 +70,7 @@
     </servlet-mapping>
     <servlet>
 	<servlet-name>Container</servlet-name>
-	<jsp-file>/ContainerPage.jsp</jsp-file>
+	<jsp-file>/ContainerPage2.jsp</jsp-file>
     </servlet>
     <servlet-mapping>
 	<servlet-name>Container</servlet-name>

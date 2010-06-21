@@ -35,8 +35,13 @@
 
 		<%
 
+		String c_id = "";
 		
-		String c_id = "654";
+		if (request.getQueryString() != null) {
+			c_id = request.getQueryString();
+		} else {
+			c_id = "654";
+		}
 
 		if (!key.equals("empty")) {
 			try {
@@ -47,7 +52,23 @@
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					APIresponse = APIrequest.send();
-					%>var data = <%=APIresponse.getBody().toString()%><%
+					JSONObject json = new JSONObject();
+					JSONArray results;
+					try {
+						json = new JSONObject(APIresponse.getBody());
+						results = json.getJSONArray("results");
+						for (int i = 0; i < results.length(); i++) {
+							if (users.get(0).isAttending(results.getJSONObject(i).getString("id"))) {
+								results.getJSONObject(i).put("attending", "yes");
+							} else {
+								results.getJSONObject(i).put("attending", "no");
+							}				
+						}
+					}
+					catch (JSONException j){
+
+					}
+					%>var data = <%=json.toString()%><%
 				}
 			}
 			finally {
