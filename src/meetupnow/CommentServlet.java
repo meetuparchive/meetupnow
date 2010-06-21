@@ -15,6 +15,7 @@ import org.scribe.http.*;
 import org.apache.commons.codec.*;
 
 import meetupnow.MeetupUser;
+import meetupnow.NewsItem;
 import meetupnow.PMF;
 
 
@@ -65,11 +66,25 @@ public class CommentServlet extends HttpServlet {
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
 				
+				//Create notification
+				NewsItem notify = new NewsItem();
+				notify.setType("comment");
+				notify.setName(users.get(0).getName());
+				notify.setMessage(content);
+				notify.setLink("/Event?"+ev_id);
+
+				try {
+					pm.makePersistent(notify);
+				} finally {
+					
+				}
+				
 			}
 
 
 		} finally {
 			query.closeAll();
+			pm.close();
 			resp.sendRedirect(callback);
 		}
 
