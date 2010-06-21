@@ -91,7 +91,15 @@ Location: <%=item.getString("city") %>,
 <br>
 <img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=300x200&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
 <br><br>
+<%
+	try {
+%>
 Description: <%=item.getString("description") %>
+<%
+	} catch (Exception e) {
+
+	}
+%>
 <br>
 <br>
 Add a comment

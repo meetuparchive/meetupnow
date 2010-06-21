@@ -25,9 +25,11 @@ public class EventRegisterServlet extends HttpServlet {
 		String ev_id = "";
 		String callback = "";
 		String action = "";
+		String c_id = "";
 		if (req.getQueryString() != null) {
 			ev_id = req.getParameter("id");
 			callback = req.getParameter("callback");
+			c_id = req.getParameter("cid");
 		}
 
 		String API_URL = "http://api.meetup.com/ew/rsvp/?event_id="+ev_id;
@@ -53,6 +55,8 @@ public class EventRegisterServlet extends HttpServlet {
 		query.setFilter("accToken == accTokenParam");
 		query.declareParameters("String accTokenParam");
 
+		String mu_id = "";
+
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
@@ -63,6 +67,7 @@ public class EventRegisterServlet extends HttpServlet {
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
 				users.get(0).addEvent(ev_id);
+				mu_id = users.get(0).getID();
 
 			}
 			tx.commit();
@@ -73,7 +78,7 @@ public class EventRegisterServlet extends HttpServlet {
 		}
 		finally {
 			query.closeAll();
-			resp.sendRedirect(callback);
+			resp.sendRedirect("/setprefs?callback="+callback+"&action=update&group="+c_id+"&id="+mu_id);
 		}
 
 	}

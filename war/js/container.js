@@ -56,7 +56,7 @@
 		if (event.ev.attending == "yes"){
 			events.append('<span class="mn_geoListItem_rsvpButton">You\'re In!</span>');
 		} else {
-			events.append('<span class="mn_geoListItem_rsvpButton"><a href="/EventRegister?id=' + event.ev.id + '&callback=ContainerPage2.jsp?' + event.ev.container.id + '">I\'m In</a></span>');
+			events.append('<span class="mn_geoListItem_rsvpButton"><a href="/EventRegister?cid='+ event.ev.container.id +'&id=' + event.ev.id + '&callback=ContainerPage2.jsp?' + event.ev.container.id + '">I\'m In</a></span>');
 		}
 		events.append('</span></a>');
 	}
