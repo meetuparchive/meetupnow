@@ -22,10 +22,10 @@
 <%@ include file="../jsp/header.jsp" %>
 <%
 
-		String c_id = "";		
-		if (request.getQueryString() != null) {
-			c_id = request.getQueryString();
-		}
+	String c_id = "";		
+	if (request.getQueryString() != null) {
+		c_id = request.getQueryString();
+	}
 %>
 		
 <div id="mn_page">
@@ -48,8 +48,14 @@
 										</div><!-- mn_geoListHeader -->
 										Sorry this topic name has already been taken
 										<br><a href="javascript:history.go(-1)"> Go Back </a>
-										<br><a href="Groups/?654"> Check out Topic Page </a>
 
+<% 
+	if (!c_id.equals("")){
+%>									
+										<br><a href="/Group?<%=c_id%>"> Check out Topic Page </a>
+<%
+	}
+%>
 										<div id="mn_geoListFooter">
 										</div><!-- mn_geoListFooter -->
 									</div><!-- mn_geoListContext -->

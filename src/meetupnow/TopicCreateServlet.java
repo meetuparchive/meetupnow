@@ -147,10 +147,13 @@ public class TopicCreateServlet extends HttpServlet {
 			}	
 			else {
 				if (IsNewTopic){
-					resp.getWriter().println("new topic!!!");
-					//resp.sendRedirect("/EventRegister?id="+rsvpID+"&callback="+callback);
+
+					//send to new group page
+					resp.sendRedirect("/Group?" + rsvpID);
 				} else{
-					resp.sendRedirect("/errors/NewTopicError.jsp");
+
+					//send to error page with id
+					resp.sendRedirect("/errors/NewTopicError.jsp?" + rsvpID);
 				}
 			}
 		}
