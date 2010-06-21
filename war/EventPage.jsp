@@ -10,6 +10,8 @@
 <%@ page import="org.scribe.http.*" %>
 <%@ page import="org.json.*" %>
 <%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.TimeZone" %>
+<%@ page import="java.text.DateFormat" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -57,17 +59,21 @@ if (users.iterator().hasNext()) {
 	APIresponse = APIrequest.send();
 	JSONObject json = new JSONObject();
 	JSONArray results;
+	Calendar cal = Calendar.getInstance();
+	DateFormat df = DateFormat.getInstance();
+	df.setTimeZone(TimeZone.getTimeZone("GMT-4"));
 	try {
 		json = new JSONObject(APIresponse.getBody());
 		results = json.getJSONArray("results");
 		if (results.length() == 1) {
 			JSONObject item = results.getJSONObject(0);
-			Calendar cal = Calendar.getInstance();
 			cal.setTimeInMillis(Long.parseLong(item.getString("time")));
+
+
 %>
 <%=item.getJSONObject("container").getString("name") %> Event #<%=ev_id%>
 <br>
-<%=cal.getTime().toLocaleString() %>
+<%=df.format(cal.getTime()) %>
 <br><br>
 Location: <%=item.getString("city") %>, 
 <%
@@ -88,7 +94,7 @@ Location: <%=item.getString("city") %>,
 Description: <%=item.getString("description") %>
 <br>
 <br>
-Comments: <br>
+What people are saying: <br>
 <%
 
 		}
@@ -109,9 +115,9 @@ Comments: <br>
 		cResults = j2.getJSONArray("results");
 		for (int i = 0; i < cResults.length(); i++) {
 			JSONObject comment = cResults.getJSONObject(i);
-			System.out.println(comment.toString());
+			cal.setTimeInMillis(Long.parseLong(comment.getString("time")));
 %>
-<%=i+1%>: &nbsp <%=comment.getString("comment")%> <br>
+<%=comment.getJSONObject("member").getString("name") %> @ <%=df.format(cal.getTime()) %> <br> &nbsp &nbsp - &nbsp <%=comment.getString("comment")%> <br>
 
 
 <%		
