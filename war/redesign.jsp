@@ -1,3 +1,10 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+
+<%@ page import="meetupnow.NewsItem" %>
+<%@ page import="javax.jdo.PersistenceManager" %>
+<%@ page import="javax.jdo.Query" %>
+<%@ page import="java.util.List" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,6 +25,82 @@
 	    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	  }
 	</script>
+<script type="text/javascript">
+
+
+$(function() {
+
+var out = $('#activity');
+
+var alerts = new Array();
+var counter = 0;
+var frameNum = 3;
+var frames = new Array();
+
+<%
+PersistenceManager pmr = PMF.get().getPersistenceManager();
+List<NewsItem> newsFeed = new ArrayList<NewsItem>();
+Query newsQuery = pmr.newQuery(NewsItem.class);
+newsQuery.declareParameters("long startdate");
+newsQuery.setFilter("timeCreated > startdate");
+newsQuery.setOrdering("timeCreated descending");
+			try {
+				newsFeed = (List<NewsItem>) newsQuery.execute(0);
+				for (int i = 0; i < newsFeed.size(); i++) {
+					NewsItem n = newsFeed.get(i);
+				
+%>
+	
+alerts[<%=i%>] = new item("<%=n.getType()%>","<%=n.getName()%>","<%=n.getMessage()%>","<%=n.getEvConName()%>","<%=n.getContainerName()%>","<%=n.getTimeCreated()%>");
+
+<%
+				}
+			} finally {
+				newsQuery.closeAll();
+			}
+%>
+var i;
+for (i = 0; i < frameNum; i=i+1) {
+	frames[i] = contain(alerts[i]);
+}
+
+var interval = window.setInterval(loop, 0);
+
+function loop() {
+	var i;
+	out.empty();
+	for (i = frameNum - 1; i >= 0 ; i=i-1) {
+		out.append(contain(alerts[(alerts.length - 1 - counter - i)%alerts.length]));
+	}
+	counter = counter + 1;
+	if (counter >= alerts.length) {
+		counter = 0;
+	}
+
+	var randomnumber = Math.floor(Math.random()*15000)
+	if (randomnumber < 5000) {randomnumber = 5000};
+	window.clearInterval(interval);
+	interval = window.setInterval(loop, randomnumber);
+}
+
+});
+
+function contain(alert) {
+	return "<div class=\"activityFeedItem\">"+alert.name+": "+alert.message+"<span></span></div>";
+}
+
+function item(ty,n,m,e,c,ti) {
+	this.type = ty;
+	this.name = n;
+	this.message = m;
+	this.eventName = e;
+	this.container = c;
+	this.time = ti;
+}
+
+</script>
+
+
 
 <script type="text/javascript">
 
@@ -152,15 +235,7 @@
 		<div id="activityFeedContext">
 			<div id="activityFeed">
 				<span class="title">Activity Feed.</span>
-				<div class="activityFeedItem">
-					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-				</div>
-				<div class="activityFeedItem">
-					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-				</div>
-				<div class="activityFeedItem">
-					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
-				</div>
+				<div id = "activity"> </div>
 			</div>
 		</div> <!-- end #activityFeed -->
 	</div> <!-- end #contentLeft -->

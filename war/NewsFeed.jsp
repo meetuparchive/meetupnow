@@ -51,7 +51,7 @@ alerts[<%=i%>] = new item("<%=n.getType()%>","<%=n.getName()%>","<%=n.getMessage
 <%
 				}
 			} finally {
-				query.closeAll();
+				newsQuery.closeAll();
 			}
 %>
 
