@@ -109,7 +109,9 @@
 		</div><!-- mn_geoListContext -->
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
-		
+		<div id="actionContext">
+			
+		</div> <!-- end #actionContext -->
 	</div> <!-- end #contentLeft -->
 </div> <!-- end #wrapperContent -->
 </div> <!-- end #wrapper -->
