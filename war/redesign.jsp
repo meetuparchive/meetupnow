@@ -59,7 +59,7 @@
 
 	</script>
 </head>
-<body onload="initialize()">
+<body onload="loadEvents()">
 
 <%@ include file="jsp/header.jsp" %>
 <div id="wrapper">
