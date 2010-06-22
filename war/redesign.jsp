@@ -28,6 +28,7 @@
 <script type="text/javascript">
 
 
+
 $(function() {
 
 var out = $('#activity');
@@ -51,7 +52,7 @@ newsQuery.setOrdering("timeCreated descending");
 				
 %>
 	
-alerts[<%=i%>] = new item("<%=n.getType()%>","<%=n.getName()%>","<%=n.getMessage()%>","<%=n.getEvConName()%>","<%=n.getContainerName()%>","<%=n.getTimeCreated()%>");
+alerts[<%=i%>] = new item("<%=n.getType()%>","<%=n.getName()%>","<%=n.getMessage()%>","<%=n.getEvConName()%>","<%=n.getContainerName()%>","<%=n.getTimeCreated()%>","<%=n.getLink()%>");
 
 <%
 				}
@@ -69,8 +70,11 @@ var interval = window.setInterval(loop, 0);
 function loop() {
 	var i;
 	out.empty();
+	var index;
 	for (i = frameNum - 1; i >= 0 ; i=i-1) {
-		out.append(contain(alerts[(alerts.length - 1 - counter - i)%alerts.length]));
+		index = alerts.length - 1 - counter - i;
+		if (index < 0) {index = index + alerts.length}
+		out.append(contain(alerts[index]));
 	}
 	counter = counter + 1;
 	if (counter >= alerts.length) {
@@ -86,16 +90,40 @@ function loop() {
 });
 
 function contain(alert) {
-	return "<div class=\"activityFeedItem\">"+alert.name+": "+alert.message+"<span></span></div>";
+	return "<div class=\"activityFeedItem\"><span>"+ formatAlert(alert) +"</span></div>";
 }
 
-function item(ty,n,m,e,c,ti) {
+function formatAlert(alert) {
+		var evName;
+		var contain;
+	if (alert.type == "comment") {
+		if (alert.eventName == "null") { evName = "on an event"; }
+		else {evName = "on event " + alert.eventName;}
+		return "<i>"+alert.name+"</i> commented <a href=\""+alert.link+"\"><b>"+evName+"</b></a>: <b>"+ alert.message+"</b>";
+	}
+	if (alert.type == "event_create") {
+		if (alert.container == "null") {contain = "";}
+		else { contain = "in topic "+alert.container;}
+		return "<i>"+alert.name+"</i> created a new event "+contain+": <a href=\""+alert.link+"\"><b>"+alert.eventName+"</b></a>: "+alert.message;
+	}
+	if (alert.type == "event_rsvp") {
+		if (alert.eventName == "null") {evName = "an event";}
+		else {evName = alert.eventName;}
+		if (alert.container == "null") {contain = "";}
+		else {contain = " in topic "+alert.container;}
+		return "<i>"+alert.name+"</i> is hitting up <a href=\""+alert.link+"\"><b>"+evName+"</b></a>"+contain;
+	}
+}
+
+
+function item(ty,n,m,e,c,ti,l) {
 	this.type = ty;
 	this.name = n;
 	this.message = m;
 	this.eventName = e;
 	this.container = c;
 	this.time = ti;
+	this.link = l;
 }
 
 </script>
