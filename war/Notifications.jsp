@@ -9,7 +9,10 @@
 <%@ page import="meetupnow.NewsItem" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
-
+<%@ page import="java.util.StringTokenizer" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.TimeZone" %>
+<%@ page import="java.text.DateFormat" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
@@ -24,6 +27,11 @@
 	
 <%@ include file="jsp/header.jsp" %>
 <%
+
+Calendar cal = Calendar.getInstance();
+DateFormat df = DateFormat.getInstance();
+df.setTimeZone(TimeZone.getTimeZone("GMT-4"));
+
 List<NewsItem> newsFeed = new ArrayList<NewsItem>();
 Query newsQuery = pm.newQuery(NewsItem.class);
 newsQuery.declareParameters("long startdate");
@@ -51,13 +59,53 @@ NEWS FEED
 										</div><!-- mn_geoListHeader -->
 <%
 	for (int i = 0; i < newsFeed.size(); i++) {
+		cal.setTimeInMillis(newsFeed.get(i).getTimeCreated());
 		if (newsFeed.get(i).getType().equals("comment")) {
 %>
 <span class="mn_geoListItem">
-<span class="mn_geoListItem_title"><%=newsFeed.get(i).getName()%> commented on an event: <br></span>
+<span class="mn_geoListItem_title"><i><%=newsFeed.get(i).getName()%></i> commented on event
 <a href="<%=newsFeed.get(i).getLink()%>">
-<%=newsFeed.get(i).getMessage() %>
-</a></span>
+<b>
+<%
+			if (newsFeed.get(i).getEvConName() == null) {
+				StringTokenizer st = new StringTokenizer(newsFeed.get(i).getLink(),"?");
+				st.nextToken();
+%>
+
+<%=st.nextToken()%>
+
+<%	
+			}
+			else {
+%>
+
+<%=newsFeed.get(i).getEvConName()%>
+
+<%
+			}
+%>
+</b>
+</a>
+:</span><br>
+<b><%=newsFeed.get(i).getMessage() %></b> <i> @ <%=df.format(cal.getTime())%></i>
+
+</span>
+<%
+		}
+		else if (newsFeed.get(i).getType().equals("event_create")) {
+%>
+<span class="mn_geoListItem">
+<span class="mn_geoListItem_title"><i><%=newsFeed.get(i).getName()%></i> created a new event in topic
+<%=newsFeed.get(i).getContainerName()%>:</span><br>
+<a href="<%=newsFeed.get(i).getLink()%>">
+<b>
+<%=newsFeed.get(i).getEvConName()%>
+</b>
+</a>
+: <%=newsFeed.get(i).getMessage() %> <i> @ <%=df.format(cal.getTime())%></i>
+
+</span>
+
 <%
 		}
 		else {
@@ -65,6 +113,7 @@ NEWS FEED
 <%=newsFeed.get(i).getMessage() %> <br>
 <%
 		}
+		
 	}
 %>
 

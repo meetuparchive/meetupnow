@@ -29,7 +29,13 @@ public class NewsItem {
 	private long timeCreated;
 
 	@Persistent
-	private String link;	
+	private String link;
+
+	@Persistent
+	private String ev_con_name;	
+
+	@Persistent
+	private String container;
 
 	public NewsItem() {
 		Date d = new Date();
@@ -38,6 +44,9 @@ public class NewsItem {
 		type = "";
 		name = "";
 		message = "";
+		ev_con_name = "";
+		container = "";
+		
 		timeCreated = d.getTime();
 	}
 
@@ -51,6 +60,22 @@ public class NewsItem {
 
 	public void setLink(String l) {
 		link = l;
+	}
+
+	public String getEvConName() {
+		return ev_con_name;
+	}
+
+	public void setEvConName(String e) {
+		ev_con_name = e;
+	}
+
+	public String getContainerName() {
+		return container;
+	}
+
+	public void setContainerName(String e) {
+		container = e;
 	}
 
 	public long getTimeCreated() {

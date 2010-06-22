@@ -20,6 +20,7 @@ import org.json.*;
 
 import meetupnow.MeetupUser;
 import meetupnow.PMF;
+import meetupnow.NewsItem;
 
 
 public class EventCreateServlet extends HttpServlet {
@@ -52,6 +53,7 @@ public class EventCreateServlet extends HttpServlet {
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute);
 		String rsvpID = "";
+		String containerName = "";
 		
 
 
@@ -140,12 +142,34 @@ public class EventCreateServlet extends HttpServlet {
 				
 				JSONObject json = new JSONObject(APIresponse.getBody());
 				rsvpID = json.getString("id");
+				containerName = json.getJSONObject("container").getString("name");
+
+				//Create notification
+				NewsItem notify = new NewsItem();
+				notify.setType("event_create");
+				notify.setName(users.get(0).getName());
+				if (desc.length() > 100) {
+					notify.setMessage(desc.substring(0,97).concat("..."));
+				}
+				else {
+					notify.setMessage(desc);
+				}
+				notify.setLink("/Event?"+rsvpID);
+				notify.setEvConName(name);
+				notify.setContainerName(containerName);
+
+				try {
+					pm.makePersistent(notify);
+				} finally {
+					
+				}
 			}
 		} catch (JSONException j){
 			
 		}
 		finally {
 			query.closeAll();
+			pm.close();
 			if (rsvpID.equals("")) {
 				resp.sendRedirect(callback);
 			}	
