@@ -4,6 +4,7 @@ import com.google.appengine.api.datastore.Key;
 import com.google.appengine.api.users.User;
 
 import java.util.Date;
+import java.util.ArrayList;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -24,18 +25,25 @@ public class Topic {
     @Persistent
     private int id;
 
+    @Persistent
+    private ArrayList<String> KeyWords;
+
+    //constructors
     public Topic() {
 	this.author = null;
 	this.name = null;
 	this.id = 0;
+	KeyWords = new ArrayList<String>();
     }  
 
     public Topic(String author, String name, int id) {
         this.author = author;
         this.name = name;
         this.id = id;
+	KeyWords = new ArrayList<String>();
     }
 
+    //geters
     public Key getKey() {
         return key;
     }
@@ -52,6 +60,12 @@ public class Topic {
         return id;
     }
 
+    public String [] GetKeyWords(){
+	return (String []) KeyWords.toArray();
+    }
+
+
+    //seters
     public void setAuthor(String author) {
         this.author = author;
     }
@@ -62,5 +76,9 @@ public class Topic {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public void addKeyWord(String word){
+	this.KeyWords.add(word);
     }
 }

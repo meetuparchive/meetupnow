@@ -92,7 +92,9 @@ Location: <%=item.getString("city") %>,
 <img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=300x200&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
 <br><br>
 <%
+	String title = ev_id;
 	try {
+	title = item.getString("title");
 %>
 Description: <%=item.getString("description") %>
 <%
@@ -107,6 +109,7 @@ Add a comment
 <textarea name="comment" cols="40" rows="3"></textarea>
 <input type="hidden" name="id" value="<%=ev_id%>" />
 <input type="hidden" name="callback" value="Event?<%=ev_id%>" />
+<input type="hidden" name="title" value="<%=title%>" />
 <input type="submit" value="Submit" />
 </form>
 What people are saying: <br><br>

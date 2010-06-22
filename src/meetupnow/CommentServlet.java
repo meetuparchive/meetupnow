@@ -23,12 +23,14 @@ public class CommentServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String content = "";
 		String ev_id = "";
-		String callback = "";		
+		String callback = "";	
+		String title = "";	
 
 		if (req.getQueryString() != null) {
 			content = req.getParameter("comment");
 			ev_id = req.getParameter("id");
 			callback = req.getParameter("callback");
+			title = req.getParameter("title");
 		}
 
 		String key = "empty";
@@ -65,13 +67,14 @@ public class CommentServlet extends HttpServlet {
 
 				scribe.signRequest(APIrequest,accessToken);
 				Response APIresponse = APIrequest.send();
-				
+
 				//Create notification
 				NewsItem notify = new NewsItem();
 				notify.setType("comment");
 				notify.setName(users.get(0).getName());
 				notify.setMessage(content);
 				notify.setLink("/Event?"+ev_id);
+				notify.setEvConName(title);
 
 				try {
 					pm.makePersistent(notify);

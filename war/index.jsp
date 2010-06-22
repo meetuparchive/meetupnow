@@ -54,7 +54,7 @@
 		}
 		else {
 
-			API_URL = "http://api.meetup.com/ew/events?status=upcoming%2Cpast&radius=20.0&order=time&container_id=654,713&format=json&lat=34.0999984741&page=200&zip=90210&offset=0&lon=-118.410003662&sig_id=12219924&sig=672837c2e23e6c5fefa86c29e0f6ad51";
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&offset=0&format=json&page=200&container_id=654&sig_id=12219924&sig=73487b47859ee335994dac5770ba0d18";
 			APIrequest = new Request(Request.Verb.GET, API_URL);
 			APIresponse = APIrequest.send();
 			%>var data = <%=APIresponse.getBody().toString()%><%
