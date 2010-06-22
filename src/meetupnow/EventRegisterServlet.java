@@ -18,6 +18,7 @@ import org.json.*;
 
 import meetupnow.MeetupUser;
 import meetupnow.PMF;
+import meetupnow.NewsItem;
 
 
 public class EventRegisterServlet extends HttpServlet {
@@ -57,6 +58,11 @@ public class EventRegisterServlet extends HttpServlet {
 
 		String mu_id = "";
 
+		String username = "";
+		String evName = "";
+		String conName = "";
+		String link = "";
+
 		Transaction tx = pm.currentTransaction();
 		try {
 			tx.begin();
@@ -64,14 +70,46 @@ public class EventRegisterServlet extends HttpServlet {
 			if (users.iterator().hasNext()) {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
+				String url2 = "http://api.meetup.com/ew/events/?event_id="+ev_id;
+				Request APIrequest2 = new Request(Request.Verb.GET, url2);
+
 				scribe.signRequest(APIrequest,accessToken);
+				scribe.signRequest(APIrequest2,accessToken);
+
 				Response APIresponse = APIrequest.send();
+				Response ev_res = APIrequest2.send();
+
+				JSONObject json = new JSONObject(ev_res.getBody());
+				JSONObject ev = json.getJSONArray("results").getJSONObject(0);
+
+
 				users.get(0).addEvent(ev_id);
 				mu_id = users.get(0).getID();
+	
+				username = users.get(0).getName();
+				try {
+					evName = ev.getString("title");
+				} catch (Exception e) {
 
+				}
+				
+				conName = ev.getJSONObject("container").getString("name");
 
 			}
 			tx.commit();
+
+			//Create notification
+			NewsItem notify = new NewsItem();
+			notify.setType("event_rsvp");
+			notify.setName(username);
+			notify.setLink("/Event?"+ev_id);
+			notify.setEvConName(evName);
+			notify.setContainerName(conName);
+			try {
+				pm.makePersistent(notify);
+			} finally {
+				
+			}
 		} catch (Exception e) {
 			if (tx.isActive()) {
 				tx.rollback();

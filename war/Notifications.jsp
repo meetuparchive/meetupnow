@@ -108,6 +108,33 @@ NEWS FEED
 
 <%
 		}
+		else if (newsFeed.get(i).getType().equals("event_rsvp")) {
+%>
+<span class="mn_geoListItem">
+<span class="mn_geoListItem_title"><i><%=newsFeed.get(i).getName()%></i> is hitting up 
+<a href="<%=newsFeed.get(i).getLink()%>">
+<b>
+<%
+			if (newsFeed.get(i).getEvConName().equals("")) {
+%>
+an event
+<%
+			} else {
+%>
+<%=newsFeed.get(i).getEvConName()%>
+<%
+			}
+%>
+
+</b>
+</a> in topic
+<%=newsFeed.get(i).getContainerName()%>:</span><br>
+<i> @ <%=df.format(cal.getTime())%></i>
+
+</span>
+
+<%
+		}
 		else {
 %>
 <%=newsFeed.get(i).getMessage() %> <br>
