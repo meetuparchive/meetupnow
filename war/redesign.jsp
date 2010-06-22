@@ -165,6 +165,22 @@
 		</div> <!-- end #activityFeed -->
 	</div> <!-- end #contentLeft -->
 </div> <!-- end #wrapperContent -->
+
 </div> <!-- end #wrapper -->
+<div id="mew_footer">
+	<div id="mew_footerBody">
+		<div id="mew_footerLogo">
+			<img src="images/logo_footer.png" alt="MeetupNow" style="width: auto !important; height: auto !important">
+		</div> <!-- end mew_footerLogo -->
+		<div id="mew_footerRow">
+			<ul class="mew_footerSection">
+				<li>About Meetup Now</li>
+				<li>Contact Us</li>
+				<li>Placeholder</li>
+			</ul>
+		</div><!-- mew_footerRow -->
+		
+	</div><!-- mew_footerBody -->
+</div><!-- mew_footer -->
 </body>
 </html>

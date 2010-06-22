@@ -40,6 +40,7 @@ body {
 	width: 100%;
 	//background: white;
 	height: 36px;
+	z-index: 2000;
 }
 	#mn_superHeaderBody {
 		//background: red;
@@ -96,7 +97,7 @@ body {
 	width: 960px;
 	margin: 0 auto;
 	//background: #FFFFFF;
-	//overflow: hidden;
+	overflow: hidden;
 }
 #wrapperContent{
 	position: relative;
@@ -226,7 +227,7 @@ body {
 			display: block;
 			float:left;
 			text-align: right;
-			width: 74px;
+			width: 90px;
 			font-size: 14px;
 		}
 			.mn_geoListItem_date {
@@ -239,8 +240,8 @@ body {
 			}
 		.details {
 			display: block;
-			width: 240px;
-			margin-left: 86px;
+			width: 224px;
+			margin-left: 102px;
 			padding-left: 12px;
 			border-left: 1px dotted #333;
 }
@@ -344,3 +345,39 @@ body {
 		-moz-border-top: 1px solid #666;
 		-webkit-border-top: 1px solid #666;
 	}
+#mew_footer {
+	position: relative;
+	background-color: rgb(2,36,50);
+	color: #E7E7E7;
+	padding: 1.75em 0 10em;
+	width: 100%;
+	clear: both;
+}
+#mew_footerBody {
+	width: 960px;
+	margin: 0 auto;
+	padding: 0 1em;
+}
+#mew_footerRow {
+	width: 576px;
+	overflow: hidden;
+}
+#mew_footerLogo {
+	float: right;
+}
+#mew_footerSection {
+	border-right: 1px solid #ccc;
+
+	float: left;
+	margin-right: 1.75em;
+	padding-right: 1.7em;
+}
+#mew_footer a:link,
+#mew_footer a:visited,
+#mew_footer a:hover {
+	color: #fff;
+}
+#mew_footer ul li {
+	margin: 0 0 .5em;
+	padding: 0;
+}
