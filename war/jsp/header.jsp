@@ -44,7 +44,7 @@
 
 <li><a href ="/UserPrefs.jsp">Preferences</a> </li>
 
-<li><a href ="/logout?callback=">LOGOUT</a></li>
+<li><a href ="/logout?callback=">Log Out</a></li>
 <%
 			} finally {
 				query.closeAll();
