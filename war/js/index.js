@@ -52,7 +52,7 @@
 
 	//add event to list under map
 	function add_event(event){
-		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --></span> <!-- end .when --><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span><!-- end .mn_geoListItem_title --><span class="loc"><span class="city"> ' + event.ev.city + ' </span><!-- end .city --></span><!-- end .loc --></span></a>');
+		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span><!-- end .mn_geoListItem_title --><span class="loc"><span class="city"> ' + event.ev.city + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span></a>');
 	}
 
 	//go to next page if it exists

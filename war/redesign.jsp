@@ -109,11 +109,13 @@
 						<span class="mn_geoListItem_date">6/16</span>
 						<span class="mn_geoListItem_time">1:00 pm</span>
 					</span> <!-- end .when -->
-					<span class="mn_geoListItem_title">Flag Football</span>
-					<span class="loc">
-						<span class="mn_geoListItem_address">555 1st Ave.</span>
-						<span class="mn_geoListItem_city">New York, NY</span>
-					</span> <!-- end .loc -->
+					<span class="details">
+						<span class="mn_geoListItem_title">Flag Football</span>
+						<span class="loc">
+							<span class="mn_geoListItem_address">555 1st Ave.</span>
+							<span class="mn_geoListItem_city">New York, NY</span>
+						</span> <!-- end .loc -->
+					</span> <!-- end .details -->
 				</span> <!-- end .mn_geoListItem -->
 			</a>
 			<a href="#" class="mn_geoListItem_link">
@@ -136,8 +138,31 @@
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
 		<div id="actionContext">
-			
+			<span class="title">Get Started.</span>
+			<div id="action">
+				<a href="#"><span class="btn_main">Register</span></a>
+				<a href="#"><span class="btn_main">Create Event</span></a>
+				<a href="#"><span class="btn_main">Search</span></a>
+			</div> <!-- end #action -->
+			<div id="actionDesc">
+				<span class="heading">MeetupNow is a platform built to Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>
+				<span class="heading">Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.</span>
+			</div> <!-- end #actionDesc -->
 		</div> <!-- end #actionContext -->
+		<div id="activityFeedContext">
+			<div id="activityFeed">
+				<span class="title">Activity Feed.</span>
+				<div class="activityFeedItem">
+					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+				</div>
+				<div class="activityFeedItem">
+					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+				</div>
+				<div class="activityFeedItem">
+					<span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</span>
+				</div>
+			</div>
+		</div> <!-- end #activityFeed -->
 	</div> <!-- end #contentLeft -->
 </div> <!-- end #wrapperContent -->
 </div> <!-- end #wrapper -->
