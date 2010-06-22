@@ -18,24 +18,50 @@
 	    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
 	  }
 	</script>
+
+<script type="text/javascript">
+
+		
+		function loadEvents(){
+		<%@ include file="jsp/cookie.jsp" %>
+
+		<%
+
+		
+
+		if (!key.equals("empty")) {
+			try {
+				users = (List<MeetupUser>) query.execute(key);
+				if (users.iterator().hasNext()) {
+					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&urlname=muntest&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
+					APIrequest = new Request(Request.Verb.GET, API_URL);
+					scribe.signRequest(APIrequest,accessToken);
+					APIresponse = APIrequest.send();
+					%>var data = <%=APIresponse.getBody().toString()%><%
+				}
+			}
+			finally {
+
+			}
+		}
+		else {
+
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&offset=0&format=json&page=200&container_id=654&sig_id=12219924&sig=73487b47859ee335994dac5770ba0d18";
+			APIrequest = new Request(Request.Verb.GET, API_URL);
+			APIresponse = APIrequest.send();
+			%>var data = <%=APIresponse.getBody().toString()%><%
+	
+		}
+		%>
+			use_everywhere(data);
+		}
+
+	</script>
 </head>
-<body onload="initialize()">
-<div id="mn_superHeader">
-	<div id="mn_superHeaderBody">
-		<div id="mn_superHeader_logo">
-			<a href="#">
-				<img src="images/mnlogo_sm_white.png" alt="MeetupNow" style="width: auto !important; height: auto !important">
-			</a>
-		</div> <!-- end #mn_superHeader_logo -->
-		<div id="mn_superHeader_usernav">
-			<ul>
-				<li><a href="/oauth">Log In</a></li>
-				<li><a href="#">Settings</a></li>
-				<li><a href="#">User Logged In</a></li>
-			</ul>
-		</div> <!-- end mn_superHeader_usernav -->
-	</div> <!-- end #mn_superHeaderBody -->
-</div> <!-- end #mn_superHeader -->
+<body onload="loadEvents()">
+
+<%@ include file="jsp/header.jsp" %>
 <div id="wrapper">
 <div id="wrapperContent">
 	<div id="contentRight">
