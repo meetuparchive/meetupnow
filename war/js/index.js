@@ -26,7 +26,7 @@
 				else{
 					if (eventArray[i].ev.id == event_id){
 						eventArray[i].marker.setVisible(true);
-						changeDiscription(eventArray[i].ev.description + '<br><br><a href="/Event?' + eventArray[i].ev.id + '"> Event Page </a><br><a href="/Group?' + eventArray[i].ev.container.id + '"> Group Page </a>');
+						changeDiscription(eventArray[i].ev.description + '<br><br><a href="/Event?' + eventArray[i].ev.id + '"> Event Page </a><br><a href="/Group?' + eventArray[i].ev.container.id + '"> Topic Page </a>');
 
 					
 					} else {

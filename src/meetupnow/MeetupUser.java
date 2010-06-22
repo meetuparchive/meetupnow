@@ -4,6 +4,7 @@ import com.google.appengine.api.datastore.Key;
 
 import org.scribe.oauth.Token;
 
+import java.util.ArrayList;
 import javax.jdo.annotations.IdGeneratorStrategy;
 import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
@@ -44,6 +45,9 @@ public class MeetupUser {
 	@Persistent
 	private String lon;
 
+	@Persistent
+	private ArrayList<String> KeyWords;
+
 	public MeetupUser() {
 		reqToken = null;
 		reqTokenSecret = null;
@@ -54,6 +58,15 @@ public class MeetupUser {
 		lat = null;
 		lon = null;
 		events = "";
+		KeyWords = new ArrayList<String>();
+	}
+
+	public String [] getKeyWords(){
+		return (String []) KeyWords.toArray();
+	}
+	
+	public void addKeyWord(String word){
+		this.KeyWords.add(word);
 	}
 
    	public Key getKey() {

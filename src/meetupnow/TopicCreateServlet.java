@@ -103,7 +103,7 @@ public class TopicCreateServlet extends HttpServlet {
 					//try to get response from api call
 					try {	
 
-						//if container name not taken on meetupdatabase add it to our database				
+						//if container name not taken on meetup database add it to our database				
 						rsvpID = json.getString("id");
 
 						System.out.println(users.get(0).getID() + " " + name + " " + Integer.parseInt(rsvpID));
@@ -126,6 +126,7 @@ public class TopicCreateServlet extends HttpServlet {
 				else {
 
 					//user name not in database
+					resp.sendRedirect("/OAuth");
 
 				}
 			} else {
