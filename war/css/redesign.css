@@ -40,7 +40,7 @@ body {
 		height: 100%;
 		width: 960px;
 		margin: 0 auto;
-	border-bottom: 1px dotted #666666;
+	border-bottom: 1px dotted #666;
 }
 		#mn_superHeader_logo {
 			position: absolute;
@@ -113,6 +113,12 @@ body {
 	    from(rgb(2,36,50)),
 	    to(rgba(0,0,0,0.5))
 	);
+	background: -moz-linear-gradient(
+			    center bottom,
+			    rgb(2,36,50) 0%,
+			    rgba(0,0,0,0.5) 100%
+			);
+
 	border-radius: 5px 5px 5px 5px;
 	-moz-border-radius: 5px 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px 5px;
@@ -133,9 +139,108 @@ body {
 		width: 100%;
 		padding: 12px 0;
 	}
-		label {
-			display: block;
-		}
 		#search {
 			
 		}
+		.element {
+			float: left;
+		}
+		.label {
+			display: block;
+			white-space: nowrap;
+			margin: 0 1em 0.5em 0;
+		}
+		.input {
+			display: block;
+			margin-right: 1em;
+		}
+		.submit {
+			display: block;
+			padding-top: 1.6em;
+		}
+		.submitBtn {
+			color: #f2f2f2;
+			background-color: #D22A2C;
+			background-position: 0% 0%;
+			background-repeat: no-repeat;
+			border: 1px solid #666;
+			padding:  0.25em 0.5em;
+		}
+		label {
+			color: #666;
+			display: block;
+		}
+		#mn_geoListContext {
+			border-bottom: 1px dotted #666;
+		}
+		.listTitle {
+			font-size: 1.2em;
+			color: #FF9533;
+			font-weight: bold;
+			line-height: 2.2em;
+		}
+		a.mn_geoListItem_link {
+			display: block;
+			text-decoration: none;
+		}
+		.mn_geoListItem {
+			display: block;
+			width: 344px;
+			height: 40px;
+			border-top: 1px dotted #666;
+			-moz-border-top: 1px solid #CCC;
+			-webkit-border-top: 1px solid #CCC;
+			padding: 6px 8px;
+			color: #f2f2f2;
+		}
+		.mn_geoListItem:hover {
+			//background: #D18D3A;
+			background: -webkit-gradient(
+			    linear,
+			    left bottom,
+			    right bottom,
+			    color-stop(0, rgba(33,117,177,1)),
+			    color-stop(0.03, rgba(33,117,177,0)),
+			    color-stop(0.97, rgba(33,117,177,0)),
+			    color-stop(1, rgba(33,117,177,1))
+			);
+			background: -moz-linear-gradient(
+			    left center,
+			    rgba(33,117,177,1) 0%,
+			    rgba(33,117,177,0) 3%,
+			    rgba(33,117,177,0) 97%,
+			    rgba(33,117,177,1) 100%
+			);
+		}
+		.when {
+			padding-top: 2px;
+			display: block;
+			float:left;
+			text-align: right;
+			width: 74px;
+			font-size: 14px;
+		}
+			.mn_geoListItem_date {
+				display: block;
+				padding-bottom: 2px;
+			}
+			.mn_geoListItem_time {
+				display: block;
+				font-size: 12px;
+			}
+		.mn_geoListItem_title {
+			display: block;
+			width: 240px;
+			font-size: 14px;
+			font-weight: bold;
+			margin-left: 86px;
+			padding: 2px 0 2px 12px;
+		}
+		.loc {
+			display: block;
+			font-size: 12px;
+			width: 240px;
+			margin-left: 86px;
+			padding-left: 12px;
+		}
+		

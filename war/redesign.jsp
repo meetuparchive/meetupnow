@@ -49,33 +49,59 @@
 		</div><!-- end .map_context -->
 		<div id="searchContext">
 			<div id="search">
-				<form action="search" method="get" accept-charset="utf-8">
-					<label for="query">Search for: </label><input type="text/submit/hidden/button" name="query" value="" id="query">
-					<label for="location"></label>City or ZIP / Postal Code<input type="text/submit/hidden/button" name="location" value="" id="location">
-					
-					<p><input type="submit" value="Search"></p>
+				<form action="search" method="post" accept-charset="utf-8">
+					<div class="element">
+						<div class="label">
+							<label for="query">Search for: </label>
+						</div> <!-- end .label -->
+						<div class="input">
+							<input type="text" name="query" value="" id="query" size="20" maxlength="100">
+						</div> <!-- end .input -->
+					</div> <!-- end .element -->
+					<div class="element">
+						<div class="label">
+							<label for="location">City or Postal Code</label>
+						</div> <!-- end .label -->
+						<div class="input">
+							<input type="text" name="location" value="" id="location" size="15" maxlength="100">
+						</div> <!-- end .input -->
+					</div> <!-- end .element -->
+
+						<div class="submit">
+							<input type="submit" value="Search" class="submitBtn">
+						</div> <!-- end .submit -->
 				</form>
 			</div> <!-- end #search -->
 		</div> <!-- end #searchContext -->
 		<div id="mn_geoListContext">
 			<div id="mn_geoListHeader">
-				<span>Today in Sports<span>
+				<span class="listTitle">Results near [location]</span>
 			</div><!-- mn_geoListHeader -->
 			<a href="#" class="mn_geoListItem_link">
 				<span class="mn_geoListItem">
-					<span class="mn_geoListItem_date">6/16</span>
-					<span class="mn_geoListItem_time">1:00 pm</span>
-					<span class="mn_geoListItem_where">New York, NY</span>
+					<span class="when">
+						<span class="mn_geoListItem_date">6/16</span>
+						<span class="mn_geoListItem_time">1:00 pm</span>
+					</span> <!-- end .when -->
 					<span class="mn_geoListItem_title">Flag Football</span>
-				</span>
+					<span class="loc">
+						<span class="mn_geoListItem_address">555 1st Ave.</span>
+						<span class="mn_geoListItem_city">New York, NY</span>
+					</span> <!-- end .loc -->
+				</span> <!-- end .mn_geoListItem -->
 			</a>
 			<a href="#" class="mn_geoListItem_link">
 				<span class="mn_geoListItem">
-					<span class="mn_geoListItem_date">6/17</span>
-					<span class="mn_geoListItem_time">5:30 pm</span>
-					<span class="mn_geoListItem_where">Brooklyn, NY</span>
+					<span class="when">
+						<span class="mn_geoListItem_date">6/17</span>
+						<span class="mn_geoListItem_time">5:30 pm</span>
+					</span> <!-- end .when -->
 					<span class="mn_geoListItem_title">Rugby</span>
-				</span>
+					<span class="loc">
+						<span class="mn_geoListItem_address">555 1st Ave.</span>
+						<span class="mn_geoListItem_city">Brooklyn, NY</span>
+					</span> <!-- end .loc -->
+				</span> <!-- end .mn_geoListItem -->
 			</a>
 			<div id="mn_geoListFooter">
 		
