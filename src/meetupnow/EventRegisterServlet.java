@@ -69,6 +69,7 @@ public class EventRegisterServlet extends HttpServlet {
 				users.get(0).addEvent(ev_id);
 				mu_id = users.get(0).getID();
 
+
 			}
 			tx.commit();
 		} catch (Exception e) {
@@ -78,6 +79,7 @@ public class EventRegisterServlet extends HttpServlet {
 		}
 		finally {
 			query.closeAll();
+			pm.close();
 			resp.sendRedirect("/setprefs?callback="+callback+"&action=update&group="+c_id+"&id="+mu_id);
 		}
 
