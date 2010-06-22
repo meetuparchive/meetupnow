@@ -52,7 +52,7 @@
 
 	//add event to list under map
 	function add_event(event){
-		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --></span> <!-- end .when --><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span><!-- end .mn_geoListItem_title --><span class="loc"><span class="city"> ' + event.ev.city + ' </span><!-- end .city --></span><!-- end .loc --></span></a>');
+		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span> <!-- end .when --><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span><!-- end .mn_geoListItem_title --><span class="loc"><span class="city"> ' + event.ev.city + ' </span><!-- end .city --></span><!-- end .loc --></span></a>');
 	}
 
 	//go to next page if it exists
@@ -135,12 +135,8 @@
 
 				//epoc time to date string
 				var date = new Date(ev.time);
-				var date_string = date.getMonth() + "/" + date.getDate() + "/" + date.getFullYear() + " " + date.getHours() + ":";
-				if (date.getMinutes() < 10) {
-					date_string = date_string + "0" + date.getMinutes();
-				} else{
-					date_string = date_string + date.getMinutes();
-				}		
+				var date_string = getDay(date.getDay())+", "+getMonth(date.getMonth()) + " " + date.getDate();
+				var time_string = getTime(date.getHours(),date.getMinutes(),4);
 
 				//add event to list
 				
@@ -161,6 +157,7 @@
 
 				event_object.ev = ev;			
 				event_object.date = date_string;
+				event_object.time = time_string;
 				event_object.marker = marker;
 				//add_event(event_object);
 	
@@ -176,3 +173,68 @@
 
 	}
 
+function getMonth(m) {
+	switch (m)
+	{
+	case 0:
+  		return ("Jan");
+	case 1:
+		return ("Feb");		
+	case 2:
+  		return ("Mar");
+	case 3:
+		return ("Apr");
+	case 4:
+		return ("May");
+	case 5:
+		return ("Jun");
+	case 6:
+		return ("Jul");
+	case 7:
+		return ("Aug");
+	case 8:
+		return ("Sep");
+	case 9:
+		return ("Oct");
+	case 10:
+		return ("Nov");
+	case 11:
+		return ("Dec");
+	default:
+		return ("Undef");
+	}
+}
+
+function getDay(d) {
+	switch (d)
+	{
+	case 0:
+  		return ("Sun");
+	case 1:
+		return ("Mon");
+	case 2:
+		return ("Tue");
+	case 3:
+		return ("Wed");
+	case 4:
+		return ("Thu");
+	case 5:
+		return ("Fri");
+	case 6:
+		return ("Sat");
+	default:
+		return ("NaN");	
+	}
+}
+
+function getTime(h, m, timezone) {
+	h = (h+1+timezone);
+	h %= 24;
+	if (h==0) {h=24;}
+	var time = "AM";
+
+	if (h >= 12) {time = "PM";}
+	if (h > 12) { h = h - 12;}
+	if (m > 9) { return (h + ":" + m + " " + time);}
+	else {return (h + ":0" + m + " " + time);}
+}
