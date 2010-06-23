@@ -12,3 +12,5 @@ To compile without running, use the command
 ant compile
 
 If you have any questions regarding our code, please email jake@meetup.com
+
+6/23 UPDATE: Check out a live version of our software running at: http://jake-meetup-test.appspot.com

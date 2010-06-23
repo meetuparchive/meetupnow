@@ -75,6 +75,7 @@ public class CommentServlet extends HttpServlet {
 				notify.setMessage(content);
 				notify.setLink("/Event?"+ev_id);
 				notify.setEvConName(title);
+				notify.setContainerName("");
 
 				try {
 					pm.makePersistent(notify);

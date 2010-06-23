@@ -168,7 +168,7 @@ function item(ty,n,m,e,c,ti,l) {
 		
 		function loadEvents(){
 		<%@ include file="jsp/cookie.jsp" %>
-
+		<%@ include file="jsp/declares.jsp" %>
 		<%
 
 		

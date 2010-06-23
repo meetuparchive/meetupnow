@@ -168,7 +168,7 @@ function item(ty,n,m,e,c,ti,l) {
 		
 		function loadEvents(){
 		<%@ include file="jsp/cookie.jsp" %>
-
+		<%@ include file="jsp/declares.jsp" %>
 		<%
 
 		
@@ -178,7 +178,7 @@ function item(ty,n,m,e,c,ti,l) {
 				users = (List<MeetupUser>) query.execute(key);
 				if (users.iterator().hasNext()) {
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&urlname=muntest&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
+					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&urlname=muntest,muntest2&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					APIresponse = APIrequest.send();
