@@ -450,5 +450,10 @@ body {
 		font-size: 1.3em;
 		font-weight: bold;
 	}
+	.eventInfo_desc {
+		display: block;
+		color: #f2f2f2;
+		font-size: 1.2em;
+	}
 
 /*** EventPage.jsp ***/

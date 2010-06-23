@@ -290,7 +290,7 @@ function item(ty,n,m,e,c,ti,l) {
 			<span class="title">Get Started.</span>
 			<div id="action">
 				<a href="#"><span class="btn_main">Register</span></a>
-				<a href="#"><span class="btn_main">Create Event</span></a>
+				<a href="CreateEvent.jsp"><span class="btn_main">Create Event</span></a>
 				<a href="#"><span class="btn_main">Search</span></a>
 			</div> <!-- end #action -->
 			<div id="actionDesc">
