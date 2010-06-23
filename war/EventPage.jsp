@@ -19,7 +19,7 @@
 <head>
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
-	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<link rel="stylesheet" href="css/redesign.css" type="text/css" />
 </head>
 <body id="meetupNowBody">
 <%@ include file="jsp/cookie.jsp" %>	

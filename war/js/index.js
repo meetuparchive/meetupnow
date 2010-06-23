@@ -53,7 +53,7 @@
 	//add event to list under map
 	function add_event(event){
 
-		events.append('<a href="javascript:event_show(' + event.ev.id + ')" class="mn_geoListItem_link" onMouseOver="javascript:event_show(' + event.ev.id + ')" onMouseOut="javascript:event_show(-1)"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span><!-- end .mn_geoListItem_time --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span><!-- end .mn_geoListItem_title --><span class="loc"><span class="city"> ' + event.ev.city + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span></a>');
+		events.append('<a href="/Event?' + event.ev.id + '" class="mn_geoListItem_link" onMouseOver="javascript:event_show(' + event.ev.id + ')" onMouseOut="javascript:event_show(-1)"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span><!-- end .mn_geoListItem_time --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span><!-- end .mn_geoListItem_title --><span class="loc"><span class="city"> ' + event.ev.city + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span></a>');
 
 	}
 
