@@ -23,7 +23,7 @@
 	String query = request.getParameter("q");
 	if (query != null) {
 		CompassHits hits = search.find(query);
-		System.out.println(hits.length());
+
 %>
 <p>Found <%=hits.length() %> hits for query <% out.write(query); %> </p>
 <%
@@ -31,7 +31,7 @@
 			Topic topic = (Topic) hits.data(i);
 			Resource resource = hits.resource(i);
 %>
-<p><%// =resource.getValue("name") %></p>
+<p><%=resource.getValue("name") %></p>
 <%
 		}
 	}

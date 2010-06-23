@@ -14,8 +14,7 @@ import org.compass.annotations.*;
 
 
 @PersistenceCapable
-@Searchable(root = false)
-@SearchableConstant(name = "type", values = {"person", "author"})
+@Searchable(root = true)
 public class Topic {
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -25,12 +24,11 @@ public class Topic {
     private String author;
 
     @Persistent
-    @SearchableProperty(name = "name")
-    @SearchableMetaData(name = "authorName")
-
+    @SearchableProperty
     private String name;
 
     @Persistent
+    @SearchableId
     private int id;
 
     @Persistent
