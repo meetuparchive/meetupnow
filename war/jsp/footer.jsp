@@ -1,13 +1,17 @@
-
-<div id="mew_footer">
-	<div id="mew_footerBody">
-		<div id="mew_footerRow">
-			<ul class="mew_footerSection">
+<div id="footer">
+	<div id="footerBody">
+		<div id="footerLogo">
+			<img src="images/logo_footer.png" alt="MeetupNow" style="width: auto !important; height: auto !important">
+		</div> <!-- end footerLogo -->
+		<div id="footerRow">
+			<ul class="footerSection">
 				<li>About Meetup Now</li>
 				<li>Contact Us</li>
 				<li>Placeholder</li>
 			</ul>
-		</div><!-- mew_footerRow -->
-	</div><!-- mew_footerBody -->
-</div><!-- mew_footer -->
-
+		</div><!-- footerRow -->
+		
+	</div><!-- footerBody -->
+</div><!-- footer -->
+</body>
+</html>

@@ -18,7 +18,7 @@
 <div id="mn_superHeader">
 	<div id="mn_superHeaderBody">
 		<div id="mn_superHeader_logo">
-			<a href="#">
+			<a href="/">
 				<img src="../images/mnlogo_sm_white.png" alt="MeetupNow" style="width: auto !important; height: auto !important">
 			</a>
 		</div><!-- mew_logo -->

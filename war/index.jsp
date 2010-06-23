@@ -11,7 +11,7 @@
 <head>
 	<title>MeetupNOW</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
-	<link rel="stylesheet" href="css/redesign.css" type="text/css" />
+	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="/js/index.js"></script>
@@ -286,7 +286,7 @@ function item(ty,n,m,e,c,ti,l) {
 		</div><!-- mn_geoListContext -->
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
-		<div id="actionContext">
+		<div id="contentLeftContext">
 			<span class="title">Get Started.</span>
 			<div id="action">
 				<a href="#"><span class="btn_main">Register</span></a>
@@ -306,22 +306,6 @@ function item(ty,n,m,e,c,ti,l) {
 		</div> <!-- end #activityFeed -->
 	</div> <!-- end #contentLeft -->
 </div> <!-- end #wrapperContent -->
-
 </div> <!-- end #wrapper -->
-<div id="footer">
-	<div id="footerBody">
-		<div id="footerLogo">
-			<img src="images/logo_footer.png" alt="MeetupNow" style="width: auto !important; height: auto !important">
-		</div> <!-- end footerLogo -->
-		<div id="footerRow">
-			<ul class="footerSection">
-				<li>About Meetup Now</li>
-				<li>Contact Us</li>
-				<li>Placeholder</li>
-			</ul>
-		</div><!-- footerRow -->
-		
-	</div><!-- footerBody -->
-</div><!-- footer -->
-</body>
-</html>
+
+<%@ include file="jsp/footer.jsp" %>
