@@ -10,7 +10,12 @@ import javax.jdo.annotations.PersistenceCapable;
 import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.PrimaryKey;
 
+import org.compass.annotations.*;
+
+
 @PersistenceCapable
+@Searchable(root = false)
+@SearchableConstant(name = "type", values = {"person", "author"})
 public class Topic {
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
@@ -20,6 +25,9 @@ public class Topic {
     private String author;
 
     @Persistent
+    @SearchableProperty(name = "name")
+    @SearchableMetaData(name = "authorName")
+
     private String name;
 
     @Persistent
@@ -27,6 +35,11 @@ public class Topic {
 
     @Persistent
     private ArrayList<String> KeyWords;
+
+
+    @Persistent
+    @SearchableProperty
+    private String KeyWordString;
 
     //constructors
     public Topic() {
@@ -80,5 +93,6 @@ public class Topic {
 
     public void addKeyWord(String word){
 	this.KeyWords.add(word);
+	this.KeyWordString.concat(word + " ");
     }
 }

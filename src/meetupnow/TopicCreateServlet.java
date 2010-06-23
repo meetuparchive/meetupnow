@@ -106,7 +106,7 @@ public class TopicCreateServlet extends HttpServlet {
 						//if container name not taken on meetup database add it to our database				
 						rsvpID = json.getString("id");
 
-						System.out.println(users.get(0).getID() + " " + name + " " + Integer.parseInt(rsvpID));
+
 						Topic NewTopic = new Topic(users.get(0).getID(), name, Integer.parseInt(rsvpID));
 						try {
 							pm.makePersistent(NewTopic);
