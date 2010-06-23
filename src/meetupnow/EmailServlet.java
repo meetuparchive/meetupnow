@@ -4,7 +4,15 @@ import javax.servlet.http.*;
 import java.io.IOException;
 
 import java.util.Properties;
-import org.apache.commons.mail.*;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
 public class EmailServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
  		resp.setContentType("text/html");
@@ -12,20 +20,22 @@ public class EmailServlet extends HttpServlet {
 		String from = "jgl2832@gmail.com";
 		String to = "jake@meetup.com";
 		
-		try {
-			SimpleEmail email=new SimpleEmail();
-			email.setHostName("mail.meetup.com");
-			email.setAuthentication("jake","n64gbc");
-			email.setFrom("jake@meetup.com","Jake Levine");
-			email.addTo("jake.levine@mail.mcgill.ca");
-			email.setSubject("This is a Test");
-			email.setMsg("This is a message, and its a test");
-			email.send();
-	
-			resp.getWriter().println("BAM");
-		} catch (EmailException e) {
-			System.out.println(e);
-		}
+		Properties props = new Properties();
+        	Session session = Session.getDefaultInstance(props, null);
+
+        	String msgBody = "...asdfasdfasdf";
+
+        	try {
+            		Message msg = new MimeMessage(session);
+            		msg.setFrom(new InternetAddress(from, "Example.com Admin"));
+            		msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to, "Mr. User"));
+       			msg.setSubject("Your Example.com account has been activated");
+            		msg.setText(msgBody);
+            		Transport.send(msg);
+
+        	} catch (Exception e) {
+           		 // ...
+       	 	}
 
 	}
 
