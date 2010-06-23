@@ -87,10 +87,10 @@ body {
 				text-decoration: none;
 				cursor: hand;
 				cursor: pointer;
-}
+			}
 			#mn_superHeader_usernav li a:hover {
 				color: #2175B1;
-}
+			}
 #wrapper {
 	position: relative;
 	height: 100%;
@@ -181,13 +181,19 @@ body {
 			display: block;
 		}
 		#mn_geoListContext {
-			border-bottom: 1px dotted #666;
+			
 		}
-		.listTitle {
-			font-size: 1.2em;
-			color: #FF9533;
-			font-weight: bold;
-			line-height: 2.2em;
+		#mn_geoListHeader {
+			
+		}
+			.listTitle {
+				font-size: 1.2em;
+				color: #FF9533;
+				font-weight: bold;
+				line-height: 2.2em;
+			}
+		#mn_geoListBody {
+			border-bottom: 1px dotted #666;
 		}
 		a.mn_geoListItem_link {
 			display: block;
@@ -229,6 +235,7 @@ body {
 			text-align: right;
 			width: 90px;
 			font-size: 14px;
+			letter-spacing: -1px;
 		}
 			.mn_geoListItem_date {
 				display: block;
@@ -244,7 +251,7 @@ body {
 			margin-left: 102px;
 			padding-left: 12px;
 			border-left: 1px dotted #333;
-}
+		}
 			.mn_geoListItem_title {
 				display: block;
 				width: 100%;
@@ -257,6 +264,35 @@ body {
 				font-size: 12px;
 				width: 100%;
 			}
+		#mn_geoListFooter {
+			width: 344px;
+			padding: 6px 8px;
+		}
+		#mn_geoListFooter a,
+		#mn_geoListFooter a:link,
+		#mn_geoListFooter a:visited,
+		#mn_geoListFooter a:hover {
+			color: #f2f2f2;
+			font-weight: bold;
+			text-decoration: none;
+			cursor: hand;
+			cursor: pointer;
+		}
+		#mn_geoListFooter a:hover {
+			color: #2175B1;
+		}
+			.showAll {
+				
+			}
+			.paginationNav {
+				float: right;
+			}
+				.nextPage {
+					padding-left: 12px;
+				}
+				.prevPage {
+					
+				}
 #contentLeft {
 	position: relative;
 	float: left;
