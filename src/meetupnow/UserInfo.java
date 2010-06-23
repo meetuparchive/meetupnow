@@ -30,16 +30,40 @@ public class UserInfo {
 	@Persistent
 	private String distance;
 
+	@Persistent
+	private String cellNum;
+
+	@Persistent
+	private String carrier;
+
 	public UserInfo() {
 		user_id = "";
 		groups = "";
 		loginCount = 0;
 		email = "";
 		distance = "";
+		cellNum = "";
+		carrier = "";
 	}
 
 	public Key getKey() {
 		return key;
+	}
+
+	public void setCellNum(String c) {
+		cellNum = c;
+	}
+	
+	public String getCellNum() {
+		return cellNum;
+	}
+
+	public void setCarrier(String c) {
+		carrier = c;
+	}
+
+	public String getCarrier() {
+		return carrier;
 	}
 
 	public void setDistance(String d) {
