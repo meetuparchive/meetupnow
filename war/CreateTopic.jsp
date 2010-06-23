@@ -53,6 +53,8 @@
 			
 			<br>What's this topic all about? <br>
 			<textarea name="desc" cols="40" rows="6"></textarea> <br>
+			<br>Enter some key words to search by <br>
+			<textarea name="keywords" cols="40" rows="6"></textarea> <br>
 			<input type="hidden" name="callback" value="Topic?<%=c_id%>" />
 			<input type="hidden" name="c_id" value="<%=c_id%>" />
 			<input type="submit" value="Create" />

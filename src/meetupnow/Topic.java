@@ -89,6 +89,10 @@ public class Topic {
         this.id = id;
     }
 
+    public void setKeyWords(String words){
+	this.KeyWordString = words;
+    }
+
     public void addKeyWord(String word){
 	this.KeyWords.add(word);
 	this.KeyWordString.concat(word + " ");

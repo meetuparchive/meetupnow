@@ -32,12 +32,14 @@ public class TopicCreateServlet extends HttpServlet {
 		String name = "";
 		String callback = "";
 		String desc = "";
+		String keyWords ="";
 		
 		//get parameters
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
 			desc = req.getParameter("desc");
 			name = req.getParameter("name");
+			keyWords = req.getParameter("keywords");
 
 		}
 
@@ -108,6 +110,7 @@ public class TopicCreateServlet extends HttpServlet {
 
 
 						Topic NewTopic = new Topic(users.get(0).getID(), name, Integer.parseInt(rsvpID));
+						NewTopic.setKeyWords(keyWords);
 						try {
 							pm.makePersistent(NewTopic);
 						} finally {
