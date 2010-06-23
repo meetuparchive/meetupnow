@@ -97,23 +97,23 @@ if (users.iterator().hasNext()) {
 			</div> <!-- end .eventInfo_block -->
 			<div class="eventInfo_block">
 				<span class="eventInfo_desc">
-					
+					<%=item.getString("description") %>
 				</span> <!-- end .eventInfo_desc -->
 			</div> <!-- end .eventInfo_block -->
+			<div class="eventInfo_block">
+				<%
+					String title = ev_id;
+					try {
+					title = item.getString("title");
+				%>
+
+				<%
+					} catch (Exception e) {
+
+					}
+				%>
+			</div> <!-- end .eventInfo_block -->
 		</div> <!-- end #eventInfo -->
-		<br>
-
-<%
-	String title = ev_id;
-	try {
-	title = item.getString("title");
-%>
-Description: <%=item.getString("description") %>
-<%
-	} catch (Exception e) {
-
-	}
-%>
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
 		<div id="contentLeftContext">
