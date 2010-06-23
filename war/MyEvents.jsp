@@ -21,7 +21,9 @@
 </head>
 <body id="meetupNowBody">
 <%@ include file="jsp/cookie.jsp" %>
+<%@ include file="jsp/declares.jsp" %>
 <%@ include file="jsp/header.jsp" %>
+
 
 <div id="mn_page">
 	<div id="mn_pageBody">

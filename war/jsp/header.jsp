@@ -11,9 +11,7 @@
 <%@ page import="org.scribe.http.*" %>
 <%@ page import="javax.servlet.http.Cookie" %>
 
-
-
-
+<%@ page import="meetupnow.MUCookie" %>
 
 <div id="mn_superHeader">
 	<div id="mn_superHeaderBody">
@@ -25,8 +23,13 @@
 		<div id="mn_superHeader_usernav">
 			<ul>
 <%
-		
-		if (key.equals("empty")) {
+
+		PersistenceManager p = PMF.get().getPersistenceManager();
+		Query q = p.newQuery(MeetupUser.class);
+		q.setFilter("accToken == accTokenParam");
+		q.declareParameters("String accTokenParam");
+		String k = meetupnow.MUCookie.getCookie(request.getCookies());
+		if (k.equals("empty")) {
 %>
 <li><a href="/oauth">Log In</a></li>
 <%
@@ -35,10 +38,10 @@
 
 		
 			try {
-				users = (List<MeetupUser>) query.execute(key);
+				List<MeetupUser> use = (List<MeetupUser>) q.execute(k);
 					
 %>
-<li><%=users.get(0).getName()%></li>
+<li><%=use.get(0).getName()%></li>
 
 <li><a href ="">My Events</a></li>
 
@@ -47,7 +50,7 @@
 <li><a href ="/logout?callback=">Log Out</a></li>
 <%
 			} finally {
-				query.closeAll();
+				q.closeAll();
 			}
 		}
 %>

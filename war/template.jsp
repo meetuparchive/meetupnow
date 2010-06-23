@@ -18,6 +18,7 @@
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	
 	<%@ include file="jsp/cookie.jsp" %>
+	<%@ include file="jsp/declares.jsp" %>
 </head>
 <body id="meetupNowBody">
 	

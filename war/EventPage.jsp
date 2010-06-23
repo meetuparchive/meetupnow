@@ -22,8 +22,10 @@
 	<link rel="stylesheet" href="css/redesign.css" type="text/css" />
 </head>
 <body id="meetupNowBody">
-<%@ include file="jsp/cookie.jsp" %>	
+<%@ include file="jsp/cookie.jsp" %>
+<%@ include file="jsp/declares.jsp" %>
 <%@ include file="jsp/header.jsp" %>
+
 <%
 		String ev_id = "";
 		
