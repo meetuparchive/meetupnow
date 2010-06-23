@@ -110,15 +110,28 @@ How far would you travel for a meetup?<br>
 <input type="text" name="distance" value="<%= profiles.get(0).getDistance() %>" size="4"/> miles
 <br>
 <br>
-What times would you like to recieve notifications? <br>
-<input type="checkbox" name="time" value="morning" /> Morning
-<input type="checkbox" name="time" value="afternoon" /> Afternoon
-<input type="checkbox" name="time" value="night" /> Night
+To recieve txt notifications of nearby events, enter your cell phone info:
 <br>
+<input type="text" name="cell" value="<%= profiles.get(0).getCellNum() %>" size="11" /> Cell Phone #
+<br>
+<select name="carrier">
+	<option value=""><%=profiles.get(0).getCarrier() %></option>
+	<option value="att">AT&T</option>
+  	<option value="verizon">Verizon</option>
+  	<option value="tmobile">T-Mobile</option>
+</select> Carrier 
 <br>
 <input type="hidden" name="id" value="<%= users.get(0).getID()%>" />
-<input type="hidden" name="callback" value="/" />
+<input type="hidden" name="callback" value="/UserPrefs.jsp" />
 <input type="submit" value="Change Preferences"></input>
+</form>
+<br><br>
+<form name="testmail" action="/email">
+<input type="hidden" name="to" value="<%= profiles.get(0).getEmail() %>" />
+<input type="hidden" name="cell" value="<%= profiles.get(0).getCellNum() %>" />
+<input type="hidden" name="carrier" value="<%= profiles.get(0).getCarrier() %>" />
+<input type="hidden" name="callback" value="/UserPrefs.jsp";
+<input type="submit" value="SEND TEST EMAIL AND TEXT"></input>
 </form>
 										<div id="mn_geoListFooter">
 

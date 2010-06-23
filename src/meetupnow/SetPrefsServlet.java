@@ -23,6 +23,8 @@ public class SetPrefsServlet extends HttpServlet {
 		String group = "";
 		String action = "";	
 		String distance = "";
+		String cell = "";
+		String carrier = "";
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
 			mu_id = req.getParameter("id");
@@ -30,6 +32,8 @@ public class SetPrefsServlet extends HttpServlet {
 			group = req.getParameter("group");
 			action = req.getParameter("action");
 			distance = req.getParameter("distance");
+			cell = req.getParameter("cell");
+			carrier = req.getParameter("carrier");
 		}
 		javax.servlet.http.Cookie[] cookies = req.getCookies();
 
@@ -64,6 +68,12 @@ public class SetPrefsServlet extends HttpServlet {
 					} else if (action.equals("update")) {
 						setAlerts(group, pm, key);
 					}
+				}
+				if (cell != null) {
+					profs.get(0).setCellNum(cell);
+				}
+				if (carrier != null) {
+					profs.get(0).setCarrier(carrier);
 				}
 				if (distance != null) {
 					profs.get(0).setDistance(distance);
