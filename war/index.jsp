@@ -291,7 +291,7 @@ function item(ty,n,m,e,c,ti,l) {
 			<div id="action">
 				<a href="#"><span class="btn_main">Register</span></a>
 				<a href="CreateEvent.jsp"><span class="btn_main">Create Event</span></a>
-				<a href="#"><span class="btn_main">Search</span></a>
+				<a href="#"><span class="btn_main">Search Topics</span></a>
 			</div> <!-- end #action -->
 			<div id="actionDesc">
 				<span class="heading">MeetupNow is a platform built to Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>

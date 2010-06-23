@@ -240,3 +240,48 @@ function getTime(h, m, timezone) {
 	if (m > 9) { return (h + ":" + m + " " + time);}
 	else {return (h + ":0" + m + " " + time);}
 }
+
+// Modal Registration Popup
+$(document).ready(function() {
+	
+	// Add necessary DIVs
+	$('body').append('<div id="modal_register"><iframe src="http://www.meetup.com/register/" width="360px" height="622px" align="middle" scrolling="no"></iframe></div><div id="mask"></div>');
+	
+	// Select Register link
+	$('a[name=modalregister]').click(function(e) {
+		
+		console.log('Clicked!');
+		// Cancel default link behavior
+		e.preventDefault();
+		// Get the anchor tag
+		var id = $(this).attr('href');
+		
+		// Get the screen height and width
+		var maskHeight = $(document).height();
+		var maskWidth = $(window).width();
+		
+		// Set height and width for mask to fill up the whole screen
+		$('#mask').css({'width':maskWidth, 'height':maskHeight});
+		
+		// Transition effect
+		$('#mask').fadeIn(500);
+		//$('#mask').fadeTo("slow",0.8);
+		
+		// Get the window height and width
+		var winH = $(window).height();
+		var winW = $(window).width();
+		
+		// Set the popup window to center
+		$(id).css('top', winH/2-$(id).height()/2);
+		$(id).css('left',winW/2-$(id).width()/2);
+		
+		// Transition effect
+		$(id).fadeIn(1000);
+	});
+	
+	// If mask is clicked
+	$('#mask').click(function() {
+		$(this).hide();
+		$('#modal_register').hide();
+	})
+});

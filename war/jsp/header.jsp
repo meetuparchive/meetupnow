@@ -31,7 +31,8 @@
 		String k = meetupnow.MUCookie.getCookie(request.getCookies());
 		if (k.equals("empty")) {
 %>
-<li><a href="/oauth">Log In</a></li>
+				<li><a href="/oauth">Log In</a></li>
+				<li><a href="#modal_register" name="modalregister" id="#modal_register">Register</a></li>
 <%
 		} else {
 			//FIND USER			
