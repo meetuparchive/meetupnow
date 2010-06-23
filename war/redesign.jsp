@@ -303,20 +303,20 @@ function item(ty,n,m,e,c,ti,l) {
 </div> <!-- end #wrapperContent -->
 
 </div> <!-- end #wrapper -->
-<div id="mew_footer">
-	<div id="mew_footerBody">
-		<div id="mew_footerLogo">
+<div id="footer">
+	<div id="footerBody">
+		<div id="footerLogo">
 			<img src="images/logo_footer.png" alt="MeetupNow" style="width: auto !important; height: auto !important">
-		</div> <!-- end mew_footerLogo -->
-		<div id="mew_footerRow">
-			<ul class="mew_footerSection">
+		</div> <!-- end footerLogo -->
+		<div id="footerRow">
+			<ul class="footerSection">
 				<li>About Meetup Now</li>
 				<li>Contact Us</li>
 				<li>Placeholder</li>
 			</ul>
-		</div><!-- mew_footerRow -->
+		</div><!-- footerRow -->
 		
-	</div><!-- mew_footerBody -->
-</div><!-- mew_footer -->
+	</div><!-- footerBody -->
+</div><!-- footer -->
 </body>
 </html>

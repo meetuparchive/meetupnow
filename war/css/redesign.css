@@ -345,7 +345,7 @@ body {
 		-moz-border-top: 1px solid #666;
 		-webkit-border-top: 1px solid #666;
 	}
-#mew_footer {
+#footer {
 	position: relative;
 	background-color: rgb(2,36,50);
 	color: #E7E7E7;
@@ -353,31 +353,30 @@ body {
 	width: 100%;
 	clear: both;
 }
-#mew_footerBody {
+#footerBody {
 	width: 960px;
 	margin: 0 auto;
 	padding: 0 1em;
 }
-#mew_footerRow {
+#footerRow {
 	width: 576px;
 	overflow: hidden;
 }
-#mew_footerLogo {
+#footerLogo {
 	float: right;
 }
-#mew_footerSection {
+#footerSection {
 	border-right: 1px solid #ccc;
-
 	float: left;
 	margin-right: 1.75em;
 	padding-right: 1.7em;
 }
-#mew_footer a:link,
-#mew_footer a:visited,
-#mew_footer a:hover {
+#footer a:link,
+#footer a:visited,
+#footer a:hover {
 	color: #fff;
 }
-#mew_footer ul li {
+#footer ul li {
 	margin: 0 0 .5em;
 	padding: 0;
 }
