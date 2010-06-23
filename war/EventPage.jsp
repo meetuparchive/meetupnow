@@ -17,42 +17,28 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>Meetup Now</title>
+	<title>MeetupNOW</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
-	<link rel="stylesheet" href="css/redesign.css" type="text/css" />
+	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 </head>
 <body id="meetupNowBody">
+
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
 <%@ include file="jsp/header.jsp" %>
 
 <%
-		String ev_id = "";
-		
-		if (request.getQueryString() != null) {
-			ev_id = request.getQueryString();
-		}
+	String ev_id = "";
+	
+	if (request.getQueryString() != null) {
+		ev_id = request.getQueryString();
+	}
 
-		if (!key.equals("empty")) {
-			try {
-				users = (List<MeetupUser>) query.execute(key);
+	if (!key.equals("empty")) {
+		try {
+			users = (List<MeetupUser>) query.execute(key);
 %>
-<div id="mn_page">
-	<div id="mn_pageBody">
-		<div id="mn_context">
-			<div id="mn_document">
-				<div id="mn_box">
-					<div class="d_box">
-						<div class="d_boxBody">
-							<div class="d_boxHead">
-								
-							</div>
-							<div class="d_boxSection">
-								<div id="d_boxContent">
-									<div id="mn_geoListContext">
-										<div id="mn_geoListHeader">
 
-										</div><!-- mn_geoListHeader -->
 <%
 if (users.iterator().hasNext()) {
 	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
@@ -70,29 +56,53 @@ if (users.iterator().hasNext()) {
 		if (results.length() == 1) {
 			JSONObject item = results.getJSONObject(0);
 			cal.setTimeInMillis(Long.parseLong(item.getString("time")));
+%>
 
+<div id="wrapper">
+<div id="wrapperContent">
+	<div id="contentRight">
+		<div class="map_context">
+			<div id="map_canvasContainer">
+				<div id="map_canvas">
+					<img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=360x203&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
+				</div><!-- end #map_canvas -->
+			</div><!-- end #map_canvasContainer -->
+		</div><!-- end .map_context -->
+		<div id="eventInfo">
+			<span class="title eventInfo_title">Event #<%=ev_id%></span>
+			<span class="subtitle eventInfo_group"><%=item.getJSONObject("container").getString("name") %></span>
+			<div class="eventInfo_block">
+				<span class="eventInfo_label">WHEN:</span>
+				<span class="eventInfo_text">
+					<%=df.format(cal.getTime()) %>
+				</span> <!-- end eventInfo_text -->
+			</div> <!-- end .eventInfo_block -->
+			<div class="eventInfo_block">
+				<span class="eventInfo_label">WHERE:</span>
+				<span class="eventInfo_text">
+					<%=item.getString("venue_name") %><br>
+					<%=item.getString("city") %>, 
+					<%
+								try{
+					%>
+					<%=item.getString("state") %>
+					<%		
+								} catch (JSONException j) {
+					%>			
+					<%=item.getString("country").toUpperCase() %><br>
+					<%
+								}
+					%>
+				</span> <!-- end eventInfo_text -->
+			</div> <!-- end .eventInfo_block -->
+			<div class="eventInfo_block">
+				<span class="eventInfo_desc">
+					
+				</span> <!-- end .eventInfo_desc -->
+			</div> <!-- end .eventInfo_block -->
+		</div> <!-- end #eventInfo -->
+		<br>
 
-%>
-<%=item.getJSONObject("container").getString("name") %> Event #<%=ev_id%>
-<br>
-<%=df.format(cal.getTime()) %>
-<br><br>
-Location: <%=item.getString("city") %>, 
-<%
-			try{
-%>
-<%=item.getString("state") %>
-<%		
-			} catch (JSONException j) {
-%>			
-<%=item.getString("country").toUpperCase() %>
-<%
-			}
-%>
-&nbsp - &nbsp <%=item.getString("venue_name") %>
-<br>
-<img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=300x200&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
-<br><br>
 <%
 	String title = ev_id;
 	try {
@@ -104,8 +114,10 @@ Description: <%=item.getString("description") %>
 
 	}
 %>
-<br>
-<br>
+	</div> <!-- end #contentRight -->
+	<div id="contentLeft">
+		<div id="contentLeftContext">
+
 Add a comment
 <form action="/comment" method="get">
 <textarea name="comment" cols="40" rows="3"></textarea>
@@ -116,7 +128,6 @@ Add a comment
 </form>
 What people are saying: <br><br>
 <%
-
 		}
 		else {
 
@@ -140,30 +151,19 @@ What people are saying: <br><br>
 <i><%=comment.getJSONObject("member").getString("name") %> @ <%=df.format(cal.getTime()) %></i> <br> &nbsp &nbsp - &nbsp <%=comment.getString("comment")%> <br>
 
 
-<%		
-
+<%
 		}
-
 	} catch (Exception j) {
 
 	}
-	
 }
 %>
 
-										<div id="mn_geoListFooter">
+		</div> <!-- end #contentLeftContext -->
+	</div> <!-- end #contentLeft -->
+</div> <!-- end #wrapperContent -->
+</div> <!-- end #wrapper -->
 
-										</div><!-- mn_geoListFooter -->
-									</div><!-- mn_geoListContext -->
-								</div><!-- d_boxContent -->
-							</div><!-- d_boxSection -->
-						</div><!-- d_boxBody -->
-					</div><!-- d_box -->
-				</div><!-- mn_box -->
-			</div><!-- mn_document -->
-		</div><!-- mn_context -->
-	</div><!-- mn_pageBody -->
-</div><!-- mn_page -->
 <%@ include file="jsp/footer.jsp" %>
 <%
 			} finally {
@@ -171,6 +171,3 @@ What people are saying: <br><br>
 			}
 		}
 %>
-
-</body>
-</html>

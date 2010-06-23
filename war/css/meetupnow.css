@@ -4,6 +4,11 @@
 	font: normal bold 1.4em helvetica, arial, verdana, san-serif;
 	margin-bottom: .8em;
 }
+.subtitle {
+	color: #f2f2f2;
+	display: block;
+	font: normal 1.1em helvetica, arial, verdana, san-serif;
+}
 .heading {
 	display: block;
 	color: #f2f2f2;
@@ -300,7 +305,7 @@ body {
 	height: 100%;
 	margin-top: 24px;
 }
-	#actionContext {
+	#contentLeftContext {
 		padding: 12px;
 		background: -webkit-gradient(
 		    linear,
@@ -416,3 +421,34 @@ body {
 	margin: 0 0 .5em;
 	padding: 0;
 }
+
+/*** EventPage.jsp ***/
+
+#eventInfo {
+	width: 100%;
+	padding: 12px 0;
+}
+.eventInfo_title {
+	margin-bottom: 0.2em;
+}
+.eventInfo_group {
+	font-weight: bold;
+	color: #666;
+}
+.eventInfo_block {
+	padding-top: 24px;
+}
+	.eventInfo_label {
+		display: block;
+		padding-bottom: 0.4em;
+		color: #f2f2f2;
+		font-size: 1.3em;
+	}
+	.eventInfo_text {
+		display: block;
+		color: #f2f2f2;
+		font-size: 1.3em;
+		font-weight: bold;
+	}
+
+/*** EventPage.jsp ***/
