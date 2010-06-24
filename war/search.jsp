@@ -21,13 +21,13 @@
 <%
 
 	CompassSearchSession search = PMF.getCompass().openSearchSession();
-	CompassQuery CQuery = search.queryBuilder().matchAll().setTypes(Topic.class);
+
 
 	String query = request.getParameter("q");
-
-	CompassHits hits = search.queryBuilder().queryString(query).toQuery().setTypes(Topic.class).hits();
-	if (hits != null) {
-
+if (query != null) {
+	CompassHits hits = null;
+	hits = search.queryBuilder().queryString(query).toQuery().setTypes(Topic.class).hits();
+	//hits = search.find(query);	
 
 %>
 <p>Found <%=hits.length() %> hits for query <% out.write(query); %> </p>
