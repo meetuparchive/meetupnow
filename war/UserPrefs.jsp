@@ -49,7 +49,6 @@
 <span class="title">User Preferences - <%=users.get(0).getName()%></span>
 <br>
 <span class="heading">My Favorite Topics:</span>
-
 <%
 	String[] groups = profiles.get(0).getGroupArray();
 	if (groups.length > 0) {
@@ -74,7 +73,7 @@
 			results = json.getJSONArray("results");
 			for (int j = 0; j < results.length(); j++) {
 %>
-<span class="options">-<b><a href="/Group?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %> </a></b>
+<span class="options"> &nbsp - &nbsp <b><a href="/Group?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %> </a></b>
 &nbsp <a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove">Remove</a> </span>
 <br>
 <%
@@ -85,6 +84,7 @@
 	}
 
 %>
+<span class="options"><a href="/search.jsp">Search for more topics</a></span><br>
 <span class="options">
 <input type="text" name="zip" size="6"></input> Zip Code
 &nbsp

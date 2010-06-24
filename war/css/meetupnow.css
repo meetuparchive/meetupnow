@@ -304,6 +304,7 @@ body {
 				.prevPage {
 					
 				}
+
 #contentLeft {
 	position: relative;
 	float: left;
@@ -360,6 +361,11 @@ body {
 	#action a {
 		text-decoration: none;
 	}
+#contentLeft a:link,
+#contentLeft a:visited,
+#contentLeft a:hover {
+	color: #fff;
+}
 #activityFeedContext {
 	width: 540px;
 	padding: 12px;
