@@ -103,7 +103,7 @@
 		}
 
 		//add a show all option to list of events
-		$('.showAll').html('<a href="javascript:event_show(-1)">Show All</a>');
+		//$('.showAll').html('<a href="javascript:event_show(-1)">Show All</a>');
 	}
 
 	//populates map and list with events
