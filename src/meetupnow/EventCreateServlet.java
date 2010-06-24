@@ -142,6 +142,7 @@ public class EventCreateServlet extends HttpServlet {
 				
 				JSONObject json = new JSONObject(APIresponse.getBody());
 				rsvpID = json.getString("id");
+				callback = callback.concat("?id="+rsvpID);
 				containerName = json.getJSONObject("container").getString("name");
 
 				//Create notification
