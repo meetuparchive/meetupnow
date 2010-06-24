@@ -103,21 +103,28 @@
 <br>
 <hr>
 <br>
-To recieve txt notifications of nearby events, enter your cell phone info:
-<br>
-<input type="text" name="cell" value="<%= profiles.get(0).getCellNum() %>" size="11" /> Cell Phone #
-<br>
+<span class="heading">Recieve Txt Notifications</span>
+<span class="options">
+<input type="radio" name="cellOpt" value="yes"> Yes
+<input type="radio" name="cellOpt" value="no" checked> No<br><br>
+<input type="text" name="cell" value="<%= profiles.get(0).getCellNum() %>" size="11" /> Cell Number
+&nbsp
 <select name="carrier">
 	<option value=""><%=profiles.get(0).getCarrier() %></option>
 	<option value="att">AT&T</option>
   	<option value="verizon">Verizon</option>
   	<option value="tmobile">T-Mobile</option>
 </select> Carrier 
+</span>
+<br>
+<hr>
 <br>
 <input type="hidden" name="id" value="<%= users.get(0).getID()%>" />
 <input type="hidden" name="callback" value="/UserPrefs.jsp" />
-<input type="submit" value="Change Preferences"></input>
+<input type="submit" value="Update"></input>
 </form>
+
+
 <br><br>
 <form name="testmail" action="/email">
 <input type="hidden" name="to" value="<%= profiles.get(0).getEmail() %>" />
