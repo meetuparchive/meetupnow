@@ -137,7 +137,7 @@ public class OAuthServlet extends HttpServlet {
 				pm.close();
 			}
 			//Authorize token and redirect here
-			resp.sendRedirect("http://www.meetup.com/authorize/?callback="+callback+"&oauth_token="+requestToken.getToken());
+			resp.sendRedirect("http://www.meetup.com/authorize/?set_mobile=on&callback="+callback+"&oauth_token="+requestToken.getToken());
 		
 		}
 

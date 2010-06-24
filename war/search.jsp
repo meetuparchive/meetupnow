@@ -36,8 +36,8 @@ if (query != null) {
 			Topic topic = (Topic) hits.data(i);
 			Resource resource = hits.resource(i);
 %>
-<p><%=resource.getValue("name") %></p>
-<p><%=topic.getId() %></p>
+<p><a href="/Group?<%=topic.getId() %>"> <%=topic.getName() %> </a></p>
+
 <%
 		}
 	}
