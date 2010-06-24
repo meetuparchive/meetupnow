@@ -39,6 +39,10 @@ public class Topic {
     @SearchableProperty
     private String KeyWordString;
 
+    @Persistent
+    @SearchableProperty
+    private String Description;
+
     //constructors
     public Topic() {
 	this.author = null;
@@ -47,10 +51,11 @@ public class Topic {
 	KeyWords = new ArrayList<String>();
     }  
 
-    public Topic(String author, String name, int id) {
+    public Topic(String desc, String author, String name, int id) {
         this.author = author;
         this.name = name;
         this.id = id;
+	this.Description = desc;
 	KeyWords = new ArrayList<String>();
     }
 
@@ -71,10 +76,17 @@ public class Topic {
         return id;
     }
 
-    public String [] GetKeyWords(){
+    public String [] GetKeyWordArray(){
 	return (String []) KeyWords.toArray();
     }
 
+    public String GetKeyWordString(){
+	return KeyWordString;
+    }
+
+    public String getDescription(){
+	return Description;
+    }
 
     //seters
     public void setAuthor(String author) {
@@ -96,5 +108,9 @@ public class Topic {
     public void addKeyWord(String word){
 	this.KeyWords.add(word);
 	this.KeyWordString.concat(word + " ");
+    }
+
+    public void setDescription(String desc){
+	this.Description = desc;
     }
 }

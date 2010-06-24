@@ -41,6 +41,7 @@ public class TopicCreateServlet extends HttpServlet {
 			name = req.getParameter("name");
 			keyWords = req.getParameter("keywords");
 
+
 		}
 
 		
@@ -109,7 +110,7 @@ public class TopicCreateServlet extends HttpServlet {
 						rsvpID = json.getString("id");
 
 
-						Topic NewTopic = new Topic(users.get(0).getID(), name, Integer.parseInt(rsvpID));
+						Topic NewTopic = new Topic(desc, users.get(0).getID(), name, Integer.parseInt(rsvpID));
 						NewTopic.setKeyWords(keyWords);
 						try {
 							pm.makePersistent(NewTopic);

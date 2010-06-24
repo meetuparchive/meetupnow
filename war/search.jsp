@@ -37,6 +37,7 @@ if (query != null) {
 			Resource resource = hits.resource(i);
 %>
 <p><%=resource.getValue("name") %></p>
+<p><%=topic.getId() %></p>
 <%
 		}
 	}
