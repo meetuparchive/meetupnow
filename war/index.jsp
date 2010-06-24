@@ -6,6 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -169,16 +170,34 @@ function item(ty,n,m,e,c,ti,l) {
 		function loadEvents(){
 		<%@ include file="jsp/cookie.jsp" %>
 		<%@ include file="jsp/declares.jsp" %>
+
+		<%@ page import="meetupnow.Topic" %>
 		<%
 
 		
+		String TopicList = "container_id=654,713,";
+		Query TopicQuery = pm.newQuery(Topic.class);
+		TopicQuery.setFilter("id != 0");
+		TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
 
+		try {
+			List<Topic> Topics = (List<Topic>) TopicQuery.execute(key);
+			for (int i = 0; i < Topics.size(); i++){
+				TopicList = TopicList + Integer.toString(Topics.get(i).getId()) + ",";
+			}
+			if (TopicList.charAt(TopicList.length() - 1) == ',')
+				TopicList = TopicList.substring(0, TopicList.length() - 1);
+		} finally {
+
+		}
+		
 		if (!key.equals("empty")) {
 			try {
 				users = (List<MeetupUser>) query.execute(key);
 				if (users.iterator().hasNext()) {
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&urlname=muntest,muntest2&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
+					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
+					System.out.println(API_URL);
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					APIresponse = APIrequest.send();
@@ -291,7 +310,7 @@ function item(ty,n,m,e,c,ti,l) {
 			<div id="action">
 				<a href="#"><span class="btn_main">Register</span></a>
 				<a href="CreateEvent.jsp"><span class="btn_main">Create Event</span></a>
-				<a href="#"><span class="btn_main">Search Topics</span></a>
+				<a href="search.jsp"><span class="btn_main">Search Topics</span></a>
 			</div> <!-- end #action -->
 			<div id="actionDesc">
 				<span class="heading">MeetupNow is a platform built to Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </span>

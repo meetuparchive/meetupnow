@@ -12,6 +12,7 @@
 
 <%@ page import="org.compass.core.*" %>
 
+
 <form action="/search.jsp" method="get">
 	<input type="text" name="q" value="" size="50" />
 	<input type="submit" value="search" />
