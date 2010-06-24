@@ -245,12 +245,15 @@ function getTime(h, m, timezone) {
 $(document).ready(function() {
 	
 	// Add necessary DIVs
-	$('body').append('<div id="modal_register"><iframe src="http://www.meetup.com/register/" width="360px" height="622px" align="middle" scrolling="no"></iframe></div><div id="mask"></div>');
+	$('body').append('<div id="modal_register"><iframe src="http://www.meetup.com/register/?set_mobile=on" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
+	$('body').append('<div id="modal_login"><iframe src="http://localhost:8080/oauth" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
+	
+	// Global var to store activate modal div
+	var gId;
 	
 	// Select Register link
-	$('a[name=modalregister]').click(function(e) {
+	$('a[name=modal]').click(function(e) {
 		
-		console.log('Clicked!');
 		// Cancel default link behavior
 		e.preventDefault();
 		// Get the anchor tag
@@ -277,11 +280,14 @@ $(document).ready(function() {
 		
 		// Transition effect
 		$(id).fadeIn(1000);
+		
+		// Pass to global variable
+		gId = id;
 	});
 	
-	// If mask is clicked
+	// If mask is clicked, hide mask and activated modal dialogue
 	$('#mask').click(function() {
 		$(this).hide();
-		$('#modal_register').hide();
+		$(gId).hide();
 	})
 });

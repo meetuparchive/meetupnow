@@ -482,8 +482,17 @@ body {
 }
 #modal_register {
 	position: absolute;  
-	width: 360px;  
-	height: 622px;  
+	width: 400px;  
+	height: 550px;  
+	display: none;  
+	z-index: 9999;  
+	//padding: 20px;
+	background-color: white;
+}
+#modal_login {
+	position: absolute;  
+	width: 400px;  
+	height: 550px;  
 	display: none;  
 	z-index: 9999;  
 	//padding: 20px;
