@@ -17,22 +17,36 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
+<%@ include file="jsp/cookie.jsp" %>
+<%@ include file="jsp/declares.jsp" %>
+<%
+	String ev_id = "";
+	String meta_title = "Meetup Now Event";
+	String meta_desc = "This meetup is happening soon! Check it out.";
+	
+	if (request.getQueryString() != null) {
+
+		if (request.getQueryString().startsWith("id=")) {
+			ev_id = request.getParameter("id");
+			//META INFO
+
+		}
+		else {ev_id = request.getQueryString();}
+	}
+%>
+
 	<title>MeetupNOW</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<meta name="title" content="Meetup Now Event" />
+	<meta name="description" content="This meetup is happening soon! Check it out." />
 </head>
 <body id="meetupNowBody">
 
-<%@ include file="jsp/cookie.jsp" %>
-<%@ include file="jsp/declares.jsp" %>
+
 <%@ include file="jsp/header.jsp" %>
 
 <%
-	String ev_id = "";
-	
-	if (request.getQueryString() != null) {
-		ev_id = request.getQueryString();
-	}
 
 	if (!key.equals("empty")) {
 		try {

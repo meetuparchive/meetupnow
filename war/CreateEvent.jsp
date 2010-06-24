@@ -59,7 +59,7 @@
 			<input type="int" name="minute" size="2" value="M" /> Enter a Time <br>
 			<br>What's this meetup all about? <br>
 			<textarea name="desc" cols="40" rows="6"></textarea> <br>
-			<input type="hidden" name="callback" value="Group?<%=c_id%>" />
+			<input type="hidden" name="callback" value="congrats.jsp" />
 			<input type="hidden" name="c_id" value="<%=c_id%>" />
 			<input type="submit" value="Create" />
 		</form>
