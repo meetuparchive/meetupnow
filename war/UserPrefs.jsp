@@ -20,10 +20,15 @@
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 </head>
 <body id="meetupNowBody">
-	
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
 <%@ include file="jsp/header.jsp" %>
+<div id="wrapper">
+	<div id="wrapperContent">
+		<div id="contentLeft">
+			<div id="contentLeftContext">
+<form name="email" action="/setprefs">
+
 
 <%
 		if (!key.equals("empty")) {
@@ -40,32 +45,11 @@
 					if (profiles.size() > 0) {
 					
 %>
-<p><%=users.get(0).getName()%>
-<a href ="/logout?callback=">LOGOUT</a></p>
 
-	</div><!-- mew_headerBody -->
-</div><!-- mew_header -->
-
-<div id="mn_page">
-	<div id="mn_pageBody">
-		<div id="mn_context">
-			<div id="mn_document">
-				<div id="mn_box">
-					<div class="d_box">
-						<div class="d_boxBody">
-							<div class="d_boxHead">
-								
-							</div>
-							<div class="d_boxSection">
-								<div id="d_boxContent">
-									<div id="mn_geoListContext">
-										<div id="mn_geoListHeader">
-
-										</div><!-- mn_geoListHeader -->
-User Preferences - <%=users.get(0).getName()%>
-<br><br>
-Recieving Notifications from the following topics:
+<span class="title">User Preferences - <%=users.get(0).getName()%></span>
 <br>
+<span class="heading">My Favorite Topics:</span>
+
 <%
 	String[] groups = profiles.get(0).getGroupArray();
 	if (groups.length > 0) {
@@ -90,8 +74,8 @@ Recieving Notifications from the following topics:
 			results = json.getJSONArray("results");
 			for (int j = 0; j < results.length(); j++) {
 %>
--<b><a href="/Group?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %> </a></b>
-&nbsp <a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove">Remove</a>
+<span class="options">-<b><a href="/Group?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %> </a></b>
+&nbsp <a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove">Remove</a> </span>
 <br>
 <%
 			}
@@ -101,14 +85,23 @@ Recieving Notifications from the following topics:
 	}
 
 %>
+<span class="options">
+<input type="text" name="zip" size="6"></input> Zip Code
+&nbsp
+<input type="text" name="distance" value="<%= profiles.get(0).getDistance() %>" size="4"/> Max Travelling Distance (miles)
+</span>
 <br>
-Change your email address?<br>
-<form name="email" action="/setprefs">
-<input type="text" name="email" value="<%= profiles.get(0).getEmail() %>"></input> Email Address<br>
+<hr>
 <br>
-How far would you travel for a meetup?<br>
-<input type="text" name="distance" value="<%= profiles.get(0).getDistance() %>" size="4"/> miles
+<span class="heading">Recieve Email Notifications</span>
+
+<span class="options">
+<input type="radio" name="emailOpt" value="yes"> Yes
+<input type="radio" name="emailOpt" value="no" checked> No<br><br>
+<input type="text" name="email" value="<%= profiles.get(0).getEmail() %>"></input> Email Address
+</span>
 <br>
+<hr>
 <br>
 To recieve txt notifications of nearby events, enter your cell phone info:
 <br>
@@ -133,19 +126,6 @@ To recieve txt notifications of nearby events, enter your cell phone info:
 <input type="hidden" name="callback" value="/UserPrefs.jsp";
 <input type="submit" value="SEND TEST EMAIL AND TEXT"></input>
 </form>
-										<div id="mn_geoListFooter">
-
-										</div><!-- mn_geoListFooter -->
-									</div><!-- mn_geoListContext -->
-								</div><!-- d_boxContent -->
-							</div><!-- d_boxSection -->
-						</div><!-- d_boxBody -->
-					</div><!-- d_box -->
-				</div><!-- mn_box -->
-			</div><!-- mn_document -->
-		</div><!-- mn_context -->
-	</div><!-- mn_pageBody -->
-</div><!-- mn_page -->
 
 <%
 					}
@@ -157,8 +137,9 @@ To recieve txt notifications of nearby events, enter your cell phone info:
 			}
 		}
 %>
-
-</div>
-
+</div><!-- contentLeft -->
+</div><!-- contentLeftContext -->
+</div><!-- wrappercontent -->
+</div><!-- wrapper -->
 </body>
 </html>
