@@ -17,6 +17,40 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script type="text/javascript">
+	function test() {
+		alert("TEST");
+	}
+
+	function verifyAddress() {
+		var add = $('#address');
+		var out = $('#out');
+		var geocoder = new google.maps.Geocoder();
+		var lat;
+		var lon;
+		var address;
+
+		if(geocoder){
+			geocoder.geocode( { 'address': add.val()}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+				
+					document.getElementById('lat').value = results[0].geometry.location.lat();
+					document.getElementById('lon').value = results[0].geometry.location.lng();
+					address = results[0].formatted_address;
+
+					out.empty();
+					out.append(address+"<br>VALID");
+				} else {
+					out.empty();
+					out.append("NOT VALID, TRY AGAIN");
+				}
+			});
+		}
+
+	}
+</script>
 </head>
 <body id="meetupNowBody">
 <%@ include file="jsp/cookie.jsp" %>
@@ -151,20 +185,23 @@
 	<span class="goLeft"><span class="heading"> Where? </span></span>
 	<span class="goRight">
 		<input type="text" name="venue" /> Venue <br>
-		<input type="text" name="zip" size="6" /> Zip Code <br>
+		<input type="text" id="address" /> Address or Zip Code<br>
+		<input type="button" value="Validate Address" onclick="verifyAddress()" ></input>
+		<div id="out"></div>
 	</span>
-	<br><br><br><br><br>
+	<br><br><br><br><br><br><br><br>
 	<span class="goCenter">
 		<span class="heading"> Description: </span>
 		<span class="heading"> <textarea name="desc" cols="60" rows="4"></textarea></span> <br>
 	</span>
 	<br><br><br>
+	<input type="hidden" name="lat" value="NA" id="lat" />
+	<input type="hidden" name="lon" value="NA" id="lon" />
 	<input type="hidden" name="callback" value="congrats.jsp" />
 	<input type="hidden" name="c_id" value="<%=c_id%>" />
 	<input type="submit" value="Create" />
 </span>
 </form>
-
 			</div>
 		</div>
 	</div>
