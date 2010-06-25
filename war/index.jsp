@@ -267,34 +267,7 @@ function item(ty,n,m,e,c,ti,l) {
 				<span class="listTitle">Results near [location]</span>
 			</div><!-- mn_geoListHeader -->
 			<div id="mn_geoListBody">
-				<a href="#" class="mn_geoListItem_link">
-					<span class="mn_geoListItem">
-						<span class="when">
-							<span class="mn_geoListItem_date">6/16</span>
-							<span class="mn_geoListItem_time">1:00 pm</span>
-						</span> <!-- end .when -->
-						<span class="details">
-							<span class="mn_geoListItem_title">Flag Football</span>
-							<span class="loc">
-								<span class="mn_geoListItem_address">555 1st Ave.</span>
-								<span class="mn_geoListItem_city">New York, NY</span>
-							</span> <!-- end .loc -->
-						</span> <!-- end .details -->
-					</span> <!-- end .mn_geoListItem -->
-				</a>
-				<a href="#" class="mn_geoListItem_link">
-					<span class="mn_geoListItem">
-						<span class="when">
-							<span class="mn_geoListItem_date">6/17</span>
-							<span class="mn_geoListItem_time">5:30 pm</span>
-						</span> <!-- end .when -->
-						<span class="mn_geoListItem_title">Rugby</span>
-						<span class="loc">
-							<span class="mn_geoListItem_address">555 1st Ave.</span>
-							<span class="mn_geoListItem_city">Brooklyn, NY</span>
-						</span> <!-- end .loc -->
-					</span> <!-- end .mn_geoListItem -->
-				</a>
+				
 			</div> <!-- end #mn_geoListBody -->
 			<div id="mn_geoListFooter">
 				<div id="searchResultsNav">
