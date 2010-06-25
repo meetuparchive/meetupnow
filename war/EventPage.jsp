@@ -40,6 +40,8 @@
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<meta name="title" content="Meetup Now Event" />
 	<meta name="description" content="This meetup is happening soon! Check it out." />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script src="js/eventPage.js"></script>
 </head>
 <body id="meetupNowBody">
 
@@ -56,7 +58,7 @@
 <%
 if (users.iterator().hasNext()) {
 	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-	APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?event_id="+ev_id);
+	APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?event_id="+ev_id+"&fields=rsvp_count");
 	scribe.signRequest(APIrequest,accessToken);
 	APIresponse = APIrequest.send();
 	JSONObject json = new JSONObject();
@@ -127,51 +129,74 @@ if (users.iterator().hasNext()) {
 					}
 				%>
 			</div> <!-- end .eventInfo_block -->
+			<div class="eventInfo_block">
+				<span class="title"><%=item.getString("rsvp_count") %> RSVP(s).</span>
+				<ul id="attendeesList">
+					<li>Steve Aquillano</li>
+					<li>Jake Levine</li>
+					<li>Mike Shapiro</li>
+				</ul>
+			</div>
 		</div> <!-- end #eventInfo -->
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
 		<div id="contentLeftContext">
-
-Add a comment
-<form action="/comment" method="get">
-<textarea name="comment" cols="40" rows="3"></textarea>
-<input type="hidden" name="id" value="<%=ev_id%>" />
-<input type="hidden" name="callback" value="Event?<%=ev_id%>" />
-<input type="hidden" name="title" value="<%=title%>" />
-<input type="submit" value="Submit" />
-</form>
-What people are saying: <br><br>
-<%
-		}
-		else {
-
-		}
-
-	} catch (Exception j) {
+			<div class="custom" style="width:540px; height:203px; background-color:#666"></div>
 			
-	}
-	Request CommentRequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/comments/?event_id="+ev_id);
-	scribe.signRequest(CommentRequest,accessToken);
-	Response CommentResponse = CommentRequest.send();
-	JSONObject j2 = new JSONObject();
-	JSONArray cResults;
-	try {
-		j2 = new JSONObject(CommentResponse.getBody());
-		cResults = j2.getJSONArray("results");
-		for (int i = 0; i < cResults.length(); i++) {
-			JSONObject comment = cResults.getJSONObject(i);
-			cal.setTimeInMillis(Long.parseLong(comment.getString("time")));
-%>
-<i><%=comment.getJSONObject("member").getString("name") %> @ <%=df.format(cal.getTime()) %></i> <br> &nbsp &nbsp - &nbsp <%=comment.getString("comment")%> <br>
+			<div id="commentFeedContext">
+				<div id="activityFeed">
+					<span class="title">Event Buzz.</span>
+
+						<div class="commentHeadBlock">
+							<a href="#commentInputContext" name="commentToggle">Add a Comment</a>
+						</div>
+						<div id="commentInputContext">
+							<form action="/comment" method="get">
+								<textarea name="comment" class="input textarea"></textarea>
+								<input type="hidden" name="id" value="<%=ev_id%>" />
+								<input type="hidden" name="callback" value="Event?<%=ev_id%>" />
+								<input type="hidden" name="title" value="<%=title%>" />
+								<input type="submit" value="Post" class="submitCommentBtn"/>
+							</form>
+						</div> <!-- end #commentInputContext -->
+
+					<div id="activity">
+						<%
+								}
+								else {
+
+								}
+
+							} catch (Exception j) {
+
+							}
+							Request CommentRequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/comments/?event_id="+ev_id);
+							scribe.signRequest(CommentRequest,accessToken);
+							Response CommentResponse = CommentRequest.send();
+							JSONObject j2 = new JSONObject();
+							JSONArray cResults;
+							try {
+								j2 = new JSONObject(CommentResponse.getBody());
+								cResults = j2.getJSONArray("results");
+								for (int i = 0; i < cResults.length(); i++) {
+									JSONObject comment = cResults.getJSONObject(i);
+									cal.setTimeInMillis(Long.parseLong(comment.getString("time")));
+						%>
+						<div class="commentFeedItem"><span class="comment_body"><span class="comment_author"><%=comment.getJSONObject("member").getString("name") %></span><span class="comment_text"><%=comment.getString("comment")%></span></span><span class="comment_time"><%=df.format(cal.getTime()) %></span></div>
 
 
-<%
-		}
-	} catch (Exception j) {
+						<%
+								}
+							} catch (Exception j) {
 
-	}
-}
-%>
+							}
+						}
+						%>
+					</div>
+				</div>
+			</div> <!-- end #activityFeed -->
+			
+
 
 		</div> <!-- end #contentLeftContext -->
 	</div> <!-- end #contentLeft -->

@@ -40,6 +40,19 @@
 	text-align: center;
 	position: relative;
 }
+a,
+a:link,
+a:visited,
+a:hover {
+	color: #f2f2f2;
+	font-weight: bold;
+	text-decoration: none;
+	cursor: hand;
+	cursor: pointer;
+}
+a:hover {
+	color: #2175B1;
+}
 html, body{
 	width: 100%;
 	height: 100%;
@@ -58,7 +71,7 @@ body {
 	    rgb(2,36,50) 66%
 	);
 	font-family: verdana, arial, sans-serif;
-	color: #ffffff;
+	color: #f2f2f2;
 	font-weight: normal;
 	font-size: .7em;
 }
@@ -385,11 +398,11 @@ body {
 	#action a {
 		text-decoration: none;
 	}
-#contentLeft a:link,
+/*#contentLeft a:link,
 #contentLeft a:visited,
 #contentLeft a:hover {
 	color: #fff;
-}
+}*/
 #activityFeedContext {
 	width: 540px;
 	padding: 12px;
@@ -457,6 +470,10 @@ body {
 	margin: 0 0 .5em;
 	padding: 0;
 }
+#commentFeedContext {
+	margin-top: 24px;
+	width: 540px;
+}
 
 /*** EventPage.jsp ***/
 
@@ -491,7 +508,79 @@ body {
 		color: #f2f2f2;
 		font-size: 1.2em;
 	}
-
+	ul#attendeesList li {
+		padding: 0.5em 0;
+		font-size: 1.2em;
+	}
+.leftBlockFullWidth {
+	width: 540px;
+	margin-top: 24px;
+}
+.commentHeadBlock {
+	width: 540px;
+	padding-bottom: 0.5em;
+	padding-left: 8px;
+}
+#commentInputContext {
+	width: 540px;
+	margin-bottom: 12px;
+	margin-left: 8px;
+}
+.toggle {
+	display: block;
+}
+.input {
+	padding: 4px 6px;
+	font-size: 1.2em;
+}
+.textarea {
+	margin-top: 0.5em;
+	width: 400px;
+	height: 6em;
+}
+.submitCommentBtn {
+	position: relative;
+	color: #f2f2f2;
+	font-weight: bold;
+	font-size: 1.2em;
+	background-color: #D22A2C;
+	background-position: 0% 0%;
+	background-repeat: no-repeat;
+	border: 1px solid #666;
+	//padding:  0.25em 0.5em;
+	margin-top: 0.5em;
+	height: 2em;
+	width: 6em;
+}
+.commentFeedItem {
+		height: auto;
+		color: #f2f2f2;
+		padding: 6px 8px;
+		font-size: 1.2em;
+		border-top: 1px dotted #666;
+		-moz-border-top: 1px solid #666;
+		-webkit-border-top: 1px solid #666;
+	}
+.comment_body {
+	display: block;
+}
+.comment_author {
+	color: #2175B1;
+	font-weight: bold;
+}
+.comment_text {
+	color: #f2f2f2;
+	margin-left: 0.5em;
+}
+.comment_time {
+	position: relative;
+	display: block;
+	padding-top: 4px;
+	font-size: 0.8em;
+	color: #666;
+	width: 100%;
+	text-align: left;
+}
 /*** EventPage.jsp ***/
 
 /*** Register Modal Window ***/

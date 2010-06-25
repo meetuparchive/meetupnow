@@ -293,7 +293,7 @@ function item(ty,n,m,e,c,ti,l) {
 		<div id="activityFeedContext">
 			<div id="activityFeed">
 				<span class="title">Activity Feed.</span>
-				<div id = "activity"> </div>
+				<div id="activity"></div>
 			</div>
 		</div> <!-- end #activityFeed -->
 	</div> <!-- end #contentLeft -->

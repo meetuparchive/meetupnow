@@ -248,12 +248,38 @@ function getTime(h, m, timezone) {
 	else {return (h + ":0" + m + " " + time);}
 }
 
+// Get $_GET[param] JS
+function getParameterByName( name )
+{
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+// Close modal dialogue if get[reload]=1
+// var paramValue = "";
+// 
+// if (paramValue = getParameterByName('reload'))
+// {
+// 	if (paramValue == 1)
+// 	{
+// 		$('#modal_login').hide();
+// 		$('#mask').hide();
+// 		window.location.reload();
+// 	}
+// }
+
 // Modal Registration Popup
 $(document).ready(function() {
 	
 	// Add necessary DIVs
 	$('body').append('<div id="modal_register"><iframe src="http://www.meetup.com/register/?set_mobile=on" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
-	$('body').append('<div id="modal_login"><iframe src="http://localhost:8080/oauth" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
+	$('body').append('<div id="modal_login"><iframe src="/oauth?callback=index.jsp?reload=1" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
 	
 	// Global var to store activate modal div
 	var gId;
