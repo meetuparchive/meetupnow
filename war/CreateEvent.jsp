@@ -20,9 +20,11 @@
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript">
-	function test() {
-		alert("TEST");
-	}
+	$(function() {
+		var now = new Date();
+		document.getElementById('month').value = now.getMonth()+1;
+		document.getElementById('day').value = now.getDate();
+	});
 
 	function verifyAddress() {
 		var add = $('#address');
@@ -96,9 +98,8 @@
 	<span class="goRight"><input type="text" name="name" /></span>
 	<br><br><br><br><br>
 	<span class="goLeft"><span class="heading"> When? </span></span>
-	<span class="goRight">
-
-		<select name="month">
+	<span class="goRight">		
+		<select id="month" name="month">
 			<option value="1">January</option>
   			<option value="2">February</option>
   			<option value="3">March</option>
@@ -112,7 +113,7 @@
   			<option value="11">November</option>
   			<option value="12">December</option>
 		</select>
-		<select name="day">
+		<select id="day" name="day">
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
@@ -146,7 +147,7 @@
 			<option value="31">31</option>
 		</select>
 		
-		<select name="year">
+		<select id="year" name="year">
 			<option value="2010">2010</option>
 			<option value="2011">2011</option>
 			<option value="2012">2012</option>
@@ -156,7 +157,7 @@
 			<option value="2016">2016</option>
 		</select>
 		<br>
-		<select name="hour">
+		<select id="hour" name="hour">
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
