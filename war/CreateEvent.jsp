@@ -29,55 +29,51 @@
 			c_id = request.getQueryString();
 		}
 %>
-		
-<div id="mn_page">
-	<div id="mn_pageBody">
-		<div id="mn_context">
-			<div id="mn_document">
-				<div id="mn_box">
-					<div class="d_box">
-						<div class="d_boxBody">
-							<div class="d_boxHead">
-								
-							</div>
-							<div class="d_boxSection">
-								<div id="d_boxContent">
-									<div id="mn_geoListContext">
-										<div id="mn_geoListHeader">
 
-							<b>Let's Meetup Now!<br> Create an Event </b><br><br>
-
-										</div><!-- mn_geoListHeader -->
-		<form name="f" action="/EventCreate" method="get">
-			<input type="test" name="name" /> Give a Name to This Event <br>	
-			<input type="text" name="venue" /> At what venue will we meet? <br>
-			<input type="text" name="zip" size="6" /> Enter A Zip Code <br>
-			<input type="int" name="month" size="2" value="mm" />-
-			<input type="int" name="day" size="2" value="dd" />-
-			<input type="int" name="year" size="4" value="yyyy" /> Enter A Date <br>
-			<input type="int" name="hour" size="2" value="H" />:
-			<input type="int" name="minute" size="2" value="M" /> Enter a Time <br>
-			<br>What's this meetup all about? <br>
-			<textarea name="desc" cols="40" rows="6"></textarea> <br>
-			<input type="hidden" name="callback" value="congrats.jsp" />
-			<input type="hidden" name="c_id" value="<%=c_id%>" />
-			<input type="submit" value="Create" />
-		</form>
+<div id="wrapper">
+	<div id="wrapperContent">
+		<div id="contentLeft">
+			<div id="contentLeftContext">
+<span class="title">Create An Event - Let's Meetup Now!</span><br>
+<form name="f" action="/EventCreate" method="get">
 
 
-										<div id="mn_geoListFooter">
-										</div><!-- mn_geoListFooter -->
-									</div><!-- mn_geoListContext -->
-								</div><!-- d_boxContent -->
-							</div><!-- d_boxSection -->
-						</div><!-- d_boxBody -->
-					</div><!-- d_box -->
-				</div><!-- mn_box -->
-			</div><!-- mn_document -->
-		</div><!-- mn_context -->
-	</div><!-- mn_pageBody -->
-</div><!-- mn_page -->
-<%@ include file="jsp/footer.jsp" %>
+	<span class="goLeft"><span class="heading"> Topic: </span></span>
+	<span class="goRight"> TOPIC WILL GO HERE</span>
+	<br><br><br><br>
+	<span class="goLeft"><span class="heading"> Title: </span></span>
+	<span class="goRight"><input type="text" name="name" /></span>
+	<br><br><br><br><br>
+	<span class="goLeft"><span class="heading"> When? </span></span>
+	<span class="goRight">
+		<input type="int" name="month" size="2" value="mm" />-
+		<input type="int" name="day" size="2" value="dd" />-
+		<input type="int" name="year" size="4" value="yyyy" /> Date <br>
+		<input type="int" name="hour" size="2" value="H" />:
+		<input type="int" name="minute" size="2" value="M" /> Time <br>
+	</span>
+	<br><br><br><br><br>
+	<span class="goLeft"><span class="heading"> Where? </span></span>
+	<span class="goRight">
+		<input type="text" name="venue" /> Venue <br>
+		<input type="text" name="zip" size="6" /> Zip Code <br>
+	</span>
+	<br><br><br><br><br>
+	<span class="goLeft"><span class="heading"> Description: </span></span>
+	<span class="goRight">
+		<textarea name="desc" cols="40" rows="6"></textarea> <br>
+	</span>
+	<br><br><br><br><br><br><br><br><br><br>
+	<input type="hidden" name="callback" value="congrats.jsp" />
+	<input type="hidden" name="c_id" value="<%=c_id%>" />
+	<input type="submit" value="Create" />
+</span>
+</form>
+
+			</div>
+		</div>
+	</div>
+</div>
 
 </body>
 </html>
