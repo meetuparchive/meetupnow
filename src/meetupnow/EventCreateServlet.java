@@ -27,7 +27,8 @@ public class EventCreateServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String c_id = "";
 		String callback = "";
-		String zip = "";
+		String lat = "";
+		String lon = "";
 		String month = "";
 		String day = "";
 		String year = "";
@@ -40,7 +41,6 @@ public class EventCreateServlet extends HttpServlet {
 		
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
-			zip = req.getParameter("zip");
 			month = req.getParameter("month");
 			day = req.getParameter("day");
 			year = req.getParameter("year");
@@ -51,6 +51,8 @@ public class EventCreateServlet extends HttpServlet {
 			c_id = req.getParameter("c_id");
 			name = req.getParameter("name");
 			ampm = req.getParameter("ampm");
+			lat = req.getParameter("lat");
+			lon = req.getParameter("lon");
 
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute,ampm);
@@ -58,47 +60,12 @@ public class EventCreateServlet extends HttpServlet {
 		String containerName = "";
 		
 
-
-		String GEOCODE_URL = "http://maps.google.com/maps/api/geocode/json?address=" + zip + "&sensor=true";
 		
 		String API_URL = "http://api.meetup.com/ew/event/";
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
 
-		Request GoogleAPIrequest = new Request(Request.Verb.POST, GEOCODE_URL);
-		Response GoogleAPIresponse = GoogleAPIrequest.send();
-		String Lat = "0";
-		String Lng = "0";
-		String City = "";
-		String State = "";
-		String Country = "";
-
-		try{
-			JSONObject json = new JSONObject(GoogleAPIresponse.getBody());
-
-			String[] names = JSONObject.getNames(json.getJSONArray("results").getJSONObject(0));
-
-			Lng = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
-			Lat = json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
-
-
-			JSONArray Location = json.getJSONArray("results").getJSONObject(0).getJSONArray("address_components");
-			City = Location.getJSONObject(0).getString("short_name");
-			State = Location.getJSONObject(2).getString("short_name");
-			Country = Location.getJSONObject(3).getString("short_name");
-			System.out.println("City: " + City + " State: " + State + " Country: " + Country);
-
-
-			for (int i = 0; i< Location.length(); i++){
-				System.out.println(i + ": " + Location.getJSONObject(i).getString("short_name"));
-			}
-
-
-		}
-		catch(JSONException k){
-			
-		}
-
+		
 
 
     		if (cookies != null) {
@@ -127,10 +94,8 @@ public class EventCreateServlet extends HttpServlet {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
 				APIrequest.addBodyParameter("venue_name",venue);
-				//APIrequest.addBodyParameter("city",City);
-				//APIrequest.addBodyParameter("state",State);
-				//APIrequest.addBodyParameter("country", Country);
-				APIrequest.addBodyParameter("zip", zip);
+				APIrequest.addBodyParameter("lat", lat);
+				APIrequest.addBodyParameter("lon", lon);
 				APIrequest.addBodyParameter("time",millitime);
 				APIrequest.addBodyParameter("container_id",c_id);
 				APIrequest.addBodyParameter("description",desc);

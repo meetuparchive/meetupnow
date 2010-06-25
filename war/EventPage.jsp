@@ -72,6 +72,10 @@ if (users.iterator().hasNext()) {
 		if (results.length() == 1) {
 			JSONObject item = results.getJSONObject(0);
 			cal.setTimeInMillis(Long.parseLong(item.getString("time")));
+			String desc = "";
+			try {
+				desc = item.getString("description");
+			} catch (Exception e) {}
 %>
 
 <div id="wrapper">
@@ -113,7 +117,7 @@ if (users.iterator().hasNext()) {
 			</div> <!-- end .eventInfo_block -->
 			<div class="eventInfo_block">
 				<span class="eventInfo_desc">
-					<%=item.getString("description") %>
+					<%=desc %>
 				</span> <!-- end .eventInfo_desc -->
 			</div> <!-- end .eventInfo_block -->
 			<div class="eventInfo_block">
