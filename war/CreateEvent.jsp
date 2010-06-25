@@ -8,6 +8,7 @@
 <%@ page import="meetupnow.PMF" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
+<%@ page import="org.json.*" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -28,6 +29,21 @@
 		if (request.getQueryString() != null) {
 			c_id = request.getQueryString();
 		}
+
+		if (!key.equals("empty")) {
+
+			try {
+				users = (List<MeetupUser>) query.execute(key);
+				if (users.iterator().hasNext()) {
+					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+					APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/containers/?container_id="+c_id);
+					scribe.signRequest(APIrequest,accessToken);
+					APIresponse = APIrequest.send();
+					JSONObject json = new JSONObject();
+					JSONArray results;
+					try {
+						json = new JSONObject(APIresponse.getBody());
+						results = json.getJSONArray("results");
 %>
 
 <div id="wrapper">
@@ -39,7 +55,7 @@
 
 
 	<span class="goLeft"><span class="heading"> Topic: </span></span>
-	<span class="goRight"> TOPIC WILL GO HERE</span>
+	<span class="goRight"> <%=results.getJSONObject(0).getString("name")%> &nbsp | &nbsp <a href="/">Change Topic</a></span>
 	<br><br><br><br>
 	<span class="goLeft"><span class="heading"> Title: </span></span>
 	<span class="goRight"><input type="text" name="name" /></span>
@@ -59,11 +75,11 @@
 		<input type="text" name="zip" size="6" /> Zip Code <br>
 	</span>
 	<br><br><br><br><br>
-	<span class="goLeft"><span class="heading"> Description: </span></span>
-	<span class="goRight">
-		<textarea name="desc" cols="40" rows="6"></textarea> <br>
+	<span class="goCenter">
+		<span class="heading"> Description: </span>
+		<span class="heading"> <textarea name="desc" cols="60" rows="4"></textarea></span> <br>
 	</span>
-	<br><br><br><br><br><br><br><br><br><br>
+	<br><br><br>
 	<input type="hidden" name="callback" value="congrats.jsp" />
 	<input type="hidden" name="c_id" value="<%=c_id%>" />
 	<input type="submit" value="Create" />
@@ -74,6 +90,17 @@
 		</div>
 	</div>
 </div>
+
+<%
+					} catch (Exception j) {
+
+					}
+				}
+			} finally {
+				query.closeAll();
+			}
+		}
+%>
 
 </body>
 </html>
