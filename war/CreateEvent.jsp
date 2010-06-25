@@ -190,6 +190,7 @@
 		<input type="text" name="venue" /><br>
 		Address or Zip Code<br>
 		<input type="text" id="address" /> <br>
+		<span class="options">Type anything, then validate with Google Maps</span>
 		<input type="button" value="Validate Address" onclick="verifyAddress()" ></input>
 		<div id="out"></div>
 	</span>
