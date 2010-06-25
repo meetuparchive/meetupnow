@@ -210,12 +210,12 @@ function item(ty,n,m,e,c,ti,l) {
 			for (int j = 0; j < top_list.length(); j++){
 				found = false;
 				for (int i = 0; i < Topics.size(); i++){
-					if( top_list.getJSONObject(j).getString("id").equals(Topics.get(i).getId()) ){
+					if( Integer.parseInt(top_list.getJSONObject(j).getString("id")) == Topics.get(i).getId() ){
 						found = true;
 					}
 				}
 				if (!found){
-					System.out.println(top_list.getJSONObject(j).getString("name"));
+
 					NewTopic = new Topic(top_list.getJSONObject(j).getString("description"), top_list.getJSONObject(j).getJSONObject("founder").getString("member_id"), top_list.getJSONObject(j).getString("name"), Integer.parseInt(top_list.getJSONObject(j).getString("id")));
 					try {
 						pm.makePersistent(NewTopic);
