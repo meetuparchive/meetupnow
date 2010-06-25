@@ -174,14 +174,23 @@ function item(ty,n,m,e,c,ti,l) {
 		<%@ page import="meetupnow.Topic" %>
 		<%
 
+
+		API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&format=json&link=http%3A%2F%2Fjake-meetup-test.appspot.com&page=200&sig_id=12219924&sig=18c1783ca4472bbaa62c745ee138082b";
+		APIrequest = new Request(Request.Verb.GET, API_URL);
+		APIresponse = APIrequest.send();
+		JSONObject json;
+		JSONArray top_list;	
+
+
 		
 		String TopicList = "container_id=654,713,";
 		Query TopicQuery = pm.newQuery(Topic.class);
 		TopicQuery.setFilter("id != 0");
 		TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
 
+		List<Topic> Topics = new ArrayList<Topic>();
 		try {
-			List<Topic> Topics = (List<Topic>) TopicQuery.execute(key);
+			Topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
 			for (int i = 0; i < Topics.size(); i++){
 				TopicList = TopicList + Integer.toString(Topics.get(i).getId()) + ",";
 			}
@@ -191,17 +200,49 @@ function item(ty,n,m,e,c,ti,l) {
 
 		}
 		
+		Topic NewTopic;
+
+		try{
+			json = new JSONObject(APIresponse.getBody());
+			top_list = json.getJSONArray("results");
+			boolean found = false;
+
+			for (int j = 0; j < top_list.length(); j++){
+				found = false;
+				for (int i = 0; i < Topics.size(); i++){
+					if( Integer.parseInt(top_list.getJSONObject(j).getString("id")) == Topics.get(i).getId() ){
+						found = true;
+					}
+				}
+				if (!found){
+
+					NewTopic = new Topic(top_list.getJSONObject(j).getString("description"), top_list.getJSONObject(j).getJSONObject("founder").getString("member_id"), top_list.getJSONObject(j).getString("name"), Integer.parseInt(top_list.getJSONObject(j).getString("id")));
+					try {
+						pm.makePersistent(NewTopic);
+					} 
+				
+					finally {
+
+					}
+				}
+			}
+
+		}
+		catch (JSONException j){
+
+		}
+
 		if (!key.equals("empty")) {
 			try {
 				users = (List<MeetupUser>) query.execute(key);
 				if (users.iterator().hasNext()) {
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
-					System.out.println(API_URL);
+
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					APIresponse = APIrequest.send();
-					%>var data = <%=APIresponse.getBody().toString()%><%
+					%>data = <%=APIresponse.getBody().toString()%><%
 				}
 			}
 			finally {
