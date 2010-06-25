@@ -33,6 +33,7 @@ public class EventCreateServlet extends HttpServlet {
 		String year = "";
 		String hour = "";
 		String minute = "";
+		String ampm = "";
 		String venue = "";
 		String desc = "";
 		String name = "";
@@ -49,9 +50,10 @@ public class EventCreateServlet extends HttpServlet {
 			desc = req.getParameter("desc");
 			c_id = req.getParameter("c_id");
 			name = req.getParameter("name");
+			ampm = req.getParameter("ampm");
 
 		}
-		String millitime= getMilliTime(year,month,day,hour,minute);
+		String millitime= getMilliTime(year,month,day,hour,minute,ampm);
 		String rsvpID = "";
 		String containerName = "";
 		
@@ -181,9 +183,23 @@ public class EventCreateServlet extends HttpServlet {
 
 	}
 
-	public static String getMilliTime(String year, String month, String day, String hour, String min) {
+	public static String getMilliTime(String year, String month, String day, String hour, String min, String ampm) {
+		int dateHour;
+		if (ampm.equals("am")) {
+			if (hour.equals("12")) {
+				dateHour = 0;
+			} else {
+				dateHour = Integer.parseInt(hour);
+			}
+		} else {
+			if (hour.equals("12")) {
+				dateHour = 12;
+			} else {
+				dateHour = Integer.parseInt(hour)+12;
+			}
+		}
 		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(year),Integer.parseInt(month) - 1,Integer.parseInt(day) +1 ,Integer.parseInt(hour),Integer.parseInt(min));
+		cal.set(Integer.parseInt(year),Integer.parseInt(month) - 1,Integer.parseInt(day) ,dateHour,Integer.parseInt(min));
 		return ""+cal.getTimeInMillis();
 	}
 
