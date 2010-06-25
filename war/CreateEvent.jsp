@@ -42,6 +42,7 @@
 
 					out.empty();
 					out.append(address+"<br>VALID");
+					document.getElementById('exe').disabled = "";
 				} else {
 					out.empty();
 					out.append("NOT VALID, TRY AGAIN");
@@ -144,6 +145,7 @@
 			<option value="30">30</option>
 			<option value="31">31</option>
 		</select>
+		
 		<select name="year">
 			<option value="2010">2010</option>
 			<option value="2011">2011</option>
@@ -184,12 +186,14 @@
 	<br><br><br><br><br>
 	<span class="goLeft"><span class="heading"> Where? </span></span>
 	<span class="goRight">
-		<input type="text" name="venue" /> Venue <br>
-		<input type="text" id="address" /> Address or Zip Code<br>
+		Venue<br>
+		<input type="text" name="venue" /><br>
+		Address or Zip Code<br>
+		<input type="text" id="address" /> <br>
 		<input type="button" value="Validate Address" onclick="verifyAddress()" ></input>
 		<div id="out"></div>
 	</span>
-	<br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br><br><br><br>
 	<span class="goCenter">
 		<span class="heading"> Description: </span>
 		<span class="heading"> <textarea name="desc" cols="60" rows="4"></textarea></span> <br>
@@ -199,7 +203,7 @@
 	<input type="hidden" name="lon" value="NA" id="lon" />
 	<input type="hidden" name="callback" value="congrats.jsp" />
 	<input type="hidden" name="c_id" value="<%=c_id%>" />
-	<input type="submit" value="Create" />
+	<input type="submit" disabled="disabled" id="exe" value="Create" />
 </span>
 </form>
 			</div>
