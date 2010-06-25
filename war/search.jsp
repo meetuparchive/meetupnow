@@ -20,6 +20,7 @@
 
 <%
 
+
 	CompassSearchSession search = PMF.getCompass().openSearchSession();
 
 
@@ -40,6 +41,10 @@ if (query != null) {
 
 <%
 		}
+if (hits.getSuggestedQuery().isSuggested()) {
+    System.out.println("Did You Mean: " + hits.getSuggestedQuery());
+}
+
 	}
 
 %>

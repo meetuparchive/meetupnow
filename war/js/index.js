@@ -93,14 +93,21 @@
 					
 		}
 		
+		$('.pageinationNav').empty();
+
 		//Next page / previous page link (when applicable)
-		if ((current_page * events_per_page) < eventArray.length){
+		if (((current_page) * events_per_page) >= eventArray.length){
+
+			$('.paginationNav').html('<a href="javascript:prevPage()"><span class="prevPage">&laquo; PREVIOUS</span></a>');
+		}
+		else if (current_page <= 1){
+
 			$('.paginationNav').html('<a href="javascript:nextPage()"><span class="nextPage">NEXT &raquo;</span></a>');
 		}
+		else{
 
-		if (current_page > 1){
 			$('.paginationNav').html('<a href="javascript:prevPage()"><span class="prevPage">&laquo; PREVIOUS</span></a><a href="javascript:nextPage()"><span class="nextPage">NEXT &raquo;</span></a>');
-		}
+		}		
 
 		//add a show all option to list of events
 		//$('.showAll').html('<a href="javascript:event_show(-1)">Show All</a>');

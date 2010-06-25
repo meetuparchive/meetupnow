@@ -20,6 +20,7 @@ public final class PMF {
 	private PMF() {}
 
 	private static final Compass compass;
+
 	private static final CompassGps compassGps;
 
 	static {
