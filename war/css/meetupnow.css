@@ -205,12 +205,11 @@ body {
 			float: left;
 		}
 		.label {
-			display: block;
 			white-space: nowrap;
 			margin: 0 1em 0.5em 0;
 		}
 		.input {
-			display: block;
+			//display: block;
 			margin-right: 1em;
 		}
 		.submit {
@@ -225,10 +224,7 @@ body {
 			border: 1px solid #666;
 			padding:  0.25em 0.5em;
 		}
-		label {
-			color: #666;
-			display: block;
-		}
+
 		#mn_geoListContext {
 			
 		}
@@ -571,8 +567,8 @@ body {
 		padding: 6px 8px;
 		font-size: 1.2em;
 		border-top: 1px dotted #666;
-		-moz-border-top: 1px solid #666;
-		-webkit-border-top: 1px solid #666;
+		-moz-border-top: 1px dotted #666;
+		-webkit-border-top: 1px dotted #666;
 	}
 .comment_body {
 	display: block;
@@ -626,3 +622,48 @@ body {
 }
 
 /*** Register Modal Window ***/
+
+/*** General Form Styling ***/
+
+fieldset {   
+	margin: 1.5em 0 0 0;   
+	padding: 0;  
+}
+legend {   
+	margin-left: 1em;   
+	color: #f2f2f2;   
+	font-weight: bold;
+	font-size: 1.1em; 
+}  
+fieldset ul {   
+	padding: 1em 1em 0 1em;   
+	list-style: none;
+	border-bottom: 1px dotted #666;
+}  
+fieldset li {   
+	padding-bottom: 1em;
+}  
+fieldset.submit {   
+	border-style: none;  
+}
+label {
+	display: block;
+	padding-bottom: 0.5em;
+	color:  #f2f2f2;
+}
+
+/*** General Form Styling ***/
+
+/*** User Preferences Form Styling ***/
+
+input#upZip {
+	width: 6em;
+}
+input#upSearchDistance {
+	width: 6em;
+}
+input#upNotificationEmail {
+	width: 16em;
+}
+
+/*** User Preferences Form Styling ***/
