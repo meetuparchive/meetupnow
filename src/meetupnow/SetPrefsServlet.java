@@ -87,12 +87,14 @@ public class SetPrefsServlet extends HttpServlet {
 				if (zip != null) {
 					profs.get(0).setZip(zip);
 				}
-				if (cellOpt.equals("yes")) {profs.get(0).setCellOpt(true);}
-				else if (cellOpt.equals("no")) {profs.get(0).setCellOpt(false);}
-
-				if (emailOpt.equals("yes")) {profs.get(0).setEmailOpt(true);}
-				else if (emailOpt.equals("no")) {profs.get(0).setEmailOpt(false);}
-
+				if (cellOpt != null) {
+					if (cellOpt.equals("yes")) {profs.get(0).setCellOpt(true);}
+					else if (cellOpt.equals("no")) {profs.get(0).setCellOpt(false);}
+				}
+				if (emailOpt != null) {
+					if (emailOpt.equals("yes")) {profs.get(0).setEmailOpt(true);}
+					else if (emailOpt.equals("no")) {profs.get(0).setEmailOpt(false);}
+				}
 				profs.get(0).incrementLoginCount();
 			
 			} else {

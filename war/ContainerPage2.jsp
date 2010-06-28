@@ -7,7 +7,7 @@
 <%@ page import="meetupnow.MeetupUser" %>
 <%@ page import="meetupnow.PMF" %>
 <%@ page import="meetupnow.UserInfo" %>
-
+<%@ page import="meetupnow.RegDev" %>
 <%@ page import="java.io.IOException" %>
 <%@ page import="javax.servlet.http.*" %>
 <%@ page import="org.scribe.oauth.*" %>
@@ -38,17 +38,20 @@
 
 		String c_id = "";
 		String c_name = "";
+		String MUID = "";
+
 		
 		if (request.getQueryString() != null) {
 			c_id = request.getQueryString();
 		} else {
 			c_id = "654";
 		}
-
+		RegDev sg = new RegDev();
 		if (!key.equals("empty")) {
 			try {
 				users = (List<MeetupUser>) query.execute(key);
 				if (users.iterator().hasNext()) {
+					MUID = users.get(0).getID();
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&container_id="+c_id+"&page=20&fields=rsvp_count";
 					APIrequest = new Request(Request.Verb.GET, API_URL);
@@ -80,8 +83,8 @@
 		}
 		else {
 
-			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&offset=0&format=json&page=20&fields=rsvp_count&container_id=654&sig_id=12219924&sig=d69e5f28dcdac2af44220c77b3545988";
-			APIrequest = new Request(Request.Verb.GET, API_URL);
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&page=20&fields=rsvp_count&container_id="+c_id;
+			APIrequest = new Request(Request.Verb.GET, sg.generateURL(API_URL));
 			APIresponse = APIrequest.send();
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
@@ -105,7 +108,7 @@
 				userQuery.setFilter("user_id == idParam");
 				userQuery.declareParameters("String idParam");
 				try {
-					List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(users.get(0).getID());
+					List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(MUID);
 					if (profiles.size() > 0) {
 						String[] groups = profiles.get(0).getGroupArray();
 						if (profiles.get(0).isMember(c_id)) {
