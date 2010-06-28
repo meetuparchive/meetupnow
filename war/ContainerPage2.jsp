@@ -37,6 +37,7 @@
 		<%
 
 		String c_id = "";
+		String c_name = "";
 		
 		if (request.getQueryString() != null) {
 			c_id = request.getQueryString();
@@ -58,6 +59,7 @@
 					try {
 						json = new JSONObject(APIresponse.getBody());
 						results = json.getJSONArray("results");
+						c_name = results.getJSONObject(0).getJSONObject("container").getString("name");
 						for (int i = 0; i < results.length(); i++) {
 							if (users.get(0).isAttending(results.getJSONObject(i).getString("id"))) {
 								results.getJSONObject(i).put("attending", "yes");
@@ -127,7 +129,7 @@
 	<div id="contentLeft">
 		<div id="contentLeftContext">
 			<div class="map_contextLeft">
-				<span class="map_title title">Events in <script type="text/javascript"> data.results[0].container.name </script></span>
+				<span class="map_title title">Events in <%=c_name%></span>
 				<div id="map_canvasContainerLeft">
 					<div id="map_canvas">
 
