@@ -101,6 +101,13 @@ if (users.iterator().hasNext()) {
 				<span class="eventInfo_label">WHERE:</span>
 				<span class="eventInfo_text">
 					<%=item.getString("venue_name") %><br>
+					<%
+								try{
+					%>
+					<%=item.getString("address1") %><br>
+					<%
+								}catch (Exception e) {}
+					%>
 					<%=item.getString("city") %>, 
 					<%
 								try{
