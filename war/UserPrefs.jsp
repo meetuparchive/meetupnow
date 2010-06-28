@@ -94,20 +94,25 @@
 				<%
 					// Saved Data Persistence
 					
-					/*
 					String savedZip = "";
 					if(profiles.get(0).getZip() == null) {
 						savedZip = "";
 					} else {
 						savedZip = profiles.get(0).getZip();
 					}
-					*/
 					
 					String savedRadius = "";
 					if(profiles.get(0).getDistance() == null) {
 						savedRadius = "";
 					} else {
 						savedRadius = profiles.get(0).getDistance();
+					}
+					
+					String savedEmail = "";
+					if(profiles.get(0).getEmail() == null) {
+						savedEmail = "";
+					} else {
+						savedEmail = profiles.get(0).getEmail();
 					}
 					
 					String savedCellNum = "";
@@ -127,12 +132,18 @@
 					*/
 					
 					String savedCarrier = profiles.get(0).getCarrier();
+					String attSelected = "";
+					String tmobileSelected = "";
+					String verizonSelected = "";
+					String noCarrierSelected = "";
 					if (savedCarrier.equals("att")) {
-						savedCarrier = "AT&T";
-					} else if (savedCarrier == "verizon") {
-						savedCarrier = "Verizon";
-					} else if (savedCarrier == "tmobile") {
-						savedCarrier = "T-Mobile";
+						attSelected = "selected";
+					} else if (savedCarrier.equals("verizon")) {
+						verizonSelected = "selected";
+					} else if (savedCarrier.equals("tmobile")) {
+						tmobileSelected = "selected";
+					} else {
+						noCarrierSelected = "selected";
 					}
 				%>
 				
@@ -141,7 +152,7 @@
 					<ul>
 					<li>
 					<label for="upZip">Zip Code</label>
-					<input type="text" class="text" id="upZip" name="zip">
+					<input type="text" class="text" id="upZip" name="zip" value="<%=savedZip%>">
 					</li>
 					<li>
 					<label for="upSearchDistance">Radius (mi)</label>
@@ -159,7 +170,7 @@
 					</li>
 					<li>
 					<label for="upNotificationEmail">Email Address</label>
-					<input type="text" class="text" id="upNotificationEmail" name="email" value="<%= profiles.get(0).getEmail() %>">
+					<input type="text" class="text" id="upNotificationEmail" name="email" value="<%= savedEmail %>">
 					</li>
 					</ul>
 				</fieldset>
@@ -176,10 +187,10 @@
 					</li>
 					<li>
 					<select name="carrier">
-						<option value=""><%= savedCarrier %></option>
-						<option value="att">AT&T</option>
-						<option value="verizon" selected>Verizon</option>
-						<option value="tmobile">T-Mobile</option>
+						<option value="" <%=noCarrierSelected%>>-Select-</option>
+						<option value="att" <%=attSelected%>>AT&T</option>
+						<option value="verizon" <%=verizonSelected%>>Verizon</option>
+						<option value="tmobile" <%=tmobileSelected%>>T-Mobile</option>
 					</select> Carrier
 					</li>
 					</ul>
