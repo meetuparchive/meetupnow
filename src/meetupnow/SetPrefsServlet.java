@@ -25,6 +25,9 @@ public class SetPrefsServlet extends HttpServlet {
 		String distance = "";
 		String cell = "";
 		String carrier = "";
+		String cellOpt = "";
+		String emailOpt = "";
+		String zip = "";
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
 			mu_id = req.getParameter("id");
@@ -34,6 +37,9 @@ public class SetPrefsServlet extends HttpServlet {
 			distance = req.getParameter("distance");
 			cell = req.getParameter("cell");
 			carrier = req.getParameter("carrier");
+			cellOpt = req.getParameter("cellOpt");
+			emailOpt = req.getParameter("emailOpt");
+			zip = req.getParameter("zip");
 		}
 		javax.servlet.http.Cookie[] cookies = req.getCookies();
 
@@ -78,6 +84,15 @@ public class SetPrefsServlet extends HttpServlet {
 				if (distance != null) {
 					profs.get(0).setDistance(distance);
 				}
+				if (zip != null) {
+					profs.get(0).setZip(zip);
+				}
+				if (cellOpt.equals("yes")) {profs.get(0).setCellOpt(true);}
+				else if (cellOpt.equals("no")) {profs.get(0).setCellOpt(false);}
+
+				if (emailOpt.equals("yes")) {profs.get(0).setEmailOpt(true);}
+				else if (emailOpt.equals("no")) {profs.get(0).setEmailOpt(false);}
+
 				profs.get(0).incrementLoginCount();
 			
 			} else {

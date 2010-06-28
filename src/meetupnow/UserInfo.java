@@ -28,6 +28,9 @@ public class UserInfo {
 	private String email;
 
 	@Persistent
+	private String zip;
+
+	@Persistent
 	private String distance;
 
 	@Persistent
@@ -36,7 +39,14 @@ public class UserInfo {
 	@Persistent
 	private String carrier;
 
+	@Persistent
+	private boolean cellOpt;
+	
+	@Persistent
+	private boolean emailOpt;
+
 	public UserInfo() {
+		zip = "";
 		user_id = "";
 		groups = "";
 		loginCount = 0;
@@ -44,10 +54,36 @@ public class UserInfo {
 		distance = "";
 		cellNum = "";
 		carrier = "";
+		cellOpt = false;
+		emailOpt = false;
 	}
 
 	public Key getKey() {
 		return key;
+	}
+
+	public void setZip(String z) {
+		zip = z;
+	}
+
+	public String getZip() {
+		return zip;
+	}
+
+	public boolean getCellOpt() {
+		return cellOpt;
+	}
+	
+	public boolean getEmailOpt() {
+		return emailOpt;
+	}
+
+	public void setCellOpt(boolean b) {
+		cellOpt = b;
+	}
+	
+	public void setEmailOpt(boolean b) {
+		emailOpt = b;
 	}
 
 	public void setCellNum(String c) {
