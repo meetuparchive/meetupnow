@@ -2,23 +2,16 @@ package meetupnow;
 
 import java.io.IOException;
 import javax.servlet.http.*;
-import com.google.appengine.api.users.User;
-import com.google.appengine.api.users.UserService;
-import com.google.appengine.api.users.UserServiceFactory;
 
 
 public class MeetupNowServlet extends HttpServlet {
      public void doGet(HttpServletRequest req, HttpServletResponse resp)
               throws IOException {
-        UserService userService = UserServiceFactory.getUserService();
-        User user = userService.getCurrentUser();
+	
+	RegDev sg = new RegDev();
+	String URL = "http://api.meetup.com/ew/events?container_id=713&status=upcoming";
 
-        if (user != null) {
-            resp.setContentType("text/plain");
-            resp.getWriter().println("Hello, " + user.getNickname());
-        } else {
-            resp.sendRedirect(userService.createLoginURL(req.getRequestURI()));
-        }
+	System.out.println(sg.generateURL(URL));
     }
 
 }
