@@ -6,6 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="meetupnow.MeetupUser" %>
 <%@ page import="meetupnow.PMF" %>
+<%@ page import="meetupnow.RegDev" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
 <%@ page import="org.json.*" %>
@@ -20,19 +21,18 @@
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
 <%
-	String ev_id = "";
-	String meta_title = "Meetup Now Event";
-	String meta_desc = "This meetup is happening soon! Check it out.";
+String ev_id = "";
+String meta_title = "Meetup Now Event";
+String meta_desc = "This meetup is happening soon! Check it out.";
 	
-	if (request.getQueryString() != null) {
+if (request.getQueryString() != null) {
 
-		if (request.getQueryString().startsWith("id=")) {
-			ev_id = request.getParameter("id");
-			//META INFO
+	if (request.getQueryString().startsWith("id=")) {
+		ev_id = request.getParameter("id");
+		//META INFO
 
-		}
-		else {ev_id = request.getQueryString();}
-	}
+	}else {ev_id = request.getQueryString();}
+}
 %>
 
 	<title>MeetupNOW</title>
@@ -50,32 +50,24 @@
 
 <%
 
-	if (!key.equals("empty")) {
+RegDev sg = new RegDev();
+APIrequest = new Request(Request.Verb.GET, sg.generateURL("http://api.meetup.com/ew/events/?event_id="+ev_id+"&fields=rsvp_count"));
+APIresponse = APIrequest.send();
+JSONObject json = new JSONObject();
+JSONArray results;
+Calendar cal = Calendar.getInstance();
+DateFormat df = DateFormat.getInstance();
+df.setTimeZone(TimeZone.getTimeZone("GMT-4"));
+try {
+	json = new JSONObject(APIresponse.getBody());
+	results = json.getJSONArray("results");
+	if (results.length() == 1) {
+		JSONObject item = results.getJSONObject(0);
+		cal.setTimeInMillis(Long.parseLong(item.getString("time")));
+		String desc = "";
 		try {
-			users = (List<MeetupUser>) query.execute(key);
-%>
-
-<%
-if (users.iterator().hasNext()) {
-	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-	APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?event_id="+ev_id+"&fields=rsvp_count");
-	scribe.signRequest(APIrequest,accessToken);
-	APIresponse = APIrequest.send();
-	JSONObject json = new JSONObject();
-	JSONArray results;
-	Calendar cal = Calendar.getInstance();
-	DateFormat df = DateFormat.getInstance();
-	df.setTimeZone(TimeZone.getTimeZone("GMT-4"));
-	try {
-		json = new JSONObject(APIresponse.getBody());
-		results = json.getJSONArray("results");
-		if (results.length() == 1) {
-			JSONObject item = results.getJSONObject(0);
-			cal.setTimeInMillis(Long.parseLong(item.getString("time")));
-			String desc = "";
-			try {
-				desc = item.getString("description");
-			} catch (Exception e) {}
+			desc = item.getString("description");
+		} catch (Exception e) {}
 %>
 
 <div id="wrapper">
@@ -173,35 +165,34 @@ if (users.iterator().hasNext()) {
 
 					<div id="activity">
 						<%
-								}
-								else {
+	}else {
 
-								}
+	}
 
-							} catch (Exception j) {
+} catch (Exception j) {
 
-							}
-							Request CommentRequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/comments/?event_id="+ev_id);
-							scribe.signRequest(CommentRequest,accessToken);
-							Response CommentResponse = CommentRequest.send();
-							JSONObject j2 = new JSONObject();
-							JSONArray cResults;
-							try {
-								j2 = new JSONObject(CommentResponse.getBody());
-								cResults = j2.getJSONArray("results");
-								for (int i = 0; i < cResults.length(); i++) {
-									JSONObject comment = cResults.getJSONObject(i);
-									cal.setTimeInMillis(Long.parseLong(comment.getString("time")));
+}
+
+Request CommentRequest = new Request(Request.Verb.GET, sg.generateURL("http://api.meetup.com/ew/comments/?event_id="+ev_id));
+						
+Response CommentResponse = CommentRequest.send();
+JSONObject j2 = new JSONObject();
+JSONArray cResults;
+try {
+	j2 = new JSONObject(CommentResponse.getBody());
+	cResults = j2.getJSONArray("results");
+	for (int i = 0; i < cResults.length(); i++) {
+		JSONObject comment = cResults.getJSONObject(i);
+		cal.setTimeInMillis(Long.parseLong(comment.getString("time")));
 						%>
 						<div class="commentFeedItem"><span class="comment_body"><span class="comment_author"><%=comment.getJSONObject("member").getString("name") %></span><span class="comment_text"><%=comment.getString("comment")%></span></span><span class="comment_time"><%=df.format(cal.getTime()) %></span></div>
 
 
 						<%
-								}
-							} catch (Exception j) {
+	}
+} catch (Exception j) {
 
-							}
-						}
+}
 						%>
 					</div>
 				</div>
@@ -215,9 +206,4 @@ if (users.iterator().hasNext()) {
 </div> <!-- end #wrapper -->
 
 <%@ include file="jsp/footer.jsp" %>
-<%
-			} finally {
-				query.closeAll();
-			}
-		}
-%>
+
