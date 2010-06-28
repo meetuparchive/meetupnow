@@ -141,7 +141,7 @@
 					<ul>
 					<li>
 					<label for="upZip">Zip Code</label>
-					<input type="text" class="text" id="upZip" name="zipcode">
+					<input type="text" class="text" id="upZip" name="zip">
 					</li>
 					<li>
 					<label for="upSearchDistance">Radius (mi)</label>
