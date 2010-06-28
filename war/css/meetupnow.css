@@ -175,11 +175,18 @@ body {
 	-moz-border-radius: 5px 5px 5px 5px;
 	-webkit-border-radius: 5px 5px 5px 5px;
 }
-	.map_context {
+	.map_contextRight {
 		width: 360px;
 	}
-	#map_canvasContainer {
+	#map_canvasContainerRight {
 		width: 360px;
+		height: 203px;
+	}
+	.map_contextLeft {
+		width: 540px;
+	}
+	#map_canvasContainerLeft {
+		width: 540px;
 		height: 203px;
 	}
 		#map_canvas {

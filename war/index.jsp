@@ -269,9 +269,9 @@ function item(ty,n,m,e,c,ti,l) {
 <div id="wrapper">
 <div id="wrapperContent">
 	<div id="contentRight">
-		<div class="map_context">
+		<div class="map_contextRight">
 			<span class="map_title title">Happening NOW near you...</span>
-			<div id="map_canvasContainer">
+			<div id="map_canvasContainerRight">
 				<div id="map_canvas">
 		
 				</div><!-- end #map_canvas -->
