@@ -52,8 +52,21 @@
 
 	//add event to list under map
 	function add_event(event){
-
-		events.append('<a href="/Event?' + event.ev.id + '" class="mn_geoListItem_link" onMouseOver="javascript:event_show(' + event.ev.id + ')" onMouseOut="javascript:event_show(-1)"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span><!-- end .mn_geoListItem_time --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"> ' + event.ev.container.name + ' </span><!-- end .mn_geoListItem_title --><span class="loc"><span class="city"> ' + event.ev.city + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span></a>');
+		var title;
+		if (event.ev.title) {
+			title = event.ev.title;
+		}
+		else {
+			title = "Event #"+event.ev.id;
+		}
+		var loc;
+		if (event.ev.state) {
+			loc = event.ev.city + ", " + event.ev.state;
+		}
+		else {
+			loc = event.ev.city + ", " + event.ev.country;
+		}
+		events.append('<a href="/Event?' + event.ev.id + '" class="mn_geoListItem_link" onMouseOver="javascript:event_show(' + event.ev.id + ')" onMouseOut="javascript:event_show(-1)"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span><!-- end .mn_geoListItem_time --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"> ' + title + ' </span><!-- end .mn_geoListItem_title --><span class="mn_geoListItem_topic">'+ event.ev.container.name +'</span><span class="loc"><span class="city"> ' + loc + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span></a>');
 
 	}
 

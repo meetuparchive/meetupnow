@@ -37,10 +37,50 @@
 		if(geocoder){
 			geocoder.geocode( { 'address': add.val()}, function(results, status) {
 				if (status == google.maps.GeocoderStatus.OK) {
-				
+					var ad_out = "";
+					var city_out = "";
+					var state_out = "";
+					var country_out = "";
+					var zip_out = "";
 					document.getElementById('lat').value = results[0].geometry.location.lat();
 					document.getElementById('lon').value = results[0].geometry.location.lng();
 					address = results[0].formatted_address;
+					
+					var k;
+					var t;
+					for (k = 0; k < results[0].address_components.length; k++) {
+						var temp = results[0].address_components[k];
+						for (t = 0; t < temp.types.length; t++) {
+							if (temp.types[t] == "street_number") {
+								ad_out = ad_out + temp.long_name+" ";	
+							}
+							if (temp.types[t] == "route") {
+								ad_out = ad_out + temp.long_name+" ";
+							}
+							if (temp.types[t] == "subpremise") {
+								ad_out = ad_out +"#"+ temp.long_name+", ";
+							}
+							if (temp.types[t] == "locality") {
+								city_out = temp.long_name;
+							}
+							if (temp.types[t] == "administrative_area_level_1") {
+								state_out = temp.long_name;
+							}
+							if (temp.types[t] == "country") {
+								country_out = temp.long_name;
+							}
+							if (temp.types[t] == "postal_code") {
+								zip_out = temp.long_name;
+							}
+						}
+					}
+
+					document.getElementById('ad').value = ad_out;
+					document.getElementById('city').value = city_out;
+					document.getElementById('state').value = state_out;
+					document.getElementById('country').value = country_out;
+					document.getElementById('zip').value = zip_out;
+							
 
 					out.empty();
 					out.append(address+"<br>VALID");
@@ -203,6 +243,11 @@
 	<br><br><br>
 	<input type="hidden" name="lat" value="NA" id="lat" />
 	<input type="hidden" name="lon" value="NA" id="lon" />
+	<input type="hidden" name="zip" value="NA" id="zip" />
+	<input type="hidden" name="ad" value="NA" id="ad" />
+	<input type="hidden" name="country" value="NA" id="country" />
+	<input type="hidden" name="city" value="NA" id="city" />
+	<input type="hidden" name="state" value="NA" id="state" />
 	<input type="hidden" name="callback" value="congrats.jsp" />
 	<input type="hidden" name="c_id" value="<%=c_id%>" />
 	<input type="submit" disabled="disabled" id="exe" value="Create" />

@@ -303,6 +303,12 @@ body {
 				font-size: 14px;
 				font-weight: bold;
 			}
+			.mn_geoListItem_topic {
+				text-align: right;
+				float: right;
+				display: block;
+				font-size: 12px;
+			}
 	
 			.loc {
 				display: block;
