@@ -1,6 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
 <%@ page import="meetupnow.NewsItem" %>
+<%@ page import="meetupnow.RegDev" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="javax.jdo.Query" %>
 <%@ page import="java.util.List" %>
@@ -175,8 +176,9 @@ function item(ty,n,m,e,c,ti,l) {
 		<%
 
 
-		API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&format=json&link=http%3A%2F%2Fjake-meetup-test.appspot.com&page=200&sig_id=12219924&sig=18c1783ca4472bbaa62c745ee138082b";
-		APIrequest = new Request(Request.Verb.GET, API_URL);
+		API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&link=http%3A%2F%2Fjake-meetup-test.appspot.com";
+		RegDev sg = new RegDev();
+		APIrequest = new Request(Request.Verb.GET, sg.generateURL(API_URL));
 		APIresponse = APIrequest.send();
 		JSONObject json;
 		JSONArray top_list;	
@@ -251,8 +253,8 @@ function item(ty,n,m,e,c,ti,l) {
 		}
 		else {
 
-			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&offset=0&format=json&page=200&container_id=654&sig_id=12219924&sig=73487b47859ee335994dac5770ba0d18";
-			APIrequest = new Request(Request.Verb.GET, API_URL);
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&"+TopicList;
+			APIrequest = new Request(Request.Verb.GET, sg.generateURL(API_URL));
 			APIresponse = APIrequest.send();
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
