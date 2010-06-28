@@ -42,16 +42,16 @@
 		
 		<div id="contentRight">
 			<span class="title"><%=users.get(0).getName()%></span>
+			<span class="heading">You are receiving notifications from:</span>
+			
 		</div> <!-- end #contentRight -->
 		<div id="contentLeft">
 			<div id="contentLeftContext">
-				<form name="email" action="/setprefs">
+				<form id="form_userPrefs" name="email" action="/setprefs">
 				
 
 				
 				<span class="title">Preferences</span>
-				<br>
-				<span class="heading">My Favorite Topics:</span>
 				
 				<%
 					String[] groups = profiles.get(0).getGroupArray();
@@ -91,53 +91,69 @@
 
 				%>
 				
-				<span class="options"><a href="/search.jsp">Search for more topics</a></span><br>
-				<span class="options">
-				<input type="text" name="zip" size="6"></input> Zip Code
-				&nbsp
-				<input type="text" name="distance" value="<%= profiles.get(0).getDistance() %>" size="4"/> Max Travelling Distance (miles)
-				</span>
-				<br>
-				<hr>
-				<br>
-				<span class="heading">Recieve Email Notifications</span>
+				<fieldset>
+				<legend>Default Search Area</legend>
+					<ul>
+					<li>
+					<label for="upZip">Zip Code</label>
+					<input type="text" class="text" id="upZip" name="zipcode">
+					</li>
+					<li>
+					<label for="upSearchDistance">Radius (mi)</label>
+					<input type="text" class="text" id="upSearchDistance" name="distance" value="<%= profiles.get(0).getDistance() %>">
+					</li>
+					</ul>
+				</fieldset>
 
-				<span class="options">
-				<input type="radio" name="emailOpt" value="yes"> Yes
-				<input type="radio" name="emailOpt" value="no" checked> No<br><br>
-				<input type="text" name="email" value="<%= profiles.get(0).getEmail() %>"></input> Email Address
-				</span>
-				<br>
-				<hr>
-				<br>
-				<span class="heading">Recieve Txt Notifications</span>
-				<span class="options">
-				<input type="radio" name="cellOpt" value="yes"> Yes
-				<input type="radio" name="cellOpt" value="no" checked> No<br><br>
-				<input type="text" name="cell" value="<%= profiles.get(0).getCellNum() %>" size="11" /> Cell Number
-				&nbsp
-				<select name="carrier">
-					<option value=""><%=profiles.get(0).getCarrier() %></option>
-					<option value="att">AT&T</option>
-				  	<option value="verizon">Verizon</option>
-				  	<option value="tmobile">T-Mobile</option>
-				</select> Carrier 
-				</span>
-				<br>
-				<hr>
-				<br>
-				<input type="hidden" name="id" value="<%= users.get(0).getID()%>" />
-				<input type="hidden" name="callback" value="/UserPrefs.jsp" />
-				<input type="submit" value="Update"></input>
+				<fieldset>
+				<legend>Receive Email Notifications</legend>
+					<ul>
+					<li>
+					<input type="radio" name="emailOpt" value="yes"> Yes
+					<input type="radio" name="emailOpt" value="no" checked> No
+					</li>
+					<li>
+					<label for="upNotificationEmail">Email Address</label>
+					<input type="text" class="text" id="upNotificationEmail" name="email" value="<%= profiles.get(0).getEmail() %>">
+					</li>
+					</ul>
+				</fieldset>
+				
+				<fieldset>
+				<legend>Receive SMS Text Notifications</legend>
+					<ul>
+					<li>
+					<input type="radio" name="cellOpt" value="yes"> Yes
+					<input type="radio" name="cellOpt" value="no" checked> No
+					</li>
+					<li>
+					<input type="text" name="cell" value="<%= profiles.get(0).getCellNum() %>" size="11" /> Cell Number
+					</li>
+					<li>
+					<select name="carrier">
+						<option value=""><%=profiles.get(0).getCarrier() %></option>
+						<option value="att">AT&T</option>
+					  	<option value="verizon">Verizon</option>
+					  	<option value="tmobile">T-Mobile</option>
+					</select> Carrier
+					</li>
+					</ul>
+				</fieldset>
+				
+				<fieldset class="noborder">
+					<input type="hidden" name="id" value="<%= users.get(0).getID()%>">
+					<input type="hidden" name="callback" value="/UserPrefs.jsp">
+					<input type="submit" class="submit" value="Update"></input>
+				</fieldset>
 				</form>
 				
 				<br><br>
 				<form name="testmail" action="/email">
-				<input type="hidden" name="to" value="<%= profiles.get(0).getEmail() %>" />
-				<input type="hidden" name="cell" value="<%= profiles.get(0).getCellNum() %>" />
-				<input type="hidden" name="carrier" value="<%= profiles.get(0).getCarrier() %>" />
+				<input type="hidden" name="to" value="<%= profiles.get(0).getEmail() %>">
+				<input type="hidden" name="cell" value="<%= profiles.get(0).getCellNum() %>">
+				<input type="hidden" name="carrier" value="<%= profiles.get(0).getCarrier() %>">
 				<input type="hidden" name="callback" value="/UserPrefs.jsp";
-				<input type="submit" value="SEND TEST EMAIL AND TEXT"></input>
+				<input type="submit" value="Send Test Email and Text">
 				</form>
 
 <%

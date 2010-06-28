@@ -302,6 +302,7 @@ function item(ty,n,m,e,c,ti,l) {
 						</div> <!-- end .submit -->
 				</form>
 			</div> <!-- end #search -->
+			<span class="subtitle" style="clear:both;"><a href="/search.jsp">Go to Topic Search</a></span>
 		</div> <!-- end #searchContext -->
 		<div id="mn_geoListContext">
 			<div id="mn_geoListHeader">
