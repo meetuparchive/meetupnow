@@ -127,7 +127,7 @@
 					*/
 					
 					String savedCarrier = profiles.get(0).getCarrier();
-					if (savedCarrier == "att") {
+					if (savedCarrier.equals("att")) {
 						savedCarrier = "AT&T";
 					} else if (savedCarrier == "verizon") {
 						savedCarrier = "Verizon";
@@ -178,7 +178,7 @@
 					<select name="carrier">
 						<option value=""><%= savedCarrier %></option>
 						<option value="att">AT&T</option>
-						<option value="verizon">Verizon</option>
+						<option value="verizon" selected>Verizon</option>
 						<option value="tmobile">T-Mobile</option>
 					</select> Carrier
 					</li>
