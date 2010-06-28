@@ -12,11 +12,25 @@
 
 <%@ page import="org.compass.core.*" %>
 
-
-<form action="/search.jsp" method="get">
-	<input type="text" name="q" value="" size="50" />
-	<input type="submit" value="search" />
-</form>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>MeetupNOW</title>
+	<link rel="stylesheet" href="css/reset.css" type="text/css" />
+	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+</head>
+<body>
+<%@ include file="jsp/header.jsp" %>
+<div id="wrapper">
+<div id="wrapperContent">
+	<div id="contentLeft">
+		<div id="contentLeftContext">
+			<span class="title">Topic Search</span>
+			<form action="/search.jsp" method="get">
+				<label for="topicSearchQuery" class="hidden">Enter Topic Search Query</label>
+				<input type="text" class="text" id="topicSearchQuery" name="q" value="" size="50" />
+				<input type="submit" class="submit" value="Search Topics" />
+			</form>
 
 <%
 
@@ -48,3 +62,9 @@ if (hits.getSuggestedQuery().isSuggested()) {
 	}
 
 %>
+		</div> <!-- end #contentLeftContext -->
+	</div> <!-- end #contentLeft -->
+</div> <!-- end #wrapperContent -->
+</div> <!-- end #wrapper -->
+
+<%@ include file="jsp/footer.jsp" %>

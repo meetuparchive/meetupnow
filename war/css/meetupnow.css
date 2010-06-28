@@ -40,7 +40,7 @@
 	text-align: center;
 	position: relative;
 }
-a,
+/*a,
 a:link,
 a:visited,
 a:hover {
@@ -52,7 +52,7 @@ a:hover {
 }
 a:hover {
 	color: #2175B1;
-}
+}*/
 /* new clearfix */
 .clearfix:after {
 	visibility: hidden;
@@ -64,6 +64,9 @@ a:hover {
 }
 * html .clearfix             { zoom: 1; } /* IE6 */
 *:first-child+html .clearfix { zoom: 1; } /* IE7 */
+.hidden {
+	display: none;
+}
 html, body{
 	width: 100%;
 	height: 100%;
@@ -647,7 +650,7 @@ legend {
 	font-size: 1.1em; 
 }  
 fieldset ul {   
-	padding: 1em 1em 0 1em;   
+	padding: 1em 1em 0.8em 1em;   
 	list-style: none;
 	border-bottom: 1px dotted #666;
 }  
@@ -678,3 +681,14 @@ input#upNotificationEmail {
 }
 
 /*** User Preferences Form Styling ***/
+
+/*** Topic Search ***/
+
+input#topicSearchQuery {
+	width: 528px;
+	//height: 2em;
+	padding: 4px 6px;
+	font-size: 1.4em;
+}
+
+/*** Topic Search ***/
