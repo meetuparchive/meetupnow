@@ -84,6 +84,15 @@
     <appcfg action="rollback" war="war" />
   </target>
 
+	<target name="register" description="generates dev profile for use with API key">
+		<mkdir dir="reg/bin"/>
+		<javac srcdir="reg/src" destdir="reg/bin" />
+		<jar destfile="reg/bin/Register.jar" basedir="reg/bin" includes="**/*.class" />
+		<java classname="Register" classpath="reg/bin/Register.jar" />
+	</target>
+
+	
+
   <target name="request_logs"
       description="Downloads log data from App Engine for the application.">
     <appcfg action="request_logs" war="war">
