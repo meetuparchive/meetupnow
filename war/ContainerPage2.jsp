@@ -127,7 +127,7 @@
 	<div id="contentLeft">
 		<div id="contentLeftContext">
 			<div class="map_contextLeft">
-				<span class="map_title title">Events for <script> data.results[0].container.name </script></span>
+				<span class="map_title title">Events in <script type="text/javascript"> data.results[0].container.name </script></span>
 				<div id="map_canvasContainerLeft">
 					<div id="map_canvas">
 

@@ -90,7 +90,7 @@ if (users.iterator().hasNext()) {
 		</div><!-- end .map_context -->
 		<div id="eventInfo">
 			<span class="title eventInfo_title">Event #<%=ev_id%></span>
-			<span class="subtitle eventInfo_group"><%=item.getJSONObject("container").getString("name") %></span>
+			<span class="subtitle eventInfo_group"><a href="/Group?<%=item.getJSONObject("container").getString("id") %>"><%=item.getJSONObject("container").getString("name") %></a></span>
 			<div class="eventInfo_block">
 				<span class="eventInfo_label">WHEN:</span>
 				<span class="eventInfo_text">
