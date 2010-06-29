@@ -50,6 +50,15 @@ if (request.getQueryString() != null) {
 
 <%
 
+String MUID = "";
+if (!key.equals("empty")) {	
+	try {
+		users = (List<MeetupUser>) query.execute(key);
+		if (users.iterator().hasNext()) {
+			MUID = users.get(0).getID();
+		}
+	} catch (Exception e) {}
+}
 RegDev sg = new RegDev();
 APIresponse = sg.submitURL("http://api.meetup.com/ew/events/?event_id="+ev_id+"&fields=rsvp_count");
 JSONObject json = new JSONObject();
@@ -131,9 +140,7 @@ try {
 					}
 				%>
 			</div> <!-- end .eventInfo_block -->
-			<div class="eventInfo_block">
-				<span class="title"><%=item.getString("rsvp_count") %> RSVP(s).</span>
-				<ul id="attendeesList">
+
 <%
 Response rsvpResponse = sg.submitURL("http://api.meetup.com/ew/rsvps?event_id="+ev_id);
 JSONObject rsvpjson = new JSONObject();
@@ -141,12 +148,38 @@ JSONArray members;
 try {
 	rsvpjson = new JSONObject(rsvpResponse.getBody());
 	members = rsvpjson.getJSONArray("results");
+	String userList = "";
+	boolean in = false;
 	for (int j = 0; j < members.length(); j++) {
 		String tempName = members.getJSONObject(j).getJSONObject("member").getString("name");
+		userList = userList.concat("<li>"+tempName+"</li>");	
+		if (!MUID.equals("")) {
+			if (MUID.equals(members.getJSONObject(j).getJSONObject("member").getString("member_id"))) {
+				in = true;
+			}
+		}
+	}
+
+
 %>
-		<li><%=tempName%></li>
+
+			<div class="eventInfo_block">
+<%
+	if (in) {
+%>
+				<a href="/EventRegister?id=<%=ev_id%>&action=remove&callback=/Event?<%=ev_id%>">You're in!(Click to remove)</a>
+<%
+	} else {
+%>
+				<a href="/EventRegister?id=<%=ev_id%>&callback=/Event?<%=ev_id%>">RSVP</a>
 <%
 	}
+%>
+				<br><br>
+				<span class="title"><%=item.getString("rsvp_count") %> RSVP(s).</span>
+				<ul id="attendeesList">
+					<%=userList%>
+<%
 
 }
 catch (JSONException j) {
