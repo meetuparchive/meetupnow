@@ -89,7 +89,15 @@ try {
 			</div><!-- end #map_canvasContainer -->
 		</div><!-- end .map_context -->
 		<div id="eventInfo">
-			<span class="title eventInfo_title">Event #<%=ev_id%></span>
+<%
+		String evname;
+		if ((item.getString("title") == null) || (item.getString("title").equals(""))) {
+			evname = "Event #"+ev_id;
+		} else {
+			evname = item.getString("title");
+		}
+%>
+			<span class="title eventInfo_title"><%=evname%></span>
 			<span class="subtitle eventInfo_group"><a href="/Topic?<%=item.getJSONObject("container").getString("id") %>"><%=item.getJSONObject("container").getString("name") %></a></span>
 			<div class="eventInfo_block">
 				<span class="eventInfo_label">WHEN:</span>

@@ -21,6 +21,35 @@
 	
 	<%@ include file="jsp/cookie.jsp" %>
 	<%@ include file="jsp/declares.jsp" %>
+
+
+<%!
+public static String timeBetween(Date d1, Date d2){
+	long now = d1.getTime();
+	long then = d2.getTime();
+	
+	long seconds = (now - then)/1000;
+	long minutes = seconds/60;
+	long hours = minutes/60;
+	long days = hours/24;
+
+	if (seconds < 60) {
+		if (seconds == 1) {return seconds+" second ago";}
+		else {return seconds+" seconds ago";}
+	}
+	if (minutes < 60) {
+		if (minutes == 1) {return minutes+" minute ago";}
+		else {return minutes+" minutes ago";}
+	}
+	if (hours < 24) {
+		if (hours == 1) {return hours+" hour ago";}
+		else {return hours+" hours ago";}
+	}
+	if (days == 1) {return days+" day ago";}
+	else {return days+" days ago";}
+
+}
+%>
 </head>
 <body id="meetupNowBody">
 	
@@ -59,10 +88,43 @@ int MaxMessageLength = 35;
 	<%=n.getName()%> commented on an event:
 	<br>
 	<%=cutMessage%>
+	<br>
+	<%=timeBetween(now,then)%>
 </div>
 <%
 			}
-			//if (n.getType().equals
+			if (n.getType().equals("event_rsvp")) {
+				String evName;
+				if (n.getEvConName().equals("")) {
+					evName = "An event";
+				}
+				else {evName = n.getEvConName();}
+%>
+<div id="tickerContentBox">
+	<%=n.getName()%> RSVPed to:
+	<br>
+	<%=evName%> in Topic <%=n.getContainerName()%>
+	<br>
+	<%=timeBetween(now,then)%>
+</div>
+<%
+			}
+			if (n.getType().equals("event_create")) {
+				String evName;
+				if (n.getEvConName().equals("")) {
+					evName = "An event";
+				}
+				else {evName = n.getEvConName();}
+%>
+<div id="tickerContentBox">
+	<%=n.getName()%> created an event:
+	<br>
+	<%=evName%> in Topic <%=n.getContainerName()%>
+	<br>
+	<%=timeBetween(now,then)%>
+</div>
+<%
+			}
 		}
 	} catch (Exception e) {};
 %>
