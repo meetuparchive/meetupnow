@@ -8,7 +8,7 @@
 
 	//set description to any string
 	function changeDiscription(desc){
-		var eventDescription = $('#mn_eventDescription');
+		eventDescription = $('#mn_eventDescription');
 		eventDescription.empty();
 		eventDescription.append(desc);	
 	}
@@ -44,7 +44,7 @@
 	//creates new google map
 	function create_map(){
 		map = new google.maps.Map(document.getElementById("map_canvas"), {
-      			zoom: 15,
+      			zoom: 20,
       			center: new google.maps.LatLng(0,0),
       			mapTypeId: google.maps.MapTypeId.ROADMAP
     		});
@@ -115,7 +115,9 @@
 		var event_object;
 		var bounds = new google.maps.LatLngBounds();
 
-		events = $('#mn_geoListContext');
+		var eventlist = $('#map_canvasContainerLeft');
+		var events = $('#mn_geoListContext');
+		events.empty();
 
 		//create map
 		create_map();
@@ -132,7 +134,7 @@
 				point = new google.maps.LatLng(parseFloat(ev.lat) + random_offset, parseFloat(ev.lon) + random_offset2);
 				bounds.extend(point);
 
-				//creat marker for point
+				//create marker for point
 				var marker = new google.maps.Marker({ 
 					position: point,
 					map: map,
@@ -149,7 +151,7 @@
 				}		
 
 				//add event to list
-				
+				eventlist.append('<a href="/Event?' + ev.id + '">' + ev.title + '</a><br>');
 
 				//provide link for each point with event info
 				google.maps.event.addListener(marker, 'click', function() {
@@ -171,14 +173,16 @@
 				//add_event(event_object);
 	
 				//push object onto array
-				eventArray.push(event_object);						
+				eventArray.push(event_object);	
+
+map.fitBounds(bounds);					
 			}
 		});
 		update_events(current_page);	
 		
 
 		//fit map and set loc to adress
-		map.fitBounds(bounds);
+
 
 	}
 
