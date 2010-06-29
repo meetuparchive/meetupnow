@@ -26,14 +26,17 @@ public class EventRegisterServlet extends HttpServlet {
 		String ev_id = "";
 		String callback = "";
 		String action = "";
+		String r_id = "";
 		String c_id = "";
 		if (req.getQueryString() != null) {
+			action = req.getParameter("action");
+			r_id = req.getParameter("r_id");
 			ev_id = req.getParameter("id");
 			callback = req.getParameter("callback");
 			c_id = req.getParameter("cid");
 		}
 
-		String API_URL = "http://api.meetup.com/ew/rsvp/?event_id="+ev_id;
+		
 		String key = "empty";
     		javax.servlet.http.Cookie[] cookies = req.getCookies();
     		if (cookies != null) {
@@ -63,52 +66,72 @@ public class EventRegisterServlet extends HttpServlet {
 		String conName = "";
 		String link = "";
 
+		String API_URL;
+		Token accessToken;
+		Request APIrequest;
+		Response APIresponse; 
+
 		Transaction tx = pm.currentTransaction();
 		try {
-			tx.begin();
-			List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
-			if (users.iterator().hasNext()) {
-				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-				Request APIrequest = new Request(Request.Verb.POST, API_URL);
-				String url2 = "http://api.meetup.com/ew/events/?event_id="+ev_id;
-				Request APIrequest2 = new Request(Request.Verb.GET, url2);
 
-				scribe.signRequest(APIrequest,accessToken);
-				scribe.signRequest(APIrequest2,accessToken);
-
-				Response APIresponse = APIrequest.send();
-				Response ev_res = APIrequest2.send();
-
-				JSONObject json = new JSONObject(ev_res.getBody());
-				JSONObject ev = json.getJSONArray("results").getJSONObject(0);
-
-
-				users.get(0).addEvent(ev_id);
-				mu_id = users.get(0).getID();
-	
-				username = users.get(0).getName();
-				try {
-					evName = ev.getString("title");
-				} catch (Exception e) {
-
+			if (action.equals("remove")) {
+				API_URL = "http://api.meetup.com/ew/rsvp/"+r_id;
+				tx.begin();
+				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+				if (users.iterator().hasNext()) {
+					accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+					APIrequest = new Request(Request.Verb.DELETE, API_URL);
+					scribe.signRequest(APIrequest,accessToken);
+					APIresponse = APIrequest.send();
 				}
-				
-				conName = ev.getJSONObject("container").getString("name");
+				tx.commit();
+			} else if (action.equals("join")) {
+				API_URL = "http://api.meetup.com/ew/rsvp/?event_id="+ev_id;
+				tx.begin();
+				List<MeetupUser> users = (List<MeetupUser>) query.execute(key);
+				if (users.iterator().hasNext()) {
+					accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 
-			}
-			tx.commit();
+					APIrequest = new Request(Request.Verb.POST, API_URL);
+					String url2 = "http://api.meetup.com/ew/events/?event_id="+ev_id;
+					Request APIrequest2 = new Request(Request.Verb.GET, url2);
 
-			//Create notification
-			NewsItem notify = new NewsItem();
-			notify.setType("event_rsvp");
-			notify.setName(username);
-			notify.setLink("/Event?"+ev_id);
-			notify.setEvConName(evName);
-			notify.setContainerName(conName);
-			try {
-				pm.makePersistent(notify);
-			} finally {
+					scribe.signRequest(APIrequest,accessToken);
+					scribe.signRequest(APIrequest2,accessToken);
+
+					APIresponse = APIrequest.send();
+					Response ev_res = APIrequest2.send();
+
+					JSONObject json = new JSONObject(ev_res.getBody());
+					JSONObject ev = json.getJSONArray("results").getJSONObject(0);
+
+					users.get(0).addEvent(ev_id);
+					mu_id = users.get(0).getID();
+	
+					username = users.get(0).getName();
+					try {
+						evName = ev.getString("title");
+					} catch (Exception e) {
+
+					}
 				
+					conName = ev.getJSONObject("container").getString("name");
+				
+				}
+				tx.commit();
+
+				//Create notification
+				NewsItem notify = new NewsItem();
+				notify.setType("event_rsvp");
+				notify.setName(username);
+				notify.setLink("/Event?"+ev_id);
+				notify.setEvConName(evName);
+				notify.setContainerName(conName);
+				try {
+					pm.makePersistent(notify);
+				} finally {
+				
+				}
 			}
 		} catch (Exception e) {
 			if (tx.isActive()) {

@@ -5,11 +5,16 @@
 <%@ page import="java.util.Properties" %>
 <%@ page import="java.util.List" %>
 <%@ page import="meetupnow.MeetupUser" %>
-<%@ page import="meetupnow.UserInfo" %>
 <%@ page import="meetupnow.PMF" %>
+<%@ page import="meetupnow.UserInfo" %>
+<%@ page import="meetupnow.RegDev" %>
+<%@ page import="java.io.IOException" %>
+<%@ page import="javax.servlet.http.*" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
 <%@ page import="org.json.*" %>
+<%@ page import="javax.servlet.http.Cookie" %>
+<%@ page import="meetupnow.OAuthServlet" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -18,156 +23,128 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
-</head>
-<body id="meetupNowBody">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script type="text/javascript" src="/js/container.js"></script>
+	<script type="text/javascript">
 
-<%@ include file="jsp/cookie.jsp" %>
-<%@ include file="jsp/declares.jsp" %>
-<%@ include file="jsp/header.jsp" %>
+		
+		function loadEvents(){
+		<%@ include file="jsp/cookie.jsp" %>
+		<%@ include file="jsp/declares.jsp" %>
 
-<%
+		<%
+
 		String c_id = "";
+		String c_name = "";
+		String MUID = "";
+
 		
 		if (request.getQueryString() != null) {
 			c_id = request.getQueryString();
+		} else {
+			c_id = "654";
 		}
-
-
+		RegDev sg = new RegDev();
 		if (!key.equals("empty")) {
 			try {
 				users = (List<MeetupUser>) query.execute(key);
-					
-%>
+				if (users.iterator().hasNext()) {
+					MUID = users.get(0).getID();
+					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&container_id="+c_id+"&page=20&fields=rsvp_count";
+					APIrequest = new Request(Request.Verb.GET, API_URL);
+					scribe.signRequest(APIrequest,accessToken);
+					APIresponse = APIrequest.send();
+					JSONObject json = new JSONObject();
+					JSONArray results;
+					try {
+						json = new JSONObject(APIresponse.getBody());
+						results = json.getJSONArray("results");
+						c_name = results.getJSONObject(0).getJSONObject("container").getString("name");
+						for (int i = 0; i < results.length(); i++) {
+							if (users.get(0).isAttending(results.getJSONObject(i).getString("id"))) {
+								results.getJSONObject(i).put("attending", "yes");
+							} else {
+								results.getJSONObject(i).put("attending", "no");
+							}				
+						}
+					}
+					catch (JSONException j){
 
-
-<div id="mn_page">
-	<div id="mn_pageBody">
-		<div id="mn_context">
-			<div id="mn_document">
-				<div id="mn_box">
-					<div class="d_box">
-						<div class="d_boxBody">
-							<div class="d_boxHead">
-								
-							</div>
-							<div class="d_boxSection">
-								<div id="d_boxContent">
-									<div id="d_boxContentRight">
-										<div id="mn_groupLogo">
-											<img src="images/generic_group.png" alt="Generic Group">
-										</div><!-- mn_groupLogo -->
-										<div id="mn_description">
-											<span class="subtitle">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua?</span>
-										</div><!-- mn_description -->
-										<div id="mn_eventDescription">
-												<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-										</div><!-- mn_eventDescription -->
-
-									</div><!-- d_boxContentRight -->
-									<div id="d_boxContentLeft">
-										<div id="mn_geoListContext">
-<%
-if (users.iterator().hasNext()) {
-	Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-	APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?status=upcoming&container_id="+c_id+"&page=20&fields=rsvp_count");
-	scribe.signRequest(APIrequest,accessToken);
-	APIresponse = APIrequest.send();
-	JSONObject json = new JSONObject();
-	JSONArray results;
-	try {
-		json = new JSONObject(APIresponse.getBody());
-		results = json.getJSONArray("results");
-%>
-										<div id="mn_geoListHeader">
-											<span><b>Upcoming Events</b></span>
-<br><%= results.getJSONObject(0).getJSONObject("container").getString("name") %> <br>
-
-<%
-		Query userQuery = pm.newQuery(UserInfo.class);
-		userQuery.setFilter("user_id == idParam");
-		userQuery.declareParameters("String idParam");
-		try {
-			List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(users.get(0).getID());
-			if (profiles.size() > 0) {
-				String[] groups = profiles.get(0).getGroupArray();
-				if (profiles.get(0).isMember(c_id)) {
-%>
-<a href="/UserPrefs.jsp">You recieve notifications from this group!</a>
-<%
-				}
-				else {
-%>
-<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>">Recieve notifications from this group</a>
-<%
+					}
+					%>var data = <%=json.toString()%><%
 				}
 			}
-		} finally {
-			userQuery.closeAll();
+			finally {
+
+			}
+		}
+		else {
+
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&page=20&fields=rsvp_count&container_id="+c_id;
+			APIresponse = sg.submitURL(API_URL);
+			%>var data = <%=APIresponse.getBody().toString()%><%
+	
+		}
+		%>
+			use_everywhere(data);
 		}
 
-%>
+	</script>
+</head>
+<body id="meetupNowBody" onload="loadEvents()">
 
-&nbsp &nbsp <a href="/CreateEvent.jsp?<%=c_id%>">Create A New Event</a>
-											<br><br>
-										</div><!-- mn_geoListHeader -->
-<%
-		for (int j = 0; j < results.length(); j++) {
-			JSONObject item = results.getJSONObject(j);
-%>
-<span class="mn_geoListItem">
-<span class="mn_geoListItem_title">Replace this Static Title</span>
-<span class="mn_geoListItem_where"><%= (item.getString("city")+", "+item.getString("country").toUpperCase()) %></span>
-<%
-			try {
-%>
-<span class="mn_geoListItem_venue"><%= item.getString("venue_name") %></span>
-<%
-			} catch (Exception e) {}
-%>		
+<%@ include file="jsp/header.jsp" %>
 
-<span class="mn_geoListItem_rsvpCount"><%= (item.getString("rsvp_count")+" people are in.") %></span>
-<%
-			if (users.get(0).isAttending(item.getString("id"))) {
-%>
-<span class="mn_geoListItem_rsvpButton">You're In!</span>
-<%
-			}
-			else {
-%>
-<span class="mn_geoListItem_rsvpButton"><a href="<%= "/EventRegister?id="+item.getString("id")+"&callback="+request.getRequestURI()+"?"+request.getQueryString() %>">I'm In</a></span>
-<%						
-			}
-%>
-</span>
-<%
-		}
-	} catch (JSONException j) {
+<div id="wrapper">
+<div id="wrapperContent">
+	<div id="contentRight">
 		
-	}
-}
-%>
+		<%
+				Query userQuery = pm.newQuery(UserInfo.class);
+				userQuery.setFilter("user_id == idParam");
+				userQuery.declareParameters("String idParam");
+				try {
+					List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(MUID);
+					if (profiles.size() > 0) {
+						String[] groups = profiles.get(0).getGroupArray();
+						if (profiles.get(0).isMember(c_id)) {
+		%>
+		<a href="/UserPrefs.jsp">You recieve notifications from this group!</a>
+		<%
+						}
+						else {
+		%>
+		<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>">Receive notifications from this group</a>
+		<%
+						}
+					}
+				} finally {
+					userQuery.closeAll();
+				}
 
-											<div id="mn_geoListFooter">
-										
-											</div><!-- mn_geoListFooter -->
-										</div><!-- mn_geoListContext -->
-									</div><!-- d_boxContentLeft -->
-								</div><!-- d_boxContent -->
-							</div><!-- d_boxSection -->
-						</div><!-- d_boxBody -->
-					</div><!-- d_box -->
-				</div><!-- mn_box -->
-			</div><!-- mn_document -->
-		</div><!-- mn_context -->
-	</div><!-- mn_pageBody -->
-</div><!-- mn_page -->
+		%>
+		
+	</div> <!-- end #contentRight -->
+	<div id="contentLeft">
+		<div id="contentLeftContext">
+			<div class="map_contextLeft">
+				<span class="map_title title">Events in <%=c_name%></span>
+				<div id="map_canvasContainerLeft">
+					<div id="map_canvas">
+
+					</div><!-- end #map_canvas -->
+				</div><!-- end #map_canvasContainer -->
+			</div><!-- end .map_context -->
+		</div> <!-- end #contentLeftContext -->
+	</div> <!-- end #contentLeft -->
+</div> <!-- end #wrapperContent -->
+</div> <!-- end #wrapper -->
+
+
+
 <%@ include file="jsp/footer.jsp" %>
-
-<%
-			} finally {
-				query.closeAll();
-			}
-		}
-%>
 </body>
 </html>
