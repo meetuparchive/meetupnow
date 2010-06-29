@@ -134,9 +134,25 @@ try {
 			<div class="eventInfo_block">
 				<span class="title"><%=item.getString("rsvp_count") %> RSVP(s).</span>
 				<ul id="attendeesList">
-					<li>Steve Aquillano</li>
-					<li>Jake Levine</li>
-					<li>Mike Shapiro</li>
+<%
+Response rsvpResponse = sg.submitURL("http://api.meetup.com/ew/rsvps?event_id="+ev_id);
+JSONObject rsvpjson = new JSONObject();
+JSONArray members;
+try {
+	rsvpjson = new JSONObject(rsvpResponse.getBody());
+	members = rsvpjson.getJSONArray("results");
+	for (int j = 0; j < members.length(); j++) {
+		String tempName = members.getJSONObject(j).getJSONObject("member").getString("name");
+%>
+		<li><%=tempName%></li>
+<%
+	}
+
+}
+catch (JSONException j) {
+
+}
+%>
 				</ul>
 			</div>
 		</div> <!-- end #eventInfo -->
