@@ -51,8 +51,7 @@ if (request.getQueryString() != null) {
 <%
 
 RegDev sg = new RegDev();
-APIrequest = new Request(Request.Verb.GET, sg.generateURL("http://api.meetup.com/ew/events/?event_id="+ev_id+"&fields=rsvp_count"));
-APIresponse = APIrequest.send();
+APIresponse = sg.submitURL("http://api.meetup.com/ew/events/?event_id="+ev_id+"&fields=rsvp_count");
 JSONObject json = new JSONObject();
 JSONArray results;
 Calendar cal = Calendar.getInstance();
@@ -173,9 +172,7 @@ try {
 
 }
 
-Request CommentRequest = new Request(Request.Verb.GET, sg.generateURL("http://api.meetup.com/ew/comments/?event_id="+ev_id));
-						
-Response CommentResponse = CommentRequest.send();
+Response CommentResponse = sg.submitURL("http://api.meetup.com/ew/comments/?event_id="+ev_id);
 JSONObject j2 = new JSONObject();
 JSONArray cResults;
 try {
