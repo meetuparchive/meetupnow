@@ -174,7 +174,7 @@ try {
 <%
 	} else {
 %>
-				<a href="/EventRegister?id=<%=ev_id%>&callback=/Event?<%=ev_id%>">RSVP</a>
+				<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>">RSVP</a>
 <%
 	}
 %>
