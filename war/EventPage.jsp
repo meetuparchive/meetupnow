@@ -90,11 +90,11 @@ try {
 		</div><!-- end .map_context -->
 		<div id="eventInfo">
 <%
-		String evname;
-		if ((item.getString("title") == null) || (item.getString("title").equals(""))) {
-			evname = "Event #"+ev_id;
-		} else {
+		String evname = "Event #"+ev_id;
+		try {
 			evname = item.getString("title");
+		} catch (Exception e){
+			
 		}
 %>
 			<span class="title eventInfo_title"><%=evname%></span>
