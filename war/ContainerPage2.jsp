@@ -84,8 +84,7 @@
 		else {
 
 			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&page=20&fields=rsvp_count&container_id="+c_id;
-			APIrequest = new Request(Request.Verb.GET, sg.generateURL(API_URL));
-			APIresponse = APIrequest.send();
+			APIresponse = sg.submitURL(API_URL);
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
 		}

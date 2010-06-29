@@ -51,8 +51,7 @@ if (request.getQueryString() != null) {
 <%
 
 RegDev sg = new RegDev();
-APIrequest = new Request(Request.Verb.GET, sg.generateURL("http://api.meetup.com/ew/events/?event_id="+ev_id+"&fields=rsvp_count"));
-APIresponse = APIrequest.send();
+APIresponse = sg.submitURL("http://api.meetup.com/ew/events/?event_id="+ev_id+"&fields=rsvp_count");
 JSONObject json = new JSONObject();
 JSONArray results;
 Calendar cal = Calendar.getInstance();
@@ -135,9 +134,25 @@ try {
 			<div class="eventInfo_block">
 				<span class="title"><%=item.getString("rsvp_count") %> RSVP(s).</span>
 				<ul id="attendeesList">
-					<li>Steve Aquillano</li>
-					<li>Jake Levine</li>
-					<li>Mike Shapiro</li>
+<%
+Response rsvpResponse = sg.submitURL("http://api.meetup.com/ew/rsvps?event_id="+ev_id);
+JSONObject rsvpjson = new JSONObject();
+JSONArray members;
+try {
+	rsvpjson = new JSONObject(rsvpResponse.getBody());
+	members = rsvpjson.getJSONArray("results");
+	for (int j = 0; j < members.length(); j++) {
+		String tempName = members.getJSONObject(j).getJSONObject("member").getString("name");
+%>
+		<li><%=tempName%></li>
+<%
+	}
+
+}
+catch (JSONException j) {
+
+}
+%>
 				</ul>
 			</div>
 		</div> <!-- end #eventInfo -->
@@ -173,9 +188,7 @@ try {
 
 }
 
-Request CommentRequest = new Request(Request.Verb.GET, sg.generateURL("http://api.meetup.com/ew/comments/?event_id="+ev_id));
-						
-Response CommentResponse = CommentRequest.send();
+Response CommentResponse = sg.submitURL("http://api.meetup.com/ew/comments/?event_id="+ev_id);
 JSONObject j2 = new JSONObject();
 JSONArray cResults;
 try {

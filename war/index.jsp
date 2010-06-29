@@ -178,8 +178,7 @@ function item(ty,n,m,e,c,ti,l) {
 
 		API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&link=http%3A%2F%2Fjake-meetup-test.appspot.com";
 		RegDev sg = new RegDev();
-		APIrequest = new Request(Request.Verb.GET, sg.generateURL(API_URL));
-		APIresponse = APIrequest.send();
+		APIresponse = sg.submitURL(API_URL);
 		JSONObject json;
 		JSONArray top_list;	
 
@@ -254,8 +253,7 @@ function item(ty,n,m,e,c,ti,l) {
 		else {
 
 			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&"+TopicList;
-			APIrequest = new Request(Request.Verb.GET, sg.generateURL(API_URL));
-			APIresponse = APIrequest.send();
+			APIresponse = sg.submitURL(API_URL);
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
 		}

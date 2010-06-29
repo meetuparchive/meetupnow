@@ -12,6 +12,9 @@ public class SignedURLGen {
 		muKey = key;
 	}
 
+
+	/* ALL METHODS TAKE UNSIGNED URLS AS ARGS*/
+
 	//Returns empty string if it fails
 	public String generateURL(String URLin) {
 		String API_URL = URLin+"&sign=true&key="+muKey;	
@@ -28,7 +31,20 @@ public class SignedURLGen {
 		}
 		return out;
 	}
+	
+	//Returns the full JSON Object of the call
+	public Response submitURL(String URLin) {
+		String API_URL = URLin+"&sign=true&key="+muKey;	
+		Response APIresponse = null;
+		try {
+			Request APIrequest = new Request(Request.Verb.GET, API_URL);
+			APIresponse = APIrequest.send();
+			
+		} catch (Exception j) {
 
+		}
+		return APIresponse;
+	}
 	
 
 }
