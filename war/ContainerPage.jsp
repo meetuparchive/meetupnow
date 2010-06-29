@@ -126,7 +126,8 @@
 				}
 
 		%>
-		
+		<br>
+		<a href="/CreateEvent.jsp?<%=c_id%>"> Create an event for this topic </a>
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
 		<div id="contentLeftContext">

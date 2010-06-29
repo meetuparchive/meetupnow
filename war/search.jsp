@@ -36,7 +36,8 @@
 	CompassSearchSession search = PMF.getCompass().openSearchSession();
 
 	String query = request.getParameter("q");
-if (query != null) {
+	
+if (query != null && query != "") {
 	CompassHits hits = null;
 	hits = search.queryBuilder().queryString(query).toQuery().setTypes(Topic.class).hits();
 	//hits = search.find(query);	
@@ -58,7 +59,7 @@ if (query != null) {
 				Resource resource = hits.resource(i);
 %>
 
-					<div class="commentFeedItem"><a href="/Group?<%=topic.getId() %>"> <%=topic.getName() %></a></div>
+					<div class="commentFeedItem"><a href="/Topic?<%=topic.getId() %>"> <%=topic.getName() %></a></div>
 
 <%
 			}

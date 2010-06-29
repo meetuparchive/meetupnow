@@ -89,6 +89,9 @@
 			 out.append('<a href="/Group?' + ev.id + '">' + ev.name + "</a><br>");
 
 		});
+		$.each(data.meta, function(i, ev) {
+
+		});
 	}
 	</script>
 </head>
