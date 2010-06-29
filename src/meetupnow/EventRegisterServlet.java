@@ -26,8 +26,11 @@ public class EventRegisterServlet extends HttpServlet {
 		String ev_id = "";
 		String callback = "";
 		String action = "";
+		String r_id = "";
 		String c_id = "";
 		if (req.getQueryString() != null) {
+			action = req.getParameter("action");
+			r_id = req.getParameter("r_id");
 			ev_id = req.getParameter("id");
 			callback = req.getParameter("callback");
 			c_id = req.getParameter("cid");

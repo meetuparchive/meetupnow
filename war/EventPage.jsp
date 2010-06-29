@@ -150,12 +150,15 @@ try {
 	members = rsvpjson.getJSONArray("results");
 	String userList = "";
 	boolean in = false;
+	String rsvpID = "";
 	for (int j = 0; j < members.length(); j++) {
+		
 		String tempName = members.getJSONObject(j).getJSONObject("member").getString("name");
 		userList = userList.concat("<li>"+tempName+"</li>");	
 		if (!MUID.equals("")) {
 			if (MUID.equals(members.getJSONObject(j).getJSONObject("member").getString("member_id"))) {
 				in = true;
+				rsvpID = members.getJSONObject(j).getString("id");
 			}
 		}
 	}
@@ -167,7 +170,7 @@ try {
 <%
 	if (in) {
 %>
-				<a href="/EventRegister?id=<%=ev_id%>&action=remove&callback=/Event?<%=ev_id%>">You're in!(Click to remove)</a>
+				<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>">You're in!(Click to remove)</a>
 <%
 	} else {
 %>
