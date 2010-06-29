@@ -1,7 +1,7 @@
 .title {
 	color: #FF9533;
 	display: block;
-	font: normal bold 1.4em helvetica, arial, verdana, san-serif;
+	font: 1.4em helvetica, arial, verdana, san-serif;
 	margin-bottom: .8em;
 }
 .subtitle {
@@ -84,7 +84,7 @@ body {
 	    rgb(0,0,0) 0%,
 	    rgb(2,36,50) 66%
 	);
-	font-family: verdana, arial, sans-serif;
+	font-family: helvetica, verdana, arial, sans-serif;
 	color: #f2f2f2;
 	font-weight: normal;
 	font-size: .7em;
@@ -218,17 +218,31 @@ body {
 		.element {
 			float: left;
 		}
+		#search label {
+			padding: 0 0 4px 0;
+}
 		.label {
 			white-space: nowrap;
-			margin: 0 1em 0.5em 0;
+			margin: 0 1em 0 0;
 		}
-		.input {
+		.mainSearchInput {
 			//display: block;
-			margin-right: 1em;
+			margin-right: 1em;			
+		}
+		#mainSearchQuery {
+			padding: 0.1em 0;
+			width: 15em;
+			font-size: 1em;
+		}
+		#mainSearchLocation {
+			padding: 0.1em 0;
+			width: 9em;
+			font-size: 1em;
+
 		}
 		.submit {
 			display: block;
-			padding-top: 1.6em;
+			padding-top: 1.5em;
 		}
 		.submitBtn {
 			color: #f2f2f2;
@@ -236,7 +250,8 @@ body {
 			background-position: 0% 0%;
 			background-repeat: no-repeat;
 			border: 1px solid #666;
-			padding:  0.25em 0.5em;
+			padding:  0.15em 0.5em;
+			font-size: 1em;
 		}
 
 		#mn_geoListContext {
@@ -248,7 +263,7 @@ body {
 			.listTitle {
 				font-size: 1.2em;
 				color: #FF9533;
-				font-weight: bold;
+				font-weight: normal;
 				line-height: 2.2em;
 			}
 		#mn_geoListBody {
@@ -765,7 +780,7 @@ input#topicSearchQuery {
 	    rgb(0,0,0) 0%,
 	    rgb(2,36,50) 66%
 	);
-	font-family: verdana, arial, sans-serif;
+	font-family: helvetica, verdana, arial, sans-serif;
 	color: #f2f2f2;
 	font-weight: normal;
 	font-size: .7em;
