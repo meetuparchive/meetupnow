@@ -65,8 +65,8 @@
 	$(document).ready(function() {
 
 		// Add necessary DIVs
-		$('body').append('<div id="modal_register"><iframe src="http://www.meetup.com/register/?set_mobile=on" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
-		$('body').append('<div id="modal_login"><iframe src="/oauth?callback=index.jsp?reload=1" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
+		$('body').append('<div id="modal_register" class="modalRounded"><iframe src="http://www.meetup.com/register/?set_mobile=on" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
+		$('body').append('<div id="modal_login" class="modalRounded"><iframe src="/oauth?callback=success.jsp" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0" class="modalRounded"></iframe></div><div id="mask"></div>');
 
 		// Global var to store activate modal div
 		var gId;

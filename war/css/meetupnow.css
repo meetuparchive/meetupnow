@@ -623,8 +623,7 @@ body {
 	height: 550px;  
 	display: none;  
 	z-index: 9999;  
-	//padding: 20px;
-	background-color: white;
+	//background-color: white;
 }
 #modal_login {
 	position: absolute;  
@@ -632,8 +631,12 @@ body {
 	height: 550px;  
 	display: none;  
 	z-index: 9999;  
-	//padding: 20px;
-	background-color: white;
+	//background-color: white;
+}
+.modalRounded {
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
 }
 
 /*** Register Modal Window ***/
@@ -709,3 +712,39 @@ input#topicSearchQuery {
 }
 
 /*** Topic Search ***/
+
+/*** Mobile ***/
+
+#mobileBody {
+	background: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    color-stop(0, rgb(0,0,0)),
+	    color-stop(0.66, rgb(2,36,50))
+	);
+	background: -moz-linear-gradient(
+	    center bottom,
+	    rgb(0,0,0) 0%,
+	    rgb(2,36,50) 66%
+	);
+	font-family: verdana, arial, sans-serif;
+	color: #f2f2f2;
+	font-weight: normal;
+	font-size: .7em;
+}
+#mobileContent {
+	width: 320px;
+	margin: 0 auto;
+}
+#mobileSuccess {
+	display: block;
+	width: 320px;
+	margin: 0 auto;
+	text-align: center;
+	font-size: 2em;
+	padding-top: 220px;
+}
+
+
+/*** Mobile ***/
