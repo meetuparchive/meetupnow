@@ -28,40 +28,53 @@
 			<span class="title">Topic Search</span>
 			<form action="/search.jsp" method="get">
 				<label for="topicSearchQuery" class="hidden">Enter Topic Search Query</label>
-				<input type="text" class="text" id="topicSearchQuery" name="q" value="" size="50" />
-				<input type="submit" class="submit" value="Search Topics" />
+				<input type="text" class="text clearfix" id="topicSearchQuery" name="q" value="">
+				<input type="submit" class="submit topicSearchBtn" value="Search Topics">
 			</form>
 
 <%
-
-
 	CompassSearchSession search = PMF.getCompass().openSearchSession();
-
 
 	String query = request.getParameter("q");
 if (query != null) {
 	CompassHits hits = null;
 	hits = search.queryBuilder().queryString(query).toQuery().setTypes(Topic.class).hits();
 	//hits = search.find(query);	
+%>
 
-%>
-<p>Found <%=hits.length() %> hits for query <% out.write(query); %> </p>
-<%
-		for (int i = 0; i < hits.length(); i++){
-			Topic topic = (Topic) hits.data(i);
-			Resource resource = hits.resource(i);
-%>
-<p><a href="/Group?<%=topic.getId() %>"> <%=topic.getName() %> </a></p>
+			<span id="tsStatusMsg">Found <%=hits.length() %> hits for query "<% out.write(query); %>"</span>
+			
 
 <%
+		if (hits.length() > 0) {
+%>
+
+			<span class="title">Results</span>
+			<div id="activityFeed">
+				<div id="activity">
+<%
+			for (int i = 0; i < hits.length(); i++){
+				Topic topic = (Topic) hits.data(i);
+				Resource resource = hits.resource(i);
+%>
+
+					<div class="commentFeedItem"><a href="/Group?<%=topic.getId() %>"> <%=topic.getName() %></a></div>
+
+<%
+			}
+%>
+
+				</div> <!-- end #activity -->
+			</div> <!-- end #activityFeed -->
+
+<%
+			if (hits.getSuggestedQuery().isSuggested()) {
+			    System.out.println("Did You Mean: " + hits.getSuggestedQuery());
+			}
 		}
-if (hits.getSuggestedQuery().isSuggested()) {
-    System.out.println("Did You Mean: " + hits.getSuggestedQuery());
-}
-
 	}
-
 %>
+
 		</div> <!-- end #contentLeftContext -->
 	</div> <!-- end #contentLeft -->
 </div> <!-- end #wrapperContent -->
