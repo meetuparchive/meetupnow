@@ -163,16 +163,16 @@
 						<div class="label">
 							<label for="query">Search for: </label>
 						</div> <!-- end .label -->
-						<div class="input">
-							<input type="text" name="query" value="" id="query" size="20" maxlength="100">
+						<div class="mainSearchInput">
+							<input type="text" name="query" value="" id="mainSearchQuery" maxlength="100">
 						</div> <!-- end .input -->
 					</div> <!-- end .element -->
 					<div class="element">
 						<div class="label">
 							<label for="location">City or Postal Code</label>
 						</div> <!-- end .label -->
-						<div class="input">
-							<input type="text" name="location" value="" id="location" size="15" maxlength="100">
+						<div class="mainSearchInput">
+							<input type="text" name="location" value="" id="mainSearchLocation" maxlength="100">
 						</div> <!-- end .input -->
 					</div> <!-- end .element -->
 
