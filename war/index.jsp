@@ -251,8 +251,12 @@ function item(ty,n,m,e,c,ti,l) {
 			}
 		}
 		else {
-
-			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&"+TopicList;
+			API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&radius=5&fields=geo_ip";
+			APIresponse = sg.submitURL(API_URL);
+			json = new JSONObject(APIresponse.getBody());
+			String geoip_lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
+			String geoip_lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming&lat=" + geoip_lat + "&lon=" + geoip_lon + "&radius=25.0&order=time&"+TopicList;
 			APIresponse = sg.submitURL(API_URL);
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
