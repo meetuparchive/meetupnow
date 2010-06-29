@@ -59,7 +59,7 @@ if (query != null && query != "") {
 				Resource resource = hits.resource(i);
 %>
 
-					<div class="commentFeedItem"><a href="/Group?<%=topic.getId() %>"> <%=topic.getName() %></a></div>
+					<div class="commentFeedItem"><a href="/Topic?<%=topic.getId() %>"> <%=topic.getName() %></a></div>
 
 <%
 			}
