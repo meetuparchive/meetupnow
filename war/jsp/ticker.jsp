@@ -12,17 +12,6 @@
 <%@ page import="org.scribe.http.*" %>
 
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html>
-<head>
-	<title>Meetup Now</title>
-	<link rel="stylesheet" href="css/reset.css" type="text/css" />
-	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
-	
-	<%@ include file="jsp/cookie.jsp" %>
-	<%@ include file="jsp/declares.jsp" %>
-
-
 <%!
 public static String timeBetween(Date d1, Date d2){
 	long now = d1.getTime();
@@ -50,10 +39,6 @@ public static String timeBetween(Date d1, Date d2){
 
 }
 %>
-</head>
-<body id="meetupNowBody">
-	
-<%@ include file="jsp/header.jsp" %>
 
 <div id="wrapper">
 <div id="wrapperContent">
@@ -131,14 +116,5 @@ int MaxMessageLength = 35;
 </marquee>
 	</div>
 </div>
-
-	<div id="contentLeft">
-		<div id="contentLeftContext">
-<span class="title">TEST Header</span>
-THIS IS A TEST
-		</div>
-	</div>
 </div>
 </div>
-</body>
-</html>

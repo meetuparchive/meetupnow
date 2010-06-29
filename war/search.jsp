@@ -60,6 +60,7 @@ if (query != null && query != "") {
 %>
 
 					<div class="commentFeedItem"><a href="/Topic?<%=topic.getId() %>"> <%=topic.getName() %></a></div>
+					<br> <%= topic.getDescription() %>
 
 <%
 			}

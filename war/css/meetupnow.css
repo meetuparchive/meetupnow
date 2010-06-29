@@ -383,7 +383,7 @@ body {
 
 #ticker {
 	position: relative;
-	height: 50px;
+	height: 75px;
 
 }
 	#tickerContext {
@@ -412,7 +412,7 @@ body {
 		-moz-border-radius: 5px 5px 5px 5px;
 		-webkit-border-radius: 5px 5px 5px 5px;
 		border-style:solid;
-		border-color:#ffffff;
+		border-color:#FF9533;
 		padding: 8px;
 		margin-right: 10px;
 	}
