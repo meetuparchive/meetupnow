@@ -36,7 +36,8 @@
 	CompassSearchSession search = PMF.getCompass().openSearchSession();
 
 	String query = request.getParameter("q");
-if (query != null) {
+	
+if (query != null && query != "") {
 	CompassHits hits = null;
 	hits = search.queryBuilder().queryString(query).toQuery().setTypes(Topic.class).hits();
 	//hits = search.find(query);	
