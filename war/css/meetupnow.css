@@ -366,6 +366,42 @@ body {
 }
 
 
+#ticker {
+	position: relative;
+	height: 50px;
+
+}
+	#tickerContext {
+	padding: 5px;
+			background: -webkit-gradient(
+		    linear,
+		    left bottom,
+		    left top,
+		    from(rgb(2,36,50)),
+		    to(rgba(0,0,0,0.5))
+		);
+		background: -moz-linear-gradient(
+				    center bottom,
+				    rgb(2,36,50) 0%,
+				    rgba(0,0,0,0.5) 100%
+				);
+	
+		border-radius: 5px 5px 5px 5px;
+		-moz-border-radius: 5px 5px 5px 5px;
+		-webkit-border-radius: 5px 5px 5px 5px;
+		margin-bottom: 12px;
+}
+	#tickerContentBox {
+		float: right;
+		border-radius: 5px 5px 5px 5px;
+		-moz-border-radius: 5px 5px 5px 5px;
+		-webkit-border-radius: 5px 5px 5px 5px;
+		border-style:solid;
+		border-color:#ffffff;
+		padding: 8px;
+		margin-right: 10px;
+	}
+
 #contentLeft {
 	position: relative;
 	float: left;
@@ -392,6 +428,7 @@ body {
 		-moz-border-radius: 5px 5px 5px 5px;
 		-webkit-border-radius: 5px 5px 5px 5px;
 		margin-bottom: 12px;
+	
 	}
 	#actionDesc {
 		width: 320px;
