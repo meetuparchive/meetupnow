@@ -47,7 +47,8 @@
 		APIresponse = sg.submitURL(API_URL);
 		JSONObject json;
 		JSONArray top_list;	
-
+		String Lat = "";
+		String Lon = "";
 
 		
 		String TopicList = "container_id=654,713,";
@@ -105,7 +106,8 @@
 				if (users.iterator().hasNext()) {
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
-
+					Lat = users.get(0).getLat();
+					Lon = users.get(0).getLon();
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
 					APIresponse = APIrequest.send();
@@ -120,14 +122,20 @@
 			API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&radius=5&fields=geo_ip";
 			APIresponse = sg.submitURL(API_URL);
 			json = new JSONObject(APIresponse.getBody());
-			String geoip_lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
-			String geoip_lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-			API_URL = "http://api.meetup.com/ew/events?status=upcoming&lat=" + geoip_lat + "&lon=" + geoip_lon + "&radius=25.0&order=time&"+TopicList;
+			Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
+			Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
+			API_URL = "http://api.meetup.com/ew/events?status=upcoming&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&order=time&"+TopicList;
 			APIresponse = sg.submitURL(API_URL);
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
 		}
-		%>
+		
+		String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
+		APIresponse = sg.submitURL(GEOCODE_API_URL);
+		%>var geocode = <%=APIresponse.getBody().toString()%>
+			var location = geocode.results[0].address_components[2].long_name;
+
+			$('#listTitleLoc').append(location);
 			use_everywhere(data);
 		}
 
@@ -177,7 +185,7 @@
 		</div> <!-- end #searchContext -->
 		<div id="mn_geoListContext">
 			<div id="mn_geoListHeader">
-				<span class="listTitle">Results near [location]</span>
+				<span class="listTitle">Results near <div id="listTitleLoc"></div></span>
 			</div><!-- mn_geoListHeader -->
 			<div id="mn_geoListBody">
 				
