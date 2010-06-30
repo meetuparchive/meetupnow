@@ -148,7 +148,7 @@
 <%@ include file="jsp/header.jsp" %>
 
 <%//@ include file="jsp/ticker.jsp" %>
-<div id="body">
+<div id="content">
 	<div id="contentRight">
 	<div id="contentRightBody">
 		<div class="map_contextRight">
@@ -216,10 +216,12 @@
 			</div> <!-- end #actionDesc -->
 		</div> <!-- end #actionContext -->
 	</div> <!-- end #contentLeft -->
-</div> <!-- end #body -->
+</div> <!-- end #content -->
+<div class="clearfooter"></div>
 
 
-<%@ include file="jsp/footer.jsp" %>
+
 </div> <!-- end #container -->
+<%@ include file="jsp/footer.jsp" %>
 </body>
 </html>

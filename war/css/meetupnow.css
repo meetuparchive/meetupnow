@@ -138,11 +138,10 @@ body {
 	position: relative;
 	min-height: 100%;
 	width: 960px;
-	margin: 0 auto;
+	margin-bottom: -151px;
 }
-#body {
-	padding-bottom: 151px;
-	overflow: hidden;
+#content {
+
 }
 #contentRight {
 	float: right;

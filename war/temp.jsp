@@ -25,44 +25,39 @@
 			);
 		}
 		#container {
-		   min-height:100%;
-		   position:relative;
-		}
-		#header {
-		   background:#ff0;
-		   padding:10px;
-		}
-		#body {
-		   padding:10px;
-		   padding-bottom:60px;   /* Height of the footer */
+			min-height: 100%;
+			margin-bottom: -150px;
+			position: relative;
 		}
 		#footer {
-		   position:absolute;
-		   bottom:0;
-		   width:100%;
-		   height:60px;   /* Height of the footer */
-		   background:#6cf;
+			height: 150px;
+			position: relative;
 		}
-		#test {
-			height: 1000px;
+		.clearfooter {
+			height: 150px;
+			clear: both;
+		}
+		#content {
+			height:1000px;
+			background-color: red;
 		}
 	</style>
 </head>
 <body>
 	
-<div id="container">
-	<div id="header">
-		
+	<div id="container">
+	      <div id="header">Header</div>
+	      <div id="nav">
+	         <ul>
+	            <li><a href="#">Home</a></li>
+	            <li><a href="#">Page 1</a></li>
+	            <li><a href="#">Page 2</a></li>
+	         </ul>
+	         </div>
+		<div id="content">Content Here.</div>
+		<div class="clearfooter"></div>
 	</div>
-	<div id="body">
-		<div id="test">
-			
-		</div>
-	</div>
-	<div id="footer">
-		
-	</div>
-</div>
+	<div id="footer">Footer Here.</div>
 
 </body>
 </html>
