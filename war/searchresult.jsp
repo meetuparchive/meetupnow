@@ -45,7 +45,7 @@ if (!locationquery.equals("")){
 		CompassHits hits = null;
 		hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
 		String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
-		APIresponse = sg.submitURL(GEOCODE_API_URL);
+		APIresponse = sg.submitUnsignedURL(GEOCODE_API_URL);
 		json = new JSONObject(APIresponse.getBody());
 
 
