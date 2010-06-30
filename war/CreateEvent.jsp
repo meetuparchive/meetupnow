@@ -220,7 +220,7 @@
 
 
 	<span class="goLeft"><span class="heading"> Topic: </span></span>
-	<span class="goRight"> <%=results.getJSONObject(0).getString("name")%> &nbsp | &nbsp <a href="/">Change Topic</a></span>
+	<span class="goRight"> <%=results.getJSONObject(0).getString("name")%> &nbsp | &nbsp <a href="/AllTopics.jsp">Change Topic</a></span>
 	<br><br><br><br>
 	<span class="goLeft"><span class="heading"> Title: </span></span>
 	<span class="goRight"><input type="text" value="" name="name" id="title"/></span>
