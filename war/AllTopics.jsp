@@ -122,7 +122,7 @@
 
 		<div id="activityFeedContext">
 			<div id="activityFeed">
-				<span class="title">Activity Feed.</span>
+				<span class="title">Click on a Topic To Create Start Creating Events.</span>
 				<div id = "activity"> </div>
 			</div>
 		</div> <!-- end #activityFeed -->

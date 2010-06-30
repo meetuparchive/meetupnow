@@ -97,7 +97,7 @@ public class TopicCreateServlet extends HttpServlet {
 					APIrequest.addBodyParameter("description",desc);
 					APIrequest.addBodyParameter("name",name);
 					APIrequest.addBodyParameter("event_create","anyone");
-					APIrequest.addBodyParameter("link","http://www.jake-meetup-test.appspot.com/");
+					APIrequest.addBodyParameter("link","http://jake-meetup-test.appspot.com");
 					APIrequest.addBodyParameter("link_name", "Meetup Now");
 				
 					scribe.signRequest(APIrequest,accessToken);
