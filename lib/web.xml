@@ -28,6 +28,14 @@
         <servlet-name>Comment</servlet-name>
         <url-pattern>/comment</url-pattern>
     </servlet-mapping>
+    <servlet>
+	<servlet-name>Lucky</servlet-name>
+        <servlet-class>meetupnow.LuckyEventServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Lucky</servlet-name>
+        <url-pattern>/lucky</url-pattern>
+    </servlet-mapping>
 
     <servlet>
 	<servlet-name>Logout</servlet-name>
