@@ -5,6 +5,7 @@
 <%@ page import="java.util.Properties" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="meetupnow.NewsItem" %>
 <%@ page import="meetupnow.MeetupUser" %>
 <%@ page import="meetupnow.PMF" %>
