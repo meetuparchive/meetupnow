@@ -96,11 +96,12 @@
 </head>
 <body id="meetupNowBody" onload="loadEvents()">
 
-<%@ include file="jsp/header.jsp" %>
+
 
 <div id="wrapper">
-<div id="wrapperContent">
+<%@ include file="jsp/header.jsp" %>
 	<div id="contentRight">
+	<div id="contentRightBody">
 		
 		<%
 				Query userQuery = pm.newQuery(UserInfo.class);
@@ -128,9 +129,10 @@
 		%>
 		<br>
 		<a href="/CreateEvent.jsp?<%=c_id%>"> Create an event for this topic </a>
+	</div> <!-- end #contentRightBody -->
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
-		<div id="contentLeftContext">
+		<div id="contentLeftBody">
 			<div class="map_contextLeft">
 				<span class="map_title title">Events in <%=c_name%></span>
 				<div id="map_canvasContainerLeft">
@@ -139,13 +141,13 @@
 					</div><!-- end #map_canvas -->
 				</div><!-- end #map_canvasContainer -->
 			</div><!-- end .map_context -->
-		</div> <!-- end #contentLeftContext -->
+		</div> <!-- end #contentLeftBody -->
 	</div> <!-- end #contentLeft -->
-</div> <!-- end #wrapperContent -->
+<%@ include file="jsp/footer.jsp" %>
 </div> <!-- end #wrapper -->
 
 
 
-<%@ include file="jsp/footer.jsp" %>
+
 </body>
 </html>

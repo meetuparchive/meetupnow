@@ -142,12 +142,14 @@
 	</script>
 </head>
 <body onload="loadEvents()">
-
-<%@ include file="jsp/header.jsp" %>
 <div id="wrapper">
-<div id="wrapperContent">
-<%@ include file="jsp/ticker.jsp" %>
+	
+<%@ include file="jsp/header.jsp" %>
+
+<%//@ include file="jsp/ticker.jsp" %>
+<div id="main">
 	<div id="contentRight">
+	<div id="contentRightBody">
 		<div class="map_contextRight">
 			<span class="map_title title">Happening NOW near you...</span>
 			<div id="map_canvasContainerRight">
@@ -197,9 +199,10 @@
 				</div> <!-- end searchResultsNav -->
 			</div><!-- mn_geoListFooter -->
 		</div><!-- mn_geoListContext -->
+	</div> <!-- end #contentRightBody -->
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
-		<div id="contentLeftContext">
+		<div id="contentLeftBody">
 			<span class="title">Get Started.</span>
 			<div id="action">
 				<a href="#"><span class="btn_main">Register</span></a>
@@ -212,7 +215,9 @@
 			</div> <!-- end #actionDesc -->
 		</div> <!-- end #actionContext -->
 	</div> <!-- end #contentLeft -->
-</div> <!-- end #wrapperContent -->
-</div> <!-- end #wrapper -->
+</div> <!-- end #main -->
 
+</div> <!-- end #wrapper -->
 <%@ include file="jsp/footer.jsp" %>
+</body>
+</html>

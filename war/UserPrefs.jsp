@@ -19,12 +19,14 @@
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 </head>
-<body id="meetupNowBody">
+
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
-<%@ include file="jsp/header.jsp" %>
+
+<body>
 <div id="wrapper">
-	<div id="wrapperContent">
+<%@ include file="jsp/header.jsp" %>
+
 		<%
 				if (!key.equals("empty")) {
 
@@ -41,12 +43,13 @@
 		%>
 		
 		<div id="contentRight">
-			<span class="title"><%=users.get(0).getName()%></span>
-			<span class="heading">You are receiving notifications from:</span>
-			
+			<div id="contentRightBody">
+				<span class="title"><%=users.get(0).getName()%></span>
+				<span class="heading">You are receiving notifications from:</span>
+			</div> <!-- end #contentRightBody -->
 		</div> <!-- end #contentRight -->
 		<div id="contentLeft">
-			<div id="contentLeftContext">
+			<div id="contentLeftBody">
 				<form id="form_userPrefs" name="email" action="/setprefs">
 				
 
@@ -223,9 +226,11 @@
 		}
 %>
 
-		</div><!-- contentLeftContext -->
+		</div><!-- contentLeftBody -->
 	</div><!-- contentLeft -->
-</div><!-- wrappercontent -->
+	
+<%@ include file="jsp/footer.jsp" %>
+
 </div><!-- wrapper -->
 </body>
 </html>

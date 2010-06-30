@@ -81,6 +81,7 @@ try {
 <div id="wrapper">
 <div id="wrapperContent">
 	<div id="contentRight">
+	<div id="contentRightBody">
 		<div class="map_context">
 			<div id="map_canvasContainer">
 				<div id="map_canvas">
@@ -200,9 +201,10 @@ catch (JSONException j) {
 				</ul>
 			</div>
 		</div> <!-- end #eventInfo -->
+	</div> <!-- end #contentRightBody -->
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
-		<div id="contentLeftContext">
+		<div id="contentLeftBody">
 			<div class="custom" style="width:540px; height:203px; background-color:#666"></div>
 			
 			<div id="commentFeedContext">
@@ -257,10 +259,11 @@ try {
 			
 
 
-		</div> <!-- end #contentLeftContext -->
+		</div> <!-- end #contentLeftBody -->
 	</div> <!-- end #contentLeft -->
-</div> <!-- end #wrapperContent -->
-</div> <!-- end #wrapper -->
-
 <%@ include file="jsp/footer.jsp" %>
+</div> <!-- end #wrapper -->
+</body>
+</html>
+
 

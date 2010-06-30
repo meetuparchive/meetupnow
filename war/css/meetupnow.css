@@ -2,7 +2,7 @@
 	color: #FF9533;
 	display: block;
 	font: 1.4em helvetica, arial, verdana, san-serif;
-	margin-bottom: .8em;
+	padding-bottom: .8em;
 }
 .subtitle {
 	color: #f2f2f2;
@@ -68,10 +68,14 @@ a:hover {
 	display: none;
 }
 html, body{
-	width: 100%;
 	height: 100%;
 }
 body {
+	font-family: helvetica, verdana, arial, sans-serif;
+	color: #f2f2f2;
+	font-weight: normal;
+	font-size: .8em;
+	
 	background: -webkit-gradient(
 	    linear,
 	    left bottom,
@@ -84,47 +88,34 @@ body {
 	    rgb(0,0,0) 0%,
 	    rgb(2,36,50) 66%
 	);
-	font-family: helvetica, verdana, arial, sans-serif;
-	color: #f2f2f2;
-	font-weight: normal;
-	font-size: .7em;
+}
+#main {
+	overflow: auto;
+	padding-bottom: 151px; /* must be same height as the footer */
 }
 #mn_superHeader {
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	//background: white;
-	height: 36px;
+	height: 24px;
+	width: 960px;
 	z-index: 2000;
-}
-	#mn_superHeaderBody {
-		//background: red;
-		position: relative;
-		height: 100%;
-		width: 960px;
-		margin: 0 auto;
+	margin: 0 auto;
+	padding-top: 12px;
 	border-bottom: 1px dotted #666;
 }
 		#mn_superHeader_logo {
-			position: absolute;
-			top: 6px;
-			left: 0;
+			float: left;
 			z-index: 1000;
+			clear: left;
 		}
 		#mn_superHeader_usernav {
 			float: right;
-			clear: left;
-			text-align: right;
-			margin-top: .8em;
+			width: 600px;
 			color: #ffffff;
 			white-space: nowrap;
 			list-style-type: none;
 		}
 			#mn_superHeader_usernav li {
 				display: inline;
-				margin: 0;
-				padding: .5em 0 .5em 2em;;
+				padding-left: 2em;
 				/*background: -webkit-gradient(
 				    linear,
 				    left bottom,
@@ -148,47 +139,33 @@ body {
 				color: #2175B1;
 			}
 #wrapper {
-	position: relative;
-	height: 100%;
+	min-height: 100%;
 	width: 960px;
 	margin: 0 auto;
-	//background: #FFFFFF;
-	overflow: hidden;
-}
-#wrapperContent{
-	position: relative;
-	margin-top: 36px;
-	//overflow: hidden;
 }
 #contentRight {
-	position: relative;
 	float: right;
-	width: 360px;
-	height: 100%;
-	margin-top: 24px;
-	padding: 12px;
-	/*background-image: -webkit-gradient(
-  		linear, left top, left bottom, from(rgba(255,255,255,0.3)),
-  		to(rgba(255,255,255,0.01))
-  		
-	);*/
-	background: -webkit-gradient(
-	    linear,
-	    left bottom,
-	    left top,
-	    from(rgb(2,36,50)),
-	    to(rgba(0,0,0,0.5))
-	);
-	background: -moz-linear-gradient(
-			    center bottom,
-			    rgb(2,36,50) 0%,
-			    rgba(0,0,0,0.5) 100%
-			);
-
-	border-radius: 5px 5px 5px 5px;
-	-moz-border-radius: 5px 5px 5px 5px;
-	-webkit-border-radius: 5px 5px 5px 5px;
+	width: 384px;
+	padding: 24px 0;
 }
+	#contentRightBody {
+		padding: 12px;
+		background: -webkit-gradient(
+		    linear,
+		    left bottom,
+		    left top,
+		    from(rgb(2,36,50)),
+		    to(rgba(0,0,0,0.5))
+		);
+		background: -moz-linear-gradient(
+				    center bottom,
+				    rgb(2,36,50) 0%,
+				    rgba(0,0,0,0.5) 100%
+				);
+		border-radius: 5px 5px 5px 5px;
+		-moz-border-radius: 5px 5px 5px 5px;
+		-webkit-border-radius: 5px 5px 5px 5px;
+	}
 	.map_contextRight {
 		width: 360px;
 	}
@@ -346,8 +323,10 @@ body {
 				width: 100%;
 			}
 		#mn_geoListFooter {
-			width: 344px;
-			padding: 6px 8px;
+			height: 24px;
+		}
+		#searchResultsNav{
+			height: 100%;
 		}
 		#mn_geoListFooter a,
 		#mn_geoListFooter a:link,
@@ -363,16 +342,18 @@ body {
 			color: #2175B1;
 		}
 			.showAll {
-				
+				display: block;
 			}
 			.paginationNav {
+				height: 100%;
+				padding: 10px 8px 0 8px;
+				display: block;
 				float: right;
 			}
 				.nextPage {
 					padding-left: 12px;
 				}
 				.prevPage {
-					
 				}
 
 #eventBoxBottom {
@@ -404,7 +385,7 @@ body {
 		border-radius: 5px 5px 5px 5px;
 		-moz-border-radius: 5px 5px 5px 5px;
 		-webkit-border-radius: 5px 5px 5px 5px;
-		margin-bottom: 12px;
+		padding-bottom: 12px;
 }
 	#tickerContentBox {
 		float: right;
@@ -418,13 +399,12 @@ body {
 	}
 
 #contentLeft {
-	position: relative;
+
 	float: left;
 	width: 564px;
-	height: 100%;
-	margin-top: 24px;
+	padding: 24px 0;
 }
-	#contentLeftContext {
+	#contentLeftBody {
 		padding: 12px;
 		background: -webkit-gradient(
 		    linear,
@@ -438,12 +418,9 @@ body {
 				    rgb(2,36,50) 0%,
 				    rgba(0,0,0,0.5) 100%
 				);
-	
 		border-radius: 5px 5px 5px 5px;
 		-moz-border-radius: 5px 5px 5px 5px;
 		-webkit-border-radius: 5px 5px 5px 5px;
-		margin-bottom: 12px;
-	
 	}
 	#actionDesc {
 		width: 320px;
@@ -469,7 +446,7 @@ body {
 								-webkit-border-radius: 5px;
 	}
 	#action span {
-		margin-bottom: 1em;
+		padding-bottom: 1em;
 	}
 	#action a {
 		text-decoration: none;
@@ -512,24 +489,23 @@ body {
 		-webkit-border-top: 1px solid #666;
 	}
 #footer {
+	//background-color: rgb(2,36,50);
 	position: relative;
-	background-color: rgb(2,36,50);
+	margin-top: -151px; /* negative value of footer height */
+	margin-left: auto;
+	margin-right: auto;
+	height: 79px;
+	clear:both;
+	border-top: 1px dotted #666;
 	color: #E7E7E7;
-	padding: 1.75em 0 10em;
-	width: 100%;
-	clear: both;
+	padding: 24px 0 48px;
+	width: 960px;
 }
 #footerBody {
-	width: 960px;
-	margin: 0 auto;
-	padding: 0 1em;
+	//padding: 0 1em;
 }
 #footerRow {
 	width: 576px;
-	overflow: hidden;
-}
-#footerLogo {
-	float: right;
 }
 #footerSection {
 	border-right: 1px solid #ccc;
@@ -543,11 +519,10 @@ body {
 	color: #fff;
 }
 #footer ul li {
-	margin: 0 0 .5em;
-	padding: 0;
+	//padding: 0 0 .5em;
 }
 #commentFeedContext {
-	margin-top: 24px;
+	padding-top: 24px;
 	width: 540px;
 }
 
@@ -558,7 +533,7 @@ body {
 	padding: 12px 0;
 }
 .eventInfo_title {
-	margin-bottom: 0.2em;
+	padding-bottom: 0.2em;
 }
 .eventInfo_group {
 	font-weight: bold;
@@ -590,7 +565,7 @@ body {
 	}
 .leftBlockFullWidth {
 	width: 540px;
-	margin-top: 24px;
+	padding-top: 24px;
 }
 .commentHeadBlock {
 	width: 540px;
@@ -599,7 +574,7 @@ body {
 }
 #commentInputContext {
 	width: 540px;
-	margin-bottom: 12px;
+	padding-bottom: 12px;
 	margin-left: 8px;
 }
 .toggle {
@@ -610,7 +585,7 @@ body {
 	font-size: 1.2em;
 }
 .textarea {
-	margin-top: 0.5em;
+	padding-top: 0.5em;
 	width: 400px;
 	height: 6em;
 }
@@ -623,8 +598,7 @@ body {
 	background-position: 0% 0%;
 	background-repeat: no-repeat;
 	border: 1px solid #666;
-	//padding:  0.25em 0.5em;
-	margin-top: 0.5em;
+	padding-top: 0.5em;
 	height: 2em;
 	width: 6em;
 }
@@ -696,8 +670,7 @@ body {
 /*** General Form Styling ***/
 
 fieldset {   
-	margin: 1.5em 0 0 0;   
-	padding: 0;  
+	padding: 1.5em 0 0 0;  
 }
 legend {   
 	margin-left: 1em;   
@@ -759,7 +732,7 @@ input#topicSearchQuery {
 }
 #tsStatusMsg {
 	display: block;
-	margin: 1em 0 2.6em 0;
+	padding: 1em 0 2.6em 0;
 	font-size: 1.2em;
 }
 
