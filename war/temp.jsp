@@ -4,60 +4,65 @@
 <head>
 	<title>Temp</title>
 	<style type="text/css" media="screen">
-		html,
-		body {
-		   margin:0;
-		   padding:0;
-		   height:100%;
+		html, body {
+			margin: 0;
+			padding: 0;
+			height: 100%;
 		}
 		body {
-			background: -webkit-gradient(
-			    linear,
-			    left bottom,
-			    left top,
-			    color-stop(0, rgb(0,0,0)),
-			    color-stop(0.66, rgb(2,36,50))
-			);
-			background: -moz-linear-gradient(
-			    center bottom,
-			    rgb(0,0,0) 0%,
-			    rgb(2,36,50) 66%
-			);
+			background-color: #022432;
 		}
-		#container {
+		#wrap {
 			min-height: 100%;
-			margin-bottom: -150px;
+		}
+
+		#main {
+			overflow:auto;
+			padding-bottom: 150px; /* must be same height as the footer */
+		}
+
+		#footer {
 			position: relative;
+			margin-top: -150px; /* negative value of footer height */
+			height: 150px;
+			clear:both;
+		} 
+
+		/*Opera Fix*/
+		body:before {
+			content:"";
+			height:100%;
+			float:left;
+			width:0;
+			margin-top:-32767px;/
+		}
+		
+		#header {
+			height: 36px;
+			background-color: red;
+		}
+		#main {
+			//background-color: blue;
+			height: 1500px;
 		}
 		#footer {
-			height: 150px;
-			position: relative;
-		}
-		.clearfooter {
-			height: 150px;
-			clear: both;
-		}
-		#content {
-			height:1000px;
 			background-color: red;
 		}
 	</style>
 </head>
 <body>
 	
-	<div id="container">
-	      <div id="header">Header</div>
-	      <div id="nav">
-	         <ul>
-	            <li><a href="#">Home</a></li>
-	            <li><a href="#">Page 1</a></li>
-	            <li><a href="#">Page 2</a></li>
-	         </ul>
-	         </div>
-		<div id="content">Content Here.</div>
-		<div class="clearfooter"></div>
-	</div>
-	<div id="footer">Footer Here.</div>
+	<div id="wrap">
+		<div id="header">
+
+		</div> <!-- end #header -->
+		<div id="main">
+			
+		</div> <!-- end #main -->
+	</div> <!-- end #wrap -->
+	<div id="footer">
+		
+	</div> <!-- end #footer -->
 
 </body>
 </html>

@@ -74,27 +74,15 @@ body {
 	font-family: helvetica, verdana, arial, sans-serif;
 	color: #f2f2f2;
 	font-weight: normal;
-	font-size: .8em;
-	
-	background: -webkit-gradient(
-	    linear,
-	    left bottom,
-	    left top,
-	    color-stop(0, rgb(0,0,0)),
-	    color-stop(0.66, rgb(2,36,50))
-	);
-	background: -moz-linear-gradient(
-	    center bottom,
-	    rgb(0,0,0) 0%,
-	    rgb(2,36,50) 66%
-	);
+	font-size: .7em;
+	background-color: #022432;
 }
 #header {
-	height: 24px;
-	width: 960px;
+	height: 20px;
+	width: 936px;
 	z-index: 2000;
 	margin: 0 auto;
-	padding-top: 12px;
+	padding: 16px 12px 0 12px;
 	border-bottom: 1px dotted #666;
 }
 		#header_logo {
@@ -134,14 +122,14 @@ body {
 			#header_usernav li a:hover {
 				color: #2175B1;
 			}
-#container {
-	position: relative;
+#wrap {
 	min-height: 100%;
 	width: 960px;
-	margin-bottom: -151px;
+	margin: 0 auto;
 }
-#content {
-
+#main {
+	overflow: auto;
+	padding-bottom: 150px;
 }
 #contentRight {
 	float: right;
@@ -448,7 +436,7 @@ body {
 								-webkit-border-radius: 5px;
 	}
 	#action span {
-		padding-bottom: 1em;
+		margin-bottom: 1em;
 	}
 	#action a {
 		text-decoration: none;
@@ -492,19 +480,24 @@ body {
 	}
 #footer {
 	//background-color: rgb(2,36,50);
-	position:absolute;
-	   bottom:0;
-	   width:100%;
-	   height:78px;   /* Height of the footer */
-	margin-left: auto;
-	margin-right: auto;
-	border-top: 1px dotted #666;
+	background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#022432), to(#000000), color-stop(.1,#022432));
+	background: -moz-linear-gradient(
+			    center top,
+			    rgba(2,36,50,1) 0%,
+			    rgba(0,0,0,0.5) 100%
+			);
+	position: relative;
+	width: 100%;
+	height:78px;   /* Height of the footer */
+	margin-top: -150px;
 	color: #E7E7E7;
 	padding: 24px 0 48px;
-
 }
 #footerBody {
-	//padding: 0 1em;
+	border-top: 1px dotted #666;
+	width: 936px;
+	margin: 0 auto;
+	padding: 24px 12px 0 12px;
 }
 #footerRow {
 	width: 576px;
@@ -672,7 +665,7 @@ body {
 /*** General Form Styling ***/
 
 fieldset {   
-	padding: 1.5em 0 0 0;  
+	margin: 1.5em 0 0 0;  
 }
 legend {   
 	margin-left: 1em;   

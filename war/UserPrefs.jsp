@@ -24,7 +24,7 @@
 <%@ include file="jsp/declares.jsp" %>
 
 <body>
-<div id="wrapper">
+<div id="wrap">
 <%@ include file="jsp/header.jsp" %>
 
 		<%
@@ -41,7 +41,7 @@
 							List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(users.get(0).getID());
 							if (profiles.size() > 0) {
 		%>
-		
+	<div id="main">	
 		<div id="contentRight">
 			<div id="contentRightBody">
 				<span class="title"><%=users.get(0).getName()%></span>
@@ -226,11 +226,12 @@
 		}
 %>
 
-		</div><!-- contentLeftBody -->
-	</div><!-- contentLeft -->
-	
+			</div><!-- contentLeftBody -->
+		</div><!-- contentLeft -->
+	</div> <!-- end #main -->
+</div><!-- wrap -->	
+
 <%@ include file="jsp/footer.jsp" %>
 
-</div><!-- wrapper -->
 </body>
 </html>

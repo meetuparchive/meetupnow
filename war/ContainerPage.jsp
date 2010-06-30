@@ -94,60 +94,57 @@
 
 	</script>
 </head>
-<body id="meetupNowBody" onload="loadEvents()">
-
-
-
-<div id="wrapper">
-<%@ include file="jsp/header.jsp" %>
-	<div id="contentRight">
-	<div id="contentRightBody">
+<body onload="loadEvents()">
+<div id="wrap">
+	<%@ include file="jsp/header.jsp" %>
+	<div id="main">
+		<div id="contentRight">
+			<div id="contentRightBody">
 		
-		<%
-				Query userQuery = pm.newQuery(UserInfo.class);
-				userQuery.setFilter("user_id == idParam");
-				userQuery.declareParameters("String idParam");
-				try {
-					List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(MUID);
-					if (profiles.size() > 0) {
-						String[] groups = profiles.get(0).getGroupArray();
-						if (profiles.get(0).isMember(c_id)) {
-		%>
-		<a href="/UserPrefs.jsp">You recieve notifications from this group!</a>
-		<%
+				<%
+						Query userQuery = pm.newQuery(UserInfo.class);
+						userQuery.setFilter("user_id == idParam");
+						userQuery.declareParameters("String idParam");
+						try {
+							List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(MUID);
+							if (profiles.size() > 0) {
+								String[] groups = profiles.get(0).getGroupArray();
+								if (profiles.get(0).isMember(c_id)) {
+				%>
+				<a href="/UserPrefs.jsp">You recieve notifications from this group!</a>
+				<%
+								}
+								else {
+				%>
+				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>">Receive notifications from this group</a>
+				<%
+								}
+							}
+						} finally {
+							userQuery.closeAll();
 						}
-						else {
-		%>
-		<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>">Receive notifications from this group</a>
-		<%
-						}
-					}
-				} finally {
-					userQuery.closeAll();
-				}
 
-		%>
-		<br>
-		<a href="/CreateEvent.jsp?<%=c_id%>"> Create an event for this topic </a>
-	</div> <!-- end #contentRightBody -->
-	</div> <!-- end #contentRight -->
-	<div id="contentLeft">
-		<div id="contentLeftBody">
-			<div class="map_contextLeft">
-				<span class="map_title title">Events in <%=c_name%></span>
-				<div id="map_canvasContainerLeft">
-					<div id="map_canvas">
+				%>
+				<br>
+				<a href="/CreateEvent.jsp?<%=c_id%>"> Create an event for this topic </a>
+			</div> <!-- end #contentRightBody -->
+		</div> <!-- end #contentRight -->
+		<div id="contentLeft">
+			<div id="contentLeftBody">
+				<div class="map_contextLeft">
+					<span class="map_title title">Events in <%=c_name%></span>
+					<div id="map_canvasContainerLeft">
+						<div id="map_canvas">
 
-					</div><!-- end #map_canvas -->
-				</div><!-- end #map_canvasContainer -->
-			</div><!-- end .map_context -->
-		</div> <!-- end #contentLeftBody -->
-	</div> <!-- end #contentLeft -->
+						</div><!-- end #map_canvas -->
+					</div><!-- end #map_canvasContainer -->
+				</div><!-- end .map_context -->
+			</div> <!-- end #contentLeftBody -->
+		</div> <!-- end #contentLeft -->
+	</div> <!-- end #main -->
+</div> <!-- end #wrap -->
+
 <%@ include file="jsp/footer.jsp" %>
-</div> <!-- end #wrapper -->
-
-
-
 
 </body>
 </html>

@@ -30,177 +30,175 @@
 	  }
 	</script>
 
-
-
-<script type="text/javascript">
+	<script type="text/javascript">
 
 		
-		function loadEvents(){
-		<%@ include file="jsp/cookie.jsp" %>
-		<%@ include file="jsp/declares.jsp" %>
+			function loadEvents(){
+			<%@ include file="jsp/cookie.jsp" %>
+			<%@ include file="jsp/declares.jsp" %>
 
-		<%@ page import="meetupnow.Topic" %>
-		<%
+			<%@ page import="meetupnow.Topic" %>
+			<%
 
 
-		API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&link=http%3A%2F%2Fjake-meetup-test.appspot.com";
-		RegDev sg = new RegDev();
-		APIresponse = sg.submitURL(API_URL);
-		JSONObject json;
-		JSONArray top_list;	
-		String Lat = "";
-		String Lon = "";
+			API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&link=http%3A%2F%2Fjake-meetup-test.appspot.com";
+			RegDev sg = new RegDev();
+			APIresponse = sg.submitURL(API_URL);
+			JSONObject json;
+			JSONArray top_list;	
+			String Lat = "";
+			String Lon = "";
 
 		
-		String TopicList = "container_id=654,713,";
-		Query TopicQuery = pm.newQuery(Topic.class);
-		TopicQuery.setFilter("id != 0");
-		TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
+			String TopicList = "container_id=654,713,";
+			Query TopicQuery = pm.newQuery(Topic.class);
+			TopicQuery.setFilter("id != 0");
+			TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
 
-		List<Topic> Topics = new ArrayList<Topic>();
-		try {
-			Topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
-			for (int i = 0; i < Topics.size(); i++){
-				TopicList = TopicList + Integer.toString(Topics.get(i).getId()) + ",";
-			}
-			if (TopicList.charAt(TopicList.length() - 1) == ',')
-				TopicList = TopicList.substring(0, TopicList.length() - 1);
-		} finally {
-
-		}
-		
-		Topic NewTopic;
-
-		try{
-			json = new JSONObject(APIresponse.getBody());
-			top_list = json.getJSONArray("results");
-			boolean found = false;
-
-			for (int j = 0; j < top_list.length(); j++){
-				found = false;
-				for (int i = 0; i < Topics.size(); i++){
-					if( Integer.parseInt(top_list.getJSONObject(j).getString("id")) == Topics.get(i).getId() ){
-						found = true;
-					}
-				}
-				if (!found){
-
-					NewTopic = new Topic(top_list.getJSONObject(j).getString("description"), top_list.getJSONObject(j).getJSONObject("founder").getString("member_id"), top_list.getJSONObject(j).getString("name"), Integer.parseInt(top_list.getJSONObject(j).getString("id")));
-					try {
-						pm.makePersistent(NewTopic);
-					} 
-				
-					finally {
-
-					}
-				}
-			}
-
-		}
-		catch (JSONException j){
-
-		}
-
-		if (!key.equals("empty")) {
+			List<Topic> Topics = new ArrayList<Topic>();
 			try {
-				users = (List<MeetupUser>) query.execute(key);
-				if (users.iterator().hasNext()) {
-					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-					API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
-					Lat = users.get(0).getLat();
-					Lon = users.get(0).getLon();
-					APIrequest = new Request(Request.Verb.GET, API_URL);
-					scribe.signRequest(APIrequest,accessToken);
-					APIresponse = APIrequest.send();
-					%>data = <%=APIresponse.getBody().toString()%><%
+				Topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
+				for (int i = 0; i < Topics.size(); i++){
+					TopicList = TopicList + Integer.toString(Topics.get(i).getId()) + ",";
+				}
+				if (TopicList.charAt(TopicList.length() - 1) == ',')
+					TopicList = TopicList.substring(0, TopicList.length() - 1);
+			} finally {
+
+			}
+		
+			Topic NewTopic;
+
+			try{
+				json = new JSONObject(APIresponse.getBody());
+				top_list = json.getJSONArray("results");
+				boolean found = false;
+
+				for (int j = 0; j < top_list.length(); j++){
+					found = false;
+					for (int i = 0; i < Topics.size(); i++){
+						if( Integer.parseInt(top_list.getJSONObject(j).getString("id")) == Topics.get(i).getId() ){
+							found = true;
+						}
+					}
+					if (!found){
+
+						NewTopic = new Topic(top_list.getJSONObject(j).getString("description"), top_list.getJSONObject(j).getJSONObject("founder").getString("member_id"), top_list.getJSONObject(j).getString("name"), Integer.parseInt(top_list.getJSONObject(j).getString("id")));
+						try {
+							pm.makePersistent(NewTopic);
+						} 
+				
+						finally {
+
+						}
+					}
+				}
+
+			}
+			catch (JSONException j){
+
+			}
+
+			if (!key.equals("empty")) {
+				try {
+					users = (List<MeetupUser>) query.execute(key);
+					if (users.iterator().hasNext()) {
+						Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+						API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + users.get(0).getLat() + "&lon=" + users.get(0).getLon() + "&radius=" + distance;
+						Lat = users.get(0).getLat();
+						Lon = users.get(0).getLon();
+						APIrequest = new Request(Request.Verb.GET, API_URL);
+						scribe.signRequest(APIrequest,accessToken);
+						APIresponse = APIrequest.send();
+						%>data = <%=APIresponse.getBody().toString()%><%
+					}
+				}
+				finally {
+
 				}
 			}
-			finally {
-
-			}
-		}
-		else {
-			API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&radius=5&fields=geo_ip";
-			APIresponse = sg.submitURL(API_URL);
-			json = new JSONObject(APIresponse.getBody());
-			Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
-			Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-			API_URL = "http://api.meetup.com/ew/events?status=upcoming&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&order=time&"+TopicList;
-			APIresponse = sg.submitURL(API_URL);
-			%>var data = <%=APIresponse.getBody().toString()%><%
+			else {
+				API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&radius=5&fields=geo_ip";
+				APIresponse = sg.submitURL(API_URL);
+				json = new JSONObject(APIresponse.getBody());
+				Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
+				Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
+				API_URL = "http://api.meetup.com/ew/events?status=upcoming&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&order=time&"+TopicList;
+				APIresponse = sg.submitURL(API_URL);
+				%>var data = <%=APIresponse.getBody().toString()%><%
 	
-		}
+			}
 		
-		String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
-		APIresponse = sg.submitURL(GEOCODE_API_URL);
-		%>var geocode = <%=APIresponse.getBody().toString()%>
-			var location = geocode.results[0].address_components[2].long_name;
+			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
+			APIresponse = sg.submitURL(GEOCODE_API_URL);
+			%>var geocode = <%=APIresponse.getBody().toString()%>
+				var location = geocode.results[0].address_components[2].long_name;
 
-			$('#listTitleLoc').append(location);
-			use_everywhere(data);
-		}
+				$('#listTitleLoc').append(location);
+				use_everywhere(data);
+			}
 
 	</script>
 </head>
 <body onload="loadEvents()">
-<div id="container">
+<div id="wrap">
 	
 <%@ include file="jsp/header.jsp" %>
 
 <%//@ include file="jsp/ticker.jsp" %>
-<div id="content">
+<div id="main">
 	<div id="contentRight">
-	<div id="contentRightBody">
-		<div class="map_contextRight">
-			<span class="map_title title">Happening NOW near you...</span>
-			<div id="map_canvasContainerRight">
-				<div id="map_canvas">
+		<div id="contentRightBody">
+			<div class="map_contextRight">
+				<span class="map_title title">Happening NOW near you...</span>
+				<div id="map_canvasContainerRight">
+					<div id="map_canvas">
 		
-				</div><!-- end #map_canvas -->
-			</div><!-- end #map_canvasContainer -->
-		</div><!-- end .map_context -->
-		<div id="searchContext">
-			<div id="search">
-				<form action="search" method="post" accept-charset="utf-8">
-					<div class="element">
-						<div class="label">
-							<label for="query">Search for: </label>
-						</div> <!-- end .label -->
-						<div class="mainSearchInput">
-							<input type="text" name="query" value="" id="mainSearchQuery" maxlength="100">
-						</div> <!-- end .input -->
-					</div> <!-- end .element -->
-					<div class="element">
-						<div class="label">
-							<label for="location">City or Postal Code</label>
-						</div> <!-- end .label -->
-						<div class="mainSearchInput">
-							<input type="text" name="location" value="" id="mainSearchLocation" maxlength="100">
-						</div> <!-- end .input -->
-					</div> <!-- end .element -->
+					</div><!-- end #map_canvas -->
+				</div><!-- end #map_canvasContainer -->
+			</div><!-- end .map_context -->
+			<div id="searchContext">
+				<div id="search">
+					<form action="search" method="post" accept-charset="utf-8">
+						<div class="element">
+							<div class="label">
+								<label for="query">Search for: </label>
+							</div> <!-- end .label -->
+							<div class="mainSearchInput">
+								<input type="text" name="query" value="" id="mainSearchQuery" maxlength="100">
+							</div> <!-- end .input -->
+						</div> <!-- end .element -->
+						<div class="element">
+							<div class="label">
+								<label for="location">City or Postal Code</label>
+							</div> <!-- end .label -->
+							<div class="mainSearchInput">
+								<input type="text" name="location" value="" id="mainSearchLocation" maxlength="100">
+							</div> <!-- end .input -->
+						</div> <!-- end .element -->
 
-						<div class="submit">
-							<input type="submit" value="Search" class="submitBtn">
-						</div> <!-- end .submit -->
-				</form>
-			</div> <!-- end #search -->
-			<span class="subtitle" style="clear:both;"><a href="/search.jsp">Go to Topic Search</a></span>
-		</div> <!-- end #searchContext -->
-		<div id="mn_geoListContext">
-			<div id="mn_geoListHeader">
-				<span class="listTitle">Results near <div id="listTitleLoc"></div></span>
-			</div><!-- mn_geoListHeader -->
-			<div id="mn_geoListBody">
+							<div class="submit">
+								<input type="submit" value="Search" class="submitBtn">
+							</div> <!-- end .submit -->
+					</form>
+				</div> <!-- end #search -->
+				<span class="subtitle" style="clear:both;"><a href="/search.jsp">Go to Topic Search</a></span>
+			</div> <!-- end #searchContext -->
+			<div id="mn_geoListContext">
+				<div id="mn_geoListHeader">
+					<span class="listTitle">Results near <div id="listTitleLoc"></div></span>
+				</div><!-- mn_geoListHeader -->
+				<div id="mn_geoListBody">
 				
-			</div> <!-- end #mn_geoListBody -->
-			<div id="mn_geoListFooter">
-				<div id="searchResultsNav">
-					<span class="showAll"></span>
-					<span class="paginationNav"></span>
-				</div> <!-- end searchResultsNav -->
-			</div><!-- mn_geoListFooter -->
-		</div><!-- mn_geoListContext -->
-	</div> <!-- end #contentRightBody -->
+				</div> <!-- end #mn_geoListBody -->
+				<div id="mn_geoListFooter">
+					<div id="searchResultsNav">
+						<span class="showAll"></span>
+						<span class="paginationNav"></span>
+					</div> <!-- end searchResultsNav -->
+				</div><!-- mn_geoListFooter -->
+			</div><!-- mn_geoListContext -->
+		</div> <!-- end #contentRightBody -->
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
 		<div id="contentLeftBody">
@@ -216,12 +214,10 @@
 			</div> <!-- end #actionDesc -->
 		</div> <!-- end #actionContext -->
 	</div> <!-- end #contentLeft -->
-</div> <!-- end #content -->
-<div class="clearfooter"></div>
+</div> <!-- end #main -->
+</div> <!-- end #wrap -->
 
-
-
-</div> <!-- end #container -->
 <%@ include file="jsp/footer.jsp" %>
+
 </body>
 </html>
