@@ -153,8 +153,7 @@
 				<span class="map_title title">Happening NOW near you...</span>
 				<div id="map_canvasContainerRight">
 					<div id="map_canvas">
-		
-<<<<<<< HEAD:war/index.jsp
+
 				</div><!-- end #map_canvas -->
 			</div><!-- end #map_canvasContainer -->
 		</div><!-- end .map_context -->
@@ -190,52 +189,15 @@
 				<span class="listTitle">Results near <div id="listTitleLoc"></div></span>
 			</div><!-- mn_geoListHeader -->
 			<div id="mn_geoListBody">
-=======
-					</div><!-- end #map_canvas -->
-				</div><!-- end #map_canvasContainer -->
-			</div><!-- end .map_context -->
-			<div id="searchContext">
-				<div id="search">
-					<form action="search" method="post" accept-charset="utf-8">
-						<div class="element">
-							<div class="label">
-								<label for="query">Search for: </label>
-							</div> <!-- end .label -->
-							<div class="mainSearchInput">
-								<input type="text" name="query" value="" id="mainSearchQuery" maxlength="100">
-							</div> <!-- end .input -->
-						</div> <!-- end .element -->
-						<div class="element">
-							<div class="label">
-								<label for="location">City or Postal Code</label>
-							</div> <!-- end .label -->
-							<div class="mainSearchInput">
-								<input type="text" name="location" value="" id="mainSearchLocation" maxlength="100">
-							</div> <!-- end .input -->
-						</div> <!-- end .element -->
 
-							<div class="submit">
-								<input type="submit" value="Search" class="submitBtn">
-							</div> <!-- end .submit -->
-					</form>
-				</div> <!-- end #search -->
-				<span class="subtitle" style="clear:both;"><a href="/search.jsp">Go to Topic Search</a></span>
-			</div> <!-- end #searchContext -->
-			<div id="mn_geoListContext">
-				<div id="mn_geoListHeader">
-					<span class="listTitle">Results near <div id="listTitleLoc"></div></span>
-				</div><!-- mn_geoListHeader -->
-				<div id="mn_geoListBody">
->>>>>>> 0c9a906a97922fc5e5f5cffde96baeaf3f738564:war/index.jsp
-				
-				</div> <!-- end #mn_geoListBody -->
-				<div id="mn_geoListFooter">
-					<div id="searchResultsNav">
-						<span class="showAll"></span>
-						<span class="paginationNav"></span>
-					</div> <!-- end searchResultsNav -->
-				</div><!-- mn_geoListFooter -->
-			</div><!-- mn_geoListContext -->
+			</div> <!-- end #mn_geoListBody -->
+			<div id="mn_geoListFooter">
+				<div id="searchResultsNav">
+					<span class="showAll"></span>
+					<span class="paginationNav"></span>
+				</div> <!-- end searchResultsNav -->
+			</div><!-- mn_geoListFooter -->
+		</div><!-- mn_geoListContext -->
 		</div> <!-- end #contentRightBody -->
 	</div> <!-- end #contentRight -->
 	<div id="contentLeft">
