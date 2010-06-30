@@ -26,6 +26,98 @@
 		document.getElementById('day').value = now.getDate();
 	});
 
+	function verifySubmission() {
+
+		var now = new Date();
+
+		var now_hour = now.getHours();
+		var now_ampm = "am";
+		if (now_hour > 12) {
+			now_hour = now_hour - 12;
+			now_ampm = "pm";
+		}
+		if (now_hour == 0) {
+			now_hour = 12;
+		}
+
+		var canSubmit = true;
+		var message = "";
+
+		if (document.getElementById('title').value == "") {
+			message = message + "Please enter a title for your event\n";
+			canSubmit = false;
+		}
+		if (document.getElementById('venue').value == "") {
+			message = message + "Please pick a venue\n";
+			canSubmit = false;
+		}
+		if ((document.getElementById('hour').value == "")||(document.getElementById('minute').value == "")) {
+			message = message + "Please pick a time\n";
+			canSubmit = false;
+		}
+
+		if (document.getElementById('desc').value == "") {
+			message = message + "Please enter a description\n";
+			canSubmit = false;
+		}
+
+		if (document.getElementById('address').value == "") {
+			message = message + "Please enter an address\n";
+			canSubmit = false;
+		}
+	
+		if((parseInt(document.getElementById('year').value) - 1900) < now.getYear()) {
+			message = message + "Please enter a date in the future\n";
+			canSubmit = false;
+		} else if ((parseInt(document.getElementById('year').value) - 1900) == now.getYear()){
+			if ((parseInt(document.getElementById('month').value) - 1) < now.getMonth()) {
+				message = message + "Please enter a date in the future\n";
+				canSubmit = false;
+			} else if ((parseInt(document.getElementById('month').value) - 1) == now.getMonth()){
+				if (parseInt(document.getElementById('day').value) < now.getDate()) {
+					message = message + "Please enter a date in the future\n";
+					canSubmit = false;
+				} else if (parseInt(document.getElementById('day').value) == now.getDate()){
+					if (document.getElementById('ampm').value == "am") {
+						if (now_ampm == "pm") {
+							message = message + "Please enter a time in the future\n";
+							canSubmit = false;
+						}
+						else if (parseInt(document.getElementById('hour').value) < now_hour) {
+							message = message + "Please enter a time in the future\n";
+							canSubmit = false;
+						} else if (parseInt(document.getElementById('hour').value) == now_hour) {
+							if (parseInt(document.getElementById('minute').value) < now.getMinutes() ) {
+								message = message + "Please enter a time in the future\n"
+								canSubmit = false;
+							}
+						}
+					} else  { //pm
+						if (now_ampm == "pm") {
+							if (parseInt(document.getElementById('hour').value) < now_hour) {
+								message = message + "Please enter a time in the future\n";
+								canSubmit = false;
+							} else if (parseInt(document.getElementById('hour').value) == now_hour) {
+								if (parseInt(document.getElementById('minute').value) < now.getMinutes() ) {
+									message = message + "Please enter a time in the future\n"
+									canSubmit = false;
+							}
+						}
+							
+						}
+					}
+				}
+			}
+		}
+
+		if (canSubmit) {
+			return verifyAddress();
+		} else {
+			alert(message);
+			return false;
+		}
+	}
+
 	function verifyAddress() {
 		var add = $('#address');
 		var out = $('#out');
@@ -81,17 +173,13 @@
 					document.getElementById('country').value = country_out;
 					document.getElementById('zip').value = zip_out;
 							
-
-					out.empty();
-					out.append(address+"<br>VALID");
-					document.getElementById('exe').disabled = "";
+					return verifySubmission();
 				} else {
-					out.empty();
-					out.append("NOT VALID, TRY AGAIN");
+					return false;
 				}
+				
 			});
 		}
-
 	}
 </script>
 </head>
@@ -128,14 +216,14 @@
 		<div id="contentLeft">
 			<div id="contentLeftContext">
 <span class="title">Create An Event - Let's Meetup Now!</span><br>
-<form name="f" action="/EventCreate" method="get">
+<form name="f" action="/EventCreate" onSubmit="return verifySubmission()" method="get">
 
 
 	<span class="goLeft"><span class="heading"> Topic: </span></span>
 	<span class="goRight"> <%=results.getJSONObject(0).getString("name")%> &nbsp | &nbsp <a href="/">Change Topic</a></span>
 	<br><br><br><br>
 	<span class="goLeft"><span class="heading"> Title: </span></span>
-	<span class="goRight"><input type="text" name="name" /></span>
+	<span class="goRight"><input type="text" value="" name="name" id="title"/></span>
 	<br><br><br><br><br>
 	<span class="goLeft"><span class="heading"> When? </span></span>
 	<span class="goRight">		
@@ -197,7 +285,8 @@
 			<option value="2016">2016</option>
 		</select>
 		<br>
-		<select id="hour" name="hour">
+		<select id="hour" name="hour" id="hour">
+			<option value=""> </option>
 			<option value="1">1</option>
 			<option value="2">2</option>
 			<option value="3">3</option>
@@ -212,13 +301,14 @@
 			<option value="12">12</option>
 		</select>
 		:
-		<select name="minute">
+		<select name="minute" id="minute">
+			<option value=""> </option>
 			<option value="0">00</option>
 			<option value="15">15</option>
 			<option value="30">30</option>
 			<option value="45">45</option>
 		</select>
-		<select name="ampm">
+		<select name="ampm" id="ampm">
 			<option value="pm">PM</option>
 			<option value="am">AM</option>
 		</select>
@@ -228,17 +318,14 @@
 	<span class="goLeft"><span class="heading"> Where? </span></span>
 	<span class="goRight">
 		Venue<br>
-		<input type="text" name="venue" /><br>
+		<input type="text" name="venue" id="venue"/><br>
 		Address or Zip Code<br>
 		<input type="text" id="address" /> <br>
-		<span class="options">Type anything, then validate with Google Maps</span>
-		<input type="button" value="Validate Address" onclick="verifyAddress()" ></input>
-		<div id="out"></div>
 	</span>
 	<br><br><br><br><br><br><br><br><br>
 	<span class="goCenter">
 		<span class="heading"> Description: </span>
-		<span class="heading"> <textarea name="desc" cols="60" rows="4"></textarea></span> <br>
+		<span class="heading"> <textarea name="desc" id="desc" cols="60" rows="4"></textarea></span> <br>
 	</span>
 	<br><br><br>
 	<input type="hidden" name="lat" value="NA" id="lat" />
@@ -250,7 +337,7 @@
 	<input type="hidden" name="state" value="NA" id="state" />
 	<input type="hidden" name="callback" value="congrats.jsp" />
 	<input type="hidden" name="c_id" value="<%=c_id%>" />
-	<input type="submit" disabled="disabled" id="exe" value="Create" />
+	<input type="submit" onclick="verifyAddress" id="exe" value="Create" />
 </span>
 </form>
 			</div>
