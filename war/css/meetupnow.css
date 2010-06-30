@@ -251,11 +251,11 @@ body {
 		.mn_geoListItem {
 			display: block;
 			width: 344px;
-			height: 40px;
+			height: 36px;
 			border-top: 1px dotted #666;
 			-moz-border-top: 1px solid #666;
 			-webkit-border-top: 1px solid #666;
-			padding: 6px 8px;
+			padding: 8px 8px;
 			color: #f2f2f2;
 		}
 		.mn_geoListItem:hover {
@@ -284,11 +284,11 @@ body {
 			text-align: right;
 			width: 90px;
 			font-size: 14px;
-			letter-spacing: -1px;
 		}
 			.mn_geoListItem_date {
 				display: block;
-				padding-bottom: 2px;
+				padding-bottom: 4px;
+				letter-spacing: -0.5px;
 			}
 			.mn_geoListItem_time {
 				display: block;
@@ -299,6 +299,7 @@ body {
 			width: 224px;
 			margin-left: 102px;
 			padding-left: 12px;
+			padding-top: 2px;
 			border-left: 1px dotted #333;
 		}
 			.mn_geoListItem_title {
@@ -306,6 +307,7 @@ body {
 				width: 100%;
 				font-size: 14px;
 				font-weight: bold;
+				padding-bottom: 4px;
 			}
 			.mn_geoListItem_topic {
 				text-align: right;
