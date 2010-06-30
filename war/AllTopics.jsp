@@ -123,6 +123,7 @@
 		<div id="activityFeedContext">
 			<div id="activityFeed">
 				<span class="title">Choose a Topic To Create Start Creating Events.</span>
+				<span class="options">Don't see anything you like? <a href="/CreateTopic.jsp">Create your own Topic!</a></span><br><br>
 				<div id = "activity"> </div>
 			</div>
 		</div> <!-- end #activityFeed -->
