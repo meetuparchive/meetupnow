@@ -21,11 +21,12 @@
 	<title>MeetupNOW</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
-	<script>
 		<%@ include file="jsp/cookie.jsp" %>
 		<%@ include file="jsp/declares.jsp" %>
 
 		<%@ page import="meetupnow.Topic" %>
+	<script>
+
 
 
 
@@ -37,9 +38,9 @@
 	String locationquery = request.getParameter("location");
 	String containers = "&container_id=";
 	JSONObject json;
-if (locationquery != "" && locationquery != null){	
+if (!locationquery.equals("")){	
 
-	if (querystring != null && querystring != "") {
+	if (!querystring.equals("")) {
 
 		CompassHits hits = null;
 		hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
