@@ -46,5 +46,17 @@ public class SignedURLGen {
 		return APIresponse;
 	}
 	
+	public Response submitUnsignedURL(String URLin) {
+		Response APIresponse = null;
+		try {
+			Request APIrequest = new Request(Request.Verb.GET, URLin);
+			APIresponse = APIrequest.send();
+			
+		} catch (Exception j) {
+
+		}
+		return APIresponse;
+
+	}
 
 }
