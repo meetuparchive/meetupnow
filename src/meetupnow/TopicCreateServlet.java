@@ -97,6 +97,8 @@ public class TopicCreateServlet extends HttpServlet {
 					APIrequest.addBodyParameter("description",desc);
 					APIrequest.addBodyParameter("name",name);
 					APIrequest.addBodyParameter("event_create","anyone");
+					APIrequest.addBodyParameter("link","http://www.jake-meetup-test.appspot.com/");
+					APIrequest.addBodyParameter("link_name", "Meetup Now");
 				
 					scribe.signRequest(APIrequest,accessToken);
 					Response APIresponse = APIrequest.send();
@@ -153,8 +155,8 @@ public class TopicCreateServlet extends HttpServlet {
 			else {
 				if (IsNewTopic){
 
-					//send to new group page
-					resp.sendRedirect("/Group?" + rsvpID);
+					//send to new topic page
+					resp.sendRedirect("/Topic?" + rsvpID);
 				} else{
 
 					//send to error page with id
