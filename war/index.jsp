@@ -132,9 +132,9 @@
 			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
 			APIresponse = sg.submitURL(GEOCODE_API_URL);
 			%>var geocode = <%=APIresponse.getBody().toString()%>
-				var location = geocode.results[0].address_components[2].long_name;
+				var location = 'Events near ' + geocode.results[0].address_components[2].long_name;
 
-				$('#listTitleLoc').append(location);
+				$('#searchResultsHeading').append(location);
 				use_everywhere(data);
 			}
 
@@ -182,11 +182,11 @@
 						</div> <!-- end .submit -->
 				</form>
 			</div> <!-- end #search -->
-			<span class="subtitle" style="clear:both;"><a href="/search.jsp">Go to Topic Search</a></span>
+			<span style="clear:both;"><a href="/search.jsp">Go to Topic Search</a></span>
 		</div> <!-- end #searchContext -->
 		<div id="mn_geoListContext">
 			<div id="mn_geoListHeader">
-				<span class="listTitle">Results near <div id="listTitleLoc"></div></span>
+				<span id="searchResultsHeading" class="listTitle"></span>
 			</div><!-- mn_geoListHeader -->
 			<div id="mn_geoListBody">
 
