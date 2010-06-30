@@ -13,14 +13,14 @@
 
 <%@ page import="meetupnow.MUCookie" %>
 
-<div id="mn_superHeader">
-	<div id="mn_superHeaderBody">
-		<div id="mn_superHeader_logo">
+<div id="header">
+
+		<div id="header_logo">
 			<a href="/">
-				<img src="../images/mnlogo_sm_white.png" alt="MeetupNow" style="width: auto !important; height: auto !important">
+				<ul><li><a href="/">Home</a></li></ul>
 			</a>
-		</div><!-- mew_logo -->
-		<div id="mn_superHeader_usernav">
+		</div><!-- mn_superHeader_logo -->
+		<div id="header_usernav">
 			<ul>
 <%
 
@@ -42,23 +42,23 @@
 				List<MeetupUser> use = (List<MeetupUser>) q.execute(k);
 					
 %>
-<li><%=use.get(0).getName()%></li>
+				<li><%=use.get(0).getName()%></li>
 
-<li><a href ="">My Events</a></li>
+				<li><a href ="">My Events</a></li>
 
-<li><a href ="/UserPrefs.jsp">Preferences</a> </li>
+				<li><a href ="/UserPrefs.jsp">Preferences</a> </li>
 
-<li><a href ="/logout?callback=">Log Out</a></li>
+				<li><a href ="/logout?callback=">Log Out</a></li>
 <%
 			} finally {
 				q.closeAll();
 			}
 		}
 %>
-</ul>
-</div>
-	</div><!-- mew_headerBody -->
-</div><!-- mew_header -->
+			</ul>
+		</div> <!-- end #header_usernav -->
+
+</div><!-- end #header -->
 
 <script type="text/javascript" charset="utf-8">
 	// Modal Registration Popup

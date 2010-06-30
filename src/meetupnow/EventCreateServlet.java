@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.StringTokenizer;
 import java.util.List;
+import java.util.ArrayList;
 import java.util.Calendar;
 import javax.servlet.http.*;
 import javax.jdo.PersistenceManager;
@@ -133,6 +134,14 @@ public class EventCreateServlet extends HttpServlet {
 				callback = callback.concat("?id="+rsvpID);
 				containerName = json.getJSONObject("container").getString("name");
 
+				//Send email(s)
+				String body = "New Event:\n"+name+"\nIn your area!\n\n"+desc+"\n\nLINK: http://jake-meetup-test.appspot.com/Event?id="+rsvpID;
+
+				ArrayList<String> emails = getEmailAddresses(Double.parseDouble(lat),Double.parseDouble(lon));
+
+				for (int i = 0; i < emails.size(); i++) {
+					EmailServlet.sendEmail(emails.get(i),"jgl2832@gmail.com","New event in your area: "+name,body);
+				}
 				//Create notification
 				NewsItem notify = new NewsItem();
 				notify.setType("event_create");
@@ -188,6 +197,58 @@ public class EventCreateServlet extends HttpServlet {
 		cal.set(Integer.parseInt(year),Integer.parseInt(month) - 1,Integer.parseInt(day) ,dateHour,Integer.parseInt(min));
 		return ""+cal.getTimeInMillis();
 	}
+
+
+	public ArrayList<String> getEmailAddresses(double evLat, double evLon) {
+		ArrayList<String> output = new ArrayList<String>();
+		double plat;
+		double plon;
+		double radius;
+		PersistenceManager pm = PMF.get().getPersistenceManager();
+		Query query = pm.newQuery(UserInfo.class);
+		query.setFilter("emailOpt == emailOptParam");
+		query.declareParameters("boolean emailOptParam");
+		try {
+			List<UserInfo> profiles = (List<UserInfo>) query.execute(true);
+			for (int i = 0; i < profiles.size(); i++) {
+				plat = Double.parseDouble(profiles.get(i).getLat());
+				plon = Double.parseDouble(profiles.get(i).getLon());
+				radius = Double.parseDouble(profiles.get(i).getDistance());
+				if (distance(plat,plon,evLat,evLon) <= radius) {
+					output.add(profiles.get(i).getEmail());
+				}
+			}
+		} finally {
+			query.closeAll();	
+			return output;
+		}
+
+	}
+
+	private double distance(double lat1, double lon1, double lat2, double lon2) {
+  		double theta = lon1 - lon2;
+  		double dist = Math.sin(deg2rad(lat1)) * Math.sin(deg2rad(lat2)) + Math.cos(deg2rad(lat1)) * Math.cos(deg2rad(lat2)) * Math.cos(deg2rad(theta));
+  		dist = Math.acos(dist);
+  		dist = rad2deg(dist);
+ 		dist = dist * 60 * 1.1515;
+  		return (dist);
+	}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/*::  This function converts decimal degrees to radians             :*/
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+	private double deg2rad(double deg) {
+  		return (deg * Math.PI / 180.0);	
+	}
+
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+/*::  This function converts radians to decimal degrees             :*/
+/*:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::*/
+	private double rad2deg(double rad) {
+  		return (rad * 180.0 / Math.PI);
+	}
+
+
 
 
 }

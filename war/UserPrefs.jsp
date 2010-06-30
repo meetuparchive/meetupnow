@@ -18,13 +18,42 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+	function verifyAddress() {
+		var zip = $('#upZip');
+		var out = $('#out');
+		var geocoder = new google.maps.Geocoder();
+
+		if(geocoder){
+			geocoder.geocode( { 'address': zip.val()}, function(results, status) {
+				if (status == google.maps.GeocoderStatus.OK) {
+					document.getElementById('lat').value = results[0].geometry.location.lat();
+					document.getElementById('lon').value = results[0].geometry.location.lng();
+					out.empty();
+					out.append("VERIFIED");
+
+				} else {
+					out.empty();
+					out.append("NOT VALID, TRY AGAIN");
+				}
+			});
+		}
+
+	}
+</script>
 </head>
-<body id="meetupNowBody">
+
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
+
+<body>
+<div id="wrap">
 <%@ include file="jsp/header.jsp" %>
-<div id="wrapper">
-	<div id="wrapperContent">
+
 		<%
 				if (!key.equals("empty")) {
 
@@ -39,14 +68,15 @@
 							List<UserInfo> profiles = (List<UserInfo>) userQuery.execute(users.get(0).getID());
 							if (profiles.size() > 0) {
 		%>
-		
+	<div id="main">	
 		<div id="contentRight">
-			<span class="title"><%=users.get(0).getName()%></span>
-			<span class="heading">You are receiving notifications from:</span>
-			
+			<div id="contentRightBody">
+				<span class="title"><%=users.get(0).getName()%></span>
+				<span class="heading">You are receiving notifications from:</span>
+			</div> <!-- end #contentRightBody -->
 		</div> <!-- end #contentRight -->
 		<div id="contentLeft">
-			<div id="contentLeftContext">
+			<div id="contentLeftBody">
 				<form id="form_userPrefs" name="email" action="/setprefs">
 				
 
@@ -153,6 +183,8 @@
 					<li>
 					<label for="upZip">Zip Code</label>
 					<input type="text" class="text" id="upZip" name="zip" value="<%=savedZip%>">
+					<input type="button" value="Verify" onclick="verifyAddress()" />
+					<div id="out"> </div>
 					</li>
 					<li>
 					<label for="upSearchDistance">Radius (mi)</label>
@@ -199,17 +231,21 @@
 				<fieldset class="noborder">
 					<input type="hidden" name="id" value="<%= users.get(0).getID()%>">
 					<input type="hidden" name="callback" value="/UserPrefs.jsp">
+					<input type="hidden" id="lat" name="lat" value="NA"/>
+					<input type="hidden" id="lon" name="lon" value="NA"/>
 					<input type="submit" class="submit" value="Update"></input>
 				</fieldset>
 				</form>
 				
 				<br><br>
 				<form name="testmail" action="/email">
-				<input type="hidden" name="to" value="<%= profiles.get(0).getEmail() %>">
-				<input type="hidden" name="cell" value="<%= profiles.get(0).getCellNum() %>">
-				<input type="hidden" name="carrier" value="<%= profiles.get(0).getCarrier() %>">
-				<input type="hidden" name="callback" value="/UserPrefs.jsp";
-				<input type="submit" value="Send Test Email and Text">
+				<input type="hidden" name="to" value="<%= profiles.get(0).getEmail() %>"/>
+				<input type="hidden" name="cell" value="<%= profiles.get(0).getCellNum() %>"/>
+				<input type="hidden" name="carrier" value="<%= profiles.get(0).getCarrier() %>"/>
+				<input type="hidden" name="callback" value="/UserPrefs.jsp"/>
+
+				<input type="submit" value="Send Test Email and Text"/>
+
 				</form>
 
 <%
@@ -223,9 +259,12 @@
 		}
 %>
 
-		</div><!-- contentLeftContext -->
-	</div><!-- contentLeft -->
-</div><!-- wrappercontent -->
-</div><!-- wrapper -->
+			</div><!-- contentLeftBody -->
+		</div><!-- contentLeft -->
+	</div> <!-- end #main -->
+</div><!-- wrap -->	
+
+<%@ include file="jsp/footer.jsp" %>
+
 </body>
 </html>

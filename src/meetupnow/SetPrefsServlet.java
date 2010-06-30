@@ -28,6 +28,9 @@ public class SetPrefsServlet extends HttpServlet {
 		String cellOpt = "";
 		String emailOpt = "";
 		String zip = "";
+		String lat = "";
+		String lon = "";
+
 		if (req.getQueryString() != null) {
 			callback = req.getParameter("callback");
 			mu_id = req.getParameter("id");
@@ -40,6 +43,8 @@ public class SetPrefsServlet extends HttpServlet {
 			cellOpt = req.getParameter("cellOpt");
 			emailOpt = req.getParameter("emailOpt");
 			zip = req.getParameter("zip");
+			lat = req.getParameter("lat");
+			lon = req.getParameter("lon");
 		}
 		javax.servlet.http.Cookie[] cookies = req.getCookies();
 
@@ -86,6 +91,12 @@ public class SetPrefsServlet extends HttpServlet {
 				}
 				if (zip != null) {
 					profs.get(0).setZip(zip);
+				}
+				if (lat != null) {
+					profs.get(0).setLat(lat);
+				}
+				if (lon != null) {
+					profs.get(0).setLon(lon);
 				}
 				if (cellOpt != null) {
 					if (cellOpt.equals("yes")) {profs.get(0).setCellOpt(true);}

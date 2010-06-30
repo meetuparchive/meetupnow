@@ -1,8 +1,5 @@
 <div id="footer">
 	<div id="footerBody">
-		<div id="footerLogo">
-			<img src="images/logo_footer.png" alt="MeetupNow" style="width: auto !important; height: auto !important">
-		</div> <!-- end footerLogo -->
 		<div id="footerRow">
 			<ul class="footerSection">
 				<li>About Meetup Now</li>
@@ -13,5 +10,3 @@
 		
 	</div><!-- footerBody -->
 </div><!-- footer -->
-</body>
-</html>

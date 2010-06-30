@@ -31,6 +31,12 @@ public class UserInfo {
 	private String zip;
 
 	@Persistent
+	private String lat;
+
+	@Persistent
+	private String lon;
+
+	@Persistent
 	private String distance;
 
 	@Persistent
@@ -60,6 +66,22 @@ public class UserInfo {
 
 	public Key getKey() {
 		return key;
+	}
+
+	public String getLat() {
+		return lat;
+	}
+
+	public String getLon() {
+		return lon;
+	}
+	
+	public void setLat(String l) {
+		lat = l;
+	}
+
+	public void setLon(String l) {
+		lon = l;
 	}
 
 	public void setZip(String z) {
