@@ -89,11 +89,7 @@ body {
 	    rgb(2,36,50) 66%
 	);
 }
-#main {
-	overflow: auto;
-	padding-bottom: 151px; /* must be same height as the footer */
-}
-#mn_superHeader {
+#header {
 	height: 24px;
 	width: 960px;
 	z-index: 2000;
@@ -101,19 +97,19 @@ body {
 	padding-top: 12px;
 	border-bottom: 1px dotted #666;
 }
-		#mn_superHeader_logo {
+		#header_logo {
 			float: left;
 			z-index: 1000;
 			clear: left;
 		}
-		#mn_superHeader_usernav {
+		#header_usernav {
 			float: right;
 			width: 600px;
 			color: #ffffff;
 			white-space: nowrap;
 			list-style-type: none;
 		}
-			#mn_superHeader_usernav li {
+			#header_usernav li {
 				display: inline;
 				padding-left: 2em;
 				/*background: -webkit-gradient(
@@ -125,28 +121,34 @@ body {
 				);*/
 				float: right;
 			}
-			#mn_superHeader_usernav li a,
-			#mn_superHeader_usernav li a:link,
-			#mn_superHeader_usernav li a:visited,
-			#mn_superHeader_usernav li a:hover {
+			#header_usernav li a,
+			#header_usernav li a:link,
+			#header_usernav li a:visited,
+			#header_usernav li a:hover {
 				color: #f2f2f2;
 				font-weight: bold;
 				text-decoration: none;
 				cursor: hand;
 				cursor: pointer;
 			}
-			#mn_superHeader_usernav li a:hover {
+			#header_usernav li a:hover {
 				color: #2175B1;
 			}
-#wrapper {
+#container {
+	position: relative;
 	min-height: 100%;
 	width: 960px;
 	margin: 0 auto;
+}
+#body {
+	padding-bottom: 151px;
+	overflow: hidden;
 }
 #contentRight {
 	float: right;
 	width: 384px;
 	padding: 24px 0;
+	clear: right;
 }
 	#contentRightBody {
 		padding: 12px;
@@ -401,6 +403,7 @@ body {
 #contentLeft {
 
 	float: left;
+	clear: left;
 	width: 564px;
 	padding: 24px 0;
 }
@@ -490,16 +493,16 @@ body {
 	}
 #footer {
 	//background-color: rgb(2,36,50);
-	position: relative;
-	margin-top: -151px; /* negative value of footer height */
+	position:absolute;
+	   bottom:0;
+	   width:100%;
+	   height:78px;   /* Height of the footer */
 	margin-left: auto;
 	margin-right: auto;
-	height: 79px;
-	clear:both;
 	border-top: 1px dotted #666;
 	color: #E7E7E7;
 	padding: 24px 0 48px;
-	width: 960px;
+
 }
 #footerBody {
 	//padding: 0 1em;

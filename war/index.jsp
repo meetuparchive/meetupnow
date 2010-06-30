@@ -8,7 +8,8 @@
 <%@ page import="java.util.Date" %>
 
 
-<!DOCTYPE html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+	"http://www.w3.org/TR/html4/strict.dtd">
 <html>
 <head>
 	<title>MeetupNOW</title>
@@ -142,12 +143,12 @@
 	</script>
 </head>
 <body onload="loadEvents()">
-<div id="wrapper">
+<div id="container">
 	
 <%@ include file="jsp/header.jsp" %>
 
 <%//@ include file="jsp/ticker.jsp" %>
-<div id="main">
+<div id="body">
 	<div id="contentRight">
 	<div id="contentRightBody">
 		<div class="map_contextRight">
@@ -215,9 +216,10 @@
 			</div> <!-- end #actionDesc -->
 		</div> <!-- end #actionContext -->
 	</div> <!-- end #contentLeft -->
-</div> <!-- end #main -->
+</div> <!-- end #body -->
 
-</div> <!-- end #wrapper -->
+
 <%@ include file="jsp/footer.jsp" %>
+</div> <!-- end #container -->
 </body>
 </html>

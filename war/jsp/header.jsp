@@ -13,14 +13,14 @@
 
 <%@ page import="meetupnow.MUCookie" %>
 
-<div id="mn_superHeader">
+<div id="header">
 
-		<div id="mn_superHeader_logo">
+		<div id="header_logo">
 			<a href="/">
 				<ul><li><a href="/">Home</a></li></ul>
 			</a>
 		</div><!-- mn_superHeader_logo -->
-		<div id="mn_superHeader_usernav">
+		<div id="header_usernav">
 			<ul>
 <%
 
@@ -56,9 +56,9 @@
 		}
 %>
 			</ul>
-		</div> <!-- end #mn_superHeader_usernav -->
+		</div> <!-- end #header_usernav -->
 
-</div><!-- mew_header -->
+</div><!-- end #header -->
 
 <script type="text/javascript" charset="utf-8">
 	// Modal Registration Popup
