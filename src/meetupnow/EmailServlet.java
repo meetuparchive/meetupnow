@@ -74,4 +74,26 @@ public class EmailServlet extends HttpServlet {
 
 	}
 
+	public static void sendEmail(String to, String from, String subject, String body) {
+
+		Properties props = new Properties();
+        	Session session = Session.getDefaultInstance(props, null);
+		Message msg;
+
+        	try {
+			        msg = new MimeMessage(session);
+            			msg.setFrom(new InternetAddress(from, "Meetup Now"));
+				msg.addRecipient(Message.RecipientType.TO, new InternetAddress(to, "MeetupNow User"));
+       				msg.setSubject(subject);
+            			msg.setText(body);
+            			Transport.send(msg);
+
+
+            		
+
+
+        	} catch (Exception e) {
+           		 // ...
+       	 	}
+	}
 }
