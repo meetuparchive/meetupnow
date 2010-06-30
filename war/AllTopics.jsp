@@ -86,7 +86,7 @@
 		%>
 		var out = $('#activityFeed');
 		$.each(data.results, function(i, ev) {
-			 out.append('<a href="/Group?' + ev.id + '">' + ev.name + "</a><br>");
+			 out.append('<a href="/Topic?' + ev.id + '">' + ev.name + '</a> &nbsp <a href="/CreateEvent.jsp?'+ev.id+'">Create an Event</a><br>');
 
 		});
 		$.each(data.meta, function(i, ev) {
@@ -122,7 +122,7 @@
 
 		<div id="activityFeedContext">
 			<div id="activityFeed">
-				<span class="title">Click on a Topic To Create Start Creating Events.</span>
+				<span class="title">Choose a Topic To Create Start Creating Events.</span>
 				<div id = "activity"> </div>
 			</div>
 		</div> <!-- end #activityFeed -->
