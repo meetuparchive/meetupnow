@@ -20,7 +20,7 @@
 			<div id="contentLeftContext">
 
 <% if (request.getParameter("id") != null && request.getParameter("id") != ""){%>
-	<span class="title">CONGRATUMULATIONS</span>
+	<span class="title">CONGRATULATIONS</span>
 	<span class="heading">
 	<br>
 	You sucessfully created a Meetup Now event. Would you like to share it with your friends?
@@ -43,7 +43,7 @@
 
 <% } else { %>
 
-	ERROR!!!!!!<br>
+	Please specify a valid address or zip code<br>
 	<a href="javascript: history.go(-1)">Go Back</a>
 <%}%>
 				</div>
