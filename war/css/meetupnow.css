@@ -259,7 +259,38 @@ body {
 			-moz-border-radius: 3px;
 			-webkit-border-radius: 3px;
 		}
-
+		.notifyStartBtn {
+			color: #f2f2f2 !important;
+			font-size: 1.2em;
+			font-weight: bold;
+			display: block;
+			padding: 4px 6px;
+			background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
+			background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
+			width: 250px;
+			text-align: center;
+			text-decoration: none !important;
+			border: 2px solid #A8252E;
+			border-radius: 5px;
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+		}
+		.notifyCancelBtn {
+			color: #f2f2f2 !important;
+			font-size: 1.2em;
+			font-weight: bold;
+			display: block;
+			padding: 4px 6px;
+			background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#1A8C78), to(#1ABE78));
+			background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
+			width: 250px;
+			text-align: center;
+			text-decoration: none !important;
+			border: 2px solid #1A6E78;
+			border-radius: 5px;
+			-moz-border-radius: 5px;
+			-webkit-border-radius: 5px;
+		}
 		#mn_geoListContext {
 			
 		}
@@ -664,7 +695,7 @@ body {
 	display: block;
 }
 .comment_author {
-	color: #2175B1;
+	color: #1ABE78;
 	font-weight: bold;
 }
 .comment_text {
@@ -676,7 +707,7 @@ body {
 	display: block;
 	padding-top: 4px;
 	font-size: 0.8em;
-	color: #666;
+	color: #001218;
 	width: 100%;
 	text-align: left;
 }

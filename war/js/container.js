@@ -115,7 +115,7 @@
 		var event_object;
 		var bounds = new google.maps.LatLngBounds();
 
-		var eventlist = $('#map_canvasContainerLeft');
+		var eventlist = $('#activity');
 		var events = $('#mn_geoListContext');
 		events.empty();
 
@@ -151,7 +151,7 @@
 				}		
 
 				//add event to list
-				eventlist.append('<a href="/Event?' + ev.id + '">' + ev.title + '</a><br>');
+				eventlist.append('<div class="commentFeedItem"><a href="/Event?' + ev.id + '">' + ev.title + '</a></div>');
 
 				//provide link for each point with event info
 				google.maps.event.addListener(marker, 'click', function() {
