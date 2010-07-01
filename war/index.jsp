@@ -117,7 +117,7 @@
 
 							Lat = userInfoList.get(0).getLat();
 							Lon = userInfoList.get(0).getLon();
-							distance = userInfoList.get(0).getDistance()
+							distance = userInfoList.get(0).getDistance();
 							API_URL = "http://api.meetup.com/ew/events/?status=upcoming&link=http://jake-meetup-test.appspot.com&lat=" + Lat + "&lon=" + Lon + "&radius=" + distance + "&order=time";
 							APIrequest = new Request(Request.Verb.GET, API_URL);
 							scribe.signRequest(APIrequest,accessToken);
