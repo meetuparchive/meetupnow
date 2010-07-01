@@ -85,6 +85,15 @@
 
 			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&page=20&fields=rsvp_count&container_id="+c_id;
 			APIresponse = sg.submitURL(API_URL);
+			JSONObject json = new JSONObject();
+					JSONArray results;
+					try {
+						json = new JSONObject(APIresponse.getBody());
+						results = json.getJSONArray("results");
+						c_name = results.getJSONObject(0).getJSONObject("container").getString("name");
+					} catch (JSONException j){
+
+					}
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
 		}
@@ -115,9 +124,15 @@
 				<%
 								}
 								else {
+									if (!key.equals("empty")) {
 				%>
 				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>" class="notifyStartBtn">Receive notifications from this group</a>
-				<%
+				<%		
+									} else {
+%>
+				<a href="/UserPrefs.jsp" class="notifyStartBtn">Recieve notifications from this group</a>
+<%
+									}
 								}
 							}
 						} finally {
