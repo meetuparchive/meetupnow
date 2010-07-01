@@ -22,10 +22,49 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
 <script type="text/javascript">
+	function verifySubmission() {
+		var canSubmit = true;
+		var message = "";
 
+		if (document.getElementById('upZip').value == "") {
+			message = message + "Please enter a valid Zip Code, or other location\n";
+			canSubmit = false;
+		}
+
+		if ((document.getElementById('upSearchDistance').value == "")||(!parseInt(document.getElementById('upSearchDistance').value))) {
+			message = message + "Please enter a search radius\n";
+			canSubmit = false;
+		}
+
+		if ((document.getElementById('upNotificationEmail').value == "")&&(document.email.emailOpt[0].checked)) {
+			message = message + "Please enter an Email Address to recieve Notifications\n";
+			canSubmit = false;
+		}
+		if (document.email.emailOpt[1].checked) {
+			document.getElementById('upNotificationEmail').value = "";
+		}
+
+		if ((document.getElementById('cell').value == "")&&(document.email.cellOpt[0].checked)) {
+			message = message + "Please enter a Cell Phone number to recieve Notifications\n";
+			canSubmit = false;
+		}
+		if ((document.getElementById('carrier').value == "")&&(document.email.cellOpt[0].checked)) {
+			message = message + "Please select your Cell Phone Provider\n";
+			canSubmit = false;
+		}
+		if (document.email.cellOpt[1].checked) {
+			document.getElementById('cell').value = "";
+		}
+		if (canSubmit) {
+			verifyAddress();
+		} else {
+			alert(message);
+			return false;
+		}
+
+	}
 	function verifyAddress() {
 		var zip = $('#upZip');
-		var out = $('#out');
 		var geocoder = new google.maps.Geocoder();
 
 		if(geocoder){
@@ -33,12 +72,9 @@
 				if (status == google.maps.GeocoderStatus.OK) {
 					document.getElementById('lat').value = results[0].geometry.location.lat();
 					document.getElementById('lon').value = results[0].geometry.location.lng();
-					out.empty();
-					out.append("VERIFIED");
-
+					return verifySubmission();
 				} else {
-					out.empty();
-					out.append("NOT VALID, TRY AGAIN");
+					return false;
 				}
 			});
 		}
@@ -110,7 +146,7 @@
 		</div> <!-- end #contentRight -->
 		<div id="contentLeft">
 			<div id="contentLeftBody">
-				<form id="form_userPrefs" name="email" action="/setprefs">
+				<form id="form_userPrefs" name="email" onSubmit="return verifySubmission()" action="/setprefs">
 				
 
 				
@@ -172,16 +208,32 @@
 					} else {
 						noCarrierSelected = "selected";
 					}
+
+					boolean eOpt = profiles.get(0).getEmailOpt();
+					String eOptY = "";
+					String eOptN = "";
+					if (eOpt) {
+						eOptY = "checked";
+					} else {
+						eOptN = "checked";
+					}
+
+					boolean cOpt = profiles.get(0).getCellOpt();
+					String cOptY = "";
+					String cOptN = "";
+					if (cOpt) {
+						cOptY = "checked";
+					} else {
+						cOptN = "checked";
+					}
 				%>
 				
 				<fieldset>
-				<legend>Default Search Area</legend>
+				<legend>Default Search Area/Notification Range</legend>
 					<ul>
 					<li>
 					<label for="upZip">Zip Code</label>
 					<input type="text" class="text" id="upZip" name="zip" value="<%=savedZip%>">
-					<input type="button" value="Verify" onclick="verifyAddress()" />
-					<div id="out"> </div>
 					</li>
 					<li>
 					<label for="upSearchDistance">Radius (mi)</label>
@@ -194,8 +246,8 @@
 				<legend>Receive Email Notifications</legend>
 					<ul>
 					<li>
-					<input type="radio" name="emailOpt" value="yes"> Yes
-					<input type="radio" name="emailOpt" value="no" checked> No
+					<input type="radio" id="emailOpt" name="emailOpt" value="yes" <%=eOptY%> > Yes
+					<input type="radio" id="emailOpt" name="emailOpt" value="no" <%=eOptN%>> No
 					</li>
 					<li>
 					<label for="upNotificationEmail">Email Address</label>
@@ -208,14 +260,14 @@
 				<legend>Receive SMS Text Notifications</legend>
 					<ul>
 					<li>
-					<input type="radio" name="cellOpt" value="yes"> Yes
-					<input type="radio" name="cellOpt" value="no" checked> No
+					<input type="radio" id="cellOpt" name="cellOpt" value="yes" <%=cOptY%>> Yes
+					<input type="radio" id="cellOpt" name="cellOpt" value="no" <%=cOptN%>> No
 					</li>
 					<li>
-					<input type="text" name="cell" value="<%= savedCellNum %>" size="11" /> Cell Number
+					<input type="text" id="cell" name="cell" value="<%= savedCellNum %>" size="11" /> Cell Number
 					</li>
 					<li>
-					<select name="carrier">
+					<select id="carrier" name="carrier">
 						<option value="" <%=noCarrierSelected%>>-Select-</option>
 						<option value="att" <%=attSelected%>>AT&T</option>
 						<option value="verizon" <%=verizonSelected%>>Verizon</option>
@@ -230,7 +282,7 @@
 					<input type="hidden" name="callback" value="/UserPrefs.jsp">
 					<input type="hidden" id="lat" name="lat" value="NA"/>
 					<input type="hidden" id="lon" name="lon" value="NA"/>
-					<input type="submit" class="submit" value="Update"></input>
+					<input type="submit" onclick="verifyAddress" class="submit" value="Update Preferences"></input>
 				</fieldset>
 				</form>
 				
