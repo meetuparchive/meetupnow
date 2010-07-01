@@ -61,6 +61,7 @@
 </div><!-- end #header -->
 
 <script type="text/javascript" charset="utf-8">
+
 	// Modal Registration Popup
 	$(document).ready(function() {
 
