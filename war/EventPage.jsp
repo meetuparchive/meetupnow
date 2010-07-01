@@ -176,11 +176,11 @@ try {
 	<%
 		if (in) {
 	%>
-					You're in! <a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>">(Click to remove)</a>
+					<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="inBtn">I'm in</a>
 	<%
 		} else {
 	%>
-					<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>">RSVP</a>
+					<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>" class="rsvpBtn">RSVP</a>
 	<%
 		}
 	%>
