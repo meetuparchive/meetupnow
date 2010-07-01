@@ -73,16 +73,6 @@
 			<div id="contentRightBody">
 				<span class="title"><%=users.get(0).getName()%></span>
 				<span class="heading">You are receiving notifications from:</span>
-			</div> <!-- end #contentRightBody -->
-		</div> <!-- end #contentRight -->
-		<div id="contentLeft">
-			<div id="contentLeftBody">
-				<form id="form_userPrefs" name="email" action="/setprefs">
-				
-
-				
-				<span class="title">Preferences</span>
-				
 				<%
 					String[] groups = profiles.get(0).getGroupArray();
 					if (groups.length > 0) {
@@ -97,10 +87,6 @@
 						JSONObject json = new JSONObject();
 						JSONArray results;
 
-						//Request APItest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/container/654/alert");
-						//scribe.signRequest(APItest,accessToken);
-						//Response APIres = APItest.send();
-						//System.out.println(APIres.getBody());
 	
 						try {
 							json = new JSONObject(APIresponse.getBody());
@@ -108,7 +94,7 @@
 							for (int j = 0; j < results.length(); j++) {
 				%>
 				
-				<span class="options"> &nbsp - &nbsp <b><a href="/Group?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %> </a></b>
+				<span class="options"> &nbsp - &nbsp <b><a href="/Topic?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %> </a></b>
 				&nbsp <a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove">Remove</a> </span>
 				<br>
 				
@@ -120,6 +106,17 @@
 					}
 
 				%>
+			</div> <!-- end #contentRightBody -->
+		</div> <!-- end #contentRight -->
+		<div id="contentLeft">
+			<div id="contentLeftBody">
+				<form id="form_userPrefs" name="email" action="/setprefs">
+				
+
+				
+				<span class="title">Preferences</span>
+				
+
 				
 				<%
 					// Saved Data Persistence
@@ -237,16 +234,6 @@
 				</fieldset>
 				</form>
 				
-				<br><br>
-				<form name="testmail" action="/email">
-				<input type="hidden" name="to" value="<%= profiles.get(0).getEmail() %>"/>
-				<input type="hidden" name="cell" value="<%= profiles.get(0).getCellNum() %>"/>
-				<input type="hidden" name="carrier" value="<%= profiles.get(0).getCarrier() %>"/>
-				<input type="hidden" name="callback" value="/UserPrefs.jsp"/>
-
-				<input type="submit" value="Send Test Email and Text"/>
-
-				</form>
 
 <%
 					}
