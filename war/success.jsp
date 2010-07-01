@@ -6,7 +6,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale-1.0, user-scalable-no"
 	<script type="text/javascript" charset="utf-8">
 		function onLoad() {
-			window.setTimeout('parent.location.reload()',500)
+			window.setTimeout('redirect()',500)
+		}
+		function redirect() {
+			window.location = parent.location.reload();
 		}
 	</script>
 </head>
