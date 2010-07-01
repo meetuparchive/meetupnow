@@ -51,7 +51,7 @@
 			String Lon = "";
 
 		
-			String TopicList = "container_id=654,713,";
+			String TopicList = "container_id=";
 			Query TopicQuery = pm.newQuery(Topic.class);
 			TopicQuery.setFilter("id != 0");
 			TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
