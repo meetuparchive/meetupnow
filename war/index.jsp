@@ -219,7 +219,7 @@
 			<span class="title">Get Started.</span>
 			<div id="action">
 				<a href="lucky"><span class="btn_main">Something Close and Soon</span></a>
-				<a href="AllTopics.jsp"><span class="btn_main">Create Event</span></a>
+				<a href="CreateEvent.jsp"><span class="btn_main">Create Event</span></a>
 				<a href="search.jsp"><span class="btn_main">Search Topics</span></a>
 			</div> <!-- end #action -->
 			<div id="actionDesc">
