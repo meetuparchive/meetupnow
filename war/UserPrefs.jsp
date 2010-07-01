@@ -22,6 +22,9 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
 <script type="text/javascript">
+
+	var addressCheck = false;
+
 	function verifySubmission() {
 		var canSubmit = true;
 		var message = "";
@@ -33,6 +36,11 @@
 
 		if ((document.getElementById('upSearchDistance').value == "")||(!parseInt(document.getElementById('upSearchDistance').value))) {
 			message = message + "Please enter a search radius\n";
+			canSubmit = false;
+		}
+
+		if (!addressCheck) {
+			message = message + "Enter a valid Zip Code";
 			canSubmit = false;
 		}
 
@@ -65,6 +73,7 @@
 	}
 	function verifyAddress() {
 		var zip = $('#upZip');
+		var out = $('#out');
 		var geocoder = new google.maps.Geocoder();
 
 		if(geocoder){
@@ -72,9 +81,14 @@
 				if (status == google.maps.GeocoderStatus.OK) {
 					document.getElementById('lat').value = results[0].geometry.location.lat();
 					document.getElementById('lon').value = results[0].geometry.location.lng();
-					return verifySubmission();
+					
+					out.empty();
+					out.append("VALID");
+					addressCheck = true;
 				} else {
-					return false;
+					out.empty();
+					out.append("NOT VALID");
+					addressCheck = false;
 				}
 			});
 		}
@@ -233,7 +247,8 @@
 					<ul>
 					<li>
 					<label for="upZip">Zip Code</label>
-					<input type="text" class="text" id="upZip" name="zip" value="<%=savedZip%>">
+					<input type="text" onKeyUp="verifyAddress()" class="text" id="upZip" name="zip" value="<%=savedZip%>">
+					<div id="out"></div>
 					</li>
 					<li>
 					<label for="upSearchDistance">Radius (mi)</label>
@@ -282,7 +297,7 @@
 					<input type="hidden" name="callback" value="/UserPrefs.jsp">
 					<input type="hidden" id="lat" name="lat" value="NA"/>
 					<input type="hidden" id="lon" name="lon" value="NA"/>
-					<input type="submit" onclick="verifyAddress" class="submit" value="Update Preferences"></input>
+					<input type="submit" class="submit" value="Update Preferences"></input>
 				</fieldset>
 				</form>
 				
