@@ -22,6 +22,9 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 
 <script type="text/javascript">
+	$(function() {
+		verifyAddress();
+	});
 
 	var addressCheck = false;
 
@@ -247,7 +250,7 @@
 					<ul>
 					<li>
 					<label for="upZip">Zip Code</label>
-					<input type="text" onKeyUp="verifyAddress()" class="text" id="upZip" name="zip" value="<%=savedZip%>">
+					<input type="text" onChange="verifyAddress()" onKeyUp="verifyAddress()" class="text" id="upZip" name="zip" value="<%=savedZip%>">
 					<div id="out"></div>
 					</li>
 					<li>
