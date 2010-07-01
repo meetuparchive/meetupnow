@@ -4,7 +4,6 @@
 			<ul class="footerSection">
 				<li>About Meetup Now</li>
 				<li>Contact Us</li>
-				<li>Placeholder</li>
 			</ul>
 		</div><!-- footerRow -->
 		
