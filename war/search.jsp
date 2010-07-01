@@ -61,9 +61,10 @@
 					Resource resource = hits.resource(i);
 	%>
 
-						<div class="commentFeedItem"><a href="/Topic?<%=topic.getId() %>"> <%=topic.getName() %></a></div>
-						<br> <%= topic.getDescription() %>
-
+						<div class="commentFeedItem">
+						<span class="tsItem_title"><a href="/Topic?<%=topic.getId() %>"><%=topic.getName() %></a></span>
+						<span class="tsItem_desc"><%= topic.getDescriptionSubstring(500) %></span>
+						</div>
 	<%
 				}
 	%>
