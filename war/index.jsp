@@ -67,7 +67,7 @@
 			} finally {
 
 			}
-		
+			System.out.println(TopicList);
 			Topic NewTopic;
 
 			try{
@@ -101,7 +101,7 @@
 			}
 
 			if (!key.equals("empty")) {
-				System.out.println("key found");
+
 				try {
 					users = (List<MeetupUser>) query.execute(key);
 					
@@ -118,7 +118,8 @@
 							Lat = userInfoList.get(0).getLat();
 							Lon = userInfoList.get(0).getLon();
 							distance = userInfoList.get(0).getDistance();
-							API_URL = "http://api.meetup.com/ew/events/?status=upcoming&link=http://jake-meetup-test.appspot.com&lat=" + Lat + "&lon=" + Lon + "&radius=" + distance + "&order=time";
+							API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=" + distance + "&order=time";
+							System.out.println(API_URL);
 							APIrequest = new Request(Request.Verb.GET, API_URL);
 							scribe.signRequest(APIrequest,accessToken);
 							APIresponse = APIrequest.send();
@@ -136,7 +137,7 @@
 				json = new JSONObject(APIresponse.getBody());
 				Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
 				Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-				API_URL = "http://api.meetup.com/ew/events?status=upcoming&link=http://jake-meetup-test.appspot.com&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&order=time";
+				API_URL = "http://api.meetup.com/ew/events?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&order=time";
 				APIresponse = sg.submitURL(API_URL);
 				%>var data = <%=APIresponse.getBody().toString()%><%
 	
