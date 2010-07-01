@@ -67,39 +67,40 @@
 			} finally {
 
 			}
-			System.out.println(TopicList);
+
 			Topic NewTopic;
+			if (request.getQueryString() != null) {
 
-			try{
-				json = new JSONObject(APIresponse.getBody());
-				top_list = json.getJSONArray("results");
-				boolean found = false;
+				try{
+					json = new JSONObject(APIresponse.getBody());
+					top_list = json.getJSONArray("results");
+					boolean found = false;
 
-				for (int j = 0; j < top_list.length(); j++){
-					found = false;
-					for (int i = 0; i < Topics.size(); i++){
-						if( Integer.parseInt(top_list.getJSONObject(j).getString("id")) == Topics.get(i).getId() ){
-							found = true;
+					for (int j = 0; j < top_list.length(); j++){
+						found = false;
+						for (int i = 0; i < Topics.size(); i++){
+							if( Integer.parseInt(top_list.getJSONObject(j).getString("id")) == Topics.get(i).getId() ){
+								found = true;
+							}
 						}
-					}
-					if (!found){
+						if (!found){
 
-						NewTopic = new Topic(top_list.getJSONObject(j).getString("description"), top_list.getJSONObject(j).getJSONObject("founder").getString("member_id"), top_list.getJSONObject(j).getString("name"), Integer.parseInt(top_list.getJSONObject(j).getString("id")));
-						try {
-							pm.makePersistent(NewTopic);
-						} 
+							NewTopic = new Topic(top_list.getJSONObject(j).getString("description"), top_list.getJSONObject(j).getJSONObject("founder").getString("member_id"), top_list.getJSONObject(j).getString("name"), Integer.parseInt(top_list.getJSONObject(j).getString("id")));
+							try {
+								pm.makePersistent(NewTopic);
+							} 
 				
-						finally {
+							finally {
 
+							}
 						}
 					}
+
 				}
+				catch (JSONException j){
 
+				}
 			}
-			catch (JSONException j){
-
-			}
-
 			if (!key.equals("empty")) {
 
 				try {
@@ -119,7 +120,7 @@
 							Lon = userInfoList.get(0).getLon();
 							distance = userInfoList.get(0).getDistance();
 							API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=" + distance + "&order=time";
-							System.out.println(API_URL);
+
 							APIrequest = new Request(Request.Verb.GET, API_URL);
 							scribe.signRequest(APIrequest,accessToken);
 							APIresponse = APIrequest.send();
