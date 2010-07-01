@@ -122,40 +122,49 @@
 		<div id="contentRight">
 			<div id="contentRightBody">
 				<span class="title"><%=users.get(0).getName()%></span>
-				<span class="heading">You are receiving notifications from:</span>
-				<%
-					String[] groups = profiles.get(0).getGroupArray();
-					if (groups.length > 0) {
-						String apiParam = groups[0];
-						for (int i = 1; i < groups.length; i++) {
-							apiParam = apiParam + "," + groups[i];
-						}
-						Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-						APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/containers/?container_id="+apiParam);
-						scribe.signRequest(APIrequest,accessToken);
-						APIresponse = APIrequest.send();
-						JSONObject json = new JSONObject();
-						JSONArray results;
+				<div id="topicSubscriptions">
+					<span class="heading">You are receiving notifications from:</span>
+					
+					<%
+						String[] groups = profiles.get(0).getGroupArray();
+						if (groups.length > 0) {
+							String apiParam = groups[0];
+							for (int i = 1; i < groups.length; i++) {
+								apiParam = apiParam + "," + groups[i];
+							}
+							Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+							APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/containers/?container_id="+apiParam);
+							scribe.signRequest(APIrequest,accessToken);
+							APIresponse = APIrequest.send();
+							JSONObject json = new JSONObject();
+							JSONArray results;
 
 	
-						try {
-							json = new JSONObject(APIresponse.getBody());
-							results = json.getJSONArray("results");
-							for (int j = 0; j < results.length(); j++) {
-				%>
+							try {
+								json = new JSONObject(APIresponse.getBody());
+								results = json.getJSONArray("results");
+								for (int j = 0; j < results.length(); j++) {
+					%>
 				
-				<span class="options"> &nbsp - &nbsp <b><a href="/Topic?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %> </a></b>
-				&nbsp <a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove">Remove</a> </span>
-				<br>
-				
-				<%
+					<div class="topicSubItem">
+						<span class="topicSubItem_name">
+							<a href="/Topic?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %></a>
+						</span>
+						<span class="topicSubItem_remove">
+							<a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove" class="btnRed">Remove</a>
+						</span>
+					</div> <!-- end .topicSubItem -->
+					
+					<%
+								}
+							} catch (JSONException j) {
+
 							}
-						} catch (JSONException j) {
-
 						}
-					}
 
-				%>
+					%>
+					
+				</div> <!-- end #topicSubscriptions -->
 			</div> <!-- end #contentRightBody -->
 		</div> <!-- end #contentRight -->
 		<div id="contentLeft">
