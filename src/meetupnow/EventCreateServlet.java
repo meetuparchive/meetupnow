@@ -54,7 +54,7 @@ public class EventCreateServlet extends HttpServlet {
 			minute = req.getParameter("minute");
 			venue = req.getParameter("venue");
 			desc = req.getParameter("desc");
-			c_id = req.getParameter("c_id");
+			c_id = req.getParameter("topic");
 			name = req.getParameter("name");
 			ampm = req.getParameter("ampm");
 			lat = req.getParameter("lat");
@@ -64,7 +64,6 @@ public class EventCreateServlet extends HttpServlet {
 			state = req.getParameter("state");
 			country = req.getParameter("country");
 			zip = req.getParameter("zip");
-
 		}
 		String millitime= getMilliTime(year,month,day,hour,minute,ampm);
 		String rsvpID = "";
@@ -108,7 +107,6 @@ public class EventCreateServlet extends HttpServlet {
 				if ((!ad.equals(""))&&(!city.equals("NA"))&&(!country.equals("NA"))) {
 					APIrequest.addBodyParameter("city", city);
 					APIrequest.addBodyParameter("country", country);
-					System.out.println(city+" "+country+" "+state+" "+ad);
 					if (country.equals("United States")){APIrequest.addBodyParameter("state", state);}
 					APIrequest.addBodyParameter("address1", ad);
 				} else if (zip != null) {

@@ -5,6 +5,7 @@
 <%@ page import="java.util.Properties" %>
 <%@ page import="java.util.List" %>
 <%@ page import="meetupnow.MeetupUser" %>
+<%@ page import="meetupnow.Topic" %>
 <%@ page import="meetupnow.PMF" %>
 <%@ page import="org.scribe.oauth.*" %>
 <%@ page import="org.scribe.http.*" %>
@@ -45,6 +46,11 @@
 
 		var canSubmit = true;
 		var message = "";
+
+		if (document.getElementById('topic').value == "") {
+			message = message + "Please select a topic for your event\n";
+			canSubmit = false;
+		}
 
 		if (document.getElementById('title').value == "") {
 			message = message + "Please enter a title for your event\n";
@@ -200,28 +206,7 @@
 <%@ include file="jsp/declares.jsp" %>
 <%@ include file="jsp/header.jsp" %>
 
-<%
 
-		String c_id = "";		
-		if (request.getQueryString() != null) {
-			c_id = request.getQueryString();
-		}
-
-		if (!key.equals("empty")) {
-
-			try {
-				users = (List<MeetupUser>) query.execute(key);
-				if (users.iterator().hasNext()) {
-					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-					APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/containers/?container_id="+c_id);
-					scribe.signRequest(APIrequest,accessToken);
-					APIresponse = APIrequest.send();
-					JSONObject json = new JSONObject();
-					JSONArray results;
-					try {
-						json = new JSONObject(APIresponse.getBody());
-						results = json.getJSONArray("results");
-%>
 
 <div id="wrapper">
 	<div id="wrapperContent">
@@ -230,9 +215,36 @@
 <span class="title">Create An Event - Let's Meetup Now!</span><br>
 <form name="f" action="/EventCreate" onSubmit="return verifySubmission()" method="get">
 
+<%
+		Query TopicQuery = pm.newQuery(Topic.class);
+		TopicQuery.setFilter("id != 0");
+		TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
+
+		List<Topic> topics = new ArrayList<Topic>();
+		try {
+			topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
+		} finally {
+
+		}
+		
+
+
+%>
 
 	<span class="goLeft"><span class="heading"> Topic: </span></span>
-	<span class="goRight"> <%=results.getJSONObject(0).getString("name")%> &nbsp | &nbsp <a href="/AllTopics.jsp">Change Topic</a></span>
+	<span class="goRight"> 
+		<select id="topic" name="topic">
+			<option value=""> </option>
+<%
+				for (int i = 0; i < topics.size(); i++) {
+%>
+					<option value="<%=topics.get(i).getId()%>"><%=topics.get(i).getName()%></option>
+<%
+				}
+%>
+			
+		</select>
+	</span>
 	<br><br><br><br>
 	<span class="goLeft"><span class="heading"> Title: </span></span>
 	<span class="goRight"><input type="text" value="" name="name" id="title"/></span>
@@ -349,7 +361,6 @@
 	<input type="hidden" name="city" value="NA" id="city" />
 	<input type="hidden" name="state" value="NA" id="state" />
 	<input type="hidden" name="callback" value="congrats.jsp" />
-	<input type="hidden" name="c_id" value="<%=c_id%>" />
 	<input type="submit" id="exe" value="Create" />
 </span>
 </form>
@@ -357,17 +368,6 @@
 		</div>
 	</div>
 </div>
-
-<%
-					} catch (Exception j) {
-
-					}
-				}
-			} finally {
-				query.closeAll();
-			}
-		}
-%>
 
 </body>
 </html>
