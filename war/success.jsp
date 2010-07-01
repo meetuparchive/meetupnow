@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <head>
 	<title>Success</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css">

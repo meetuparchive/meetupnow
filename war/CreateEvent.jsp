@@ -21,10 +21,13 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		verifyAddress();
 		var now = new Date();
 		document.getElementById('month').value = now.getMonth()+1;
 		document.getElementById('day').value = now.getDate();
 	});
+
+	var addressCheck = false;
 
 	function verifySubmission() {
 
@@ -63,6 +66,11 @@
 
 		if (document.getElementById('address').value == "") {
 			message = message + "Please enter an address\n";
+			canSubmit = false;
+		}
+
+		if (!addressCheck) {
+			message = message + "Enter a valid Address";
 			canSubmit = false;
 		}
 	
@@ -111,7 +119,7 @@
 		}
 
 		if (canSubmit) {
-			return verifyAddress();
+			return true;
 		} else {
 			alert(message);
 			return false;
@@ -173,9 +181,13 @@
 					document.getElementById('country').value = country_out;
 					document.getElementById('zip').value = zip_out;
 							
-					return verifySubmission();
+					out.empty();
+					out.append("VALID");
+					addressCheck = true;
 				} else {
-					return false;
+					out.empty();
+					out.append("NOT VALID");
+					addressCheck = false;
 				}
 				
 			});
@@ -320,7 +332,8 @@
 		Venue<br>
 		<input type="text" name="venue" id="venue"/><br>
 		Address or Zip Code<br>
-		<input type="text" id="address" /> <br>
+		<input type="text" id="address" onChange="verifyAddress()" onKeyUp="verifyAddress()"/> <br>
+		<div id="out">NOT VALID</div>
 	</span>
 	<br><br><br><br><br><br><br><br><br>
 	<span class="goCenter">
@@ -337,7 +350,7 @@
 	<input type="hidden" name="state" value="NA" id="state" />
 	<input type="hidden" name="callback" value="congrats.jsp" />
 	<input type="hidden" name="c_id" value="<%=c_id%>" />
-	<input type="submit" onclick="verifyAddress" id="exe" value="Create" />
+	<input type="submit" id="exe" value="Create" />
 </span>
 </form>
 			</div>
