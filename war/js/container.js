@@ -151,7 +151,7 @@
 				}		
 
 				//add event to list
-				eventlist.append('<div class="commentFeedItem"><a href="/Event?' + ev.id + '">' + ev.title + '</a><span>' + ev.description + '</div>');
+				eventlist.append('<div class="commentFeedItem"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div>');
 
 				//provide link for each point with event info
 				google.maps.event.addListener(marker, 'click', function() {
