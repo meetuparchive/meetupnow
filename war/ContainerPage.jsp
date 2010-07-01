@@ -111,12 +111,12 @@
 								String[] groups = profiles.get(0).getGroupArray();
 								if (profiles.get(0).isMember(c_id)) {
 				%>
-				<a href="/UserPrefs.jsp">You recieve notifications from this group!</a>
+				<a href="/UserPrefs.jsp" class="notifyCancelBtn">I receive notifications from this group!</a>
 				<%
 								}
 								else {
 				%>
-				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>">Receive notifications from this group</a>
+				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>" class="notifyStartBtn">Receive notifications from this group</a>
 				<%
 								}
 							}
@@ -126,19 +126,29 @@
 
 				%>
 				<br>
-				<a href="/CreateEvent.jsp?<%=c_id%>"> Create an event for this topic </a>
+				<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn"> Create an event for this topic </a>
 			</div> <!-- end #contentRightBody -->
 		</div> <!-- end #contentRight -->
 		<div id="contentLeft">
 			<div id="contentLeftBody">
 				<div class="map_contextLeft">
-					<span class="map_title title">Events in <%=c_name%></span>
 					<div id="map_canvasContainerLeft">
 						<div id="map_canvas">
 
 						</div><!-- end #map_canvas -->
 					</div><!-- end #map_canvasContainer -->
 				</div><!-- end .map_context -->
+				<div id="commentFeedContext">
+					<div id="activityFeed">
+						<span class="title">Events in <%=c_name%></span>
+
+
+						<div id="activity">
+							
+						</div> <!-- end #activity -->
+					</div> <!-- end #activityFeed -->
+				</div> <!-- end #commentFeedContext -->
+				
 			</div> <!-- end #contentLeftBody -->
 		</div> <!-- end #contentLeft -->
 	</div> <!-- end #main -->

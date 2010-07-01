@@ -176,7 +176,7 @@ try {
 	<%
 		if (in) {
 	%>
-					<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="inBtn">I'm in</a>
+					<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="inBtn">I'm In</a>
 	<%
 		} else {
 	%>
