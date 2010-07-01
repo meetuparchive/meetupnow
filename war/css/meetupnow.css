@@ -227,6 +227,38 @@ body {
 			padding:  0.15em 0.5em;
 			font-size: 1em;
 		}
+		.rsvpBtn {
+			color: #f2f2f2 !important;
+			font-size: 1.2em;
+			font-weight: bold;
+			display: block;
+			padding: 4px 6px;
+			background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
+			background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
+			width: 80px;
+			text-align: center;
+			text-decoration: none !important;
+			border: 1px solid #A8252E;
+			border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+		}
+		.inBtn {
+			color: #f2f2f2 !important;
+			font-size: 1.2em;
+			font-weight: bold;
+			display: block;
+			padding: 4px 6px;
+			background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#1A8C78), to(#1ABE78));
+			background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
+			width: 80px;
+			text-align: center;
+			text-decoration: none !important;
+			border: 1px solid #1A6E78;
+			border-radius: 3px;
+			-moz-border-radius: 3px;
+			-webkit-border-radius: 3px;
+		}
 
 		#mn_geoListContext {
 			
@@ -260,21 +292,33 @@ body {
 		}
 		.mn_geoListItem:hover {
 			//background: #D18D3A;
+			/*background: -webkit-gradient(
+						    linear,
+						    left bottom,
+						    right bottom,
+						    color-stop(0, rgba(33,117,177,1)),
+						    color-stop(0.03, rgba(33,117,177,0)),
+						    color-stop(0.97, rgba(33,117,177,0)),
+						    color-stop(1, rgba(33,117,177,1))
+						);*/
 			background: -webkit-gradient(
-			    linear,
-			    left bottom,
-			    right bottom,
-			    color-stop(0, rgba(33,117,177,1)),
-			    color-stop(0.03, rgba(33,117,177,0)),
-			    color-stop(0.97, rgba(33,117,177,0)),
-			    color-stop(1, rgba(33,117,177,1))
-			);
+						    linear,
+						    left bottom,
+						    right bottom,
+						    color-stop(0, rgba(33,117,177,1)),
+						    color-stop(0.03, rgba(33,117,177,0))
+						);
+			/*background: -moz-linear-gradient(
+						    left center,
+						    rgba(33,117,177,1) 0%,
+						    rgba(33,117,177,0) 3%,
+						    rgba(33,117,177,0) 97%,
+						    rgba(33,117,177,1) 100%
+						);*/
 			background: -moz-linear-gradient(
 			    left center,
 			    rgba(33,117,177,1) 0%,
-			    rgba(33,117,177,0) 3%,
-			    rgba(33,117,177,0) 97%,
-			    rgba(33,117,177,1) 100%
+			    rgba(33,117,177,0) 3%
 			);
 		}
 		.when {
@@ -431,19 +475,19 @@ body {
 		width: 200px;
 	}
 	.btn_main {
-			color: #fff;
-	font-size: 1.4em;
-	font-weight: bold;
-	display: block;
-	padding: 8px 10px;
-	background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
-	background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
-	width: 150px;
-	text-align: center;
-	border: 2px solid #A8252E;
-									border-radius: 5px;
-								-moz-border-radius: 5px;
-								-webkit-border-radius: 5px;
+		color: #fff;
+		font-size: 1.4em;
+		font-weight: bold;
+		display: block;
+		padding: 8px 10px;
+		background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
+		background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
+		width: 150px;
+		text-align: center;
+		border: 2px solid #A8252E;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
 	}
 	#action span {
 		margin-bottom: 1em;
