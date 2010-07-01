@@ -113,4 +113,14 @@ public class Topic {
     public void setDescription(String desc){
 	this.Description = desc;
     }
+
+    public String getDescriptionSubstring(int maxlength) {
+	if (Description.length() > maxlength) {
+		String out = Description.substring(0,maxlength);
+		out = out.concat("...");
+		return out;
+	} else {
+		return Description;
+	}
+    }
 }
