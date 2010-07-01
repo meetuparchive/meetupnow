@@ -119,8 +119,22 @@
 							Lat = userInfoList.get(0).getLat();
 							Lon = userInfoList.get(0).getLon();
 							distance = userInfoList.get(0).getDistance();
-							API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=" + distance + "&order=time";
+							if (Lat != null && Lon != null){
+								if (distance != null){
+									API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=" + distance + "&order=time";
+								} else {
+									API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=20&order=time";
+								}
+							}
+							else {
+								API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&radius=5&fields=geo_ip";
+								APIresponse = sg.submitURL(API_URL);
+								json = new JSONObject(APIresponse.getBody());
+								Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
+								Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
+								API_URL = "http://api.meetup.com/ew/events?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&order=time";
 
+							}
 							APIrequest = new Request(Request.Verb.GET, API_URL);
 							scribe.signRequest(APIrequest,accessToken);
 							APIresponse = APIrequest.send();
