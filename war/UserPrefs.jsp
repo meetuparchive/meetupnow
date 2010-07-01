@@ -154,7 +154,7 @@
 							<a href="/Topic?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %></a>
 						</span>
 						<span class="topicSubItem_remove">
-							<a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove" class="btnRed">Remove</a>
+							<a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove" class="btnRedX">X</a>
 						</span>
 					</div> <!-- end .topicSubItem -->
 					

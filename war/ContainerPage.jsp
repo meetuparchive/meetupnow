@@ -100,7 +100,7 @@
 	<div id="main">
 		<div id="contentRight">
 			<div id="contentRightBody">
-		
+				<div id="topicActions">
 				<%
 						Query userQuery = pm.newQuery(UserInfo.class);
 						userQuery.setFilter("user_id == idParam");
@@ -111,12 +111,15 @@
 								String[] groups = profiles.get(0).getGroupArray();
 								if (profiles.get(0).isMember(c_id)) {
 				%>
-				<a href="/UserPrefs.jsp" class="notifyCancelBtn">I receive notifications from this group!</a>
+				
+				
+					<a href="/UserPrefs.jsp" class="notifyCancelBtn">I receive notifications from this topic</a>
+				
 				<%
 								}
 								else {
 				%>
-				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>" class="notifyStartBtn">Receive notifications from this group</a>
+					<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>" class="notifyStartBtn">Receive notifications from this group</a>
 				<%
 								}
 							}
@@ -125,8 +128,9 @@
 						}
 
 				%>
-				<br>
-				<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn"> Create an event for this topic </a>
+				
+					<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn"> Create an event for this topic </a>
+				</div> <!-- end #topicActions -->
 			</div> <!-- end #contentRightBody -->
 		</div> <!-- end #contentRight -->
 		<div id="contentLeft">
