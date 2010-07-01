@@ -66,7 +66,7 @@
 		else {
 			loc = event.ev.city + ", " + event.ev.country;
 		}
-		events.append('<a href="/Event?' + event.ev.id + '" class="mn_geoListItem_link" onMouseOver="javascript:event_show(' + event.ev.id + ')" onMouseOut="javascript:event_show(-1)"><span class="mn_geoListItem"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span><!-- end .mn_geoListItem_time --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"> ' + title + ' </span><!-- end .mn_geoListItem_title --><span class="mn_geoListItem_topic">'+ event.ev.container.name +'</span><span class="loc"><span class="city"> ' + loc + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span></a>');
+		events.append('<span class="mn_geoListItem" onMouseOver="javascript:event_show(' + event.ev.id + ')" onMouseOut="javascript:event_show(-1)"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span><!-- end .mn_geoListItem_time --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"><a href="/Event?' + event.ev.id + '"> ' + title + ' </a></span><!-- end .mn_geoListItem_title --><span class="mn_geoListItem_topic"><a href="/Topic?' + event.ev.container.id + '">'+ event.ev.container.name +'</a></span><span class="loc"><span class="city"> ' + loc + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span>');
 
 	}
 
