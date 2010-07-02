@@ -213,39 +213,45 @@
 	<div id="main">
 		<div id="contentLeft">
 			<div id="contentLeftBody">
-				<span class="title">Create An Event</span><br>
-				<form name="f" action="/EventCreate" onSubmit="return verifySubmission()" method="get">
-
+				<form id="form_createEvent" name="f" action="/EventCreate" onSubmit="return verifySubmission()" method="get">
+					<span class="title">Create An Event</span>
+				
 				<%
-						Query TopicQuery = pm.newQuery(Topic.class);
-						TopicQuery.setFilter("id != 0");
-						TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
+					Query TopicQuery = pm.newQuery(Topic.class);
+					TopicQuery.setFilter("id != 0");
+					TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
 
-						List<Topic> topics = new ArrayList<Topic>();
-						try {
-							topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
-						} finally {
+					List<Topic> topics = new ArrayList<Topic>();
+					try {
+						topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
+					} finally {
 
-						}
-		
-
-
+					}
 				%>
-
-	<span class="goLeft"><span class="heading"> Topic: </span></span>
-	<span class="goRight"> 
-		<select id="topic" name="topic">
-			<option value=""> </option>
-<%
-				for (int i = 0; i < topics.size(); i++) {
-%>
-					<option value="<%=topics.get(i).getId()%>"><%=topics.get(i).getName()%></option>
-<%
-				}
-%>
+				
+					<frameset>
+					<legend>Title</legend>
+					<ul>
+					<li>
+						<label for="title" class="hidden">Title</label>
+						<input type="text" value="" name="name" id="title">
+					</li>
+					<li>
+						<label for="topic" class="hidden">Select Topic</label> 
+						<select id="topic" name="topic">
+							<option value="">-Select-</option>
+							
+				<%
+						for (int i = 0; i < topics.size(); i++) {
+				%>
+				
+							<option value="<%=topics.get(i).getId()%>"><%=topics.get(i).getName()%></option>
+				<%
+						}
+				%>
 			
-		</select>
-	</span>
+						</select>
+					</li>
 	<br><br><br><br>
 	<span class="goLeft"><span class="heading"> Title: </span></span>
 	<span class="goRight"><input type="text" value="" name="name" id="title"/></span>

@@ -163,7 +163,7 @@ body {
 		);
 		background: -moz-linear-gradient(
 				    center bottom,
-				    rgb(2,36,50) 0%,
+				    rgba(2,36,50,1) 0%,
 				    rgba(0,0,0,0.5) 100%
 				);
 		border-radius: 5px 5px 5px 5px;
@@ -512,7 +512,7 @@ body {
 		);
 		background: -moz-linear-gradient(
 				    center bottom,
-				    rgb(2,36,50) 0%,
+				    rgba(2,36,50,1) 0%,
 				    rgba(0,0,0,0.5) 100%
 				);
 		border-radius: 5px 5px 5px 5px;

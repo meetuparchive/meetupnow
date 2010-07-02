@@ -173,12 +173,7 @@
 		<div id="contentLeft">
 			<div id="contentLeftBody">
 				<form id="form_userPrefs" name="email" onSubmit="return verifySubmission()" action="/setprefs">
-				
-
-				
 				<span class="title">Preferences</span>
-				
-
 				
 				<%
 					// Saved Data Persistence
