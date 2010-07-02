@@ -208,7 +208,17 @@ try {
 						<span class="title">Event Buzz.</span>
 
 							<div class="commentHeadBlock">
+<%
+							if (key.equals("empty")) {
+%>
+								<a href="#modal_login" name="modal">Log-In to add a Comment</a>
+<%
+							} else {
+%>
 								<a href="#commentInputContext" name="commentToggle">Add a Comment</a>
+<%
+							}
+%>
 							</div>
 							<div id="commentInputContext">
 								<form action="/comment" method="get">
