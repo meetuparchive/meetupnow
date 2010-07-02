@@ -20,7 +20,7 @@
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<script type="text/javascript">
+	<script type="text/javascript">
 	$(function() {
 		verifyAddress();
 		var now = new Date();
@@ -203,34 +203,35 @@
 </script>
 </head>
 <body id="meetupNowBody">
+	
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
-<%@ include file="jsp/header.jsp" %>
 
-
-
-<div id="wrapper">
-	<div id="wrapperContent">
+<div id="wrap">
+	
+	<%@ include file="jsp/header.jsp" %>
+	
+	<div id="main">
 		<div id="contentLeft">
-			<div id="contentLeftContext">
-<span class="title">Create An Event - Let's Meetup Now!</span><br>
-<form name="f" action="/EventCreate" onSubmit="return verifySubmission()" method="get">
+			<div id="contentLeftBody">
+				<span class="title">Create An Event</span><br>
+				<form name="f" action="/EventCreate" onSubmit="return verifySubmission()" method="get">
 
-<%
-		Query TopicQuery = pm.newQuery(Topic.class);
-		TopicQuery.setFilter("id != 0");
-		TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
+				<%
+						Query TopicQuery = pm.newQuery(Topic.class);
+						TopicQuery.setFilter("id != 0");
+						TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
 
-		List<Topic> topics = new ArrayList<Topic>();
-		try {
-			topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
-		} finally {
+						List<Topic> topics = new ArrayList<Topic>();
+						try {
+							topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
+						} finally {
 
-		}
+						}
 		
 
 
-%>
+				%>
 
 	<span class="goLeft"><span class="heading"> Topic: </span></span>
 	<span class="goRight"> 
@@ -366,10 +367,12 @@
 	<input type="submit" id="exe" value="Create" />
 </span>
 </form>
-			</div>
-		</div>
-	</div>
-</div>
+			</div> <!-- end #contentLeftBody -->
+		</div> <!-- end #contentLeft -->
+	</div> <!-- end #main -->
+</div> <!-- end #wrap -->
+
+<%@ include file="jsp/footer.jsp" %>
 
 </body>
 </html>

@@ -161,8 +161,6 @@
 				<div id="commentFeedContext">
 					<div id="activityFeed">
 						<span class="title">Events in <%=c_name%></span>
-
-
 						<div id="activity">
 							
 						</div> <!-- end #activity -->

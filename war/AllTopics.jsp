@@ -85,9 +85,11 @@
 		}
 		%>
 		var out = $('#activityFeed');
+		var evArray = new Array();
 		$.each(data.results, function(i, ev) {
-			 out.append('<a href="/Topic?' + ev.id + '">' + ev.name + '</a> &nbsp <a href="/CreateEvent.jsp?'+ev.id+'">Create an Event</a><br>');
-
+			
+			out.append('<div class="commentFeedItem"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + ev.description + '</span><a href="/CreateEvent.jsp?'+ev.id+'">Create an Event</a><div>');
+			
 		});
 		$.each(data.meta, function(i, ev) {
 
@@ -96,39 +98,45 @@
 	</script>
 </head>
 <body onload = "loadtopics()">
+<div id="wrap">
+	
+	<%@ include file="jsp/header.jsp" %>
 
-<%@ include file="jsp/header.jsp" %>
-<div id="wrapper">
-<div id="wrapperContent">
-	<div id="contentRight">
-		
-		
-		<div id="mn_geoListContext">
-			<div id="mn_geoListHeader">
-				<span class="listTitle">Results near [location]</span>
-			</div><!-- mn_geoListHeader -->
-			<div id="mn_geoListBody">
+	<div id="main">
+		<div id="contentRight">
+			<div id="contentRightBody">
+				<div id="mn_geoListContext">
+					<div id="mn_geoListHeader">
+						<span class="listTitle">Results near [location]</span>
+					</div><!-- mn_geoListHeader -->
+					<div id="mn_geoListBody">
 				
-			</div> <!-- end #mn_geoListBody -->
-			<div id="mn_geoListFooter">
-				<div id="searchResultsNav">
-					<span class="showAll"></span>
-					<span class="paginationNav"></span>
-				</div> <!-- end searchResultsNav -->
-			</div><!-- mn_geoListFooter -->
-		</div><!-- mn_geoListContext -->
-	</div> <!-- end #contentRight -->
-	<div id="contentLeft">
+					</div> <!-- end #mn_geoListBody -->
+					<div id="mn_geoListFooter">
+						<div id="searchResultsNav">
+							<span class="showAll"></span>
+							<span class="paginationNav"></span>
+						</div> <!-- end searchResultsNav -->
+					</div><!-- mn_geoListFooter -->
+				</div><!-- mn_geoListContext -->
+			</div> <!-- end #contentRightBody -->
+		</div> <!-- end #contentRight -->
+	
+		<div id="contentLeft">
+			<div id="contentLeftBody">
 
-		<div id="activityFeedContext">
-			<div id="activityFeed">
-				<span class="title">Choose a Topic To Create Start Creating Events.</span>
-				<span class="options">Don't see anything you like? <a href="/CreateTopic.jsp">Create your own Topic!</a></span><br><br>
-				<div id = "activity"> </div>
-			</div>
-		</div> <!-- end #activityFeed -->
-	</div> <!-- end #contentLeft -->
-</div> <!-- end #wrapperContent -->
-</div> <!-- end #wrapper -->
+					<div id="activityFeed">
+						<span class="title">Choose a Topic. Create Events.</span>
+						<span class="options">Don't see anything you like? <a href="/CreateTopic.jsp">Suggest a new topic!</a></span><br><br>
+						<div id = "activity"> </div>
+					</div> <!-- end #activityFeed -->
+	
+			</div> <!-- end #contentLeftBody -->
+		</div> <!-- end #contentLeft -->
+	</div> <!-- end #main -->
+</div> <!-- end #wrap -->
 
 <%@ include file="jsp/footer.jsp" %>
+
+</body>
+</html>

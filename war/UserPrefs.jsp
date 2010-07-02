@@ -105,7 +105,7 @@
 
 <body>
 <div id="wrap">
-<%@ include file="jsp/header.jsp" %>
+	<%@ include file="jsp/header.jsp" %>
 
 		<%
 				if (!key.equals("empty")) {
