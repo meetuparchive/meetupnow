@@ -26,6 +26,7 @@
 		var now = new Date();
 		document.getElementById('month').value = now.getMonth()+1;
 		document.getElementById('day').value = now.getDate();
+		document.getElementById('localTimeZone').value = now.getTimezoneOffset()/60;
 	});
 
 	var addressCheck = false;
@@ -360,6 +361,7 @@
 		<span class="heading"> <textarea name="desc" id="desc" cols="60" rows="4"></textarea></span> <br>
 	</span>
 	<br><br><br>
+	<input type="hidden" name="localTimeZone" id="localTimeZone" />
 	<input type="hidden" name="lat" value="NA" id="lat" />
 	<input type="hidden" name="lon" value="NA" id="lon" />
 	<input type="hidden" name="zip" value="NA" id="zip" />

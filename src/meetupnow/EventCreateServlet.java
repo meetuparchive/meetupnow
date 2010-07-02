@@ -27,6 +27,7 @@ import meetupnow.NewsItem;
 public class EventCreateServlet extends HttpServlet {
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
 		String c_id = "";
+		String tz = "";
 		String callback = "";
 		String lat = "";
 		String lon = "";
@@ -46,6 +47,7 @@ public class EventCreateServlet extends HttpServlet {
 		String zip = "";		
 
 		if (req.getQueryString() != null) {
+			tz = req.getParameter("localTimeZone");
 			callback = req.getParameter("callback");
 			month = req.getParameter("month");
 			day = req.getParameter("day");
@@ -65,7 +67,7 @@ public class EventCreateServlet extends HttpServlet {
 			country = req.getParameter("country");
 			zip = req.getParameter("zip");
 		}
-		String millitime= getMilliTime(year,month,day,hour,minute,ampm);
+		String millitime= getMilliTime(year,month,day,hour,minute,ampm, tz);
 		String rsvpID = "";
 		String containerName = "";
 		
@@ -176,8 +178,9 @@ public class EventCreateServlet extends HttpServlet {
 
 	}
 
-	public static String getMilliTime(String year, String month, String day, String hour, String min, String ampm) {
+	public static String getMilliTime(String year, String month, String day, String hour, String min, String ampm, String tz) {
 		int dateHour;
+		int timeZone = Integer.parseInt(tz);
 		if (ampm.equals("am")) {
 			if (hour.equals("12")) {
 				dateHour = 0;
@@ -190,6 +193,10 @@ public class EventCreateServlet extends HttpServlet {
 			} else {
 				dateHour = Integer.parseInt(hour)+12;
 			}
+		}
+		dateHour = dateHour + timeZone;			//Convert to GMT
+		if (dateHour < 0) {
+			dateHour = dateHour + 24;
 		}
 		Calendar cal = Calendar.getInstance();
 		cal.set(Integer.parseInt(year),Integer.parseInt(month) - 1,Integer.parseInt(day) ,dateHour,Integer.parseInt(min));

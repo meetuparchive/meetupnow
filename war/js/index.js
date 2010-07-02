@@ -66,7 +66,7 @@
 		else {
 			loc = event.ev.city + ", " + event.ev.country;
 		}
-		events.append('<span class="mn_geoListItem" onMouseOver="javascript:event_show(' + event.ev.id + ')" onMouseOut="javascript:event_show(-1)"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span><!-- end .mn_geoListItem_time --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"><a href="/Event?' + event.ev.id + '"> ' + title + ' </a></span><!-- end .mn_geoListItem_title --><span class="mn_geoListItem_topic"><a href="/Topic?' + event.ev.container.id + '" title="'+ event.ev.container.name +'">Group</a></span><span class="loc"><span class="city"> ' + loc + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span>');
+		events.append('<span class="mn_geoListItem" onMouseOver="javascript:event_show(' + event.ev.id + ')" onMouseOut="javascript:event_show(-1)"><span class="when"><span class="mn_geoListItem_date"> ' + event.date + ' </span><!-- end .mn_geoListItem_date --><span class="mn_geoListItem_time"> ' + event.time + ' </span><!-- end .mn_geoListItem_time --></span> <!-- end .when --><span class="details"><span class="mn_geoListItem_title"><a href="/Event?' + event.ev.id + '"> ' + title + ' </a></span><!-- end .mn_geoListItem_title --><span class="mn_geoListItem_topic"><a href="/Topic?' + event.ev.container.id + '" title="'+ event.ev.container.name +'">'+event.ev.container.name+'</a></span><span class="loc"><span class="city"> ' + loc + ' </span><!-- end .city --></span><!-- end .loc --></span><!-- end .details --></span>');
 
 	}
 
@@ -158,7 +158,7 @@
 				//epoc time to date string
 				var date = new Date(ev.time);
 				var date_string = getDay(date.getDay())+", "+getMonth(date.getMonth()) + " " + date.getDate();
-				var time_string = getTime(date.getHours(),date.getMinutes(),4);
+				var time_string = getTime(date.getHours(),date.getMinutes(),0);
 
 				//add event to list
 				
@@ -250,7 +250,7 @@ function getDay(d) {
 }
 
 function getTime(h, m, timezone) {
-	h = (h+1+timezone);
+	h = (h+timezone);
 	h %= 24;
 	if (h==0) {h=24;}
 	var time = "AM";
