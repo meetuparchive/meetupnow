@@ -179,9 +179,15 @@ try {
 					<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="inBtn">I'm In</a>
 	<%
 		} else {
+			if (!key.equals("empty")) {
 	%>
 					<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>" class="rsvpBtn">RSVP</a>
 	<%
+			} else {
+	%>
+					<a href="#modal_login" name="modal" class="rsvpBtn">Login to RSVP</a>
+	<%
+			}
 		}
 	%>
 					<br><br>
@@ -211,7 +217,7 @@ try {
 <%
 							if (key.equals("empty")) {
 %>
-								<a href="#modal_login" name="modal">Log-In to add a Comment</a>
+								<a href="#modal_login" name="modal">Login to comment</a>
 <%
 							} else {
 %>
