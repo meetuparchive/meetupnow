@@ -67,7 +67,6 @@ public class EventCreateServlet extends HttpServlet {
 			country = req.getParameter("country");
 			zip = req.getParameter("zip");
 		}
-		System.out.println(tz);
 		String millitime= getMilliTime(year,month,day,hour,minute,ampm, tz);
 		String rsvpID = "";
 		String containerName = "";
