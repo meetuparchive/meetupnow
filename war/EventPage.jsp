@@ -179,9 +179,15 @@ try {
 					<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="inBtn">I'm In</a>
 	<%
 		} else {
+			if (!key.equals("empty")) {
 	%>
 					<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>" class="rsvpBtn">RSVP</a>
 	<%
+			} else {
+	%>
+					<a href="#modal_login" name="modal" class="rsvpBtn">Login to RSVP</a>
+	<%
+			}
 		}
 	%>
 					<br><br>
@@ -208,7 +214,17 @@ try {
 						<span class="title">Event Buzz.</span>
 
 							<div class="commentHeadBlock">
+<%
+							if (key.equals("empty")) {
+%>
+								<a href="#modal_login" name="modal">Login to comment</a>
+<%
+							} else {
+%>
 								<a href="#commentInputContext" name="commentToggle">Add a Comment</a>
+<%
+							}
+%>
 							</div>
 							<div id="commentInputContext">
 								<form action="/comment" method="get">
