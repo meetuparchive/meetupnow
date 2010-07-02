@@ -13,6 +13,7 @@
 <%@ page import="java.util.Calendar" %>
 <%@ page import="java.util.TimeZone" %>
 <%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Date" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -42,6 +43,46 @@ if (request.getQueryString() != null) {
 	<meta name="description" content="This meetup is happening soon! Check it out." />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script src="js/eventPage.js"></script>
+<script type="text/javascript">
+
+function getTimeString (millis) {
+
+	var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+
+	var d = new Date(millis);
+
+	var curr_date = d.getDate();
+	var curr_month = d.getMonth();
+	var curr_year = d.getFullYear();
+	var a_p = "";
+	var curr_hour = d.getHours();
+
+	if (curr_hour < 12){
+   		a_p = "AM";
+   	}
+	else {
+   		a_p = "PM";
+	}
+	if (curr_hour == 0) {
+  		curr_hour = 12;
+   	}
+	if (curr_hour > 12){
+   		curr_hour = curr_hour - 12;
+   	}
+
+	var curr_min = d.getMinutes();
+	curr_min = curr_min + "";
+
+	if (curr_min.length == 1){
+   		curr_min = "0" + curr_min;
+   	}
+	curr_month++;
+
+	return (curr_month + "/" + curr_date + "/" + curr_year+" "+curr_hour + ":" + curr_min + " " + a_p);
+
+}
+
+</script>
 </head>
 <body id="meetupNowBody">
 
@@ -60,14 +101,15 @@ APIresponse = sg.submitURL("http://api.meetup.com/ew/events/?event_id="+ev_id+"&
 JSONObject json = new JSONObject();
 JSONArray results;
 Calendar cal = Calendar.getInstance();
+Date d = new Date();
 DateFormat df = DateFormat.getInstance();
-df.setTimeZone(TimeZone.getTimeZone("GMT-4"));
 try {
 	json = new JSONObject(APIresponse.getBody());
 	results = json.getJSONArray("results");
 	if (results.length() == 1) {
 		JSONObject item = results.getJSONObject(0);
 		cal.setTimeInMillis(Long.parseLong(item.getString("time")));
+
 		String desc = "";
 		try {
 			desc = item.getString("description");
@@ -99,9 +141,9 @@ try {
 				<span class="subtitle eventInfo_group"><a href="/Topic?<%=item.getJSONObject("container").getString("id") %>"><%=item.getJSONObject("container").getString("name") %></a></span>
 				<div class="eventInfo_block">
 					<span class="eventInfo_label">WHEN:</span>
-					<span class="eventInfo_text">
-						<%=df.format(cal.getTime()) %>
-					</span> <!-- end eventInfo_text -->
+						<span class="eventInfo_text">
+							<script type="text/javascript">document.write(getTimeString(<%=Long.parseLong(item.getString("time"))%>));</script>
+						</span> <!-- end eventInfo_text -->
 				</div> <!-- end .eventInfo_block -->
 				<div class="eventInfo_block">
 					<span class="eventInfo_label">WHERE:</span>
@@ -254,9 +296,20 @@ try {
 		cResults = j2.getJSONArray("results");
 		for (int i = 0; i < cResults.length(); i++) {
 			JSONObject comment = cResults.getJSONObject(i);
-			cal.setTimeInMillis(Long.parseLong(comment.getString("time")));
 	%>
-							<div class="commentFeedItem"><span class="comment_body"><span class="comment_author"><%=comment.getJSONObject("member").getString("name") %></span><span class="comment_text"><%=comment.getString("comment")%></span></span><span class="comment_time"><%=df.format(cal.getTime()) %></span></div>
+<div class="commentFeedItem">
+	<span class="comment_body">
+		<span class="comment_author">
+			<%=comment.getJSONObject("member").getString("name") %>
+		</span>
+		<span class="comment_text">
+			<%=comment.getString("comment")%>
+		</span>
+	</span>
+	<span class="comment_time">
+			<script type="text/javascript">document.write(getTimeString(<%=Long.parseLong(comment.getString("time"))%>));</script>
+	</span>
+</div>
 
 
 	<%
