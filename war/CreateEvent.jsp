@@ -55,48 +55,12 @@
 	
 	/* jQuery UI */
 	
-	var sdate = new Date();
 
-	
-	if ( sdate.getHours() > 12 ) {
-		shour = sdate.getHours() - 12;
-	} else {
-		shour = sdate.getHours();
-	}
-	
-	if ( ( sdate.getMinutes() / 60 ) <= .25 ) {
-		sminute = 15;
-	} else if ( sdate.getMinutes() / 60 <= .5 ) {
-		sminute = 30;
-	} else if ( sdate.getMinutes() / 60 <= .75) {
-		sminute = 45;
-	} else if ( sdate.getMinutes() / 60 <= 1) {
-		sminute = 00
-		shour += 1;
-	}
 	
 
 	
 
 		
-		var sdate = new Date();
-
-		if ( sdate.getHours() > 12 ) {
-			shour = sdate.getHours() - 12;
-		} else {
-			shour = sdate.getHours();
-		}
-
-		if ( ( sdate.getMinutes() / 60 ) <= .25 ) {
-			sminute = .25;
-		} else if ( sdate.getMinutes() / 60 <= .5 ) {
-			sminute = .5;
-		} else if ( sdate.getMinutes() / 60 <= .75) {
-			sminute = .75;
-		} else if ( sdate.getMinutes() / 60 <= 1) {
-			sminute = 0;
-			shour += 1;
-		}
 	
 	// Today/Tommorrow button
 	$(function() {
@@ -120,7 +84,11 @@
 			sminute = 0;
 			shour += 1;
 		}
-		
+
+		sdate.setHours(shour);
+		sdate.setMinutes(sminute * 60);
+		sdate.setSeconds(0);		
+
 		minTimeValue = sdate.getTime();
 		
 		time.setTime(sdate.getTime());
@@ -134,7 +102,7 @@ maxTimeValue = time.getTime();
 				value: minTimeValue,
 				min: minTimeValue,
 				max: maxTimeValue,
-				step: 900000,
+				step: 300000,
 				slide: function(event, ui) {
 					time.setTime(ui.value);
 					$("#amount").val(time.getHours() + ":" + time.getMinutes() + " " + (time.getMonth()+1) + "/" + time.getDate() + "/" + time.getFullYear());
