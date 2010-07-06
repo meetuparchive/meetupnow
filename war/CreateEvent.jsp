@@ -35,10 +35,7 @@
 	/* jQuery UI */
 	
 	var sdate = new Date();
-	console.log( 'Current Month: ' + ( sdate.getMonth() + 1 ) );
-	console.log( 'Current Day: ' + sdate.getDate() );
-	console.log( 'Current Hour: ' + sdate.getHours() );
-	console.log( 'Current Minute: ' + sdate.getMinutes() );
+
 	
 	if ( sdate.getHours() > 12 ) {
 		shour = sdate.getHours() - 12;
@@ -57,8 +54,7 @@
 		shour += 1;
 	}
 	
-	console.log( 'shour: ' + shour );
-	console.log( 'sminute: ' + sminute );
+
 	
 
 		
@@ -90,7 +86,7 @@
 	$(function() {
 		
 		var sdate = new Date();
-		
+		var time = new Date();
 		// Calc min decimal time
 		shour = sdate.getHours();
 
@@ -105,16 +101,25 @@
 			shour += 1;
 		}
 		
-		minTimeValue = shour + sminute;
-		maxTimeValue = 23.75;
+		minTimeValue = sdate.getTime();
+		maxTimeValue = minTimeValue + 172800000;
 		
 			$("#slider").slider({
 				value: minTimeValue,
 				min: minTimeValue,
 				max: maxTimeValue,
-				step: .25,
+				step: 900000,
 				slide: function(event, ui) {
-					$("#amount").val(ui.value);
+					time.setTime(ui.value);
+					$("#amount").val(time.getHours() + ":" + time.getMinutes());
+					document.getElementById('month').value = time.getMonth()+1;
+					document.getElementById('day').value = time.getDate();
+					document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
+
+					document.getElementById('year').value = time.getFullYear();
+					document.getElementById('hour').value = time.getHours();
+					document.getElementById('minute').value = time.getMinutes();
+
 				}
 			});
 			$("#amount").val('$' + $("#slider").slider("value"));
@@ -366,91 +371,7 @@
 	<br><br><br><br><br>
 	<span class="goLeft"><span class="heading"> When? </span></span>
 	<span class="goRight">		
-		<select id="month" name="month">
-			<option value="1">January</option>
-  			<option value="2">February</option>
-  			<option value="3">March</option>
-			<option value="4">April</option>
-  			<option value="5">May</option>
-  			<option value="6">June</option>
-			<option value="7">July</option>
-  			<option value="8">August</option>
-  			<option value="9">September</option>
-			<option value="10">October</option>
-  			<option value="11">November</option>
-  			<option value="12">December</option>
-		</select>
-		<select id="day" name="day">
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-			<option value="13">13</option>
-			<option value="14">14</option>
-			<option value="15">15</option>
-			<option value="16">16</option>
-			<option value="17">17</option>
-			<option value="18">18</option>
-			<option value="19">19</option>
-			<option value="20">20</option>
-			<option value="21">21</option>
-			<option value="22">22</option>
-			<option value="23">23</option>
-			<option value="24">24</option>
-			<option value="25">25</option>
-			<option value="26">26</option>
-			<option value="27">27</option>
-			<option value="28">28</option>
-			<option value="29">29</option>
-			<option value="30">30</option>
-			<option value="31">31</option>
-		</select>
-		
-		<select id="year" name="year">
-			<option value="2010">2010</option>
-			<option value="2011">2011</option>
-			<option value="2012">2012</option>
-			<option value="2013">2013</option>
-			<option value="2014">2014</option>
-			<option value="2015">2015</option>
-			<option value="2016">2016</option>
-		</select>
-		<br>
-		<select id="hour" name="hour" id="hour">
-			<option value=""> </option>
-			<option value="1">1</option>
-			<option value="2">2</option>
-			<option value="3">3</option>
-			<option value="4">4</option>
-			<option value="5">5</option>
-			<option value="6">6</option>
-			<option value="7">7</option>
-			<option value="8">8</option>
-			<option value="9">9</option>
-			<option value="10">10</option>
-			<option value="11">11</option>
-			<option value="12">12</option>
-		</select>
-		:
-		<select name="minute" id="minute">
-			<option value=""> </option>
-			<option value="0">00</option>
-			<option value="15">15</option>
-			<option value="30">30</option>
-			<option value="45">45</option>
-		</select>
-		<select name="ampm" id="ampm">
-			<option value="pm">PM</option>
-			<option value="am">AM</option>
-		</select>
+
 		<br>
 	</span>
 	<br><br><br><br><br>
@@ -468,6 +389,12 @@
 		<span class="heading"> <textarea name="desc" id="desc" cols="60" rows="4"></textarea></span> <br>
 	</span>
 	<br><br><br>
+	<input type="hidden" name="month" id="month" />
+	<input type="hidden" name="day" id="day" />
+	<input type="hidden" name="year" id="year" />
+	<input type="hidden" name="hour" id="hour" />
+	<input type="hidden" name="minute" id="minute" />
+	<input type="hidden" name="ampm" id="ampm" />
 	<input type="hidden" name="localTimeZone" id="localTimeZone" />
 	<input type="hidden" name="lat" value="NA" id="lat" />
 	<input type="hidden" name="lon" value="NA" id="lon" />
