@@ -150,7 +150,7 @@ body {
 	float: right;
 	width: 384px;
 	padding: 24px 0;
-	clear: right;
+	clear: left;
 }
 	#contentRightBody {
 		padding: 12px;
@@ -624,25 +624,41 @@ body {
 	//padding: 0 0 .5em;
 }
 #commentFeedContext {
-	padding-top: 24px;
+	//padding-top: 24px;
 	width: 540px;
+}
+#ctDetails {
+	width: 774px;
+	height: 100 px;
+	padding-top: 12px;
+}
+#ctWhen {
+	float:left;
+	width: 200px;
+}
+#ctLoc {
+	width: 550px;
+	margin-left: 212px;
+	padding-left: 12px;
 }
 
 /*** EventPage.jsp ***/
 
 #eventInfo {
 	width: 100%;
-	padding: 12px 0;
+	padding: 0 0 12px 0;
 }
 .eventInfo_title {
+	font-size: 2em;
 	padding-bottom: 0.2em;
 }
 .eventInfo_group {
+	font-size: 1.4em;
 	font-weight: bold;
 	color: #666;
 }
 .eventInfo_block {
-	padding-top: 24px;
+	//padding-top: 24px;
 }
 	.eventInfo_label {
 		display: block;

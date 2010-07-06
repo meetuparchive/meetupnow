@@ -115,89 +115,86 @@ try {
 		try {
 			desc = item.getString("description");
 		} catch (Exception e) {}
+		
+		String evname = "Event #"+ev_id;
+		try {
+			evname = item.getString("title");
+		} catch (Exception e){
+	
+		}
+		
+		
 %>
 
 <div id="wrap">
 	<%@ include file="jsp/header.jsp" %>
 		<div id="main">
-		<div id="contentTop">
+		<div id="contentTop" class="clearfix">
 			<div id="contentTopBody">
 				<div id="ctMap">
 					<img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=150x150&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
 				</div> <!-- end ctMap -->
 				<div id="ctInfo">
-					
+					<span class="title eventInfo_title"><%=evname%></span>
+					<span class="subtitle eventInfo_group"><a href="/Topic?<%=item.getJSONObject("container").getString("id") %>"><%=item.getJSONObject("container").getString("name") %></a></span>
+					<div id="ctDetails">
+						<div id="ctWhen">
+							<span class="eventInfo_label">When:</span>
+							<span class="eventInfo_text">
+								<script type="text/javascript">document.write(getTimeString(<%=Long.parseLong(item.getString("time"))%>));</script>
+							</span> <!-- end eventInfo_text -->
+						</div> <!-- end #ctWhen -->
+						<div id="ctLoc">
+							<span class="eventInfo_label">Where:</span>
+							<span class="eventInfo_text">
+								<%=item.getString("venue_name") %><br>
+								<%
+											try{
+								%>
+								<%=item.getString("address1") %><br>
+								<%
+											}catch (Exception e) {}
+								%>
+								<%=item.getString("city") %>, 
+								<%
+											try{
+								%>
+								<%=item.getString("state") %>
+								<%		
+											} catch (JSONException j) {
+								%>			
+								<%=item.getString("country").toUpperCase() %><br>
+								<%
+											}
+								%>
+								<%
+									// Get value for hidden form field
+									String title = ev_id;
+									try {
+									title = item.getString("title");
+									} catch (Exception e) {
+
+									}
+								%>
+							</span> <!-- end eventInfo_text -->
+						</div> <!-- end #ctLoc -->
+					</div> <!-- end #ctDetails -->
+					<div id="ctRsvp">
+						
+					</div>
 				</div> <!-- end ctInfo -->
 			</div> <!-- end contentTopBody -->
 		</div>
 		<div id="contentRight">
 		<div id="contentRightBody">
-			<div class="map_context">
-				<div id="map_canvasContainer">
-					<div id="map_canvas">
-						<img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=360x203&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
-					</div><!-- end #map_canvas -->
-				</div><!-- end #map_canvasContainer -->
-			</div><!-- end .map_context -->
 			<div id="eventInfo">
-	<%
-			String evname = "Event #"+ev_id;
-			try {
-				evname = item.getString("title");
-			} catch (Exception e){
-		
-			}
-	%>
-				<span class="title eventInfo_title"><%=evname%></span>
-				<span class="subtitle eventInfo_group"><a href="/Topic?<%=item.getJSONObject("container").getString("id") %>"><%=item.getJSONObject("container").getString("name") %></a></span>
-				<div class="eventInfo_block">
-					<span class="eventInfo_label">WHEN:</span>
-						<span class="eventInfo_text">
-							<script type="text/javascript">document.write(getTimeString(<%=Long.parseLong(item.getString("time"))%>));</script>
-						</span> <!-- end eventInfo_text -->
-				</div> <!-- end .eventInfo_block -->
-				<div class="eventInfo_block">
-					<span class="eventInfo_label">WHERE:</span>
-					<span class="eventInfo_text">
-						<%=item.getString("venue_name") %><br>
-						<%
-									try{
-						%>
-						<%=item.getString("address1") %><br>
-						<%
-									}catch (Exception e) {}
-						%>
-						<%=item.getString("city") %>, 
-						<%
-									try{
-						%>
-						<%=item.getString("state") %>
-						<%		
-									} catch (JSONException j) {
-						%>			
-						<%=item.getString("country").toUpperCase() %><br>
-						<%
-									}
-						%>
-					</span> <!-- end eventInfo_text -->
-				</div> <!-- end .eventInfo_block -->
 				<div class="eventInfo_block">
 					<span class="eventInfo_desc">
 						<%=desc %>
 					</span> <!-- end .eventInfo_desc -->
 				</div> <!-- end .eventInfo_block -->
 				<div class="eventInfo_block">
-					<%
-						String title = ev_id;
-						try {
-						title = item.getString("title");
-					%>
-
-					<%
-						} catch (Exception e) {
-
-						}
-					%>
+					
 				</div> <!-- end .eventInfo_block -->
 
 	<%
@@ -261,7 +258,6 @@ try {
 		</div> <!-- end #contentRight -->
 		<div id="contentLeft">
 			<div id="contentLeftBody">
-				<div class="custom" style="width:540px; height:203px; background-color:#666"></div>
 				<div id="commentFeedContext">
 					<div id="activityFeed">
 <%

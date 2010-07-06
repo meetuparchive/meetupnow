@@ -62,9 +62,7 @@
 
 	// Modal Registration Popup
 	$(document).ready(function() {
-
 		
-
 		// Global var to store activate modal div
 		var gId;
 
