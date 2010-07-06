@@ -23,6 +23,7 @@
 <%@ include file="jsp/declares.jsp" %>
 <%
 String ev_id = "";
+String lucky = "";
 String meta_title = "Meetup Now Event";
 String meta_desc = "This meetup is happening soon! Check it out.";
 	
@@ -30,6 +31,7 @@ if (request.getQueryString() != null) {
 
 	if (request.getQueryString().startsWith("id=")) {
 		ev_id = request.getParameter("id");
+		lucky = request.getParameter("lucky");
 		//META INFO
 
 	}else {ev_id = request.getQueryString();}
@@ -236,7 +238,7 @@ try {
 	<%
 			} else {
 	%>
-					<a href="#modal_login" name="modal" class="rsvpBtn">Login to RSVP</a>
+					<a href="#modal_login" name="modal" class="rsvpBtn">RSVP</a>
 	<%
 			}
 		}
@@ -262,13 +264,23 @@ try {
 				<div class="custom" style="width:540px; height:203px; background-color:#666"></div>
 				<div id="commentFeedContext">
 					<div id="activityFeed">
+<%
+						try {
+							if (lucky.equals("true")) {
+%>
+			<a href="/lucky">Give me another lucky event!</a><br><br>
+<%
+							}
+						} catch (Exception e) {}
+
+%>
 						<span class="title">Event Buzz.</span>
 
 							<div class="commentHeadBlock">
 <%
 							if (key.equals("empty")) {
 %>
-								<a href="#modal_login" name="modal">Login to comment</a>
+								<a href="#modal_login" name="modal">Add a Comment</a>
 <%
 							} else {
 %>

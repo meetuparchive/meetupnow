@@ -41,6 +41,7 @@ public class LuckyEventServlet extends HttpServlet {
 			double itemLon;
 			double timeBetween;
 			int rsvpCount;
+			double randomizer;
 
 			int best = 0;
 			double bestVal = 0;
@@ -55,17 +56,19 @@ public class LuckyEventServlet extends HttpServlet {
 				itemLon = Double.parseDouble(results.getJSONObject(i).getString("lon"));
 				rsvpCount = Integer.parseInt(results.getJSONObject(i).getString("rsvp_count"));
 				timeBetween = hoursBetween(then,now.getTime());
-				
+				randomizer = 1 + (Math.random() * .25);			
+
 				distanceArray[i] = distance(metaLat,metaLon,itemLat,itemLon);
 				timeBetweenArray[i] = timeBetween;
 				RSVPcountArray[i] = rsvpCount;
 				tempScore = score(timeBetweenArray[i],distanceArray[i],RSVPcountArray[i]);
+				tempScore = tempScore * randomizer;
 				if (tempScore > bestVal) {
 					best = i;
 					bestVal = tempScore;
 				}
 			}
-			resp.sendRedirect("Event?"+results.getJSONObject(best).getString("id"));
+			resp.sendRedirect("Event?id="+results.getJSONObject(best).getString("id")+"&lucky=true");
 		} catch (JSONException j) {}
 	}
 
