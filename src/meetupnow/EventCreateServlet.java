@@ -135,9 +135,9 @@ public class EventCreateServlet extends HttpServlet {
 				containerName = json.getJSONObject("container").getString("name");
 
 				//Send email(s)
-				String body = "New Event:\n"+name+"\nIn your area!\n\n"+desc+"\n\nLINK: http://jake-meetup-test.appspot.com/Event?id="+rsvpID;
+				String body = users.get(0).getName()+" posted a new event:\n"+name+"\nand it's in your area!\n\nMore Info: "+desc+"\n\nLINK: http://jake-meetup-test.appspot.com/Event?id="+rsvpID;
 
-				ArrayList<String> emails = getEmailAddresses(Double.parseDouble(lat),Double.parseDouble(lon));
+				ArrayList<String> emails = getEmailAddresses(c_id,Double.parseDouble(lat),Double.parseDouble(lon));
 
 				for (int i = 0; i < emails.size(); i++) {
 					EmailServlet.sendEmail(emails.get(i),"jgl2832@gmail.com","New event in your area: "+name,body);
@@ -172,7 +172,7 @@ public class EventCreateServlet extends HttpServlet {
 				resp.sendRedirect(callback);
 			}	
 			else {
-				resp.sendRedirect("/EventRegister?id="+rsvpID+"&callback="+callback);
+				resp.sendRedirect("/EventRegister?action=join&cid="+ c_id +"&id="+rsvpID+"&callback="+callback);
 			}
 		}
 
@@ -204,23 +204,40 @@ public class EventCreateServlet extends HttpServlet {
 	}
 
 
-	public ArrayList<String> getEmailAddresses(double evLat, double evLon) {
+	public ArrayList<String> getEmailAddresses(String cID, double evLat, double evLon) {
 		ArrayList<String> output = new ArrayList<String>();
 		double plat;
 		double plon;
 		double radius;
 		PersistenceManager pm = PMF.get().getPersistenceManager();
 		Query query = pm.newQuery(UserInfo.class);
-		query.setFilter("emailOpt == emailOptParam");
-		query.declareParameters("boolean emailOptParam");
+		//query.setFilter("((emailOpt == emailOptParam)||(cellOpt == cellOptParam))");
+		query.declareParameters("boolean emailOptParam, boolean cellOptParam");
 		try {
-			List<UserInfo> profiles = (List<UserInfo>) query.execute(true);
+			List<UserInfo> profiles = (List<UserInfo>) query.execute(true,true);
+			UserInfo temp;
 			for (int i = 0; i < profiles.size(); i++) {
-				plat = Double.parseDouble(profiles.get(i).getLat());
-				plon = Double.parseDouble(profiles.get(i).getLon());
-				radius = Double.parseDouble(profiles.get(i).getDistance());
-				if (distance(plat,plon,evLat,evLon) <= radius) {
-					output.add(profiles.get(i).getEmail());
+				temp = profiles.get(i);
+				if (temp.isMember(cID)) {
+					plat = Double.parseDouble(temp.getLat());
+					plon = Double.parseDouble(temp.getLon());
+					radius = Double.parseDouble(temp.getDistance());
+					if (distance(plat,plon,evLat,evLon) <= radius) {
+						if (temp.getEmailOpt()) {
+							output.add(temp.getEmail());
+						}
+						if (temp.getCellOpt()) {
+							if (temp.getCarrier().equals("att")) {
+								output.add(temp.getCellNum()+"@txt.att.net");
+							}
+							else if (temp.getCarrier().equals("verizon")) {
+								output.add(temp.getCellNum()+"@vtext.com");
+							}
+							else if (temp.getCarrier().equals("tmobile")) {
+								output.add(temp.getCellNum()+"@tmomail.net");
+							}
+						}
+					}
 				}
 			}
 		} finally {
