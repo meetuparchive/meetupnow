@@ -172,7 +172,7 @@ public class EventCreateServlet extends HttpServlet {
 				resp.sendRedirect(callback);
 			}	
 			else {
-				resp.sendRedirect("/EventRegister?id="+rsvpID+"&callback="+callback);
+				resp.sendRedirect("/EventRegister?action=join&cid="+ c_id +"&id="+rsvpID+"&callback="+callback);
 			}
 		}
 
