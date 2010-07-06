@@ -68,7 +68,7 @@ public class LuckyEventServlet extends HttpServlet {
 					bestVal = tempScore;
 				}
 			}
-			resp.sendRedirect("Event?"+results.getJSONObject(best).getString("id"));
+			resp.sendRedirect("Event?id="+results.getJSONObject(best).getString("id")+"&lucky=true");
 		} catch (JSONException j) {}
 	}
 
