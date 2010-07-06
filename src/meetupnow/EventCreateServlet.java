@@ -230,6 +230,12 @@ public class EventCreateServlet extends HttpServlet {
 							if (temp.getCarrier().equals("att")) {
 								output.add(temp.getCellNum()+"@txt.att.net");
 							}
+							else if (temp.getCarrier().equals("verizon")) {
+								output.add(temp.getCellNum()+"@vtext.com");
+							}
+							else if (temp.getCarrier().equals("tmobile")) {
+								output.add(temp.getCellNum()+"@tmomail.net");
+							}
 						}
 					}
 				}
