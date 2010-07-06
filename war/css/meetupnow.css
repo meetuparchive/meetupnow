@@ -733,6 +733,9 @@ body {
 	width: 100%;
 	text-align: left;
 }
+#contentTop {
+	width: 960px;
+}
 /*** EventPage.jsp ***/
 
 /*** Register Modal Window ***/

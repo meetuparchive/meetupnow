@@ -18,15 +18,106 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui-1.8.2.css" type="text/css" />
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
 	<script type="text/javascript">
+	
 	$(function() {
 		verifyAddress();
 		var now = new Date();
 		document.getElementById('month').value = now.getMonth()+1;
 		document.getElementById('day').value = now.getDate();
 		document.getElementById('localTimeZone').value = now.getTimezoneOffset()/60;
+	});
+	
+	/* jQuery UI */
+	
+	var sdate = new Date();
+	console.log( 'Current Month: ' + ( sdate.getMonth() + 1 ) );
+	console.log( 'Current Day: ' + sdate.getDate() );
+	console.log( 'Current Hour: ' + sdate.getHours() );
+	console.log( 'Current Minute: ' + sdate.getMinutes() );
+	
+	if ( sdate.getHours() > 12 ) {
+		shour = sdate.getHours() - 12;
+	} else {
+		shour = sdate.getHours();
+	}
+	
+	if ( ( sdate.getMinutes() / 60 ) <= .25 ) {
+		sminute = 15;
+	} else if ( sdate.getMinutes() / 60 <= .5 ) {
+		sminute = 30;
+	} else if ( sdate.getMinutes() / 60 <= .75) {
+		sminute = 45;
+	} else if ( sdate.getMinutes() / 60 <= 1) {
+		sminute = 00
+		shour += 1;
+	}
+	
+	console.log( 'shour: ' + shour );
+	console.log( 'sminute: ' + sminute );
+	
+
+		
+		var sdate = new Date();
+
+		if ( sdate.getHours() > 12 ) {
+			shour = sdate.getHours() - 12;
+		} else {
+			shour = sdate.getHours();
+		}
+
+		if ( ( sdate.getMinutes() / 60 ) <= .25 ) {
+			sminute = .25;
+		} else if ( sdate.getMinutes() / 60 <= .5 ) {
+			sminute = .5;
+		} else if ( sdate.getMinutes() / 60 <= .75) {
+			sminute = .75;
+		} else if ( sdate.getMinutes() / 60 <= 1) {
+			sminute = 0;
+			shour += 1;
+		}
+	
+	// Today/Tommorrow button
+	$(function() {
+			$("#radio_when").buttonset();
+	});
+	
+	// Date/Time picker slider
+	$(function() {
+		
+		var sdate = new Date();
+		
+		// Calc min decimal time
+		shour = sdate.getHours();
+
+		if ( ( sdate.getMinutes() / 60 ) <= .25 ) {
+			sminute = .25;
+		} else if ( ( sdate.getMinutes() / 60 ) <= .5 ) {
+			sminute = .5;
+		} else if ( ( sdate.getMinutes() / 60 ) <= .75) {
+			sminute = .75;
+		} else if ( ( sdate.getMinutes() / 60 ) <= 1) {
+			sminute = 0;
+			shour += 1;
+		}
+		
+		minTimeValue = shour + sminute;
+		maxTimeValue = 23.75;
+		
+			$("#slider").slider({
+				value: minTimeValue,
+				min: minTimeValue,
+				max: maxTimeValue,
+				step: .25,
+				slide: function(event, ui) {
+					$("#amount").val(ui.value);
+				}
+			});
+			$("#amount").val('$' + $("#slider").slider("value"));
 	});
 
 	var addressCheck = false;
@@ -202,7 +293,7 @@
 	}
 </script>
 </head>
-<body id="meetupNowBody">
+<body>
 	
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
@@ -253,9 +344,25 @@
 			
 						</select>
 					</li>
-	<br><br><br><br>
-	<span class="goLeft"><span class="heading"> Title: </span></span>
-	<span class="goRight"><input type="text" value="" name="name" id="title"/></span>
+					</ul>
+					</frameset>
+					
+					<frameset>
+					<legend>When</legend>
+					<ul id="radio_when">
+						<li>
+							<input type="radio" id="radio1" name="radio" checked="checked"><label for="radio1">Today</label>
+							<input type="radio" id="radio2" name="radio"><label for="radio2">Tomorrow</label>
+						</li>
+						<li>
+							<label for="amount">Donation amount ($50 increments):</label>
+							<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
+
+							<div id="slider"></div>
+						</li>
+					</ul>
+					</frameset>
+					
 	<br><br><br><br><br>
 	<span class="goLeft"><span class="heading"> When? </span></span>
 	<span class="goRight">		
