@@ -19,6 +19,7 @@
 <html>
 <head>
 	<title>MeetupNOW</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 		<%@ include file="jsp/cookie.jsp" %>
@@ -39,56 +40,72 @@
 	String containers = "&container_id=";
 	JSONObject json;
 
-System.out.println(querystring + " " + locationquery);
+
 if (querystring != null && locationquery != null){
-System.out.println(querystring + " " + locationquery);
-if (!locationquery.equals("")){	
 
-	if (!querystring.equals("")) {
-System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
-		CompassHits hits = null;
-		hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
-		String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
-		APIresponse = sg.submitUnsignedURL(GEOCODE_API_URL);
-		json = new JSONObject(APIresponse.getBody());
+	if (!locationquery.equals("")){	
 
-
-		API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&radius=10&lat=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat") + "&lon=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+		if (!querystring.equals("")) {
+	System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
+			CompassHits hits = null;
+			hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
+			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
+			APIresponse = sg.submitUnsignedURL(GEOCODE_API_URL);
+			json = new JSONObject(APIresponse.getBody());
 
 
-		if (hits.length() > 0) {
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&radius=10&lat=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat") + "&lon=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
 
-			for (int i = 0; i < hits.length(); i++){
-				Topic topic = (Topic) hits.data(i);
-				Resource resource = hits.resource(i);
-				if (i < hits.length() - 1){			
-					containers = containers + Integer.toString(topic.getId()) + ",";
 
-				}else{
-					containers = containers + Integer.toString(topic.getId());
+			if (hits.length() > 0) {
 
+				for (int i = 0; i < hits.length(); i++){
+					Topic topic = (Topic) hits.data(i);
+					Resource resource = hits.resource(i);
+					if (i < hits.length() - 1){			
+						containers = containers + Integer.toString(topic.getId()) + ",";
+
+					}else{
+						containers = containers + Integer.toString(topic.getId());
+
+					}
 				}
+
+				if (hits.getSuggestedQuery().isSuggested()) {
+				    System.out.println("Did You Mean: " + hits.getSuggestedQuery());
+				}
+				API_URL = API_URL + containers;
+				System.out.println(API_URL);
+
 			}
 
-			if (hits.getSuggestedQuery().isSuggested()) {
-			    System.out.println("Did You Mean: " + hits.getSuggestedQuery());
-			}
-			API_URL = API_URL + containers;
-			System.out.println(API_URL);
 
+			APIresponse = sg.submitURL(API_URL);
+			json = new JSONObject(APIresponse.getBody());
+	%> var data = <%=json.toString() %> <%
+
+
+		} else {
+			%> var data = null <%
 		}
 
+	} else {
+		%> var data = null <%
+	}
+} else {
+	%> var data = null <%
+}
+%>
 
-		APIresponse = sg.submitURL(API_URL);
-		json = new JSONObject(APIresponse.getBody());
-%> var results = <%=json.toString() %> <%
-
+	if (data != null){
+		alert(data);
+		$.each(data.results, function(i, ev) {
+			alert(ev.title);
+			$('#activity').append('<div class="commentFeedItem"><span class="tsItem_title"><a href="/Topic?' + ev. id + '">' + ev.title + '</a></span></div>');
+		});
 
 	}
 
-}
-}
-%>
 
 	</script>
 </head>
@@ -101,6 +118,7 @@ System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
 			<span class="title">Results</span>
 			<div id="activityFeed">
 				<div id="activity">
+				
 				</div> <!-- end #activity -->
 			</div> <!-- end #activityFeed -->
 		</div> <!-- end #contentLeftContext -->

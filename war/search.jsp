@@ -18,6 +18,7 @@
 	<title>MeetupNOW</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+
 </head>
 <body>
 <div id="wrap">	
