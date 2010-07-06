@@ -29,7 +29,7 @@
 	function today(){
 		time.setTime(sdate.getTime());
 		$("#slider").slider("value", time.getTime());
-		$("#amount").val(time.getHours() + ":" + time.getMinutes() + " " + (time.getMonth()+1) + "/" + time.getDate() + "/" + time.getFullYear());
+		$("#amount").val(getTime(time.getHours(),time.getMinutes()) + " " + getMonth(time.getMonth()) +" "+ time.getDate());
 	}
 
 
@@ -41,7 +41,7 @@
 		time.setTime(time.getTime() + 86400000);
 
 		$("#slider").slider("value", time.getTime());
-		$("#amount").val(time.getHours() + ":" + time.getMinutes() + " " + (time.getMonth()+1) + "/" + time.getDate() + "/" + time.getFullYear());
+		$("#amount").val(getTime(time.getHours(),time.getMinutes()) + " " + getMonth(time.getMonth()) +" "+ time.getDate());
 	}
 
 
@@ -52,16 +52,50 @@
 		document.getElementById('day').value = now.getDate();
 		document.getElementById('localTimeZone').value = now.getTimezoneOffset()/60;
 	});
-	
+function getMonth(m) {
+	switch (m)
+	{
+	case 0:
+  		return ("Jan");
+	case 1:
+		return ("Feb");		
+	case 2:
+  		return ("Mar");
+	case 3:
+		return ("Apr");
+	case 4:
+		return ("May");
+	case 5:
+		return ("Jun");
+	case 6:
+		return ("Jul");
+	case 7:
+		return ("Aug");
+	case 8:
+		return ("Sep");
+	case 9:
+		return ("Oct");
+	case 10:
+		return ("Nov");
+	case 11:
+		return ("Dec");
+	default:
+		return ("Undef");
+	}
+}
+
+	function getTime(h, m) {
+		var ampm = "AM";
+
+		if (h >= 12) {ampm = "PM";}
+		if (h > 12) { h = h - 12;}
+		if (h == 0) {h = 12;}
+		if (m > 9) { return (h + ":" + m + " " + ampm);}
+		else {return (h + ":0" + m + " " + ampm);}
+	}	
 	/* jQuery UI */
 	
 
-	
-
-	
-
-		
-	
 	// Today/Tommorrow button
 	$(function() {
 			$("#radio_when").buttonset();
@@ -105,18 +139,29 @@ maxTimeValue = time.getTime();
 				step: 300000,
 				slide: function(event, ui) {
 					time.setTime(ui.value);
-					$("#amount").val(time.getHours() + ":" + time.getMinutes() + " " + (time.getMonth()+1) + "/" + time.getDate() + "/" + time.getFullYear());
+					$("#amount").val(getTime(time.getHours(),time.getMinutes()) + " " + getMonth(time.getMonth()) +" "+ time.getDate());
 					document.getElementById('month').value = time.getMonth()+1;
 					document.getElementById('day').value = time.getDate();
 					document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
-
 					document.getElementById('year').value = time.getFullYear();
-					document.getElementById('hour').value = time.getHours();
+
+					var format_hour = time.getHours();
+					var format_ampm = "am";
+					if (format_hour > 12) {
+						format_hour = format_hour - 12;
+						format_ampm = "pm";
+					}
+					if (format_hour == 0) {
+						format_hour = 12;
+					}
+
+					document.getElementById('hour').value = format_hour;
+					document.getElementById('ampm').value = format_ampm;
 					document.getElementById('minute').value = time.getMinutes();
 
 				}
 			});
-			$("#amount").val(sdate.getHours() + ":" + sdate.getMinutes() + " " + (sdate.getMonth()+1) + "/" + sdate.getDate() + "/" + sdate.getFullYear());
+			$("#amount").val(getTime(sdate.getHours(),sdate.getMinutes()) + " " + getMonth(sdate.getMonth()) +" "+ sdate.getDate());
 	});
 
 	var addressCheck = false;
