@@ -43,48 +43,47 @@ if (request.getQueryString() != null) {
 	<meta name="description" content="This meetup is happening soon! Check it out." />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script src="js/eventPage.js"></script>
-<script type="text/javascript">
+	<script type="text/javascript">
 
-function getTimeString (millis) {
+	function getTimeString (millis) {
 
-	var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
+		var m_names = new Array("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December");
 
-	var d = new Date(millis);
+		var d = new Date(millis);
 
-	var curr_date = d.getDate();
-	var curr_month = d.getMonth();
-	var curr_year = d.getFullYear();
-	var a_p = "";
-	var curr_hour = d.getHours();
+		var curr_date = d.getDate();
+		var curr_month = d.getMonth();
+		var curr_year = d.getFullYear();
+		var a_p = "";
+		var curr_hour = d.getHours();
 
-	if (curr_hour < 12){
-   		a_p = "AM";
-   	}
-	else {
-   		a_p = "PM";
+		if (curr_hour < 12){
+	   		a_p = "AM";
+	   	}
+		else {
+	   		a_p = "PM";
+		}
+		if (curr_hour == 0) {
+	  		curr_hour = 12;
+	   	}
+		if (curr_hour > 12){
+	   		curr_hour = curr_hour - 12;
+	   	}
+
+		var curr_min = d.getMinutes();
+		curr_min = curr_min + "";
+
+		if (curr_min.length == 1){
+	   		curr_min = "0" + curr_min;
+	   	}
+		curr_month++;
+
+		return (curr_month + "/" + curr_date + "/" + curr_year+" "+curr_hour + ":" + curr_min + " " + a_p);
+
 	}
-	if (curr_hour == 0) {
-  		curr_hour = 12;
-   	}
-	if (curr_hour > 12){
-   		curr_hour = curr_hour - 12;
-   	}
-
-	var curr_min = d.getMinutes();
-	curr_min = curr_min + "";
-
-	if (curr_min.length == 1){
-   		curr_min = "0" + curr_min;
-   	}
-	curr_month++;
-
-	return (curr_month + "/" + curr_date + "/" + curr_year+" "+curr_hour + ":" + curr_min + " " + a_p);
-
-}
-
-</script>
+	</script>
 </head>
-<body id="meetupNowBody">
+<body>
 
 <%
 String MUID = "";
@@ -119,6 +118,9 @@ try {
 <div id="wrap">
 	<%@ include file="jsp/header.jsp" %>
 		<div id="main">
+		<div id="contentTop">
+			
+		</div>
 		<div id="contentRight">
 		<div id="contentRightBody">
 			<div class="map_context">
