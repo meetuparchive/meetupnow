@@ -16,10 +16,8 @@
 <div id="header">
 
 		<div id="header_logo">
-			<a href="/">
-				<ul><li><a href="/">Home</a></li></ul>
-			</a>
-		</div><!-- mn_superHeader_logo -->
+			<ul><li><a href="/">Home</a></li></ul>
+		</div><!-- header_logo -->
 		<div id="header_usernav">
 			<ul>
 <%
@@ -65,15 +63,18 @@
 	// Modal Registration Popup
 	$(document).ready(function() {
 
-		// Add necessary DIVs
-		$('body').append('<div id="modal_register" class="modalRounded"><iframe src="http://www.meetup.com/register/?set_mobile=on" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div><div id="mask"></div>');
-		$('body').append('<div id="modal_login" class="modalRounded"><iframe src="/oauth?callback=success.jsp" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0" class="modalRounded"></iframe></div><div id="mask"></div>');
+		
 
 		// Global var to store activate modal div
 		var gId;
 
 		// Select Register link
 		$('a[name=modal]').click(function(e) {
+			
+			// Add necessary DIVs
+			$('body').append('<div id="modal_register" class="modalRounded"><iframe src="http://www.meetup.com/register/?set_mobile=on" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0"></iframe></div>');
+			$('body').append('<div id="modal_login" class="modalRounded"><iframe src="/oauth?callback=success.jsp" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0" class="modalRounded"></iframe></div>');
+			$( 'body' ).append( '<div id="mask"></div>' );
 
 			// Cancel default link behavior
 			e.preventDefault();
@@ -108,6 +109,7 @@
 
 		// If mask is clicked, hide mask and activated modal dialogue
 		$('#mask').click(function() {
+			//console.log( 'Mask was clicked!' );
 			$(this).hide();
 			$(gId).hide();
 		})

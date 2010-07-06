@@ -119,7 +119,14 @@ try {
 	<%@ include file="jsp/header.jsp" %>
 		<div id="main">
 		<div id="contentTop">
-			
+			<div id="contentTopBody">
+				<div id="ctMap">
+					<img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=150x150&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
+				</div> <!-- end ctMap -->
+				<div id="ctInfo">
+					
+				</div> <!-- end ctInfo -->
+			</div> <!-- end contentTopBody -->
 		</div>
 		<div id="contentRight">
 		<div id="contentRightBody">
