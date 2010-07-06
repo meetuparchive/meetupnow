@@ -23,7 +23,28 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
 	<script type="text/javascript">
-	
+	var sdate = new Date();
+	var time = new Date();
+
+	function today(){
+		time.setTime(sdate.getTime());
+		$("#slider").slider("value", time.getTime());
+		$("#amount").val(time.getHours() + ":" + time.getMinutes() + " " + (time.getMonth()+1) + "/" + time.getDate() + "/" + time.getFullYear());
+	}
+
+
+	function tomorow(){
+		time.setTime(sdate.getTime());
+		time.setHours(0);
+		time.setMinutes(0);
+		time.setSeconds(0);
+		time.setTime(time.getTime() + 86400000);
+
+		$("#slider").slider("value", time.getTime());
+		$("#amount").val(time.getHours() + ":" + time.getMinutes() + " " + (time.getMonth()+1) + "/" + time.getDate() + "/" + time.getFullYear());
+	}
+
+
 	$(function() {
 		verifyAddress();
 		var now = new Date();
@@ -85,8 +106,7 @@
 	// Date/Time picker slider
 	$(function() {
 		
-		var sdate = new Date();
-		var time = new Date();
+
 		// Calc min decimal time
 		shour = sdate.getHours();
 
@@ -102,8 +122,14 @@
 		}
 		
 		minTimeValue = sdate.getTime();
-		maxTimeValue = minTimeValue + 172800000;
 		
+		time.setTime(sdate.getTime());
+		time.setHours(0);
+		time.setMinutes(0);
+		time.setSeconds(0);
+		time.setTime(time.getTime() + 172800000);
+
+maxTimeValue = time.getTime();
 			$("#slider").slider({
 				value: minTimeValue,
 				min: minTimeValue,
@@ -111,7 +137,7 @@
 				step: 900000,
 				slide: function(event, ui) {
 					time.setTime(ui.value);
-					$("#amount").val(time.getHours() + ":" + time.getMinutes());
+					$("#amount").val(time.getHours() + ":" + time.getMinutes() + " " + (time.getMonth()+1) + "/" + time.getDate() + "/" + time.getFullYear());
 					document.getElementById('month').value = time.getMonth()+1;
 					document.getElementById('day').value = time.getDate();
 					document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
@@ -122,7 +148,7 @@
 
 				}
 			});
-			$("#amount").val('$' + $("#slider").slider("value"));
+			$("#amount").val(sdate.getHours() + ":" + sdate.getMinutes() + " " + (sdate.getMonth()+1) + "/" + sdate.getDate() + "/" + sdate.getFullYear());
 	});
 
 	var addressCheck = false;
@@ -356,8 +382,8 @@
 					<legend>When</legend>
 					<ul id="radio_when">
 						<li>
-							<input type="radio" id="radio1" name="radio" checked="checked"><label for="radio1">Today</label>
-							<input type="radio" id="radio2" name="radio"><label for="radio2">Tomorrow</label>
+							<input type="radio" id="radio1" name="radio" checked="checked" onclick=today()><label for="radio1">Today</label>
+							<input type="radio" id="radio2" name="radio" onclick=tomorow()><label for="radio2">Tomorrow</label>
 						</li>
 						<li>
 							<label for="amount">Donation amount ($50 increments):</label>

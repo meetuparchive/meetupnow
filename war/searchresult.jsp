@@ -38,10 +38,14 @@
 	String locationquery = request.getParameter("location");
 	String containers = "&container_id=";
 	JSONObject json;
+
+System.out.println(querystring + " " + locationquery);
+if (querystring != null && locationquery != null){
+System.out.println(querystring + " " + locationquery);
 if (!locationquery.equals("")){	
 
 	if (!querystring.equals("")) {
-
+System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
 		CompassHits hits = null;
 		hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
 		String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
@@ -74,10 +78,15 @@ if (!locationquery.equals("")){
 
 		}
 
-	} 
+
 		APIresponse = sg.submitURL(API_URL);
 		json = new JSONObject(APIresponse.getBody());
 %> var results = <%=json.toString() %> <%
+
+
+	}
+
+}
 }
 %>
 
