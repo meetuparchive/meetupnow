@@ -103,30 +103,13 @@
 	<%@ include file="jsp/header.jsp" %>
 
 	<div id="main">
-		<div id="contentRight">
-			<div id="contentRightBody">
-				<div id="mn_geoListContext">
-					<div id="mn_geoListHeader">
-						<span class="listTitle">Results near [location]</span>
-					</div><!-- mn_geoListHeader -->
-					<div id="mn_geoListBody">
-				
-					</div> <!-- end #mn_geoListBody -->
-					<div id="mn_geoListFooter">
-						<div id="searchResultsNav">
-							<span class="showAll"></span>
-							<span class="paginationNav"></span>
-						</div> <!-- end searchResultsNav -->
-					</div><!-- mn_geoListFooter -->
-				</div><!-- mn_geoListContext -->
-			</div> <!-- end #contentRightBody -->
-		</div> <!-- end #contentRight -->
+
 	
 		<div id="contentLeft">
 			<div id="contentLeftBody">
 
 					<div id="activityFeed">
-						<span class="title">Choose a Topic. Create Events.</span>
+						<span class="title">Choose a Topic. Find an Event.</span>
 						<span class="options">Don't see anything you like? <a href="/CreateTopic.jsp">Suggest a new topic!</a></span><br><br>
 						<div id = "activity"> </div>
 					</div> <!-- end #activityFeed -->

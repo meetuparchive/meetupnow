@@ -735,7 +735,43 @@ body {
 }
 #contentTop {
 	width: 960px;
+	height: 150px;
+	padding: 24px 0 0;
 }
+#contentTopBody {
+	width: 936px;
+	height: 150px;
+	padding: 12px;
+	background: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    from(rgb(2,36,50)),
+	    to(rgba(0,0,0,0.5))
+	);
+	background: -moz-linear-gradient(
+			    center bottom,
+			    rgba(2,36,50,1) 0%,
+			    rgba(0,0,0,0.5) 100%
+			);
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+}
+#ctMap {
+	display: block;
+	float: left;
+	height: 150px;
+	width: 150px;
+}
+#ctInfo {
+	display: block;
+	margin-left: 150px;
+	padding-left: 12px;
+	width: 774px;
+	height: 150px;
+}
+
 /*** EventPage.jsp ***/
 
 /*** Register Modal Window ***/

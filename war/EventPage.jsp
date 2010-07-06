@@ -23,6 +23,7 @@
 <%@ include file="jsp/declares.jsp" %>
 <%
 String ev_id = "";
+String lucky = "";
 String meta_title = "Meetup Now Event";
 String meta_desc = "This meetup is happening soon! Check it out.";
 	
@@ -30,6 +31,7 @@ if (request.getQueryString() != null) {
 
 	if (request.getQueryString().startsWith("id=")) {
 		ev_id = request.getParameter("id");
+		lucky = request.getParameter("lucky");
 		//META INFO
 
 	}else {ev_id = request.getQueryString();}
@@ -119,7 +121,14 @@ try {
 	<%@ include file="jsp/header.jsp" %>
 		<div id="main">
 		<div id="contentTop">
-			
+			<div id="contentTopBody">
+				<div id="ctMap">
+					<img src="http://maps.google.com/maps/api/staticmap?zoom=14&size=150x150&maptype=roadmap&markers=color:blue|size:large|<%=item.getString("lat")+","+item.getString("lon")%>&sensor=false"/>
+				</div> <!-- end ctMap -->
+				<div id="ctInfo">
+					
+				</div> <!-- end ctInfo -->
+			</div> <!-- end contentTopBody -->
 		</div>
 		<div id="contentRight">
 		<div id="contentRightBody">
@@ -255,6 +264,16 @@ try {
 				<div class="custom" style="width:540px; height:203px; background-color:#666"></div>
 				<div id="commentFeedContext">
 					<div id="activityFeed">
+<%
+						try {
+							if (lucky.equals("true")) {
+%>
+			<a href="/lucky">Give me another lucky event!</a><br><br>
+<%
+							}
+						} catch (Exception e) {}
+
+%>
 						<span class="title">Event Buzz.</span>
 
 							<div class="commentHeadBlock">
