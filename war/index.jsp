@@ -7,7 +7,7 @@
 <%@ page import="javax.jdo.Query" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
-
+<%@ page import="org.compass.core.*" %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
 	"http://www.w3.org/TR/html4/strict.dtd">
@@ -20,35 +20,94 @@
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="/js/index.js"></script>
 	<script type="text/javascript">
-	  function initialize() {
-	    var myLatlng = new google.maps.LatLng(-34.397, 150.644);
-	    var myOptions = {
-	      zoom: 8,
-	      center: myLatlng,
-	      mapTypeId: google.maps.MapTypeId.ROADMAP
-	    }
-	    var map = new google.maps.Map(document.getElementById("map_canvas"), myOptions);
-	  }
-	</script>
 
-	<script type="text/javascript">
-
-		
-			function loadEvents(){
 			<%@ include file="jsp/cookie.jsp" %>
 			<%@ include file="jsp/declares.jsp" %>
 
 			<%@ page import="meetupnow.Topic" %>
-			<%
 
 
-			API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&link=http%3A%2F%2Fjake-meetup-test.appspot.com";
-			RegDev sg = new RegDev();
-			APIresponse = sg.submitURL(API_URL);
-			JSONObject json;
-			JSONArray top_list;	
+
+		
+			function loadEvents(){
+
+<%
+
+	CompassSearchSession search = PMF.getCompass().openSearchSession();
+	RegDev sg = new RegDev();
+	String querystring = request.getParameter("query");
+	String locationquery = request.getParameter("location");
+	String containers = "&container_id=";
+	JSONObject json;
+	Boolean searchresults = false;
 			String Lat = "";
 			String Lon = "";
+
+if (querystring != null && locationquery != null){
+
+	if (!locationquery.equals("")){	
+
+		if (!querystring.equals("")) {
+
+		searchresults = true;
+	System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
+			CompassHits hits = null;
+			hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
+			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
+			APIresponse = sg.submitUnsignedURL(GEOCODE_API_URL);
+			json = new JSONObject(APIresponse.getBody());
+
+
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&radius=10&lat=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat") + "&lon=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+
+			Lat =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
+			Lon =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+			if (hits.length() > 0) {
+
+				for (int i = 0; i < hits.length(); i++){
+					Topic topic = (Topic) hits.data(i);
+					Resource resource = hits.resource(i);
+					if (i < hits.length() - 1){			
+						containers = containers + Integer.toString(topic.getId()) + ",";
+
+					}else{
+						containers = containers + Integer.toString(topic.getId());
+
+					}
+				}
+
+				if (hits.getSuggestedQuery().isSuggested()) {
+				    System.out.println("Did You Mean: " + hits.getSuggestedQuery());
+				}
+				API_URL = API_URL + containers;
+				System.out.println(API_URL);
+
+			}
+
+
+			APIresponse = sg.submitURL(API_URL);
+			json = new JSONObject(APIresponse.getBody());
+	%> var data = <%=json.toString() %> ;<%
+
+
+		} else {
+
+		}
+
+	} else {
+
+	}
+} else {
+
+}
+
+if (!searchresults){
+
+			API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&link=http%3A%2F%2Fjake-meetup-test.appspot.com";
+			sg = new RegDev();
+			APIresponse = sg.submitURL(API_URL);
+
+			JSONArray top_list;	
 
 		
 			String TopicList = "container_id=";
@@ -157,7 +216,7 @@
 				%>var data = <%=APIresponse.getBody().toString()%><%
 	
 			}
-		
+}		
 			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
 			APIresponse = sg.submitURL(GEOCODE_API_URL);
 			%>var geocode = <%=APIresponse.getBody().toString()%>
@@ -188,7 +247,7 @@
 		</div><!-- end .map_context -->
 		<div id="searchContext">
 			<div id="search">
-				<form action="searchresult.jsp" method="post" accept-charset="utf-8">
+				<form action="index.jsp" method="post" accept-charset="utf-8">
 					<div class="element">
 						<div class="label">
 							<label for="query">Search for: </label>
