@@ -37,6 +37,8 @@
 	RegDev sg = new RegDev();
 	String querystring = request.getParameter("query");
 	String locationquery = request.getParameter("location");
+	if (querystring == null) querystring = "";
+	if (locationquery == null) locationquery = "";
 	String containers = "&container_id=";
 	JSONObject json;
 	Boolean searchresults = false;
@@ -253,7 +255,7 @@ if (!searchresults){
 							<label for="query">Search for: </label>
 						</div> <!-- end .label -->
 						<div class="mainSearchInput">
-							<input type="text" name="query" value="" id="mainSearchQuery" maxlength="100">
+							<input type="text" name="query" value="<%= querystring %>" id="mainSearchQuery" maxlength="100">
 						</div> <!-- end .input -->
 					</div> <!-- end .element -->
 					<div class="element">
@@ -261,7 +263,7 @@ if (!searchresults){
 							<label for="location">City or Postal Code</label>
 						</div> <!-- end .label -->
 						<div class="mainSearchInput">
-							<input type="text" name="location" value="" id="mainSearchLocation" maxlength="100">
+							<input type="text" name="location" value="<%=locationquery%>" id="mainSearchLocation" maxlength="100">
 						</div> <!-- end .input -->
 					</div> <!-- end .element -->
 
