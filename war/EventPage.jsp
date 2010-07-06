@@ -229,7 +229,7 @@ try {
 	<%
 			} else {
 	%>
-					<a href="#modal_login" name="modal" class="rsvpBtn">Login to RSVP</a>
+					<a href="#modal_login" name="modal" class="rsvpBtn">RSVP</a>
 	<%
 			}
 		}
@@ -261,7 +261,7 @@ try {
 <%
 							if (key.equals("empty")) {
 %>
-								<a href="#modal_login" name="modal">Login to comment</a>
+								<a href="#modal_login" name="modal">Add a Comment</a>
 <%
 							} else {
 %>
