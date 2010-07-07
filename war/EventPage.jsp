@@ -163,18 +163,7 @@ try {
 										<%
 													}catch (Exception e) {}
 										%>
-										<%=item.getString("city") %>, 
-										<%
-													try{
-										%>
-										<%=item.getString("state") %>
-										<%		
-													} catch (JSONException j) {
-										%>			
-										<%=item.getString("country").toUpperCase() %><br>
-										<%
-													}
-										%>
+										
 										<%
 											// Get value for hidden form field
 											String title = ev_id;

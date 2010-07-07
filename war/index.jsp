@@ -44,14 +44,16 @@
 			String Lat = "";
 			String Lon = "";
 
+
 if (querystring != null && locationquery != null){
 
 	if (!locationquery.equals("")){	
 
 		if (!querystring.equals("")) {
 
-		searchresults = true;
-	System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
+			locationquery = locationquery.replace(' ', '+');
+			searchresults = true;
+			System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
 			CompassHits hits = null;
 			hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
 			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
@@ -280,7 +282,7 @@ if (!searchresults){
 							<label for="location">City or Postal Code</label>
 						</div> <!-- end .label -->
 						<div class="mainSearchInput">
-							<input type="text" name="location" value="<%=locationquery%>" id="mainSearchLocation" maxlength="100">
+							<input type="text" name="location" value="<%=locationquery.replace('+',' ')%>" id="mainSearchLocation" maxlength="100">
 						</div> <!-- end .input -->
 					</div> <!-- end .element -->
 
