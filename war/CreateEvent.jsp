@@ -435,9 +435,9 @@ maxTimeValue = time.getTime();
 					</ul>
 					</frameset>
 					
-	<br><br><br><br><br>
+	<br><br>
 
-	<span class="goLeft"><span class="heading"> Where? </span></span>
+	<span class="goLeft"><span class="heading"> Select a Location </span></span>
 	<span class="goRight">
 		Venue<br>
 		<input type="text" name="venue" id="venue"/><br>
@@ -445,12 +445,12 @@ maxTimeValue = time.getTime();
 		<input type="text" name="address" id="address" onChange="verifyAddress()" onKeyUp="verifyAddress()"/> <br>
 		<div id="out">NOT VALID</div>
 	</span>
-	<br><br><br><br><br><br><br><br><br>
+	<br><br><br><br><br><br>
 	<span class="goCenter">
-		<span class="heading"> Description: </span>
+		<span class="heading"> Enter A Description: </span>
 		<span class="heading"> <textarea name="desc" id="desc" cols="60" rows="4"></textarea></span> <br>
 	</span>
-	<br><br><br>
+	
 	<input type="hidden" name="month" id="month" />
 	<input type="hidden" name="day" id="day" />
 	<input type="hidden" name="year" id="year" />
