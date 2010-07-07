@@ -186,15 +186,16 @@ body {
 		height: 203px;
 	}
 	.map_contextLeft {
-		width: 540px;
+		width: 469px;
 	}
 	#map_canvasContentBottom {
 		width: 726px;
 		height: 204px;
+		margin-bottom: 24px;
 	}
 	#map_canvasContainerLeft {
-		width: 540px;
-		height: 304px;
+		width: 469px;
+		height: 264px;
 	}
 		#map_canvas {
 			width: 100%;
@@ -347,7 +348,7 @@ body {
 		}
 		.mn_geoListItem {
 			display: block;
-			width: 344px;
+			//width: 344px;
 			height: 36px;
 			border-top: 1px dotted #666;
 			-moz-border-top: 1px solid #666;
@@ -405,7 +406,7 @@ body {
 			}
 		.details {
 			display: block;
-			width: 224px;
+			//width: 224px;
 			margin-left: 102px;
 			padding-left: 12px;
 			padding-top: 2px;
@@ -532,12 +533,13 @@ body {
 		-webkit-border-radius: 5px 5px 5px 5px;
 	}
 	#actionDesc {
-		width: 320px;
+		//width: 320px;
 	}
 	#action {
 		position: relative;
-		float: right;
-		width: 200px;
+		//float: right;
+		width: 170px;
+		margin: 0 auto;
 	}
 	.btn_main {
 		color: #fff;
@@ -635,7 +637,7 @@ body {
 	//padding: 0 0 .5em;
 }
 #commentFeedContext {
-	padding-top: 24px;
+	//padding-top: 24px;
 	//width: 540px;
 }
 #ctDetails {

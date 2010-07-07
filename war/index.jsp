@@ -23,7 +23,6 @@
 
 			<%@ include file="jsp/cookie.jsp" %>
 			<%@ include file="jsp/declares.jsp" %>
-
 			<%@ page import="meetupnow.Topic" %>
 
 
@@ -237,17 +236,35 @@ if (!searchresults){
 
 <%//@ include file="jsp/ticker.jsp" %>
 <div id="main">
+	<div id="contentTop">
+		<div id="contentTopBody">
+			<span class="title">Get Started.</span>
+			<div id="actionDesc">
+				<span class="heading">MeetupNow is a site built so that you can find events happening locally, and happening soon. Nothing going on near you? No problem, just start something yourself, and people nearby will hear about it. Now go out and do something.</span>
+			</div> <!-- end #actionDesc -->
+		</div><!-- end contentTopBody -->
+	</div><!-- end #contentTop -->
 	<div id="contentRight">
 		<div id="contentRightBody">
-			<div class="map_contextRight">
+			<div id="action">
+				<a href="lucky"><span class="btn_main">Something Close and Soon</span></a>
+				<a href="CreateEvent.jsp"><span class="btn_main">Create An Event</span></a>
+				<a href="AllTopics.jsp"><span class="btn_main">Browse Events</span></a>
+			</div> <!-- end #action -->
+			<span class="title">Popular Events</span>
+		</div> <!-- end #contentRightBody -->
+	</div> <!-- end #contentRight -->
+	<div id="contentLeft">
+		<div id="contentLeftBody">
+			<div class="map_contextLeft">
 				<span class="map_title title">Happening NOW near you...</span>
-				<div id="map_canvasContainerRight">
+				<div id="map_canvasContainerLeft">
 					<div id="map_canvas">
 
 				</div><!-- end #map_canvas -->
 			</div><!-- end #map_canvasContainer -->
-		</div><!-- end .map_context -->
-		<div id="searchContext">
+			</div><!-- end .map_context -->
+			<div id="searchContext">
 			<div id="search">
 				<form action="index.jsp" method="post" accept-charset="utf-8">
 					<div class="element">
@@ -273,8 +290,8 @@ if (!searchresults){
 				</form>
 			</div> <!-- end #search -->
 			<span style="clear:both;"><a href="/search.jsp">Go to Topic Search</a></span>
-		</div> <!-- end #searchContext -->
-		<div id="mn_geoListContext">
+			</div> <!-- end #searchContext -->
+			<div id="mn_geoListContext">
 			<div id="mn_geoListHeader">
 				<span id="searchResultsHeading" class="listTitle"></span>
 			</div><!-- mn_geoListHeader -->
@@ -287,22 +304,8 @@ if (!searchresults){
 					<span class="paginationNav"></span>
 				</div> <!-- end searchResultsNav -->
 			</div><!-- mn_geoListFooter -->
-		</div><!-- mn_geoListContext -->
-		</div> <!-- end #contentRightBody -->
-	</div> <!-- end #contentRight -->
-	<div id="contentLeft">
-		<div id="contentLeftBody">
-			<span class="title">Get Started.</span>
-			<div id="action">
-				<a href="lucky"><span class="btn_main">Something Close and Soon</span></a>
-				<a href="CreateEvent.jsp"><span class="btn_main">Create An Event</span></a>
-				<a href="AllTopics.jsp"><span class="btn_main">Browse Events</span></a>
-			</div> <!-- end #action -->
-			<div id="actionDesc">
-				<span class="heading">MeetupNow is a site built so that you can find events happening locally, and happening soon. Nothing going on near you? No problem, just start something yourself, and people nearby will hear about it. </span>
-				<span class="heading">Now go out and do something.</span>
-			</div> <!-- end #actionDesc -->
-		</div> <!-- end #actionContext -->
+			</div><!-- mn_geoListContext -->
+		</div> <!-- end #contentLeftBody -->
 	</div> <!-- end #contentLeft -->
 </div> <!-- end #main -->
 </div> <!-- end #wrap -->
