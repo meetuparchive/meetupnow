@@ -63,11 +63,13 @@ public class EventCreateServlet extends HttpServlet {
 			ampm = req.getParameter("ampm");
 			lat = req.getParameter("lat");
 			lon = req.getParameter("lon");
-			ad = req.getParameter("ad");
+			ad = req.getParameter("address");
 			city = req.getParameter("city");
 			state = req.getParameter("state");
 			country = req.getParameter("country");
 			zip = req.getParameter("zip");
+
+
 		}
 		String millitime;
 		if (mTime == null) {
@@ -114,21 +116,15 @@ public class EventCreateServlet extends HttpServlet {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
 				APIrequest.addBodyParameter("venue_name",venue);
-				try {
-					if ((!ad.equals(""))&&(!city.equals("NA"))&&(!country.equals("NA"))) {
-						APIrequest.addBodyParameter("city", city);
-						APIrequest.addBodyParameter("country", country);
-						if (country.equals("United States")){APIrequest.addBodyParameter("state", state);}
-						APIrequest.addBodyParameter("address1", ad);
-					} 
-				} catch (Exception e) {
+
 				 	if (zip != null) {
 						APIrequest.addBodyParameter("zip", zip);
 					} else {
 						APIrequest.addBodyParameter("lat", lat);
 						APIrequest.addBodyParameter("lon", lon);
+						APIrequest.addBodyParameter("address1", ad);
 					}
-				}
+				
 				APIrequest.addBodyParameter("time",millitime);
 				APIrequest.addBodyParameter("container_id",c_id);
 				APIrequest.addBodyParameter("description",desc);
