@@ -55,6 +55,9 @@
 		var title;
 		if (event.ev.title) {
 			title = event.ev.title;
+			if (title.length > 30) {
+				title = title.substring(0,30) + "...";
+			}
 		}
 		else {
 			title = "Event #"+event.ev.id;
