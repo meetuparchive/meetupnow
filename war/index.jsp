@@ -222,8 +222,9 @@ if (!searchresults){
 }		
 			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
 			APIresponse = sg.submitURL(GEOCODE_API_URL);
-		
-			%>var geocode = <%=APIresponse.getBody().toString()%>
+			%>User_Lat = <%=Lat + ";\n"%>
+			User_Lon = <%=Lon + ";\n"%>
+			var geocode = <%=APIresponse.getBody().toString()%>
 				var location = 'Events near ' + geocode.results[0].address_components[2].long_name;
 
 				$('#searchResultsHeading').append(location);
