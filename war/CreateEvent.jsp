@@ -135,7 +135,14 @@ function getMonth(m) {
 		time.setSeconds(0);
 		time.setTime(time.getTime() + 172800000);
 
-maxTimeValue = time.getTime();
+		maxTimeValue = time.getTime() - 300000;
+		$("#amount").val(minTimeValue);
+		document.getElementById('month').value = time.getMonth()+1;
+		document.getElementById('day').value = time.getDate();
+		document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
+		document.getElementById('year').value = time.getFullYear();
+		
+		
 			$("#slider").slider({
 				value: minTimeValue,
 				min: minTimeValue,

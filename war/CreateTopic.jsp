@@ -17,10 +17,9 @@
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 </head>
-<body id="meetupNowBody">
+<body>
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
-<%@ include file="jsp/header.jsp" %>
 
 <%
 
@@ -29,50 +28,44 @@
 			c_id = request.getQueryString();
 		}
 %>
+
+<div id="wrap">
+	
+<%@ include file="jsp/header.jsp" %>
+
+<div id="main">
+	<div id="contentTop">
+		<div id="contentTopBody">
+			<span class="title">Suggest a New Topic</span>
+			<form id="suggestTopic" name="f" action="/TopicCreate" method="get">
+				<fieldset>
+					<legend><span class="hidden">Suggest a Topic</legend>
+						<ul>
+							<li>
+								<label for="suggestTopicName">New Topic Name</label>
+								<input type="test" name="suggestTopicName" id="suggestTopicName">
+							</li>
+							<li>
+								<label for="suggestTopicDesc">Topic Description</label>
+								<textarea name="suggestTopicDesc" id="suggestTopicDesc"></textarea>
+							</li>
+							<li>
+								<label for="suggestTopicKeywords">Keywords (used for search)</label>
+								<textarea name="suggestTopicKeywords" id="suggestTopicKeywords"></textarea>
+							</li>
+						</ul>
+							
+								<input type="hidden" name="callback" value="Topic?<%=c_id%>" />
+								<input type="hidden" name="c_id" value="<%=c_id%>" />
+								<input type="submit" value="Suggest" class="createBtn"/>
+				</fieldset>
+			</form>
 		
-<div id="mn_page">
-	<div id="mn_pageBody">
-		<div id="mn_context">
-			<div id="mn_document">
-				<div id="mn_box">
-					<div class="d_box">
-						<div class="d_boxBody">
-							<div class="d_boxHead">
-								
-							</div>
-							<div class="d_boxSection">
-								<div id="d_boxContent">
-									<div id="mn_geoListContext">
-										<div id="mn_geoListHeader">
+		</div><!-- end #contentTopBody -->
+	</div><!-- end #contentTop -->
+</div><!-- #main -->
+</div><!-- #wrap -->
 
-							<b>Let's Meetup Now!<br> Create an Event </b><br><br>
-
-										</div><!-- mn_geoListHeader -->
-		<form name="f" action="/TopicCreate" method="get">
-			<input type="test" name="name" /> Give a Name to This Topic <br>	
-			
-			<br>What's this topic all about? <br>
-			<textarea name="desc" cols="40" rows="6"></textarea> <br>
-			<br>Enter some key words to search by <br>
-			<textarea name="keywords" cols="40" rows="6"></textarea> <br>
-			<input type="hidden" name="callback" value="Topic?<%=c_id%>" />
-			<input type="hidden" name="c_id" value="<%=c_id%>" />
-			<input type="submit" value="Create" />
-		</form>
-
-
-										<div id="mn_geoListFooter">
-										</div><!-- mn_geoListFooter -->
-									</div><!-- mn_geoListContext -->
-								</div><!-- d_boxContent -->
-							</div><!-- d_boxSection -->
-						</div><!-- d_boxBody -->
-					</div><!-- d_box -->
-				</div><!-- mn_box -->
-			</div><!-- mn_document -->
-		</div><!-- mn_context -->
-	</div><!-- mn_pageBody -->
-</div><!-- mn_page -->
 <%@ include file="jsp/footer.jsp" %>
 
 </body>

@@ -971,6 +971,34 @@ li label[for="desc"] {
 }
 /*** Create Event Form Styling ***/
 
+/*** Suggest Topic Form Styling ***/
+
+form#suggestTopic ul{
+	border: none;
+	padding: 0 0 1em 0;
+}
+form#suggestTopic label {
+	font-size: 1.2em;
+}
+#suggestTopicName,
+#suggestTopicDesc,
+#suggestTopicKeywords {
+	padding: 2px 4px;
+	font-size: 1em;
+	margin-bottom: 1em;
+	width: 20em;
+}
+#suggestTopicDesc {
+	width: 30em;
+	height: 10em;
+}
+#suggestTopicKeywords{
+	width: 30em;
+	height: 6em;
+}
+
+/*** Suggest Topic Form Styling ***/
+
 /*** User Preferences Form Styling ***/
 
 input#upZip {
