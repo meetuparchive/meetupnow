@@ -5,6 +5,49 @@
 	var events;
 	var current_page = 1;
 	var events_per_page = 5;
+	var d = new Date();
+	var User_Lat = 0;
+	var User_Lon = 0;
+
+	//distance between two points
+	function distance(lat1, lon1, lat2, lon2) {
+		var R = 6371; // km
+		var dLat = (lat2-lat1)*(Math.PI / 180);
+		var dLon = (lon2-lon1)*(Math.PI / 180); 
+		var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+		        Math.cos(lat1) * Math.cos(lat2) * 
+		        Math.sin(dLon/2) * Math.sin(dLon/2); 
+		var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a)); 
+		var d = R * c * 0.621371192;
+		return d
+	} 
+
+	//event sorting functions
+	function SortByRSVP(a, b){
+		//alert(a.ev.rsvp_count);
+		if (a.ev.rsvp_count < b.ev.rsvp_count) {
+			return 1;
+		} else {
+			return -1;
+		}
+	}
+
+	function SortByTime(a, b){
+		//alert((a.ev.time - d.getTime()) > (b.ev.time - d.getTime()));
+		if  ((a.ev.time - d.getTime()) > (b.ev.time - d.getTime())){
+			return 1;
+		} else {
+			return -1;		
+		}
+	}
+
+	function SortByDistance(a, b){
+		if (distance(User_Lat, User_Lon, a.ev.lat, a.ev.lon) > distance(User_Lat, User_Lon, b.ev.lat, b.ev.lon)){
+			return 1;
+		} else {
+			return -1;
+		}
+	}
 
 	//set description to any string
 	function changeDiscription(desc){
@@ -55,6 +98,9 @@
 		var title;
 		if (event.ev.title) {
 			title = event.ev.title;
+			if (title.length > 30) {
+				title = title.substring(0,30) + "...";
+			}
 		}
 		else {
 			title = "Event #"+event.ev.id;
@@ -93,7 +139,7 @@
 	//updates events to a number of events on a certain page
 	function update_events(){
 		var array_start = (current_page - 1)*events_per_page;
-		
+
 		events.empty();
 		for (var i = 0; i < eventArray.length; i++){
 			
@@ -187,6 +233,7 @@
 				eventArray.push(event_object);						
 			}
 		});
+
 		update_events(current_page);	
 		
 

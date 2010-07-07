@@ -44,14 +44,16 @@
 			String Lat = "";
 			String Lon = "";
 
+
 if (querystring != null && locationquery != null){
 
 	if (!locationquery.equals("")){	
 
 		if (!querystring.equals("")) {
 
-		searchresults = true;
-	System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
+			locationquery = locationquery.replace(' ', '+');
+			searchresults = true;
+			System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
 			CompassHits hits = null;
 			hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
 			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
@@ -59,7 +61,7 @@ if (querystring != null && locationquery != null){
 			json = new JSONObject(APIresponse.getBody());
 
 
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&radius=10&lat=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat") + "&lon=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&lat=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat") + "&lon=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
 
 			Lat =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
 			Lon =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
@@ -104,7 +106,7 @@ if (querystring != null && locationquery != null){
 
 if (!searchresults){
 
-			API_URL = "http://api.meetup.com/ew/containers?order=name&offset=0&link=http%3A%2F%2Fjake-meetup-test.appspot.com";
+			API_URL = "http://api.meetup.com/ew/containers?order=name&fields=rsvp_count&offset=0&link=http%3A%2F%2Fjake-meetup-test.appspot.com";
 			sg = new RegDev();
 			APIresponse = sg.submitURL(API_URL);
 
@@ -181,9 +183,9 @@ if (!searchresults){
 							distance = userInfoList.get(0).getDistance();
 							if (Lat != null && Lon != null){
 								if (distance != null){
-									API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=" + distance + "&order=time";
+									API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=" + distance + "&fields=rsvp_count&order=time";
 								} else {
-									API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=20&order=time";
+									API_URL = "http://api.meetup.com/ew/events/?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=20&fields=rsvp_count&order=time";
 								}
 							}
 							else {
@@ -192,7 +194,7 @@ if (!searchresults){
 								json = new JSONObject(APIresponse.getBody());
 								Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
 								Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-								API_URL = "http://api.meetup.com/ew/events?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&order=time";
+								API_URL = "http://api.meetup.com/ew/events?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&fields=rsvp_count&order=time";
 
 							}
 							APIrequest = new Request(Request.Verb.GET, API_URL);
@@ -212,7 +214,7 @@ if (!searchresults){
 				json = new JSONObject(APIresponse.getBody());
 				Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
 				Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-				API_URL = "http://api.meetup.com/ew/events?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&order=time";
+				API_URL = "http://api.meetup.com/ew/events?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&fields=rsvp_count&order=time";
 				APIresponse = sg.submitURL(API_URL);
 				%>var data = <%=APIresponse.getBody().toString()%><%
 	
@@ -220,7 +222,9 @@ if (!searchresults){
 }		
 			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
 			APIresponse = sg.submitURL(GEOCODE_API_URL);
-			%>var geocode = <%=APIresponse.getBody().toString()%>
+			%>User_Lat = <%=Lat + ";\n"%>
+			User_Lon = <%=Lon + ";\n"%>
+			var geocode = <%=APIresponse.getBody().toString()%>
 				var location = 'Events near ' + geocode.results[0].address_components[2].long_name;
 
 				$('#searchResultsHeading').append(location);
@@ -280,7 +284,7 @@ if (!searchresults){
 							<label for="location">City or Postal Code</label>
 						</div> <!-- end .label -->
 						<div class="mainSearchInput">
-							<input type="text" name="location" value="<%=locationquery%>" id="mainSearchLocation" maxlength="100">
+							<input type="text" name="location" value="<%=locationquery.replace('+',' ')%>" id="mainSearchLocation" maxlength="100">
 						</div> <!-- end .input -->
 					</div> <!-- end .element -->
 
