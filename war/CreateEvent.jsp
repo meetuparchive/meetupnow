@@ -359,7 +359,13 @@ maxTimeValue = time.getTime();
 <div id="wrap">
 	
 	<%@ include file="jsp/header.jsp" %>
+<%
+	String c_id = "";
 	
+	if (request.getQueryString() != null) {
+		c_id = request.getQueryString();
+	}
+%>
 	<div id="main">
 		<div id="contentLeft">
 			<div id="contentLeftBody">
@@ -392,11 +398,19 @@ maxTimeValue = time.getTime();
 							<option value="">-Select A Topic-</option>
 							
 				<%
+						String tString;
 						for (int i = 0; i < topics.size(); i++) {
+							tString = ""+topics.get(i).getId();
+							if (tString.equals(c_id)) {
 				%>
-				
+							<option value="<%=topics.get(i).getId()%>" selected><%=topics.get(i).getName()%></option>
+				<%
+							} else {
+				%>
+							
 							<option value="<%=topics.get(i).getId()%>"><%=topics.get(i).getName()%></option>
 				<%
+							}
 						}
 				%>
 			
