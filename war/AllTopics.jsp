@@ -6,6 +6,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Date" %>
 <%@ page import="meetupnow.Topic" %>
+<%@ page import="meetupnow.RegDev" %>
 <%@ page import="org.json.*" %>
 <%@ include file="jsp/cookie.jsp" %>
 <%@ include file="jsp/declares.jsp" %>
@@ -76,10 +77,9 @@
 			}
 		}
 		else {
-
-			API_URL = "http://api.meetup.com/ew/events?status=upcoming&radius=25.0&order=time&offset=0&format=json&page=200&container_id=654&sig_id=12219924&sig=73487b47859ee335994dac5770ba0d18";
-			APIrequest = new Request(Request.Verb.GET, API_URL);
-			APIresponse = APIrequest.send();
+			RegDev sg = new RegDev();
+			API_URL = "http://api.meetup.com/ew/containers.json/?page=10&offset=" + Integer.toString(page2 - 1) + "&link=http://jake-meetup-test.appspot.com";
+			APIresponse = sg.submitURL(API_URL);
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
 		}
