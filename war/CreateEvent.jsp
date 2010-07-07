@@ -104,6 +104,8 @@ function getMonth(m) {
 	// Date/Time picker slider
 	$(function() {
 		
+		// Today's Date
+		var today = sdate.getDate();
 
 		// Calc min decimal time
 		shour = sdate.getHours();
@@ -145,6 +147,18 @@ maxTimeValue = time.getTime();
 					document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
 					document.getElementById('year').value = time.getFullYear();
 
+					if (time.getDate() > today) {
+						//document.getElementById('radio1').checked = false;
+						//document.getElementById('radio2').checked = true;
+						document.getElementById('radio2').click();
+						today = time.getDate();
+					}
+					if (time.getDate() < today) {
+						//document.getElementById('radio1').checked = true;
+						//document.getElementById('radio2').checked = false;
+						document.getElementById('radio1').click();
+						today = time.getDate();
+					}
 					var format_hour = time.getHours();
 					var format_ampm = "am";
 					if (format_hour > 12) {
@@ -375,7 +389,7 @@ maxTimeValue = time.getTime();
 					<li>
 						<label for="topic" class="hidden">Select Topic</label> 
 						<select id="topic" name="topic">
-							<option value="">-Select-</option>
+							<option value="">-Select A Topic-</option>
 							
 				<%
 						for (int i = 0; i < topics.size(); i++) {
@@ -399,7 +413,7 @@ maxTimeValue = time.getTime();
 							<input type="radio" id="radio2" name="radio" onclick=tomorow()><label for="radio2">Tomorrow</label>
 						</li>
 						<li>
-							<label for="amount">Donation amount ($50 increments):</label>
+							<label for="amount">Event Time:</label>
 							<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
 
 							<div id="slider"></div>
