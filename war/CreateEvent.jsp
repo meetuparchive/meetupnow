@@ -335,7 +335,7 @@ maxTimeValue = time.getTime();
 					document.getElementById('city').value = city_out;
 					document.getElementById('state').value = state_out;
 					document.getElementById('country').value = country_out;
-					document.getElementById('zip').value = zip_out;
+
 							
 					out.empty();
 					out.append("VALID");
@@ -447,7 +447,7 @@ maxTimeValue = time.getTime();
 		Venue<br>
 		<input type="text" name="venue" id="venue"/><br>
 		Address or Zip Code<br>
-		<input type="text" id="address" onChange="verifyAddress()" onKeyUp="verifyAddress()"/> <br>
+		<input type="text" name="address" id="address" onChange="verifyAddress()" onKeyUp="verifyAddress()"/> <br>
 		<div id="out">NOT VALID</div>
 	</span>
 	<br><br><br><br><br><br><br><br><br>
@@ -465,7 +465,7 @@ maxTimeValue = time.getTime();
 	<input type="hidden" name="localTimeZone" id="localTimeZone" />
 	<input type="hidden" name="lat" value="NA" id="lat" />
 	<input type="hidden" name="lon" value="NA" id="lon" />
-	<input type="hidden" name="zip" value="NA" id="zip" />
+
 	<input type="hidden" name="ad" value="NA" id="ad" />
 	<input type="hidden" name="country" value="NA" id="country" />
 	<input type="hidden" name="city" value="NA" id="city" />
