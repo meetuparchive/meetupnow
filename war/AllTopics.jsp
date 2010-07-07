@@ -119,7 +119,7 @@
 
 					<div id="activityFeed">
 						<span class="title">Choose a Topic. Find an Event.</span>
-						<span class="options">Don't see anything you like? <a href="/CreateTopic.jsp">Suggest a new topic!</a></span><br><br>
+						<span class="options">Don't see anything you like? <a href="/SuggestTopic.jsp">Suggest a new topic!</a></span><br><br>
 						<div id = "activity"> </div>
 					</div> <!-- end #activityFeed -->
 	
