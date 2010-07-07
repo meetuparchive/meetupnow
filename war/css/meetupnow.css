@@ -16,16 +16,23 @@
 	line-height: 1.5em;
 	padding-bottom: 1em;
 }
-
+.fltrt {
+	float: right;
+}
+.fltlft {
+	float: left;
+}
+.block {
+	display: block;
+}
 .options {
 	display: block;
 	color: #f2f2f2;
 	font: normal .8em Lucida Grande, arial, verdana, san-serif;
 }
-
 #topicActions {
-	width: 266px;
-	margin: 0 auto;
+	display: block;
+	height: 40px;
 }
 #topicActions a {
 	margin-bottom: 1em;
@@ -90,9 +97,10 @@ body {
 }
 #header {
 	height: 20px;
-	width: 936px;
+	width: 726px;
 	z-index: 2000;
 	margin: 0 auto;
+	margin-bottom: 12px;
 	padding: 16px 12px 0 12px;
 	border-bottom: 1px dotted #666;
 }
@@ -139,17 +147,17 @@ body {
 			}
 #wrap {
 	min-height: 100%;
-	width: 960px;
+	width: 750px;
 	margin: 0 auto;
 }
 #main {
-	overflow: auto;
 	padding-bottom: 150px;
+	overflow: hidden;
 }
 #contentRight {
 	float: right;
-	width: 384px;
-	padding: 24px 0;
+	width: 243px;
+	padding: 0 0 12px 6px;
 	clear: left;
 }
 	#contentRightBody {
@@ -179,6 +187,10 @@ body {
 	}
 	.map_contextLeft {
 		width: 540px;
+	}
+	#map_canvasContentBottom {
+		width: 726px;
+		height: 204px;
 	}
 	#map_canvasContainerLeft {
 		width: 540px;
@@ -274,7 +286,7 @@ body {
 			padding: 4px 6px;
 			background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
 			background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
-			width: 250px;
+			width: 215px;
 			text-align: center;
 			text-decoration: none !important;
 			border: 2px solid #A8252E;
@@ -290,7 +302,7 @@ body {
 			padding: 4px 6px;
 			background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#1A8C78), to(#1ABE78));
 			background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
-			width: 250px;
+			width: 215px;
 			text-align: center;
 			text-decoration: none !important;
 			border: 2px solid #1A6E78;
@@ -498,8 +510,8 @@ body {
 
 	float: left;
 	clear: left;
-	width: 564px;
-	padding: 24px 0;
+	width: 493px;
+	padding: 0 6px 12px 0;
 }
 	#contentLeftBody {
 		padding: 12px;
@@ -602,12 +614,11 @@ body {
 }
 #footerBody {
 	border-top: 1px dotted #666;
-	width: 936px;
+	width: 726px;
 	margin: 0 auto;
-	padding: 24px 12px 0 12px;
+	padding: 24px 12px 0;
 }
 #footerRow {
-	width: 576px;
 }
 #footerSection {
 	border-right: 1px solid #ccc;
@@ -624,21 +635,21 @@ body {
 	//padding: 0 0 .5em;
 }
 #commentFeedContext {
-	//padding-top: 24px;
-	width: 540px;
+	padding-top: 24px;
+	//width: 540px;
 }
 #ctDetails {
-	width: 774px;
+	width: 435px;
 	height: 100 px;
 	padding-top: 12px;
 }
 #ctWhen {
 	float:left;
-	width: 200px;
+	width: 150px;
 }
 #ctLoc {
-	width: 550px;
-	margin-left: 212px;
+	width: 261px;
+	margin-left: 162px;
 	padding-left: 12px;
 }
 
@@ -649,6 +660,7 @@ body {
 	padding: 0 0 12px 0;
 }
 .eventInfo_title {
+	display: inline-block;
 	font-size: 2em;
 	padding-bottom: 0.2em;
 }
@@ -686,12 +698,12 @@ body {
 	padding-top: 24px;
 }
 .commentHeadBlock {
-	width: 540px;
+	//width: 540px;
 	padding-bottom: 0.5em;
 	padding-left: 8px;
 }
 #commentInputContext {
-	width: 540px;
+	//width: 540px;
 	padding-bottom: 12px;
 	margin-left: 8px;
 }
@@ -703,9 +715,11 @@ body {
 	font-size: 1.2em;
 }
 .textarea {
-	padding-top: 0.5em;
+	display: block;
+	padding: 4px 6px;
 	width: 400px;
 	height: 6em;
+	margin-bottom: .5em;
 }
 .submitCommentBtn {
 	position: relative;
@@ -716,7 +730,6 @@ body {
 	background-position: 0% 0%;
 	background-repeat: no-repeat;
 	border: 1px solid #666;
-	padding-top: 0.5em;
 	height: 2em;
 	width: 6em;
 }
@@ -750,13 +763,41 @@ body {
 	text-align: left;
 }
 #contentTop {
-	width: 960px;
-	height: 150px;
-	padding: 24px 0 0;
+	width: 750px;
+	//height: 174px;
+	margin-top: 12px;
+	overflow: hidden;
 }
 #contentTopBody {
-	width: 936px;
-	height: 150px;
+	width: 726px;
+	//height: 150px;
+	padding: 12px;
+	background: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    from(rgb(2,36,50)),
+	    to(rgba(0,0,0,0.5))
+	);
+	background: -moz-linear-gradient(
+			    center bottom,
+			    rgba(2,36,50,1) 0%,
+			    rgba(0,0,0,0.5) 100%
+			);
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+}
+#contentBottom {
+	margin-top:12px;
+	width: 750px;
+	//padding: 24px 0 0;
+}
+#contentBottomPad {
+	padding: 0 12px;
+}
+#contentBottomBody {
+	width: 726px;
 	padding: 12px;
 	background: -webkit-gradient(
 	    linear,
@@ -787,7 +828,12 @@ body {
 	width: 774px;
 	height: 150px;
 }
-
+#ctRsvp {
+	float: right;
+}
+#contentTopMiddle {
+	padding-left: 12px;
+}
 /*** EventPage.jsp ***/
 
 /*** Register Modal Window ***/

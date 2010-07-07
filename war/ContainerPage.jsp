@@ -23,6 +23,7 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
@@ -107,8 +108,8 @@
 <div id="wrap">
 	<%@ include file="jsp/header.jsp" %>
 	<div id="main">
-		<div id="contentRight">
-			<div id="contentRightBody">
+		<div id="contentTop">
+			<div id="contentTopBody">
 				<div id="topicActions">
 				<%
 						Query userQuery = pm.newQuery(UserInfo.class);
@@ -122,7 +123,7 @@
 				%>
 				
 				
-					<a href="/UserPrefs.jsp" class="notifyCancelBtn">I receive notifications from this topic</a>
+					<a href="/UserPrefs.jsp" class="notifyCancelBtn fltlft">Receiving Group Notifications</a>
 				
 				<%
 								}
@@ -130,11 +131,11 @@
 									if (!key.equals("empty")) {
 				%>
 
-				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>" class="notifyStartBtn">Receive notifications from this group</a>
+				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>" class="notifyStartBtn fltlft">Receive Group Notifications</a>
 				<%		
 									} else {
 %>
-				<a href="/UserPrefs.jsp" class="notifyStartBtn">Recieve notifications from this group</a>
+				<a href="/UserPrefs.jsp" class="notifyStartBtn fltlft">Receive Group Notifications</a>
 <%
 									}
 								}
@@ -145,30 +146,25 @@
 
 				%>
 				
-					<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn"> Create an event for this topic </a>
+					<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn fltrt"> Create Event in this Topic</a>
 				</div> <!-- end #topicActions -->
-			</div> <!-- end #contentRightBody -->
-		</div> <!-- end #contentRight -->
-		<div id="contentLeft">
-			<div id="contentLeftBody">
-				<div class="map_contextLeft">
-					<div id="map_canvasContainerLeft">
-						<div id="map_canvas">
+				<div id="map_canvasContentBottom">
+					<div id="map_canvas">
 
-						</div><!-- end #map_canvas -->
-					</div><!-- end #map_canvasContainer -->
-				</div><!-- end .map_context -->
+					</div><!-- end #map_canvas -->
+				</div> <!-- end #map_canvasContentBottom -->
+				
 				<div id="commentFeedContext">
 					<div id="activityFeed">
 						<span class="title">Events in <%=c_name%></span>
 						<div id="activity">
-							
+						
 						</div> <!-- end #activity -->
 					</div> <!-- end #activityFeed -->
 				</div> <!-- end #commentFeedContext -->
 				
-			</div> <!-- end #contentLeftBody -->
-		</div> <!-- end #contentLeft -->
+			</div> <!-- end contentTopBody -->
+		</div> <!-- end #contentTop -->
 	</div> <!-- end #main -->
 </div> <!-- end #wrap -->
 
