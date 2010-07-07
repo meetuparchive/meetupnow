@@ -122,7 +122,7 @@ public class EventCreateServlet extends HttpServlet {
 					} else {
 						APIrequest.addBodyParameter("lat", lat);
 						APIrequest.addBodyParameter("lon", lon);
-						APIrequest.addBodyParameter("address1", ad);
+						APIrequest.addBodyParameter("address1", ad.split(",")[0]);
 					}
 				
 				APIrequest.addBodyParameter("time",millitime);

@@ -436,12 +436,7 @@ maxTimeValue = time.getTime();
 					</frameset>
 					
 	<br><br><br><br><br>
-	<span class="goLeft"><span class="heading"> When? </span></span>
-	<span class="goRight">		
 
-		<br>
-	</span>
-	<br><br><br><br><br>
 	<span class="goLeft"><span class="heading"> Where? </span></span>
 	<span class="goRight">
 		Venue<br>
