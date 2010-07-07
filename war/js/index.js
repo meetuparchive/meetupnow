@@ -10,11 +10,21 @@
 
 	//event sorting functions
 	function SortByRSVP(a, b){
-		return (a.ev.rsvp_count < b.ev.rsvp_count);
+		alert(a.ev.rsvp_count);
+		if (a.ev.rsvp_count < b.ev.rsvp_count) {
+			return 1;
+		} else {
+			return -1;
+		}
 	}
 
 	function SortByTime(a, b){
-		return ((a.ev.time - d.getTime()) < (b.ev.time - d.getTime()));
+		//alert((a.ev.time - d.getTime()) > (b.ev.time - d.getTime()));
+		if  ((a.ev.time - d.getTime()) > (b.ev.time - d.getTime())){
+			return 1;
+		} else {
+			return -1;		
+		}
 	}
 
 	function SortByDistance(a, b){
@@ -111,7 +121,7 @@
 	//updates events to a number of events on a certain page
 	function update_events(){
 		var array_start = (current_page - 1)*events_per_page;
-		eventArray.sort(SortByRSVP);
+
 		events.empty();
 		for (var i = 0; i < eventArray.length; i++){
 			
@@ -205,6 +215,7 @@
 				eventArray.push(event_object);						
 			}
 		});
+		eventArray.sort(SortByRSVP);
 		update_events(current_page);	
 		
 
