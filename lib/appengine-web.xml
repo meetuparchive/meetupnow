@@ -5,4 +5,7 @@
 	<system-properties>
 		<property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
 	</system-properties>
+	<inbound-services>
+  		<service>mail</service>
+	</inbound-services>
 </appengine-web-app>
