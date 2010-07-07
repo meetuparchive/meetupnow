@@ -151,55 +151,7 @@
 				}		
 
 				//add event to list
-				eventlist.append('<div class="commentFeedItem"><div class="line"><div class="unit size3of5"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><!--end .unit .size3of5--><div class="unit size1of5">Event Info</div><!--end .unit .size1of5-->'+ 	
-					<%
-						Response rsvpResponse = sg.submitURL("http://api.meetup.com/ew/rsvps?event_id="+ev_id);
-						JSONObject rsvpjson = new JSONObject();
-						JSONArray members;
-						
-						try {
-							rsvpjson = new JSONObject(rsvpResponse.getBody());
-							members = rsvpjson.getJSONArray("results");
-							boolean in = false;
-							String rsvpID = "";
-							for (int j = 0; j < members.length(); j++) {
-
-								String tempName = members.getJSONObject(j).getJSONObject("member").getString("name");
-								userList = userList.concat("<li>"+tempName+"</li>");	
-								if (!MUID.equals("")) {
-									if (MUID.equals(members.getJSONObject(j).getJSONObject("member").getString("member_id"))) {
-										in = true;
-										rsvpID = members.getJSONObject(j).getString("id");
-									}
-								}
-							}
-						%>
-									<div class="fltrt">
-						<%
-							if (in) {
-						%>
-										<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="inBtn">I'm In</a>
-						<%
-							} else {
-								if (!key.equals("empty")) {
-						%>
-										<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>" class="rsvpBtn">RSVP</a>
-						<%
-								} else {
-						%>
-										<a href="#modal_login" name="modal" class="rsvpBtn">RSVP</a>
-						<%
-								}
-							}
-						%>
-						<%
-						}
-						catch (JSONException j) {}
-						%>
-						</div> <!-- end .fltrt -->
-
-
- +'<!--end .unit .size1of5 .lastUnit--></div><!--end .line--></div><!--end .commentFeedItem-->');
+				eventlist.append('<div class="commentFeedItem"><div class="line"><div class="unit size3of5"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><!--end .unit .size3of5--><div class="unit size1of5">Event Info</div><!--end .unit .size1of5--><!--end .unit .size1of5 .lastUnit--></div><!--end .line--></div><!--end .commentFeedItem-->');
 
 				//provide link for each point with event info
 				google.maps.event.addListener(marker, 'click', function() {
