@@ -64,7 +64,7 @@
 				users = (List<MeetupUser>) query.execute(key);
 				if (users.iterator().hasNext()) {
 					Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
-					API_URL = "http://api.meetup.com/ew/containers.json/?page=10&offset=" + Integer.toString(page2 - 1) + "&link=http://jake-meetup-test.appspot.com";
+					API_URL = "http://api.meetup.com/ew/containers.json/?page=10&offset=" + Integer.toString(page2 - 1) + "&link=http://jake-meetup-test.appspot.com&fields=member_count,meetup_count,past_meetup_count";
 
 					APIrequest = new Request(Request.Verb.GET, API_URL);
 					scribe.signRequest(APIrequest,accessToken);
@@ -78,7 +78,7 @@
 		}
 		else {
 			RegDev sg = new RegDev();
-			API_URL = "http://api.meetup.com/ew/containers.json/?page=10&offset=" + Integer.toString(page2 - 1) + "&link=http://jake-meetup-test.appspot.com";
+			API_URL = "http://api.meetup.com/ew/containers.json/?page=10&offset=" + Integer.toString(page2 - 1) + "&link=http://jake-meetup-test.appspot.com&fields=member_count,meetup_count,past_meetup_count";
 			APIresponse = sg.submitURL(API_URL);
 			%>var data = <%=APIresponse.getBody().toString()%><%
 	
@@ -86,9 +86,18 @@
 		%>
 		var out = $('#activityFeed');
 		var evArray = new Array();
+		var people;
+		var numevents;
 		$.each(data.results, function(i, ev) {
-			
-			out.append('<div class="commentFeedItem"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + ev.description + '</span><a href="/CreateEvent.jsp?'+ev.id+'">Create an Event</a><div>');
+			people = "New Topic!<br>";
+			numevents = "";
+			if (ev.member_count > 1) {
+				people = ev.member_count+" People<br>";
+			}
+			if (ev.meetup_count > 1) {
+				numevents ="<br>"+ ev.meetup_count+" Events happening in the next 48 hours<br>"
+			}
+			out.append('<div class="commentFeedItem"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + people +ev.description + numevents+'</span><a href="/CreateEvent.jsp?'+ev.id+'">Create an Event</a><div>');
 			
 		});
 		$.each(data.meta, function(i, ev) {
