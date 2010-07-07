@@ -44,9 +44,11 @@ public class EventCreateServlet extends HttpServlet {
 		String venue = "";
 		String desc = "";
 		String name = "";
-		String zip = "";		
+		String zip = "";
+		String mTime = "";		
 
 		if (req.getQueryString() != null) {
+			mTime = req.getParameter("mtime");
 			tz = req.getParameter("localTimeZone");
 			callback = req.getParameter("callback");
 			month = req.getParameter("month");
@@ -67,7 +69,13 @@ public class EventCreateServlet extends HttpServlet {
 			country = req.getParameter("country");
 			zip = req.getParameter("zip");
 		}
-		String millitime= getMilliTime(year,month,day,hour,minute,ampm, tz);
+		String millitime;
+		if (mTime == null) {
+			millitime= getMilliTime(year,month,day,hour,minute,ampm, tz);
+		}
+		else {
+			millitime = mTime;
+		}
 		String rsvpID = "";
 		String containerName = "";
 		
@@ -106,17 +114,20 @@ public class EventCreateServlet extends HttpServlet {
 				Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
 				Request APIrequest = new Request(Request.Verb.POST, API_URL);
 				APIrequest.addBodyParameter("venue_name",venue);
-				if ((!ad.equals(""))&&(!city.equals("NA"))&&(!country.equals("NA"))) {
-					APIrequest.addBodyParameter("city", city);
-					APIrequest.addBodyParameter("country", country);
-					if (country.equals("United States")){APIrequest.addBodyParameter("state", state);}
-					APIrequest.addBodyParameter("address1", ad);
-				} else if (zip != null) {
-					APIrequest.addBodyParameter("zip", zip);
-
-				} else {
-					APIrequest.addBodyParameter("lat", lat);
-					APIrequest.addBodyParameter("lon", lon);
+				try {
+					if ((!ad.equals(""))&&(!city.equals("NA"))&&(!country.equals("NA"))) {
+						APIrequest.addBodyParameter("city", city);
+						APIrequest.addBodyParameter("country", country);
+						if (country.equals("United States")){APIrequest.addBodyParameter("state", state);}
+						APIrequest.addBodyParameter("address1", ad);
+					} 
+				} catch (Exception e) {
+				 	if (zip != null) {
+						APIrequest.addBodyParameter("zip", zip);
+					} else {
+						APIrequest.addBodyParameter("lat", lat);
+						APIrequest.addBodyParameter("lon", lon);
+					}
 				}
 				APIrequest.addBodyParameter("time",millitime);
 				APIrequest.addBodyParameter("container_id",c_id);
@@ -131,7 +142,12 @@ public class EventCreateServlet extends HttpServlet {
 				
 				JSONObject json = new JSONObject(APIresponse.getBody());
 				rsvpID = json.getString("id");
-				callback = callback.concat("?id="+rsvpID);
+				if (callback.contains("?")) {
+					callback = callback.concat("&id="+rsvpID);
+				}
+				else {
+					callback = callback.concat("?id="+rsvpID);
+				}
 				containerName = json.getJSONObject("container").getString("name");
 
 				//Send email(s)
