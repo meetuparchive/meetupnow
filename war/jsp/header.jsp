@@ -40,11 +40,8 @@
 				List<MeetupUser> use = (List<MeetupUser>) q.execute(k);
 					
 %>
-				<li><%=use.get(0).getName()%></li>
 
-				<li><a href ="">My Events</a></li>
-
-				<li><a href ="/UserPrefs.jsp">Preferences</a> </li>
+				<li><a href ="/UserPrefs.jsp"><%=use.get(0).getName()%></a> </li>
 
 				<li><a href ="/logout?callback=">Log Out</a></li>
 <%
