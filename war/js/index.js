@@ -5,6 +5,21 @@
 	var events;
 	var current_page = 1;
 	var events_per_page = 5;
+	var d = new Date();
+
+
+	//event sorting functions
+	function SortByRSVP(a, b){
+		return (a.ev.rsvp_count < b.ev.rsvp_count);
+	}
+
+	function SortByTime(a, b){
+		return ((a.ev.time - d.getTime()) < (b.ev.time - d.getTime()));
+	}
+
+	function SortByDistance(a, b){
+
+	}
 
 	//set description to any string
 	function changeDiscription(desc){
@@ -96,7 +111,7 @@
 	//updates events to a number of events on a certain page
 	function update_events(){
 		var array_start = (current_page - 1)*events_per_page;
-		
+		eventArray.sort(SortByRSVP);
 		events.empty();
 		for (var i = 0; i < eventArray.length; i++){
 			
