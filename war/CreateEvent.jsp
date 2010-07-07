@@ -19,6 +19,8 @@
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui-1.8.2.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
+	
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
@@ -338,12 +340,13 @@ maxTimeValue = time.getTime();
 
 							
 					out.empty();
-					out.append("VALID");
+					out.append("<span style='color:green; font-size:1.4em; font-weight:bold;'>&#10003;</span>");
 					addressCheck = true;
 				} else {
 					out.empty();
-					out.append("NOT VALID");
+					out.append("<span style='color:red; font-size:1.4em; font-weight:bold;'>X</span>");
 					addressCheck = false;
+					
 				}
 				
 			});
@@ -367,10 +370,12 @@ maxTimeValue = time.getTime();
 	}
 %>
 	<div id="main">
-		<div id="contentLeft">
-			<div id="contentLeftBody">
+		<div id="contentBottom">
+			<div id="contentBottomBody">
+				<span class="title">Create An Event</span>
+			<div class="line">
+			<div class="unit size3of5">
 				<form id="form_createEvent" name="f" action="/EventCreate" onSubmit="return verifySubmission()" method="get">
-					<span class="title">Create An Event</span>
 				
 				<%
 					Query TopicQuery = pm.newQuery(Topic.class);
@@ -386,10 +391,10 @@ maxTimeValue = time.getTime();
 				%>
 				
 					<frameset>
-					<legend>Title</legend>
+					<legend><span class="hidden">Event Title</span></legend>
 					<ul>
 					<li>
-						<label for="title" class="hidden">Title</label>
+						<label for="title">Event Title</label>
 						<input type="text" value="" name="name" id="title">
 					</li>
 					<li>
@@ -407,7 +412,6 @@ maxTimeValue = time.getTime();
 				<%
 							} else {
 				%>
-							
 							<option value="<%=topics.get(i).getId()%>"><%=topics.get(i).getName()%></option>
 				<%
 							}
@@ -420,14 +424,12 @@ maxTimeValue = time.getTime();
 					</frameset>
 					
 					<frameset>
-					<legend>When</legend>
+					<legend><span class="hidden">When</span></legend>
 					<ul id="radio_when">
 						<li>
+							<label for="amount">Event Time</label>
 							<input type="radio" id="radio1" name="radio" checked="checked" onclick=today()><label for="radio1">Today</label>
 							<input type="radio" id="radio2" name="radio" onclick=tomorow()><label for="radio2">Tomorrow</label>
-						</li>
-						<li>
-							<label for="amount">Event Time:</label>
 							<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
 
 							<div id="slider"></div>
@@ -435,47 +437,54 @@ maxTimeValue = time.getTime();
 					</ul>
 					</frameset>
 					
-	<br><br><br><br><br>
-	<span class="goLeft"><span class="heading"> When? </span></span>
-	<span class="goRight">		
+					<frameset>
+					<legend><span class="hidden">Where</span></legend>
+					<ul>
+						<li>
+							<label for="venue">Venue</label>
+							<input type="text" name="venue" id="venue">
+						</li>
+						<li>
+							<label for="address">Address or Zip Code</label>
+							<input type="text" name="address" id="address" onChange="verifyAddress()" onKeyDown="verifyAddress()" onBlur="verifyAddress()">
+							<div id="out"></div>
+						</li>
+					</ul>
+					</frameset>
+			</div><!-- end .unit .size3of5 -->
+			<div class="unit size2of5 lastUnit">
+					<frameset>
+					<legend><span class="hidden">Description</span></legend>
+					<ul>
+						<li>
+							<label for="desc">Description</label>
+							<textarea name="desc" id="desc"></textarea>
+						<li>
+					</ul>
+					</frameset>
+			</div><!-- end .unit .size2of5 .lastUnit -->
+			</div><!-- end .line -->
+					<input type="hidden" name="month" id="month" />
+					<input type="hidden" name="day" id="day" />
+					<input type="hidden" name="year" id="year" />
+					<input type="hidden" name="hour" id="hour" />
+					<input type="hidden" name="minute" id="minute" />
+					<input type="hidden" name="ampm" id="ampm" />
+					<input type="hidden" name="localTimeZone" id="localTimeZone" />
+					<input type="hidden" name="lat" value="NA" id="lat" />
+					<input type="hidden" name="lon" value="NA" id="lon" />
 
-		<br>
-	</span>
-	<br><br><br><br><br>
-	<span class="goLeft"><span class="heading"> Where? </span></span>
-	<span class="goRight">
-		Venue<br>
-		<input type="text" name="venue" id="venue"/><br>
-		Address or Zip Code<br>
-		<input type="text" name="address" id="address" onChange="verifyAddress()" onKeyUp="verifyAddress()"/> <br>
-		<div id="out">NOT VALID</div>
-	</span>
-	<br><br><br><br><br><br><br><br><br>
-	<span class="goCenter">
-		<span class="heading"> Description: </span>
-		<span class="heading"> <textarea name="desc" id="desc" cols="60" rows="4"></textarea></span> <br>
-	</span>
-	<br><br><br>
-	<input type="hidden" name="month" id="month" />
-	<input type="hidden" name="day" id="day" />
-	<input type="hidden" name="year" id="year" />
-	<input type="hidden" name="hour" id="hour" />
-	<input type="hidden" name="minute" id="minute" />
-	<input type="hidden" name="ampm" id="ampm" />
-	<input type="hidden" name="localTimeZone" id="localTimeZone" />
-	<input type="hidden" name="lat" value="NA" id="lat" />
-	<input type="hidden" name="lon" value="NA" id="lon" />
+					<input type="hidden" name="ad" value="NA" id="ad" />
+					<input type="hidden" name="country" value="NA" id="country" />
+					<input type="hidden" name="city" value="NA" id="city" />
+					<input type="hidden" name="state" value="NA" id="state" />
+					<input type="hidden" name="callback" value="congrats.jsp" />
+					<input type="submit" id="exe" value="Create" class="createBtn">
 
-	<input type="hidden" name="ad" value="NA" id="ad" />
-	<input type="hidden" name="country" value="NA" id="country" />
-	<input type="hidden" name="city" value="NA" id="city" />
-	<input type="hidden" name="state" value="NA" id="state" />
-	<input type="hidden" name="callback" value="congrats.jsp" />
-	<input type="submit" id="exe" value="Create" />
-</span>
-</form>
-			</div> <!-- end #contentLeftBody -->
-		</div> <!-- end #contentLeft -->
+				</form>
+			
+			</div> <!-- end #contentBottomBody -->
+		</div> <!-- end #contentBottom -->
 	</div> <!-- end #main -->
 </div> <!-- end #wrap -->
 
