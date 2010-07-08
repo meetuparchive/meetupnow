@@ -26,11 +26,15 @@ public class Suggestion {
     @Persistent
     private String address;
 
+    @Persistent
+    private String to;
+
     //constructors
     public Suggestion() {
 	subject = null;
 	content = null;
 	address = null;
+	to = null;
     }  
     public Key getKey() {
         return key;
@@ -47,6 +51,10 @@ public class Suggestion {
 	public String getAddress() {
 		return address;
 	}
+	
+	public String getTo() {
+		return to;
+	}
 
 	public void setSubject(String s) {
 		subject = s;
@@ -58,6 +66,10 @@ public class Suggestion {
 
 	public void setAddress(String a) {
 		address = a;
+	}
+
+	public void setTo(String t) {
+		to = t;
 	}
 
 }
