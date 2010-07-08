@@ -34,7 +34,7 @@ try {
 } catch (Exception e) {}
 
 //ADDRESS GEN
-String ad = "";
+String ad = "1 Main Street";
 String[] zips = {"06612","06825","02675","10012","10011","22222","30303","07410","70112","60601","99501","90210","23432"};
 
 //EVENT GEN

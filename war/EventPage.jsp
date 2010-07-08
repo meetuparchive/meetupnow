@@ -157,14 +157,19 @@ try {
 									<span class="eventInfo_text">
 										<%=item.getString("venue_name") %><br>
 										<%
-													try{
+												try{
 										%>
 										<%=item.getString("address1") %><br>
 										<%
-													}catch (Exception e) {}
+												}catch (Exception e) {}
 										%>
-										
+										<%=item.getString("city") %>,
 										<%
+												try {
+										%>
+										 <%=item.getString("state") %>
+										<%
+												}catch(Exception e) {}
 											// Get value for hidden form field
 											String title = ev_id;
 											try {
@@ -173,6 +178,7 @@ try {
 
 											}
 										%>
+										<br>
 									</span> <!-- end eventInfo_text -->
 								</div> <!-- end #ctLoc -->
 							</div> <!-- end #ctDetails -->
