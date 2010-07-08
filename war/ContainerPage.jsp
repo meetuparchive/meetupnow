@@ -146,7 +146,7 @@
 
 				%>
 				
-					<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn fltrt"> Create Event in this Topic</a>
+					<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn fltrt"> Create An Event in this Topic</a>
 				</div> <!-- end #topicActions -->
 				<div id="map_canvasContentBottom">
 					<div id="map_canvas">
