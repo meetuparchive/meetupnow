@@ -16,6 +16,7 @@
 	<title>MeetupNOW</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="/js/index.js"></script>
@@ -240,29 +241,42 @@ if (!searchresults){
 
 <%//@ include file="jsp/ticker.jsp" %>
 <div id="main">
-	<div id="contentTop">
-		<div id="contentTopBody">
+	<div id="contentBottom">
+		<div id="contentBottomBody">
+			<div id="action">
+			
+			<% if(k.equals("empty")) { %>
+			
 			<span class="title">Get Started.</span>
 			<div id="actionDesc">
 				<span class="heading">MeetupNow is a site built so that you can find events happening locally, and happening soon. Nothing going on near you? No problem, just start something yourself, and people nearby will hear about it. Now go out and do something.</span>
 			</div> <!-- end #actionDesc -->
-		</div><!-- end contentTopBody -->
-	</div><!-- end #contentTop -->
-	<div id="contentRight">
-		<div id="contentRightBody">
-			<div id="action">
-				<a href="lucky"><span class="btn_main">Something Close and Soon</span></a>
-				<a href="CreateEvent.jsp"><span class="btn_main">Create An Event</span></a>
-				<a href="AllTopics.jsp"><span class="btn_main">Browse Events</span></a>
-			</div> <!-- end #action -->
-			<span class="title">Popular Events</span>
-		</div> <!-- end #contentRightBody -->
-	</div> <!-- end #contentRight -->
-	<div id="contentLeft">
-		<div id="contentLeftBody">
+			
+			<% } %>
+			
+			<div id="actionBtns">
+			<a href="CreateEvent.jsp" class="btn_main" style="float:right; margin-left: 12px">Create An Event</a>
+			<a href="lucky" class="btn_main" style="float:right; margin-left: 12px">Roll the Dice!</a>
+			<a href="AllTopics.jsp" class="btn_main" style="float:right; margin-left: 12px">Browse Events</a>
+			</div><!-- end #actionBtns -->
+			
+			<!-- <div class="line">
+				<div class="unit size1of3">
+					<a href="CreateEvent.jsp" class="btn_main fltlft">Create An Event</a>
+				</div>
+				<div class="unit size1of3">
+					<a href="lucky" class="btn_main" style="margin: 0 auto;">Roll the Dice!</a>
+				</div>
+				<div class="unit size1of3 lastUnit">
+					<a href="AllTopics.jsp" class="btn_main fltrt">Browse Events</a>
+				</div> 
+			</div> -->
+			</div><!-- end #action -->
+			
+			
 			<div class="map_contextLeft">
 				<span class="map_title title">Happening NOW near you...</span>
-				<div id="map_canvasContainerLeft">
+				<div id="map_canvasContainerMain">
 					<div id="map_canvas">
 
 				</div><!-- end #map_canvas -->
@@ -293,7 +307,7 @@ if (!searchresults){
 						</div> <!-- end .submit -->
 				</form>
 			</div> <!-- end #search -->
-			<span style="clear:both;"><a href="/search.jsp">Go to Topic Search</a></span>
+
 			</div> <!-- end #searchContext -->
 			<div id="mn_geoListContext">
 			<div id="mn_geoListHeader">
