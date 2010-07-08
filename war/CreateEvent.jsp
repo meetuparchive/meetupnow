@@ -485,7 +485,7 @@ function getMonth(m) {
 					<input type="hidden" name="country" value="NA" id="country" />
 					<input type="hidden" name="city" value="NA" id="city" />
 					<input type="hidden" name="state" value="NA" id="state" />
-					<input type="hidden" name="callback" value="congrats.jsp" />
+					<input type="hidden" name="callback" value="/Event" />
 					<input type="submit" id="exe" value="Create" class="createBtn">
 
 				</form>
