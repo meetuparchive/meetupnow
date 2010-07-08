@@ -17,7 +17,9 @@
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<link rel="stylesheet" href="/css/ui-lightness/jquery-ui-1.8.2.css" type="text/css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="/js/index.js"></script>
 	<script type="text/javascript">
@@ -30,6 +32,14 @@
 
 		
 			function loadEvents(){
+				
+			// Sort Buttons | jQuery UI
+			$(function() {
+					$("#sortMain").buttonset();
+			});
+			
+			// Select Topic Widget | jQuery UI
+			
 
 <%
 
@@ -255,33 +265,38 @@ if (!searchresults){
 				</div><!-- end #map_canvas -->
 			</div><!-- end #map_canvasContainer -->
 			</div><!-- end .map_context -->
-			<div id="searchContext">
-			<div id="search">
-				<form action="index.jsp" method="post" accept-charset="utf-8">
-					<div class="element">
-						<div class="label">
-							<label for="query">Search for: </label>
-						</div> <!-- end .label -->
-						<div class="mainSearchInput">
-							<input type="text" name="query" value="<%= querystring %>" id="mainSearchQuery" maxlength="100">
-						</div> <!-- end .input -->
-					</div> <!-- end .element -->
-					<div class="element">
-						<div class="label">
-							<label for="location">City or Postal Code</label>
-						</div> <!-- end .label -->
-						<div class="mainSearchInput">
-							<input type="text" name="location" value="<%=locationquery.replace('+',' ')%>" id="mainSearchLocation" maxlength="100">
-						</div> <!-- end .input -->
-					</div> <!-- end .element -->
-
-						<div class="submit">
-							<input type="submit" value="Search" class="submitBtn">
-						</div> <!-- end .submit -->
-				</form>
-			</div> <!-- end #search -->
-
-			</div> <!-- end #searchContext -->
+			
+			<div class="line">
+				<div class="unit size1of2">
+					<div class="mainListActions">
+					<form action="index.jsp" method="post" accept-charset="utf-8">
+						<select id="topicSelect" name="topic">
+							<option value="-1">All Topics</option>
+							<option value="936">Sports</option>
+							<option value="941">TV/Movies</option>
+							<option value="942">Study Groups</option>
+							<option value="943">Eating/Getting Meals</option>
+							<option value="944">Hiking/Walking/Exersize</option>
+							<option value="945">Other</option>
+							<option value="946">Community Service</option>
+							<option value="947">Gaming(Electronic/Traditional)</option>
+							<option value="948">Sightseeing</option>
+							<option value="949">Parties</option>
+						</select>
+					</form>
+					</div>
+				</div>
+				<div id="sortMain" class="unit size1of2 lastUnit">
+				<div class="mainListActions fltrt">
+					<span class="mlaText">Sort By</span><input type="radio" id="sortTime" name="sortBy" checked="checked" onclick="eventArray.sort(SortByTime); update_events(current_page);"><label for="sortTime">Time</label>
+					<input type="radio" id="sortDistance" name="sortBy" onclick="eventArray.sort(SortByDistance); update_events(current_page);"><label for="sortDistance">Distance</label>
+					<input type="radio" id="sortPop" name="sortBy" onclick="eventArray.sort(SortByRSVP); update_events(current_page);"><label for="sortPop">Popularity</label>
+				</div><!-- end #sortMainBtnWrap -->
+				</div>
+			</div>
+			
+					
+			
 			<div id="mn_geoListContext">
 			<div id="mn_geoListHeader">
 				<span id="searchResultsHeading" class="listTitle"></span>

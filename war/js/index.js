@@ -4,7 +4,7 @@
 	var eventDescription = $('#mn_eventDescription');	
 	var events;
 	var current_page = 1;
-	var events_per_page = 10;
+	var events_per_page = 8;
 	var d = new Date();
 	var User_Lat = 0;
 	var User_Lon = 0;

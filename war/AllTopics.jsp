@@ -16,6 +16,7 @@
 	<title>MeetupNOW</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 	<script type="text/javascript" src="/js/index.js"></script>
@@ -97,7 +98,7 @@
 			if (ev.meetup_count > 1) {
 				numevents ="<br>"+ ev.meetup_count+" Events happening in the next 48 hours<br>"
 			}
-			out.append('<div class="commentFeedItem"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + people +ev.description + numevents+'</span><a href="/CreateEvent.jsp?'+ev.id+'">Create an Event</a><div>');
+			out.append('<div class="commentFeedItem"><div class="line"><div class="unit size2of4"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><div class="unit size1of4">' + people + numevents + '</div><div class="unit size1of4 lastUnit"><a href="/CreateEvent.jsp?' + ev.id + '">Create Event</a></div></div></div>');
 			
 		});
 		$.each(data.meta, function(i, ev) {
@@ -114,17 +115,19 @@
 	<div id="main">
 
 	
-		<div id="contentLeft">
-			<div id="contentLeftBody">
+		<div id="contentBottom">
+			<div id="contentBottomBody">
 
 					<div id="activityFeed">
 						<span class="title">Choose a Topic. Find an Event.</span>
 						<span class="options">Don't see anything you like? <a href="mailto:suggestions@jake-meetup-test.appspotmail.com?subject=Topic Suggestion" target="_blank">Suggest a new topic!</a></span><br><br>
-						<div id = "activity"> </div>
+						<div id = "activity">
+							
+						</div>
 					</div> <!-- end #activityFeed -->
 	
-			</div> <!-- end #contentLeftBody -->
-		</div> <!-- end #contentLeft -->
+			</div> <!-- end #contentBottomBody -->
+		</div> <!-- end #contentBottom -->
 	</div> <!-- end #main -->
 </div> <!-- end #wrap -->
 
