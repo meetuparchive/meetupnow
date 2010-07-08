@@ -57,6 +57,7 @@ var count = 0;
 	var two = count + 2;
 	$("div:."+count+",."+one+",."+two).fadeTo('slow', 0.0, function () {
 				addBox(n);
+				n++;
 	$("div:."+count+",."+one+",."+two).slideUp(function () {
 
 
