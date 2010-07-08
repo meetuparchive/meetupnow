@@ -182,37 +182,39 @@
 					try {
 						evs = new JSONObject(APIresponse.getBody());
 						evr = evs.getJSONArray("results");
-						rsvpTracker = new String[evr.length()][2];
-						for (int j = 0; j < evr.length(); j++) {
-							evList = evList.concat(evr.getJSONObject(j).getString("event_id"));
-							rsvpTracker[j][0] = evr.getJSONObject(j).getString("event_id");
-							rsvpTracker[j][1] = evr.getJSONObject(j).getString("id");
-							if (j < (evr.length() - 1)) {
-								evList = evList.concat(",");
-							}
-						}
-					} catch (JSONException j) {
-
-					}
-					
-					APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?event_id="+evList);
-					scribe.signRequest(APIrequest,accessToken);
-					APIresponse = APIrequest.send();
-					JSONObject j = new JSONObject();
-					JSONArray events;
-					JSONObject e;
-					try {
-						j = new JSONObject(APIresponse.getBody());
-						events = j.getJSONArray("results");
-						String rsvpID = "";
-						for (int x=0; x < events.length(); x++) {
-							e = events.getJSONObject(x);
-							for (int m=0; m < evr.length(); m++) {
-								if(rsvpTracker[m][0].equals(e.getString("id"))) {
-									rsvpID = rsvpTracker[m][1];
+						if (evr.length() > 0) {
+							rsvpTracker = new String[evr.length()][2];
+							for (int j = 0; j < evr.length(); j++) {
+								evList = evList.concat(evr.getJSONObject(j).getString("event_id"));
+								rsvpTracker[j][0] = evr.getJSONObject(j).getString("event_id");
+								rsvpTracker[j][1] = evr.getJSONObject(j).getString("id");
+								if (j < (evr.length() - 1)) {
+									evList = evList.concat(",");
 								}
 							}
-					%>
+						}
+					} catch (Exception j) {
+
+					}
+					if (evr.length() > 0) {
+						APIrequest = new Request(Request.Verb.GET, "http://api.meetup.com/ew/events/?event_id="+evList);
+						scribe.signRequest(APIrequest,accessToken);
+						APIresponse = APIrequest.send();
+						JSONObject j = new JSONObject();
+						JSONArray events;
+						JSONObject e;
+						try {
+							j = new JSONObject(APIresponse.getBody());
+							events = j.getJSONArray("results");
+							String rsvpID = "";
+							for (int x=0; x < events.length(); x++) {
+								e = events.getJSONObject(x);
+								for (int m=0; m < evr.length(); m++) {
+									if(rsvpTracker[m][0].equals(e.getString("id"))) {
+										rsvpID = rsvpTracker[m][1];
+									}
+								}
+					%>	
 				
 					<div class="topicSubItem">
 						<span class="topicSubItem_name">
@@ -236,8 +238,13 @@
 					</div> <!-- end .topicSubItem -->
 					
 					<%
-						}
-					} catch (JSONException l) {}
+							}
+						} catch (Exception l) {}
+					} else {
+					%>
+						None! Go  <a href="/AllTopics.jsp">sign up</a> for something!
+					<%
+					}
 					%>
 				</div> <!-- end #topicSubscriptions -->
 			</div> <!-- end #contentRightBody -->
