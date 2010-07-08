@@ -4,6 +4,7 @@
 
 }
 	.tickerContext {
+	overflow:hidden;
 	padding: 5px;
 	height: 100px;
 			background: -webkit-gradient(
@@ -30,12 +31,13 @@
 		float: left;
 		background: #000000;
 		height: 85px;
-		width: 20.0%;
+		width: 240px;
 		border-radius: 5px 5px 5px 5px;
 		-moz-border-radius: 5px 5px 5px 5px;
 		-webkit-border-radius: 5px 5px 5px 5px;
 		border-style:solid;
 		border-color:#FFFFFF;
+		border-width: 1px;
 		padding: 8px;
 		margin-right: 10px;
 	}

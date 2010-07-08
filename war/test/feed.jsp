@@ -43,7 +43,7 @@ public static String timeBetween(Date d1, Date d2){
 }
 %>
 <%
-int numBoxes = 4;
+int numBoxes = 3;
 %>
 <script type="text/javascript">
 
@@ -52,12 +52,19 @@ var alerts = new Array();
 $(function() {
 var count = 0;
   $("button").click(function () {
-	var n = count + <%=numBoxes%>
-	$("div:."+count).fadeOut(function () {
-		addBox(n);
+	var n = count + <%=numBoxes%>;
+	var one = count + 1;
+	var two = count + 2;
+	$("div:."+count+",."+one+",."+two).fadeTo('slow', 0.0, function () {
+				addBox(n);
+				n++;
+	$("div:."+count+",."+one+",."+two).slideUp(function () {
+
 
 	});
 	count++;
+	});
+
   });
 
 var counter = 0;
@@ -92,14 +99,21 @@ for (int i=0; i<numBoxes; i++) {
 				newsQuery.closeAll();
 			}
 %>
-var interval = window.setInterval(loop, 4);
+var interval = window.setInterval(loop, 5000);
 function loop() {
-	var n = count + <%=numBoxes%>
-	$("div:."+count).fadeOut(function () {
-		addBox(n);
+	var n = count + <%=numBoxes%>;
+	var one = count + 1;
+	var two = count + 2;
+	$("div:."+count+",."+one+",."+two).fadeTo('slow', 0.0, function () {
+				addBox(n);
+				n++;
+	$("div:."+count+",."+one+",."+two).slideUp(function () {
+
 
 	});
 	count++;
+	});
+
 var randomnumber = Math.floor(Math.random()*15000)
 if (randomnumber < 5000) {randomnumber = 5000};
 window.clearInterval(interval);
