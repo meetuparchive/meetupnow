@@ -41,7 +41,7 @@ String[] zips = {"06612","06825","02675","10012","10011","22222","30303","07410"
 
 String[] ids = {"946","943","947","944","945","949","948","936","942","941"};
 String[][] venues = {
-	{"Habitat For Humanity","Homeless Shelter"},
+	{"Habitat For Humanity","Homeless Shelter","Soup Kitchen"},
 	{"Burger King","Olive Garden"},
 	{"GameStop","Comic Store"},
 	{"Mountain Peak","The Track"},
