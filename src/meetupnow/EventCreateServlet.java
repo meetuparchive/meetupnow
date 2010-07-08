@@ -119,6 +119,7 @@ public class EventCreateServlet extends HttpServlet {
 
 				 	if (zip != null) {
 						APIrequest.addBodyParameter("zip", zip);
+						APIrequest.addBodyParameter("address1", ad.split(",")[0]);
 					} else {
 						APIrequest.addBodyParameter("lat", lat);
 						APIrequest.addBodyParameter("lon", lon);
