@@ -62,10 +62,12 @@ if (querystring != null && locationquery != null){
 			json = new JSONObject(APIresponse.getBody());
 
 
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&lat=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat") + "&lon=" + json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+			
 
 			Lat =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
 			Lon =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon;
 			if (hits.length() > 0) {
 
 				for (int i = 0; i < hits.length(); i++){
@@ -86,13 +88,15 @@ if (querystring != null && locationquery != null){
 				API_URL = API_URL + containers;
 				System.out.println(API_URL);
 
-			}
+			
 
 
-			APIresponse = sg.submitURL(API_URL);
-			json = new JSONObject(APIresponse.getBody());
+				APIresponse = sg.submitURL(API_URL);
+				json = new JSONObject(APIresponse.getBody());
 	%> var data = <%=json.toString() %> ;<%
-
+			} else {
+	%> var data = "";<%	
+			}
 
 		} else {
 

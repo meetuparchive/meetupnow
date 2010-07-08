@@ -1,60 +1,29 @@
-	
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 
+<%@ page import="javax.jdo.PersistenceManager" %>
+<%@ page import="javax.jdo.Query" %>
+<%@ page import="java.util.Properties" %>
+<%@ page import="java.util.List" %>
+<%@ page import="meetupnow.MeetupUser" %>
+<%@ page import="meetupnow.PMF" %>
+<%@ page import="meetupnow.RegDev" %>
+<%@ page import="org.scribe.oauth.*" %>
+<%@ page import="org.scribe.http.*" %>
+<%@ page import="org.json.*" %>
+<%@ page import="java.util.Calendar" %>
+<%@ page import="java.util.TimeZone" %>
+<%@ page import="java.text.DateFormat" %>
+<%@ page import="java.util.Date" %>
+
+<%@ include file="cookie.jsp" %>
+<%@ include file="declares.jsp" %>
+<script>	
+	var map;
 	var eventArray = new Array();	
 	var eventDescription = $('#mn_eventDescription');	
 	var events;
 	var current_page = 1;
 	var events_per_page = 5;
-	var evt;
-	var JSONList = {
-  'wiki-url':"http://simile.mit.edu/shelf/", 
-  'wiki-section':"Simile JFK Timeline", 
-  'dateTimeFormat': 'Gregorian',
-  'events' : [] };
-
-	var EventSource = new Timeline.DefaultEventSource();
- 	var tl;
- 	function onLoad() {
-      		var dateEvent = new Date();
-
-             	var eventSource = new Timeline.DefaultEventSource(); 
-   		var bandInfos = [
-     			Timeline.createBandInfo({
-         			width:          "70%", 
-         			intervalUnit:   Timeline.DateTime.DAY, 
-         			intervalPixels: 100,
-              			eventSource: eventSource
-	
-			}),
-     			Timeline.createBandInfo({
-         			width:          "30%", 
-         			intervalUnit:   Timeline.DateTime.WEEK, 
-         			intervalPixels: 200,
-				eventSource: eventSource
-			})
-   		];
-		tl = Timeline.create(document.getElementById("map_canvas"), bandInfos);
-
-   		bandInfos[1].syncWith = 0;
-   		bandInfos[1].highlight = true;
-      		eventSource.loadJSON(JSONList, '');
-
-
- }
- 
- var resizeTimerID = null;
- function onResize() {
-     if (resizeTimerID == null) {
-         resizeTimerID = window.setTimeout(function() {
-             resizeTimerID = null;
-             tl.layout();
-         }, 500);
-     }
- }
-
-
-
-
 
 	//set description to any string
 	function changeDiscription(desc){
@@ -90,6 +59,7 @@
 		}
 
 	}
+
 
 	//add event to list under map
 	function add_event(event){
@@ -127,7 +97,16 @@
 		var array_start = (current_page - 1)*events_per_page;
 		
 		events.empty();
-	
+		for (var i = 0; i < eventArray.length; i++){
+			
+			if (i < (array_start + events_per_page) && i > (array_start - 1)){
+				add_event(eventArray[i]);
+				eventArray[i].marker.setVisible(true);	
+			} else {
+				eventArray[i].marker.setVisible(false);
+			}
+					
+		}
 		
 		//Next page / previous page link (when applicable)
 		if ((current_page * events_per_page) < eventArray.length){
@@ -146,18 +125,17 @@
 	function use_everywhere(data){
 		var event_object;
 
-
 		var eventlist = $('#activity');
 		var events = $('#mn_geoListContext');
 		events.empty();
 
-	
+		
 
 		//clear events
 		events.empty();
 		$.each(data.results, function(i, ev) {
 			if (ev.lon != ''){
-						
+			
 
 				//epoc time to date string
 				var date = new Date(ev.time);
@@ -168,22 +146,61 @@
 					date_string = date_string + date.getMinutes();
 				}		
 
-				JSONList.events.push( { 'start' : date , 'title' : ev.title } );
-
-
-
-
 				//add event to list
-				eventlist.append('<div class="commentFeedItem"><div class="line"><div class="unit size3of5"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><!--end .unit .size3of5--><div class="unit size1of5">Event Info</div><!--end .unit .size1of5--><!--end .unit .size1of5 .lastUnit--></div><!--end .line--></div><!--end .commentFeedItem-->');
+				eventlist.append('<div class="commentFeedItem"><div class="line"><div class="unit size3of5"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><!--end .unit .size3of5--><div class="unit size1of5">Event Info</div><!--end .unit .size1of5-->'+ 	
+					<%
+						Response rsvpResponse = sg.submitURL("http://api.meetup.com/ew/rsvps?event_id="+ev_id);
+						JSONObject rsvpjson = new JSONObject();
+						JSONArray members;
+						
+						try {
+							rsvpjson = new JSONObject(rsvpResponse.getBody());
+							members = rsvpjson.getJSONArray("results");
+							boolean in = false;
+							String rsvpID = "";
+							for (int j = 0; j < members.length(); j++) {
 
-			
+								String tempName = members.getJSONObject(j).getJSONObject("member").getString("name");
+								userList = userList.concat("<li>"+tempName+"</li>");	
+								if (!MUID.equals("")) {
+									if (MUID.equals(members.getJSONObject(j).getJSONObject("member").getString("member_id"))) {
+										in = true;
+										rsvpID = members.getJSONObject(j).getString("id");
+									}
+								}
+							}
+						%>
+									'<div class="fltrt">' +
+						<%
+							if (in) {
+						%>
+										'<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="inBtn">Im In</a>' +
+						<%
+							} else {
+								if (!key.equals("empty")) {
+						%>
+										'<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>" class="rsvpBtn">RSVP</a>' +
+						<%
+								} else {
+						%>
+										'<a href="#modal_login" name="modal" class="rsvpBtn">RSVP</a>' +
+						<%
+								}
+							}
+						%>
+						<%
+						}
+						catch (JSONException j) {}
+						%>
+						'</div> <!-- end .fltrt --><!--end .unit .size1of5 .lastUnit--></div><!--end .line--></div><!--end .commentFeedItem-->');
 
+				
 				//create event object
 				event_object = new Object;
 
 				event_object.ev = ev;			
 				event_object.date = date_string;
-
+				event_object.marker = marker;
 				//add_event(event_object);
 	
 				//push object onto array
@@ -192,11 +209,11 @@
 
 			}
 		});
-onLoad();
-
 		update_events(current_page);	
 		
 
 
-	}
 
+
+	}
+</script>
