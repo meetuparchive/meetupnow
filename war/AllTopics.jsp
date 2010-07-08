@@ -119,7 +119,7 @@
 
 					<div id="activityFeed">
 						<span class="title">Choose a Topic. Find an Event.</span>
-						<span class="options">Don't see anything you like? <a href="mailto:suggestions@jake-meetup-test.appspotmail.com">Suggest a new topic!</a></span><br><br>
+						<span class="options">Don't see anything you like? <a href="mailto:suggestions@jake-meetup-test.appspotmail.com?subject=Topic Suggestion" target="_blank">Suggest a new topic!</a></span><br><br>
 						<div id = "activity"> </div>
 					</div> <!-- end #activityFeed -->
 	
