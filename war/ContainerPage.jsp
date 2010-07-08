@@ -27,6 +27,8 @@
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+	<script src="http://api.simile-widgets.org/timeline/2.3.1/timeline-api.js?bundle=true" type="text/javascript"></script>
+
 	<script type="text/javascript" src="/js/container.js"></script>
 	<script type="text/javascript">
 
@@ -34,7 +36,7 @@
 		function loadEvents(){
 		<%@ include file="jsp/cookie.jsp" %>
 		<%@ include file="jsp/declares.jsp" %>
-
+		
 		<%
 
 		String c_id = "";
@@ -99,12 +101,15 @@
 	
 		}
 		%>
+
 			use_everywhere(data);
+
 		}
 
 	</script>
 </head>
-<body onload="loadEvents()">
+<body onload="loadEvents()" onresize="onResize();">
+
 <div id="wrap">
 	<%@ include file="jsp/header.jsp" %>
 	<div id="main">
