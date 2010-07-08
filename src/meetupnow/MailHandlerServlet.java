@@ -27,15 +27,12 @@ public class MailHandlerServlet extends HttpServlet {
    			} else if (content instanceof Multipart)  {   
            			Multipart mp = (Multipart)content;             
            			int parts = mp.getCount();       
-           			BodyPart bodyPart = null;
-           			for (int x=0; x<parts ; x++)  {                
-                 			bodyPart = mp.getBodyPart(x);  
-					Object o2 = bodyPart.getContent(); 
-					output = output.concat((String) o2);
-           			}  
+           			BodyPart bodyPart = mp.getBodyPart(0);            
+				Object o2 = bodyPart.getContent(); 
+				output = output.concat((String) o2);
    			}  
 
-			
+			sug.setTo(message.getAllRecipients()[0].toString());
 			sug.setContent(output);
 			sug.setSubject(message.getSubject());
 			sug.setAddress(message.getFrom()[0].toString());

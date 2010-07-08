@@ -3,7 +3,7 @@
 		<div id="footerRow">
 			<ul class="footerSection">
 				<li>About Meetup Now</li>
-				<li>Contact Us</li>
+				<li><a href="mailto:staff@jake-meetup-test.appspotmail.com">Contact Us</a></li>
 			</ul>
 		</div><!-- footerRow -->
 		
