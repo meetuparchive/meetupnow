@@ -1100,3 +1100,22 @@ input#topicSearchQuery {
 }
 
 /*** Mobile ***/
+
+/*#topicSelect {
+	padding: 0.4em 1em;
+	//border: 1px solid #cccccc;
+	background: #f6f6f6 url(css/ui-lightness/images/ui-bg_glass_100_f6f6f6_1x400.png) 50% 50% repeat-x transparent;
+	color: #1C94C4;
+	font-weight: bold;
+	font-family: 'Trebuchet MS', Tahoma, Verdana, Arial, sans-serif;
+	font-size: 1.1em;
+}*/
+.mainListActions {
+	margin: 24px 0 0;
+}
+.mlaText {
+	font-size: 1.1em;
+	font-weight: bold;
+	color: #f2f2f2;
+	padding-right: 12px;
+}
