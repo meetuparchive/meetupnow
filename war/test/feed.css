@@ -1,0 +1,75 @@
+#ticker {
+	position: relative;
+	height: 100px;
+
+}
+	.tickerContext {
+	padding: 5px;
+	height: 100px;
+			background: -webkit-gradient(
+		    linear,
+		    left bottom,
+		    left top,
+		    from(rgb(2,36,50)),
+		    to(rgba(0,0,0,0.5))
+		);
+		background: -moz-linear-gradient(
+				    center bottom,
+				    rgb(2,36,50) 0%,
+				    rgba(0,0,0,0.5) 100%
+				);
+	
+		border-radius: 5px 5px 5px 5px;
+		-moz-border-radius: 5px 5px 5px 5px;
+		-webkit-border-radius: 5px 5px 5px 5px;
+		padding-bottom: 12px;
+}
+	.tickerContentBox {
+		color: #FFFFFF;
+		font-size: .75em;
+		float: left;
+		background: #000000;
+		height: 85px;
+		width: 20.0%;
+		border-radius: 5px 5px 5px 5px;
+		-moz-border-radius: 5px 5px 5px 5px;
+		-webkit-border-radius: 5px 5px 5px 5px;
+		border-style:solid;
+		border-color:#FFFFFF;
+		padding: 8px;
+		margin-right: 10px;
+	}
+
+
+#activityFeedContext {
+	width: 540px;
+	padding: 12px;
+	background: -webkit-gradient(
+	    linear,
+	    left bottom,
+	    left top,
+	    from(rgb(2,36,50)),
+	    to(rgba(0,0,0,0.5))
+	);
+	background: -moz-linear-gradient(
+			    center bottom,
+			    rgb(2,36,50) 0%,
+			    rgba(0,0,0,0.5) 100%
+			);
+
+	border-radius: 5px 5px 5px 5px;
+	-moz-border-radius: 5px 5px 5px 5px;
+	-webkit-border-radius: 5px 5px 5px 5px;
+}
+#activityFeed {
+		border-bottom: 1px dotted #666;
+	}
+	.activityFeedItem {
+		height: 40px;
+		color: #f2f2f2;
+		padding: 6px 8px;
+		font-size: 1.2em;
+		border-top: 1px dotted #666;
+		-moz-border-top: 1px solid #666;
+		-webkit-border-top: 1px solid #666;
+	}
