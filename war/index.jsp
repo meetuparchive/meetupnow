@@ -353,7 +353,7 @@ if (!searchresults){
 			
 			<div id="actionBtns">
 			<a href="CreateEvent.jsp" class="btn_main" style="float:right; margin-left: 12px">Create An Event</a>
-			<a href="lucky" class="btn_main" style="float:right; margin-left: 12px">Roll the Dice!</a>
+			<a href="lucky" class="btn_main" style="float:right; margin-left: 12px">Can't Decide?</a>
 			<a href="AllTopics.jsp" class="btn_main" style="float:right; margin-left: 12px">Browse Events</a>
 			</div><!-- end #actionBtns -->
 			
