@@ -72,13 +72,21 @@
 
 	int numBoxes = 3;
 
-	CompassSearchSession search = PMF.getCompass().openSearchSession();
+
 	RegDev sg = new RegDev();
-	String querystring = request.getParameter("query");
+	String querystring = request.getParameter("topic");
 	String locationquery = request.getParameter("location");
 	if (querystring == null) querystring = "";
 	if (locationquery == null) locationquery = "";
-	String containers = "&container_id=";
+	System.out.println(locationquery + " " + querystring);
+	String containers = "";
+	if (!querystring.equals("0")){
+		containers = "&container_id=" + querystring;
+		System.out.println(querystring);
+	}
+	else {
+		containers = "&container_id=936,941,942,943,944,945,946,947,948,949";
+	}
 	JSONObject json;
 	Boolean searchresults = false;
 			String Lat = "";
@@ -87,55 +95,30 @@
 
 if (querystring != null && locationquery != null){
 
-	if (!locationquery.equals("")){	
+	if (!querystring.equals("")) {
 
-		if (!querystring.equals("")) {
+		if (!locationquery.equals("")){	
+
+		
 
 			locationquery = locationquery.replace(' ', '+');
 			searchresults = true;
-			System.out.println(!querystring.equals("") + " " + !locationquery.equals(""));
-			CompassHits hits = null;
-			hits = search.queryBuilder().queryString(querystring).toQuery().setTypes(Topic.class).hits();
+
+
+
 			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
 			APIresponse = sg.submitUnsignedURL(GEOCODE_API_URL);
 			json = new JSONObject(APIresponse.getBody());
 
-
-			
-
 			Lat =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
 			Lon =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
 
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon;
-			if (hits.length() > 0) {
-
-				for (int i = 0; i < hits.length(); i++){
-					Topic topic = (Topic) hits.data(i);
-					Resource resource = hits.resource(i);
-					if (i < hits.length() - 1){			
-						containers = containers + Integer.toString(topic.getId()) + ",";
-
-					}else{
-						containers = containers + Integer.toString(topic.getId());
-
-					}
-				}
-
-				if (hits.getSuggestedQuery().isSuggested()) {
-				    System.out.println("Did You Mean: " + hits.getSuggestedQuery());
-				}
-				API_URL = API_URL + containers;
-				System.out.println(API_URL);
-
-			
-
-
-				APIresponse = sg.submitURL(API_URL);
-				json = new JSONObject(APIresponse.getBody());
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon + containers;
+			System.out.println(API_URL);
+			APIresponse = sg.submitURL(API_URL);
+			json = new JSONObject(APIresponse.getBody());
 	%> var data = <%=json.toString() %> ;<%
-			} else {
-	%> var data = "";<%	
-			}
+
 
 		} else {
 
@@ -403,7 +386,7 @@ if (!searchresults){
 								<label for="location">City or Postal Code</label>
 							</div> <!-- end .label -->
 							<select class="fltlft" id="topicSelect" name="topic">
-								<option value="-1">All Topics</option>
+								<option value="0">All Topics</option>
 								<option value="936">Sports</option>
 								<option value="941">TV/Movies</option>
 								<option value="942">Study Groups</option>
