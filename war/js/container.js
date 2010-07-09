@@ -17,6 +17,8 @@
  	function onLoad() {
       		var dateEvent = new Date();
              	var eventSource = new Timeline.DefaultEventSource(); 
+		var myTheme = Timeline.ClassicTheme.create();
+		myTheme.label = "black";
    		var bandInfos = [
      			Timeline.createBandInfo({
          			width:          "70%", 
@@ -29,7 +31,8 @@
          			width:          "30%", 
          			intervalUnit:   Timeline.DateTime.DAY, 
          			intervalPixels: 300,
-				eventSource: eventSource
+				eventSource: eventSource,
+				theme: myTheme
 			})
    		];
 		
@@ -175,7 +178,7 @@
 
 
 				//add event to list
-				eventlist.append('<div class="commentFeedItem"><div class="line"><div class="unit size3of5"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><!--end .unit .size3of5--><div class="unit size1of5">Event Info</div><!--end .unit .size1of5--><!--end .unit .size1of5 .lastUnit--></div><!--end .line--></div><!--end .commentFeedItem-->');
+				eventlist.append('<div class="commentFeedItem"><div class="line"><div class="unit size3of5"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><!--end .unit .size3of5--><div class="unit size1of5">Event Info</div><!--end .unit .size1of5--><div class="unit size1of5 lastUnit">Right?</div><!--end .unit .size1of5 .lastUnit--></div><!--end .line--></div><!--end .commentFeedItem-->');
 
 			
 
