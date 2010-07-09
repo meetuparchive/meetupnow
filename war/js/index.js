@@ -155,7 +155,10 @@
 		$('.pageinationNav').empty();
 
 		//Next page / previous page link (when applicable)
-		if (((current_page) * events_per_page) >= eventArray.length){
+		if (events_per_page >= eventArray.length){
+			$('.paginationNav').html('');
+		}
+		else if (((current_page) * events_per_page) >= eventArray.length){
 
 			$('.paginationNav').html('<a href="javascript:prevPage()"><span class="prevPage">&laquo; PREVIOUS</span></a>');
 		}
