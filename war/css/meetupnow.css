@@ -280,7 +280,7 @@ body {
 			display: block;
 			padding: 4px 6px;
 			background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#1A8C78), to(#1ABE78));
-			background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
+			background-image: -moz-linear-gradient(center top , #1ABE78, #1A8C78);
 			width: 80px;
 			text-align: center;
 			text-decoration: none !important;
