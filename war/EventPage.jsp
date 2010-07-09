@@ -38,7 +38,6 @@ if (request.getQueryString() != null) {
 }
 %>
 
-	<title>MeetupNOW</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
@@ -85,8 +84,7 @@ if (request.getQueryString() != null) {
 
 	}
 	</script>
-</head>
-<body>
+
 
 <%
 String MUID = "";
@@ -131,7 +129,9 @@ try {
 		
 		
 %>
-
+<title>Meetup Now - <%=evname%></title>
+</head>
+<body>
 <div id="wrap">
 	<%@ include file="jsp/header.jsp" %>
 		<div id="main">

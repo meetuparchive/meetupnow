@@ -20,7 +20,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>Meetup Now</title>
+	<title>Meetup Now - Topic</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
@@ -30,6 +30,14 @@
 	<script src="http://api.simile-widgets.org/timeline/2.3.1/timeline-api.js?bundle=true" type="text/javascript"></script>
 
 	<script type="text/javascript" src="/js/container.js"></script>
+
+		<%
+
+		String c_id = "";
+		String c_name = "";
+		String MUID = "";
+		%>
+	
 	<script type="text/javascript">
 
 		
@@ -37,13 +45,9 @@
 		<%@ include file="jsp/cookie.jsp" %>
 		<%@ include file="jsp/declares.jsp" %>
 		
+
+
 		<%
-
-		String c_id = "";
-		String c_name = "";
-		String MUID = "";
-
-		
 		if (request.getQueryString() != null) {
 			c_id = request.getQueryString();
 		} else {
@@ -107,6 +111,8 @@
 		}
 
 	</script>
+
+
 </head>
 <body onload="loadEvents()" onresize="onResize();">
 
