@@ -13,7 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>MeetupNOW</title>
+	<title>Meetup Now - Browse Events</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
