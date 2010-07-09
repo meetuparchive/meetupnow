@@ -15,7 +15,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
-	<title>Meetup Now</title>
+	<title>Meetup Now - User Page</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
 	<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
