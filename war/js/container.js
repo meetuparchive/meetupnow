@@ -162,6 +162,14 @@
 
 				//epoc time to date string
 				var date = new Date(ev.time);
+				var today = new Date();
+				
+				if (date.getDate() == today.getDate()) {
+					ttText = "Today @ ";
+				}
+				else if (date.getDate() == today.getDate()+1) {
+					ttText = "Tomorrow @ ";
+				}
 				
 				if (date.getHours() > 11) {
 					ampm = " PM";
@@ -182,8 +190,10 @@
 				
 				if (date.getMinutes() < 10) {
 					date_string = date_string + "0" + date.getMinutes() + ampm;
+					time_string = ttText + chour + ":0" + date.getMinutes() + ampm;
 				} else{
 					date_string = date_string + date.getMinutes() + ampm;
+					time_string = ttText + chour + ":" + date.getMinutes() + ampm;
 				}		
 
 				JSONList.events.push( { 'start' : date , 'title' : ev.title } );
@@ -195,7 +205,7 @@
 				}
 
 				//add event to list
-				eventlist.append('<div class="commentFeedItem"><div class="line"><div class="unit size3of5"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><!--end .unit .size3of5--><div class="unit size1of5"><span class="statsBody">' + c_rsvpCount + '</span></div><!--end .unit .size1of5--><div class="unit size1of5 lastUnit">' + date_string + '<br/>' + ev.city + ', ' + ev.state + '</div><!--end .unit .size1of5 .lastUnit--></div><!--end .line--></div><!--end .commentFeedItem-->');
+				eventlist.append('<div class="commentFeedItem"><div class="line"><div class="unit size3of5"><span class="tsItem_title"><a href="/Event?' + ev.id + '">' + ev.title + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><!--end .unit .size3of5--><div class="unit size1of5"><span class="statsBody">' + c_rsvpCount + '</span></div><!--end .unit .size1of5--><div class="unit size1of5 lastUnit">' + time_string + '<br/>' + ev.city + ', ' + ev.state + '</div><!--end .unit .size1of5 .lastUnit--></div><!--end .line--></div><!--end .commentFeedItem-->');
 
 			
 
