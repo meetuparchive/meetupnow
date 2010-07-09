@@ -90,15 +90,15 @@
 		var people;
 		var numevents;
 		$.each(data.results, function(i, ev) {
-			people = "New Topic!<br>";
+			people = "<span class='statItem'>New Topic!</span>";
 			numevents = "";
 			if (ev.member_count > 1) {
-				people = ev.member_count+" People<br>";
+				people = "<span class='statItem'><span class='statNum'>" + ev.member_count + "</span> people have attended a " + ev.name + " event.</span>";
 			}
 			if (ev.meetup_count > 1) {
-				numevents ="<br>"+ ev.meetup_count+" Events happening in the next 48 hours<br>"
+				numevents ="<span class='statItem'><span class='statNum'>" + ev.meetup_count + "</span> events happening NOW!</span>"
 			}
-			out.append('<div class="commentFeedItem"><div class="line"><div class="unit size2of4"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><div class="unit size1of4">' + people + numevents + '</div><div class="unit size1of4 lastUnit"><a href="/CreateEvent.jsp?' + ev.id + '">Create Event</a></div></div></div>');
+			out.append('<div class="commentFeedItem"><div class="line"><div class="unit size1of2"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><div class="unit size1of4"><span class="statsBody">' + people + numevents + '</span></div><div class="unit size1of4 lastUnit"><a class="createEvBtn" href="/CreateEvent.jsp?' + ev.id + '">Create Event</a></div></div></div>');
 			
 		});
 		$.each(data.meta, function(i, ev) {

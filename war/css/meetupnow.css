@@ -548,12 +548,29 @@ body {
 		padding: 4px 6px;
 		background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
 		background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
-		width: 120px;
+		width: 130px;
 		text-align: center;
 		border: 2px solid #A8252E;
 		border-radius: 5px;
 		-moz-border-radius: 5px;
 		-webkit-border-radius: 5px;
+	}
+	.createEvBtn {
+		color: #fff !important;
+		font-size: 1.2em;
+		font-weight: bold;
+		text-decoration: none !important;
+		display: block;
+		padding: 4px 6px;
+		background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
+		background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
+		width: 100px;
+		text-align: center;
+		border: 2px solid #A8252E;
+		border-radius: 5px;
+		-moz-border-radius: 5px;
+		-webkit-border-radius: 5px;
+		margin: 0 auto;
 	}
 	#action span {
 		//margin-bottom: 1em;
@@ -742,14 +759,16 @@ body {
 .commentFeedItem {
 		height: auto;
 		color: #f2f2f2;
-		padding: 6px 8px;
-		font-size: 1.2em;
+		padding: 8px 8px;
+		//font-size: 1.2em;
 		border-top: 1px dotted #666;
 		-moz-border-top: 1px dotted #666;
 		-webkit-border-top: 1px dotted #666;
 	}
 .comment_body {
 	display: block;
+	font-size: 1.1em;
+	line-height: 1.5em;
 }
 .comment_author {
 	color: #1ABE78;
@@ -1049,14 +1068,15 @@ input#topicSearchQuery {
 }
 .tsItem_title {
 	display: block;
-	font-size: 1.1em;
+	font-size: 1.3em;
 	padding: 0 0 0.3em 0;
 }
 .tsItem_desc {
 	display: block;
 	color: #f2f2f2;
-	font-size: 1em;
+	font-size: 1.2em;
 	line-height: 1.4em;
+	padding-right: 24px;
 }
 
 /*** Topic Search ***/
@@ -1113,4 +1133,16 @@ input#topicSearchQuery {
 	font-weight: bold;
 	color: #f2f2f2;
 	padding-right: 12px;
+}
+.statsBody {
+	color: #f2f2f2;
+	font-size: 1.1em;
+}
+.statItem {
+	display: block;
+	padding-bottom: 0.5em;
+	line-height: 1.4emem;
+}
+.statNum {
+	color: #FF9533 !important;
 }
