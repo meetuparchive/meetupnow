@@ -316,7 +316,11 @@ if (!searchresults){
 	}
 
 	function addBox(i) {
-		$('#out').append("<div class=\""+i+"\"><div class=\"tickerContentBox\">"+formatAlert(alerts[i])+"</div></div>");
+		var index = i;
+		if ( i >= alerts.length) {
+			index = index % alerts.length;
+		}
+		$('#out').append("<div class=\""+i+"\"><div class=\"tickerContentBox\">"+formatAlert(alerts[index])+"</div></div>");
 	}
 
 
