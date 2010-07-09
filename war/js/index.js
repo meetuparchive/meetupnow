@@ -198,7 +198,7 @@
 				var marker = new google.maps.Marker({ 
 					position: point,
 					map: map,
-					title: ev.container.name, 
+					title: ev.container.name+": "+ev.title, 
 				});
 
 				//epoc time to date string
@@ -212,7 +212,7 @@
 				//provide link for each point with event info
 				google.maps.event.addListener(marker, 'click', function() {
 					
-					var link = '<b><a href="' + ev.meetup_url + '" style="color:Blue">' + ev.container.name + '</a></b><br>WHERE: ' + ev.venue_name + '<br>WHEN: ' + date_string + '<br>';
+					var link = '<span class="mapText"><b><a href="/Event?' + ev.id + '" style="color:Blue">' + ev.title + '</a></b> - ' + date_string + '<br>' + ev.venue_name + '<br>'+ev.description+'</span>';
 						
 					var win = new google.maps.InfoWindow({
 						content: link,

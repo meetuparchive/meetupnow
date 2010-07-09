@@ -4,6 +4,9 @@
 	font: 1.4em Lucida Grande, arial, verdana, san-serif;
 	padding-bottom: .8em;
 }
+.mapText {
+	color: #000000;
+}
 .subtitle {
 	color: #f2f2f2;
 	display: block;
