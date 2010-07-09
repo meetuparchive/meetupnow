@@ -16,27 +16,31 @@
  	var tl;
  	function onLoad() {
       		var dateEvent = new Date();
-
              	var eventSource = new Timeline.DefaultEventSource(); 
+		var myTheme = Timeline.ClassicTheme.create();
+		myTheme.label = "black";
    		var bandInfos = [
      			Timeline.createBandInfo({
          			width:          "70%", 
-         			intervalUnit:   Timeline.DateTime.DAY, 
+         			intervalUnit:   Timeline.DateTime.HOUR, 
          			intervalPixels: 100,
               			eventSource: eventSource
 	
 			}),
      			Timeline.createBandInfo({
          			width:          "30%", 
-         			intervalUnit:   Timeline.DateTime.WEEK, 
-         			intervalPixels: 200,
-				eventSource: eventSource
+         			intervalUnit:   Timeline.DateTime.DAY, 
+         			intervalPixels: 300,
+				eventSource: eventSource,
+				theme: myTheme
 			})
    		];
-		tl = Timeline.create(document.getElementById("map_canvas"), bandInfos);
+		
 
    		bandInfos[1].syncWith = 0;
    		bandInfos[1].highlight = true;
+
+		tl = Timeline.create(document.getElementById("map_canvas"), bandInfos);
       		eventSource.loadJSON(JSONList, '');
 
 
