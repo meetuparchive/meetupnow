@@ -246,7 +246,7 @@ try {
 							try {
 								if (lucky.equals("true")) {
 	%>
-				<a href="/lucky">Give me another lucky event!</a><br><br>
+				<a href="/lucky">Give me another event suggestion!</a><br><br>
 	<%
 								}
 							} catch (Exception e) {}

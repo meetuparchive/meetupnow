@@ -26,6 +26,7 @@
 	
 			}),
      			Timeline.createBandInfo({
+					overview: 		true,
          			width:          "30%", 
          			intervalUnit:   Timeline.DateTime.DAY, 
          			intervalPixels: 300,
