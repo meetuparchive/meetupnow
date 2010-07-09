@@ -5,7 +5,7 @@
 	padding-bottom: .8em;
 }
 .mapText {
-	color: #000000;
+	color: #000000 !important;
 }
 .subtitle {
 	color: #f2f2f2;
@@ -1176,4 +1176,10 @@ input#topicSearchQuery {
 }
 #sortMain {
 	//padding-top: 10px;
+}
+.timeline-event-label {
+	color: #000;
+}
+.simileAjax-bubble-contentContainer {
+	color: #000;
 }
