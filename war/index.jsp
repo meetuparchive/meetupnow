@@ -298,20 +298,20 @@ if (!searchresults){
 		var contain;
 		if (alert.type == "comment") {
 			if (alert.eventName == "null") { evName = "on an event"; }
-			else {evName = "on event " + alert.eventName;}
-			return "<i>"+alert.name+"</i> commented <a href=\""+alert.link+"\"><b>"+evName+"</b></a>: <b>"+ alert.message+"</b> <i> ~ "+alert.time+"</i>";
+			else {evName = "on " + alert.eventName;}
+			return "<span class='tickerMember'>"+alert.name+"</span> commented <a href=\""+alert.link+"\">"+evName+"</a>: "+ alert.message+" <span class='tickerTime'> ~ "+alert.time+"</span>";
 		}
 		if (alert.type == "event_create") {
 			if (alert.container == "null") {contain = "";}
 			else { contain = "in topic "+alert.container;}
-			return "<i>"+alert.name+"</i> created a new event<br> "+contain+": <a href=\""+alert.link+"\"><b>"+alert.eventName+"</b></a><i><br> ~ "+alert.time+"</i>";
+			return "<span class='tickerMember'>"+alert.name+"</span> created a new event "+contain+": <a href=\""+alert.link+"\">"+alert.eventName+"</a><span class='tickerTime'> ~ "+alert.time+"</span>";
 		}
 		if (alert.type == "event_rsvp") {
 			if (alert.eventName == "null") {evName = "an event";}
 			else {evName = alert.eventName;}
 			if (alert.container == "null") {contain = "";}
 			else {contain = " in topic "+alert.container;}
-			return "<i>"+alert.name+"</i> will be attending<br><a href=\""+alert.link+"\"><b>"+evName+"</b></a><br>"+contain+" <i><br> ~ "+alert.time +"</i>";
+			return "<span class='tickerMember'>"+alert.name+"</span> will be attending <a href=\""+alert.link+"\">"+evName+"</a>"+contain+" <span class='tickerTime'> ~ "+alert.time +"</span>";
 		}
 
 	}
