@@ -88,12 +88,9 @@ String[][] names = {
 
 //DATE GEN
 Date d = new Date();
-int offset = (int)(Math.random()*48);
-int min = (int)(Math.random()*12);
-min = min*5;
-d.setHours(d.getHours()+offset);
-d.setMinutes(min);
-String millitime = ""+d.getTime();
+String millitime;
+int offset;
+int min;
 
 Properties prop = new Properties();
 prop.setProperty("consumer.key","12345");
@@ -116,6 +113,14 @@ try {
 		int n_select;
 		int z_select;
 		for (int i = 0; i < loopnum; i++) {
+
+			d = new Date();
+			offset = (int)(Math.random()*48);
+			min = (int)(Math.random()*12);
+			min = min*5;
+			d.setHours(d.getHours()+offset);
+			d.setMinutes(min);
+			millitime = ""+d.getTime();
 
 			c_select = (int)(Math.floor((Math.random()*ids.length)));
 			v_select = (int)(Math.floor((Math.random()*venues[c_select].length)));
