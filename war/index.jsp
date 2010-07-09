@@ -395,31 +395,52 @@ if (!searchresults){
 			</div><!-- end .map_context -->
 			
 			<div class="line">
-				<div class="unit size1of2">
+				<div class="unit size2of3">
 					<div class="mainListActions">
 					<form action="index.jsp" method="post" accept-charset="utf-8">
-						<select id="topicSelect" name="topic">
-							<option value="-1">All Topics</option>
-							<option value="936">Sports</option>
-							<option value="941">TV/Movies</option>
-							<option value="942">Study Groups</option>
-							<option value="943">Eating/Getting Meals</option>
-							<option value="944">Hiking/Walking/Exersize</option>
-							<option value="945">Other</option>
-							<option value="946">Community Service</option>
-							<option value="947">Gaming(Electronic/Traditional)</option>
-							<option value="948">Sightseeing</option>
-							<option value="949">Parties</option>
-						</select>
+						<div class="element">
+							<div class="label">
+								<label for="location">City or Postal Code</label>
+							</div> <!-- end .label -->
+							<select class="fltlft" id="topicSelect" name="topic">
+								<option value="-1">All Topics</option>
+								<option value="936">Sports</option>
+								<option value="941">TV/Movies</option>
+								<option value="942">Study Groups</option>
+								<option value="943">Eating/Getting Meals</option>
+								<option value="944">Hiking/Walking/Exersize</option>
+								<option value="945">Other</option>
+								<option value="946">Community Service</option>
+								<option value="947">Gaming(Electronic/Traditional)</option>
+								<option value="948">Sightseeing</option>
+								<option value="949">Parties</option>
+							</select>
+						</div><!-- end .element -->
+						<div class="element">
+							<div class="label">
+								<label for="location">City or Zip Code</label>
+							</div> <!-- end .label -->
+							<div class="mainSearchInput">
+								<input type="text" name="location" value="<%=locationquery.replace('+',' ')%>" id="mainSearchLocation" maxlength="100">
+							</div> <!-- end .input -->
+						</div> <!-- end .element -->
+						<div class="submit">
+							<input type="submit" value="Search" class="submitBtn">
+						</div> <!-- end .submit -->
 					</form>
 					</div>
 				</div>
-				<div id="sortMain" class="unit size1of2 lastUnit">
+				<div class="unit size1of3 lastUnit">
+				<div id="sortMain">	
 				<div class="mainListActions fltrt">
-					<span class="mlaText">Sort By</span><input type="radio" id="sortTime" name="sortBy" checked="checked" onclick="eventArray.sort(SortByTime); update_events(current_page);"><label for="sortTime">Time</label>
+					<div class="label">
+						<label for="sortBy">Sort By</label>
+					</div>
+					<input type="radio" id="sortTime" name="sortBy" checked="checked" onclick="eventArray.sort(SortByTime); update_events(current_page);"><label for="sortTime">Time</label>
 					<input type="radio" id="sortDistance" name="sortBy" onclick="eventArray.sort(SortByDistance); update_events(current_page);"><label for="sortDistance">Distance</label>
 					<input type="radio" id="sortPop" name="sortBy" onclick="eventArray.sort(SortByRSVP); update_events(current_page);"><label for="sortPop">Popularity</label>
 				</div><!-- end #sortMainBtnWrap -->
+				</div><!-- end .sortMain -->
 				</div>
 			</div>
 			

@@ -216,6 +216,7 @@ body {
 		}
 		.element {
 			float: left;
+			margin-right: 0.5em;
 		}
 		#search label {
 			padding: 0 0 4px 0;
@@ -226,7 +227,7 @@ body {
 		}
 		.mainSearchInput {
 			//display: block;
-			margin-right: 1em;			
+			//margin-right: 1em;			
 		}
 		#mainSearchQuery {
 			padding: 0.1em 0;
@@ -235,7 +236,7 @@ body {
 		}
 		#mainSearchLocation {
 			padding: 0.1em 0;
-			width: 9em;
+			width: 8em;
 			font-size: 1em;
 
 		}
@@ -249,6 +250,7 @@ body {
 			background-position: 0% 0%;
 			background-repeat: no-repeat;
 			border: 1px solid #666;
+			margin-top: 2px;
 			padding:  0.15em 0.5em;
 			font-size: 1em;
 		}
@@ -632,7 +634,7 @@ body {
 	height:78px;   /* Height of the footer */
 	margin-top: -150px;
 	color: #E7E7E7;
-	padding: 24px 0 48px;
+	padding: 48px 0 48px;
 }
 #footerBody {
 	border-top: 1px dotted #666;
@@ -1127,6 +1129,7 @@ input#topicSearchQuery {
 }*/
 .mainListActions {
 	margin: 24px 0 0;
+	padding-bottom: 12px;
 }
 .mlaText {
 	font-size: 1.1em;
@@ -1145,4 +1148,7 @@ input#topicSearchQuery {
 }
 .statNum {
 	color: #FF9533 !important;
+}
+#sortMain {
+	//padding-top: 10px;
 }
