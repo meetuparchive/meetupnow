@@ -17,6 +17,8 @@
  	function onLoad() {
       		var dateEvent = new Date();
              	var eventSource = new Timeline.DefaultEventSource(); 
+		var myTheme = Timeline.ClassicTheme.create();
+		myTheme.label = "black";
    		var bandInfos = [
      			Timeline.createBandInfo({
          			width:          "70%", 
@@ -29,7 +31,8 @@
          			width:          "30%", 
          			intervalUnit:   Timeline.DateTime.DAY, 
          			intervalPixels: 300,
-				eventSource: eventSource
+				eventSource: eventSource,
+				theme: myTheme
 			})
    		];
 		

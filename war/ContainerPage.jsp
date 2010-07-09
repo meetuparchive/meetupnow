@@ -160,9 +160,11 @@
 					<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn fltrt"> Create An Event in this Topic</a>
 				</div> <!-- end #topicActions -->
 				<div id="map_canvasContentBottom">
+					<span class="mapText">
 					<div id="map_canvas">
 
 					</div><!-- end #map_canvas -->
+					</span>
 				</div> <!-- end #map_canvasContentBottom -->
 				
 				<div id="commentFeedContext">
