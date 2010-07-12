@@ -196,12 +196,17 @@
 				//create new point for each event and extend map bounds to include it
 				point = new google.maps.LatLng(parseFloat(ev.lat) + random_offset, parseFloat(ev.lon) + random_offset2);
 				bounds.extend(point);
-				var image = 'images/bluemarker.png';
+				var image = new google.maps.MarkerImage('images/bluemarker.png');
+				var shadow = new google.maps.MarkerImage('images/shadow50.png',
+						new google.maps.Size(37,32),
+						new google.maps.Point(0,0),
+						new google.maps.Point(12,32));
 				//creat marker for point
 				var marker = new google.maps.Marker({ 
 					position: point,
 					map: map,
 					icon: image,
+					shadow: shadow,
 					title: ev.container.name+": "+ev.title, 
 				});
 
