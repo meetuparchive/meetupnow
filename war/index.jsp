@@ -3,6 +3,7 @@
 <%@ page import="meetupnow.NewsItem" %>
 <%@ page import="meetupnow.RegDev" %>
 <%@ page import="meetupnow.UserInfo" %>
+<%@ page import="meetupnow.Topic" %>
 <%@ page import="javax.jdo.PersistenceManager" %>
 <%@ page import="javax.jdo.Query" %>
 <%@ page import="java.util.List" %>
@@ -377,7 +378,7 @@ if (!searchresults){
 				</div><!-- end #map_canvas -->
 			</div><!-- end #map_canvasContainer -->
 			</div><!-- end .map_context -->
-			
+
 			<div class="line">
 				<div class="unit size2of3">
 					<div class="mainListActions">
@@ -388,16 +389,31 @@ if (!searchresults){
 							</div> <!-- end .label -->
 							<select class="fltlft" id="topicSelect" name="topic">
 								<option value="0">All Topics</option>
-								<option value="936">Sports</option>
-								<option value="941">TV/Movies</option>
-								<option value="942">Study Groups</option>
-								<option value="943">Eating/Getting Meals</option>
-								<option value="944">Hiking/Walking/Exersize</option>
-								<option value="945">Other</option>
-								<option value="946">Community Service</option>
-								<option value="947">Gaming(Electronic/Traditional)</option>
-								<option value="948">Sightseeing</option>
-								<option value="949">Parties</option>
+				<%
+					Query TopicQuery = pm.newQuery(Topic.class);
+					TopicQuery.setFilter("id != 0");
+					TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
+
+					List<Topic> topics = new ArrayList<Topic>();
+					try {
+						topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
+					} finally {
+
+					}
+						String tString;
+						for (int i = 0; i < topics.size(); i++) {
+							tString = ""+topics.get(i).getId();
+							if (tString.equals(querystring)) {
+				%>
+							<option value="<%=topics.get(i).getId()%>" selected><%=topics.get(i).getName()%></option>
+				<%
+							} else {
+				%>
+							<option value="<%=topics.get(i).getId()%>"><%=topics.get(i).getName()%></option>
+				<%
+							}
+						}
+				%>
 							</select>
 						</div><!-- end .element -->
 						<div class="element">
