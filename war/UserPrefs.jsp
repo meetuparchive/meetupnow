@@ -86,11 +86,11 @@
 					document.getElementById('lon').value = results[0].geometry.location.lng();
 					
 					out.empty();
-					out.append("VALID");
+					out.append("<span style='color:green; font-size:1.4em; font-weight:bold;'>&#10003;</span>");
 					addressCheck = true;
 				} else {
 					out.empty();
-					out.append("NOT VALID");
+					out.append("<span style='color:red; font-size:1.4em; font-weight:bold;'>X</span>");
 					addressCheck = false;
 				}
 			});
@@ -331,10 +331,10 @@
 				<fieldset>
 				<legend>Default Search Area/Notification Range</legend>
 					<ul>
-					<li>
+					<li class="clearfix">
 					<label for="upZip">Zip Code</label>
-					<input type="text" onChange="verifyAddress()" onKeyUp="verifyAddress()" class="text" id="upZip" name="zip" value="<%=savedZip%>">
-					<div id="out"></div>
+					<input type="text" onChange="verifyAddress()" onKeyUp="verifyAddress()" class="text" id="upZip" name="zip" style="float: left;" value="<%=savedZip%>">
+					<div id="out" style="float: left; padding-left: 0.6em;"></div>
 					</li>
 					<li>
 					<label for="upSearchDistance">Radius (mi)</label>
