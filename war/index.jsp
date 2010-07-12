@@ -351,9 +351,9 @@ if (!searchresults){
 			<% } %>
 			
 			<div id="actionBtns">
-			<a href="CreateEvent.jsp" class="btn_main" style="float:right; margin-left: 12px">Create An Event</a>
-			<a href="lucky" class="btn_main" style="float:right; margin-left: 12px">Can't Decide?</a>
-			<a href="AllTopics.jsp" class="btn_main" style="float:right; margin-left: 12px">Browse Events</a>
+			<a href="CreateEvent.jsp" class="actionBtn" style="float:right; margin-left: 12px">Create An Event</a>
+			<a href="lucky" class="actionBtn" style="float:right; margin-left: 12px">Can't Decide?</a>
+			<a href="AllTopics.jsp" class="actionBtn" style="float:right; margin-left: 12px">Browse Events</a>
 			</div><!-- end #actionBtns -->
 			
 			<!-- <div class="line">
@@ -425,7 +425,7 @@ if (!searchresults){
 							</div> <!-- end .input -->
 						</div> <!-- end .element -->
 						<div class="submit">
-							<input type="submit" value="Search" class="submitBtn">
+							<input type="submit" value="Search" class="actionBtn submitBtn">
 						</div> <!-- end .submit -->
 					</form>
 					</div>

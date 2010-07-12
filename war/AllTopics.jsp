@@ -98,7 +98,7 @@
 			if (ev.meetup_count > 1) {
 				numevents ="<span class='statItem'><span class='statNum'>" + ev.meetup_count + "</span> events happening NOW!</span>"
 			}
-			out.append('<div class="commentFeedItem"><div class="line"><div class="unit size1of2"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><div class="unit size1of4"><span class="statsBody">' + people + numevents + '</span></div><div class="unit size1of4 lastUnit"><a class="createEvBtn" href="/CreateEvent.jsp?' + ev.id + '">Create Event</a></div></div></div>');
+			out.append('<div class="commentFeedItem"><div class="line"><div class="unit size1of2"><span class="tsItem_title"><a href="/Topic?' + ev.id + '">' + ev.name + '</a></span><span class="tsItem_desc">' + ev.description + '</span></div><div class="unit size1of4"><span class="statsBody">' + people + numevents + '</span></div><div class="unit size1of4 lastUnit"><a class="actionBtn createEvBtn" href="/CreateEvent.jsp?' + ev.id + '">Create Event</a></div></div></div>');
 			
 		});
 		$.each(data.meta, function(i, ev) {

@@ -486,7 +486,7 @@ function getMonth(m) {
 					<input type="hidden" name="city" value="NA" id="city" />
 					<input type="hidden" name="state" value="NA" id="state" />
 					<input type="hidden" name="callback" value="/Event" />
-					<input type="submit" id="exe" value="Create" class="createBtn">
+					<input type="submit" id="exe" value="Create" class="actionBtn createBtn">
 
 				</form>
 			
