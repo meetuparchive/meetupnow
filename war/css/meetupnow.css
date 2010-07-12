@@ -82,7 +82,12 @@
 		text-align: center;
 		margin: 0 auto;
 	}
-	.btnRedX {
+	.createBtn {
+		cursor: pointer;
+		width: 80px;
+		text-align: center;
+	}
+/*	.btnRedX {
 		color: #f2f2f2 !important;
 		font-size: 1em;
 		font-weight: normal;
@@ -96,7 +101,7 @@
 		*border-radius: 3px;
 					-moz-border-radius: 3px;
 					-webkit-border-radius: 3px;
-	}
+	}*/
 
 /* Global Styles */
 
@@ -948,23 +953,7 @@ li label[for="desc"] {
 	float:left;
 	padding-left: 0.6em;
 }
-.createBtn {
-	color: #f2f2f2 !important;
-	cursor: pointer;
-	font-size: 1.2em;
-	font-weight: bold;
-	display: block;
-	padding: 4px 6px;
-	background-image: -webkit-gradient(linear, 0% 100%, 0% 0%, from(#A8252E), to(#CA3E47));
-	background-image: -moz-linear-gradient(center top , #CA3E47, #A8252E);
-	width: 80px;
-	text-align: center;
-	text-decoration: none !important;
-	border: 1px solid #A8252E;
-	border-radius: 3px;
-	-moz-border-radius: 3px;
-	-webkit-border-radius: 3px;
-}
+
 /*** Create Event Form Styling ***/
 
 /*** Suggest Topic Form Styling ***/
