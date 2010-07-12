@@ -175,7 +175,7 @@ if (!searchresults){
 							Lat = userInfoList.get(0).getLat();
 							Lon = userInfoList.get(0).getLon();
 							distance = userInfoList.get(0).getDistance();
-							if (Lat != null && Lon != null){
+							if ((Lat != null) && (Lon != null)){
 								if (distance != null){
 			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=" + distance + "&lat=" + Lat + "&lon=" + Lon +"&" + TopicList;
 								} else {
@@ -183,13 +183,12 @@ if (!searchresults){
 								}
 							}
 							else {
-								API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&&status=upcomingradius=5&fields=geo_ip";
+								API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&&status=upcoming&radius=5&fields=geo_ip";
 								APIresponse = sg.submitURL(API_URL);
 								json = new JSONObject(APIresponse.getBody());
 								Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
 								Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
 			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&status=upcoming&lat=" + Lat + "&lon=" + Lon +"&" + TopicList;
-							System.out.println(API_URL);
 							}
 
 							APIrequest = new Request(Request.Verb.GET, API_URL);
