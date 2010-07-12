@@ -211,16 +211,16 @@ try {
 						<%
 							if (in) {
 						%>
-										<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="inBtn">I'm In</a>
+										<a href="/EventRegister?id=<%=ev_id%>&action=remove&r_id=<%=rsvpID%>&callback=/Event?<%=ev_id%>" class="actionBtn inBtn">I'm In</a>
 						<%
 							} else {
 								if (!key.equals("empty")) {
 						%>
-										<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>" class="rsvpBtn">RSVP</a>
+										<a href="/EventRegister?id=<%=ev_id%>&action=join&callback=/Event?<%=ev_id%>" class="actionBtn rsvpBtn">RSVP</a>
 						<%
 								} else {
 						%>
-										<a href="#modal_login" name="modal" class="rsvpBtn">RSVP</a>
+										<a href="#modal_login" name="modal" class="actionBtn rsvpBtn">RSVP</a>
 						<%
 								}
 							}
@@ -273,7 +273,7 @@ try {
 										<input type="hidden" name="id" value="<%=ev_id%>" />
 										<input type="hidden" name="callback" value="Event?<%=ev_id%>" />
 										<input type="hidden" name="title" value="<%=title%>" />
-										<input type="submit" value="Post" class="submitCommentBtn"/>
+										<input type="submit" value="Post" class="actionBtn submitCommentBtn"/>
 									</form>
 								</div> <!-- end #commentInputContext -->
 

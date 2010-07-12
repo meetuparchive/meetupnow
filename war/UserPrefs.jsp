@@ -155,7 +155,7 @@
 							<a href="/Topic?<%=results.getJSONObject(j).getString("id")%>"><%=results.getJSONObject(j).getString("urlname") %></a>
 						</span>
 						<span class="topicSubItem_remove">
-							<a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove" class="btnRedX">X</a>
+							<a href="/setprefs?id=<%=users.get(0).getID()%>&callback=UserPrefs.jsp&group=<%=results.getJSONObject(j).getString("id")%>&action=remove" class="">X</a>
 						</span>
 					</div> <!-- end .topicSubItem -->
 					
@@ -233,7 +233,7 @@
 							</a>
 						</span>
 						<span class="topicSubItem_remove">
-							<a href="/EventRegister?id=<%=e.getString("id")%>&action=remove&r_id=<%=rsvpID%>&callback=/UserPrefs.jsp" class="btnRedX">X</a>
+							<a href="/EventRegister?id=<%=e.getString("id")%>&action=remove&r_id=<%=rsvpID%>&callback=/UserPrefs.jsp" class="">X</a>
 						</span>
 					</div> <!-- end .topicSubItem -->
 					

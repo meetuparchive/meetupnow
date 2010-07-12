@@ -134,7 +134,7 @@
 				%>
 				
 				
-					<a href="/UserPrefs.jsp" class="notifyCancelBtn fltlft">Receiving Group Notifications</a>
+					<a href="/UserPrefs.jsp" class="actionBtn notifyCancelBtn fltlft">Receiving Group Notifications</a>
 				
 				<%
 								}
@@ -142,11 +142,11 @@
 									if (!key.equals("empty")) {
 				%>
 
-				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>" class="notifyStartBtn fltlft">Receive Group Notifications</a>
+				<a href="/setprefs?id=<%=users.get(0).getID()%>&action=add&callback=<%=request.getRequestURI()+"?"+request.getQueryString()%>&group=<%=c_id %>" class="actionBtn notifyStartBtn fltlft">Receive Group Notifications</a>
 				<%		
 									} else {
 %>
-				<a href="/UserPrefs.jsp" class="notifyStartBtn fltlft">Receive Group Notifications</a>
+				<a href="/UserPrefs.jsp" class="actionBtn notifyStartBtn fltlft">Receive Group Notifications</a>
 <%
 									}
 								}
@@ -157,7 +157,7 @@
 
 				%>
 				
-					<a href="/CreateEvent.jsp?<%=c_id%>" class="notifyStartBtn fltrt"> Create An Event in this Topic</a>
+					<a href="/CreateEvent.jsp?<%=c_id%>" class="actionBtn notifyStartBtn fltrt"> Create An Event in this Topic</a>
 				</div> <!-- end #topicActions -->
 				<div id="map_canvasContentBottom">
 					
