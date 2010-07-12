@@ -43,7 +43,7 @@ if (request.getQueryString() != null) {
 	<link rel="stylesheet" type="text/css" media="all" href="css/grids.css">
 	<meta name="title" content="Meetup Now Event" />
 	<meta name="description" content="This meetup is happening soon! Check it out." />
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script src="js/eventPage.js"></script>
 	<script type="text/javascript">
 

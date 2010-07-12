@@ -19,7 +19,7 @@
 	<title>Meetup Now</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	
 	<%@ include file="jsp/cookie.jsp" %>
 	<%@ include file="jsp/declares.jsp" %>
