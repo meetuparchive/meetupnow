@@ -197,7 +197,9 @@
 					time_string = ttText + chour + ":" + date.getMinutes() + ampm;
 				}		
 
-				JSONList.events.push( { 'start' : date , 'title' : ev.title } );
+				var end = new Date(date.getTime() + 3600000);
+
+				JSONList.events.push( { 'start' : date , 'end' : end, 'title' : ev.title, 'description' : ev.description} );
 				
 				if (ev.rsvp_count > 1) {
 					c_rsvpCount = "<span class='statNum'>" + ev.rsvp_count + "</span> RSVPs";
