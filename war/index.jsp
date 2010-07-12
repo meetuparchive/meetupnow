@@ -113,7 +113,6 @@ if (querystring != null && locationquery != null){
 			Lon =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
 
 			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&status=upcoming&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon + containers;
-			System.out.println(API_URL);
 			APIresponse = sg.submitURL(API_URL);
 			json = new JSONObject(APIresponse.getBody());
 	%> var data = <%=json.toString() %> ;<%
