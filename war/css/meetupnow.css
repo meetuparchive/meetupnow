@@ -1118,3 +1118,24 @@ input#topicSearchQuery {
 .simileAjax-bubble-contentContainer {
 	color: #000;
 }
+
+/* Timeline Overrides */
+
+.timeline-band-0, .timeline-ether-bg{background: none !important;}
+.timeline-band-1, .timeline-ether-bg{background: none !important;}
+.timeline-band-2, .timeline-ether-bg{background: none !important;}
+.timeline-band-3, .timeline-ether-bg{background: none !important;}
+
+.timeline-band {
+	background: none !important;
+}
+.timeline-event-label {
+	color: #f2f2f2 !important;
+}
+.timeline-event-tape,
+.timeline-small-event-tape,
+.timeline-small-event-icon{
+    background-color:#2175B1 !important;
+}
+
+/* Timeline Overrides */
