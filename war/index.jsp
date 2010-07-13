@@ -96,13 +96,13 @@
 if (querystring != null && locationquery != null){
 
 	if (!querystring.equals("")) {
-
+			searchresults = true;
 		if (!locationquery.equals("")){	
 
 		
 
 			locationquery = locationquery.replace(' ', '+');
-			searchresults = true;
+
 
 
 
@@ -120,6 +120,63 @@ if (querystring != null && locationquery != null){
 
 
 		} else {
+			if (!key.equals("empty")) {
+
+				try {
+					users = (List<MeetupUser>) query.execute(key);
+					
+					if (users.iterator().hasNext()) {
+						query = pm.newQuery(UserInfo.class);
+						query.setFilter("user_id == u_id");
+						query.declareParameters("String u_id");
+
+
+						List <UserInfo> userInfoList = (List<UserInfo>) query.execute(users.get(0).getID());
+						if (userInfoList.iterator().hasNext()){
+							Token accessToken = new Token(users.get(0).getAccToken(),users.get(0).getAccTokenSecret());
+
+							Lat = userInfoList.get(0).getLat();
+							Lon = userInfoList.get(0).getLon();
+							distance = userInfoList.get(0).getDistance();
+							if ((Lat != null) && (Lon != null)){
+								if (distance != null){
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=" + distance + "&lat=" + Lat + "&lon=" + Lon + containers;
+								} else {
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=10&lat=" + Lat + "&lon=" + Lon + containers;
+								}
+							}
+							else {
+								API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&&status=upcoming&radius=5&fields=geo_ip";
+								APIresponse = sg.submitURL(API_URL);
+								json = new JSONObject(APIresponse.getBody());
+								Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
+								Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&status=upcoming&lat=" + Lat + "&lon=" + Lon + containers;
+							}
+
+							APIrequest = new Request(Request.Verb.GET, API_URL);
+							scribe.signRequest(APIrequest,accessToken);
+							APIresponse = APIrequest.send();
+							%>data = <%=APIresponse.getBody().toString()%><%
+						}
+					}
+				}
+				finally {
+
+				}
+			}
+			else {
+				API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&radius=5&fields=geo_ip";
+				APIresponse = sg.submitURL(API_URL);
+				json = new JSONObject(APIresponse.getBody());
+				Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
+				Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
+				API_URL = "http://api.meetup.com/ew/events?status=upcoming"+ containers + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&fields=rsvp_count&order=time";
+				APIresponse = sg.submitURL(API_URL);
+				%>var data = <%=APIresponse.getBody().toString()%><%
+	
+			}
+
 
 		}
 
