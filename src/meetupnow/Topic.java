@@ -12,7 +12,6 @@ import javax.jdo.annotations.PrimaryKey;
 
 
 @PersistenceCapable
-@Searchable(root = true)
 public class Topic {
     @PrimaryKey
     @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
