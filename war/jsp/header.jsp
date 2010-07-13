@@ -68,12 +68,11 @@
 		$('a[name=modal]').click(function(e) {
 			
 			// Add necessary DIVs
-			$('body').append('<div id="modal_register" class="modalRounded"><iframe src="http://www.meetup.com/register/" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0" class="modalRounded"></iframe></div>');
-			$('body').append('<div id="modal_login" class="modalRounded"><iframe src="/oauth?callback=success.jsp" width="400px" height="550px" align="top" scrolling="no" frameborder="0" border="0" cellspacing="0" class="modalRounded"></iframe></div>');
+			$('body').append('<div id="modal_register" class="modalRounded"><iframe src="http://www.meetup.com/register/" width="720px" height="550px" align="top" frameborder="0" border="0" cellspacing="0" class="modalRounded" scrolling="auto" style="overflow-x: hidden; overflow-y: auto;"></iframe></div>');
+			$('body').append('<div id="modal_login" class=""><iframe src="/oauth?callback=success.jsp" width="680px" height="550px" align="top" frameborder="0" border="0" cellspacing="0" class="modalRounded"></iframe></div>');
 			$( 'body' ).append( '<div id="mask"></div>' );
 			// If mask is clicked, hide mask and activated modal dialogue
 			$('#mask').click(function() {
-				console.log( 'Mask was clicked!' );
 				$(this).hide();
 				$(gId).hide();
 			});

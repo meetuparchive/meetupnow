@@ -851,18 +851,19 @@ body {
 }
 #modal_register {
 	position: absolute;  
-	width: 400px;  
+	width: 720px;  
 	height: 550px;  
 	display: none;  
-	z-index: 9999;  
+	z-index: 9999;
+	overflow-x: hidden;
 	//background-color: white;
 }
 #modal_login {
 	position: absolute;  
-	width: 400px;  
+	width: 680px;  
 	height: 550px;  
 	display: none;  
-	z-index: 9999;  
+	z-index: 9999;
 	//background-color: white;
 }
 .modalRounded {
