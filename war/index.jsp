@@ -96,7 +96,9 @@
 if (querystring != null && locationquery != null){
 
 	if (!querystring.equals("")) {
-			searchresults = true;
+		
+		//display search results
+		searchresults = true;
 		if (!locationquery.equals("")){	
 
 		
