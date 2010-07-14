@@ -389,12 +389,7 @@ function getMonth(m) {
 					TopicQuery.setFilter("id != 0");
 					TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
 
-					List<Topic> topics = new ArrayList<Topic>();
-					try {
-						topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
-					} finally {
-
-					}
+					List<Topic> topics = (List<Topic>) TopicQuery.execute(key);
 				%>
 				
 					<frameset>
