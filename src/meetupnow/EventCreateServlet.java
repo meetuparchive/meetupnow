@@ -48,7 +48,7 @@ public class EventCreateServlet extends HttpServlet {
 		String mTime = "";		
 
 		if (req.getQueryString() != null) {
-			mTime = req.getParameter("mtime");
+			mTime = req.getParameter("epochtime");
 			tz = req.getParameter("localTimeZone");
 			callback = req.getParameter("callback");
 			month = req.getParameter("month");
@@ -71,17 +71,16 @@ public class EventCreateServlet extends HttpServlet {
 
 
 		}
-		String millitime;
+		
+		String millitime = "";
 		if (mTime == null) {
-			millitime= getMilliTime(year,month,day,hour,minute,ampm, tz);
 		}
 		else {
 			millitime = mTime;
 		}
 		String rsvpID = "";
 		String containerName = "";
-		
-
+	
 		
 		String API_URL = "http://api.meetup.com/ew/event/";
 		String key = "empty";

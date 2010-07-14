@@ -25,272 +25,45 @@
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.2/jquery-ui.min.js"></script>
 	<script type="text/javascript">
-	var sdate = new Date();
-	var time = new Date();
-
+	
+	var error = new Date();
+	var slidertime = new Date();
+	var nowtime = new Date(); // Variable to keep current time
+	
+	// Jump slider to current time positon
 	function today(){
-		time.setTime(sdate.getTime());
-		$("#slider").slider("value", time.getTime());
-		$("#amount").val(getTime(time.getHours(),time.getMinutes()) + " " + getMonth(time.getMonth()) +" "+ time.getDate());
+		var currentMinTime = getMinTime();
+		$("#slider").slider("value", currentMinTime.getTime());
+		$("#amount").val(getFormattedTime(currentMinTime.getHours(),currentMinTime.getMinutes()) + " " + getFormattedMonth(currentMinTime.getMonth()) +" "+ currentMinTime.getDate());
 	}
-
-
-	function tomorow(){
-		time.setTime(sdate.getTime());
-		time.setHours(0);
-		time.setMinutes(0);
-		time.setSeconds(0);
-		time.setTime(time.getTime() + 86400000);
-
-		$("#slider").slider("value", time.getTime());
-		$("#amount").val(getTime(time.getHours(),time.getMinutes()) + " " + getMonth(time.getMonth()) +" "+ time.getDate());
-	}
-
-
-	$(function() {
-		verifyAddress();
-		var now = new Date();
-		document.getElementById('month').value = now.getMonth()+1;
-		document.getElementById('day').value = now.getDate();
-		document.getElementById('localTimeZone').value = now.getTimezoneOffset()/60;
-	});
-function getMonth(m) {
-	switch (m)
-	{
-	case 0:
-  		return ("Jan");
-	case 1:
-		return ("Feb");		
-	case 2:
-  		return ("Mar");
-	case 3:
-		return ("Apr");
-	case 4:
-		return ("May");
-	case 5:
-		return ("Jun");
-	case 6:
-		return ("Jul");
-	case 7:
-		return ("Aug");
-	case 8:
-		return ("Sep");
-	case 9:
-		return ("Oct");
-	case 10:
-		return ("Nov");
-	case 11:
-		return ("Dec");
-	default:
-		return ("Undef");
-	}
-}
-
-	function getTime(h, m) {
-		var ampm = "AM";
-
-		if (h >= 12) {ampm = "PM";}
-		if (h > 12) { h = h - 12;}
-		if (h == 0) {h = 12;}
-		if (m > 9) { return (h + ":" + m + " " + ampm);}
-		else {return (h + ":0" + m + " " + ampm);}
-	}	
-	/* jQuery UI */
 	
-
-	// Today/Tommorrow button
-	$(function() {
-			$("#radio_when").buttonset();
-	});
-	
-	// Date/Time picker slider
-	$(function() {
+	// Jump slider to beginning of tomorrow position
+	function tomorrow(){
+		var currentMinTime = getMinTime();
+		currentMinTime.setHours(0);
+		currentMinTime.setMinutes(0);
+		currentMinTime.setSeconds(0);
 		
-		// Today's Date
-		var today = sdate.getDate();
-
-		// Calc min decimal time
-		shour = sdate.getHours();
-
-		if ( ( sdate.getMinutes() / 60 ) <= .25 ) {
-			sminute = .25;
-		} else if ( ( sdate.getMinutes() / 60 ) <= .5 ) {
-			sminute = .5;
-		} else if ( ( sdate.getMinutes() / 60 ) <= .75) {
-			sminute = .75;
-		} else if ( ( sdate.getMinutes() / 60 ) <= 1) {
-			sminute = 0;
-			shour += 1;
-		}
-
-		sdate.setHours(shour);
-		sdate.setMinutes(sminute * 60);
-		sdate.setSeconds(0);		
-
-		minTimeValue = sdate.getTime();
+		var tomorrowtime = new Date();
+		tomorrowtime.setTime(currentMinTime.getTime() + 86400000);
 		
-		time.setTime(sdate.getTime());
-		time.setHours(0);
-		time.setMinutes(0);
-		time.setSeconds(0);
-		time.setTime(time.getTime() + 172800000);
-
-		maxTimeValue = time.getTime() - 300000;
-		$("#amount").val(minTimeValue);
-		document.getElementById('month').value = time.getMonth()+1;
-		document.getElementById('day').value = time.getDate();
-		document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
-		document.getElementById('year').value = time.getFullYear();
-		
-		
-			$("#slider").slider({
-				value: minTimeValue,
-				min: minTimeValue,
-				max: maxTimeValue,
-				step: 300000,
-				slide: function(event, ui) {
-					time.setTime(ui.value);
-					$("#amount").val(getTime(time.getHours(),time.getMinutes()) + " " + getMonth(time.getMonth()) +" "+ time.getDate());
-					document.getElementById('month').value = time.getMonth()+1;
-					document.getElementById('day').value = time.getDate();
-					document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
-					document.getElementById('year').value = time.getFullYear();
-
-					if (time.getDate() > today) {
-						//document.getElementById('radio1').checked = false;
-						//document.getElementById('radio2').checked = true;
-						document.getElementById('radio2').click();
-						today = time.getDate();
-					}
-					if (time.getDate() < today) {
-						//document.getElementById('radio1').checked = true;
-						//document.getElementById('radio2').checked = false;
-						document.getElementById('radio1').click();
-						today = time.getDate();
-					}
-					var format_hour = time.getHours();
-					var format_ampm = "am";
-					if (format_hour > 12) {
-						format_hour = format_hour - 12;
-						format_ampm = "pm";
-					}
-					if (format_hour == 0) {
-						format_hour = 12;
-					}
-
-					document.getElementById('hour').value = format_hour;
-					document.getElementById('ampm').value = format_ampm;
-					document.getElementById('minute').value = time.getMinutes();
-
-				}
-			});
-			$("#amount").val(getTime(sdate.getHours(),sdate.getMinutes()) + " " + getMonth(sdate.getMonth()) +" "+ sdate.getDate());
-	});
-
-	var addressCheck = false;
-
-	function verifySubmission() {
-
-		var now = new Date();
-
-		var now_hour = now.getHours();
-		var now_ampm = "am";
-		if (now_hour > 12) {
-			now_hour = now_hour - 12;
-			now_ampm = "pm";
-		}
-		if (now_hour == 0) {
-			now_hour = 12;
-		}
-
-		var canSubmit = true;
-		var message = "";
-
-		if (document.getElementById('topic').value == "") {
-			message = message + "Please select a topic for your event\n";
-			canSubmit = false;
-		}
-
-		if (document.getElementById('title').value == "") {
-			message = message + "Please enter a title for your event\n";
-			canSubmit = false;
-		}
-		if (document.getElementById('venue').value == "") {
-			message = message + "Please pick a venue\n";
-			canSubmit = false;
-		}
-		if ((document.getElementById('hour').value == "")||(document.getElementById('minute').value == "")) {
-			message = message + "Please pick a time\n";
-			canSubmit = false;
-		}
-
-		if (document.getElementById('desc').value == "") {
-			message = message + "Please enter a description\n";
-			canSubmit = false;
-		}
-
-		if (document.getElementById('address').value == "") {
-			message = message + "Please enter an address\n";
-			canSubmit = false;
-		}
-
-		if (!addressCheck) {
-			message = message + "Enter a valid Address";
-			canSubmit = false;
-		}
-	
-		if((parseInt(document.getElementById('year').value) - 1900) < now.getYear()) {
-			message = message + "Please enter a date in the future\n";
-			canSubmit = false;
-		} else if ((parseInt(document.getElementById('year').value) - 1900) == now.getYear()){
-			if ((parseInt(document.getElementById('month').value) - 1) < now.getMonth()) {
-				message = message + "Please enter a date in the future\n";
-				canSubmit = false;
-			} else if ((parseInt(document.getElementById('month').value) - 1) == now.getMonth()){
-				if (parseInt(document.getElementById('day').value) < now.getDate()) {
-					message = message + "Please enter a date in the future\n";
-					canSubmit = false;
-				} else if (parseInt(document.getElementById('day').value) == now.getDate()){
-					if (document.getElementById('ampm').value == "am") {
-						if (now_ampm == "pm") {
-							message = message + "Please enter a time in the future\n";
-							canSubmit = false;
-						}
-						else if (parseInt(document.getElementById('hour').value) < now_hour) {
-							message = message + "Please enter a time in the future\n";
-							canSubmit = false;
-						} else if (parseInt(document.getElementById('hour').value) == now_hour) {
-							if (parseInt(document.getElementById('minute').value) < now.getMinutes() ) {
-								message = message + "Please enter a time in the future\n"
-								canSubmit = false;
-							}
-						}
-					} else  { //pm
-						if (now_ampm == "pm") {
-							if (parseInt(document.getElementById('hour').value) < now_hour) {
-								message = message + "Please enter a time in the future\n";
-								canSubmit = false;
-							} else if (parseInt(document.getElementById('hour').value) == now_hour) {
-								if (parseInt(document.getElementById('minute').value) < now.getMinutes() ) {
-									message = message + "Please enter a time in the future\n"
-									canSubmit = false;
-							}
-						}
-							
-						}
-					}
-				}
-			}
-		}
-
-		if (canSubmit) {
-			return true;
-		} else {
-			alert(message);
-			return false;
-		}
+		$("#slider").slider("value", tomorrowtime.getTime());
+		$("#amount").val(getFormattedTime(tomorrowtime.getHours(),tomorrowtime.getMinutes()) + " " + getFormattedMonth(tomorrowtime.getMonth()) +" "+ tomorrowtime.getDate());
 	}
+	
+	function getTomorrowDate() {
+		var currentMinTime = getMinTime();
+		currentMinTime.setHours(0);
+		currentMinTime.setMinutes(0);
+		currentMinTime.setSeconds(0);
 
+		var tomorrowtime = new Date();
+		tomorrowtime.setTime(currentMinTime.getTime() + 86400000);
+		
+		tomorrowDate = tomorrowtime.getDate();
+		return tomorrowDate;
+	}
+	
 	function verifyAddress() {
 		var add = $('#address');
 		var out = $('#out');
@@ -359,6 +132,281 @@ function getMonth(m) {
 			});
 		}
 	}
+	
+	function getFormattedMonth(m) {
+			switch (m)
+			{
+			case 0:
+		  		return ("Jan");
+			case 1:
+				return ("Feb");		
+			case 2:
+		  		return ("Mar");
+			case 3:
+				return ("Apr");
+			case 4:
+				return ("May");
+			case 5:
+				return ("Jun");
+			case 6:
+				return ("Jul");
+			case 7:
+				return ("Aug");
+			case 8:
+				return ("Sep");
+			case 9:
+				return ("Oct");
+			case 10:
+				return ("Nov");
+			case 11:
+				return ("Dec");
+			default:
+				return ("Undef");
+			}
+	}
+	
+	function getFormattedTime(h, m) {
+		var ampm = "AM";
+
+		if (h >= 12) {ampm = "PM";}
+		if (h > 12) { h = h - 12;}
+		if (h == 0) {h = 12;}
+		if (m > 9) { return (h + ":" + m + " " + ampm);}
+		else {return (h + ":0" + m + " " + ampm);}
+	}
+	
+	function getMinTime() {
+		var now = nowtime.getTime();
+		var now_hour = nowtime.getHours();
+		var now_minutes = nowtime.getMinutes();
+		
+		if ( ( now_minutes / 60 ) <= .25 ) {
+			minMinute = .25;
+		} else if ( ( now_minutes / 60 ) <= .5 ) {
+			minMinute = .5;
+		} else if ( ( now_minutes / 60 ) <= .75) {
+			minMinute = .75;
+		} else if ( ( now_minutes / 60 ) <= 1) {
+			minMinute = 0;
+			now_hour = now_hour + 1;
+		}
+		
+		minTime = new Date();
+		minTime.setHours( now_hour );
+		minTime.setMinutes( minMinute * 60 );
+		minTime.setSeconds( 0 );
+		
+		return minTime;
+	}
+	
+	function getMaxTime() {
+		
+		var max = getMinTime();
+		max.setHours(0);
+		max.setMinutes(0);
+		max.setSeconds(0);
+		max.setTime( max.getTime() + (172800000-300000) );
+		//maxTime = max.getTime() - 300000;
+		
+		maxTime = new Date();
+		maxTime.setTime(max.getTime());
+		return maxTime;
+	}
+	
+	function passValues( timeobj ) {
+		document.getElementById('localTimeZone').value = timeobj.getTimezoneOffset()/60;
+		document.getElementById('year').value = timeobj.getFullYear();
+		document.getElementById('month').value = timeobj.getMonth()+1;
+		document.getElementById('day').value = timeobj.getDate();
+		document.getElementById('minute').value = timeobj.getMinutes();
+		
+		if ( timeobj.getHours() > 12 ) {
+			//var format_hour = timeobj.getHours() - 12;
+			var format_ampm = "PM";
+		} else if ( timeobj.getHours() == 12 ) {
+			var format_hour = timeobj.getHours();
+			var format_amppm = "PM"
+		}
+		else {
+			var format_hour = timeobj.getHours();
+			var format_ampm = "AM";
+		}
+		document.getElementById('ampm').value = format_ampm;
+		document.getElementById('hour').value = format_hour;
+		document.getElementById('epochtime').value = timeobj.getTime();
+	}
+	
+	$(function() {
+		verifyAddress();
+		// document.getElementById('month').value = nowtime.getMonth()+1;
+		// 		document.getElementById('day').value = nowtime.getDate();
+		// 		document.getElementById('localTimeZone').value = nowtime.getTimezoneOffset()/60;
+	});
+	
+	$(function() {
+		// Initialize jQuery UI button
+		$("#radio_when").buttonset();
+	});
+	
+	$(function() {
+		// Date/Time picker slider
+		
+		//$("#amount").val(minTimeValue);
+		//document.getElementById('month').value = time.getMonth()+1;
+		//document.getElementById('day').value = time.getDate();
+		//document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
+		//document.getElementById('year').value = time.getFullYear();
+		
+		// Pass values to form for post
+		passValues( getMinTime() );
+		
+		$("#slider").slider({
+		value: getMinTime().getTime(),
+		min: getMinTime().getTime(),
+		max: getMaxTime().getTime(),
+		step: 300000,
+		slide: function(event, ui) {
+				//$("#amount").val('$' + ui.value);
+				slidertime.setTime(ui.value);
+				$("#amount").val(getFormattedTime(slidertime.getHours(),slidertime.getMinutes()) + " " + getFormattedMonth(slidertime.getMonth()) +" "+ slidertime.getDate());
+				// document.getElementById('month').value = time.getMonth()+1;
+				// 				document.getElementById('day').value = time.getDate();
+				// 				document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
+				// 				document.getElementById('year').value = time.getFullYear();
+				// 
+				if ( slidertime.getDate() >= getTomorrowDate() ) {
+					//document.getElementById('radio1').checked = false;
+					//document.getElementById('radio2').checked = true;
+					document.getElementById('radio2').click();
+					$("#amount").val(getFormattedTime(slidertime.getHours(),slidertime.getMinutes()) + " " + getFormattedMonth(slidertime.getMonth()) +" "+ slidertime.getDate());
+				}
+				if ( slidertime.getDate() < getTomorrowDate() ) {
+					//document.getElementById('radio1').checked = true;
+					//document.getElementById('radio2').checked = false;
+					document.getElementById('radio1').click();
+					$("#amount").val(getFormattedTime(slidertime.getHours(),slidertime.getMinutes()) + " " + getFormattedMonth(slidertime.getMonth()) +" "+ slidertime.getDate());
+					//today = time.getDate();
+				}
+				
+				passValues( slidertime );
+				
+				
+				// 				var format_hour = time.getHours();
+				// 				var format_ampm = "am";
+				// 				if (format_hour > 12) {
+				// 					format_hour = format_hour - 12;
+				// 					format_ampm = "pm";
+				// 				}
+				// 				if (format_hour == 0) {
+				// 					format_hour = 12;
+				// 				}
+				// 
+				// 				document.getElementById('hour').value = format_hour;
+				// 				document.getElementById('ampm').value = format_ampm;
+				// 				document.getElementById('minute').value = time.getMinutes();
+
+			}
+		});
+		
+		var initAmount = getMinTime();
+		$("#amount").val(getFormattedTime(initAmount.getHours(),initAmount.getMinutes()) + " " + getFormattedMonth(initAmount.getMonth()) +" "+ initAmount.getDate());
+		
+	});
+
+	var addressCheck = false;
+
+	function verifySubmission() {
+
+		var now_ampm = document.getElementById('ampm').value;
+		var now_hour = document.getElementById('hour').value;
+		var canSubmit = true;
+		var message = "";
+
+		if (document.getElementById('topic').value == "") {
+			message = message + "Please select a topic for your event\n";
+			canSubmit = false;
+		}
+
+		if (document.getElementById('title').value == "") {
+			message = message + "Please enter a title for your event\n";
+			canSubmit = false;
+		}
+		if (document.getElementById('venue').value == "") {
+			message = message + "Please pick a venue\n";
+			canSubmit = false;
+		}
+		if ((document.getElementById('hour').value == "")||(document.getElementById('minute').value == "")) {
+			message = message + "Please pick a time\n";
+			canSubmit = false;
+		}
+
+		if (document.getElementById('desc').value == "") {
+			message = message + "Please enter a description\n";
+			canSubmit = false;
+		}
+
+		if (document.getElementById('address').value == "") {
+			message = message + "Please enter an address\n";
+			canSubmit = false;
+		}
+
+		if (!addressCheck) {
+			message = message + "Enter a valid Address";
+			canSubmit = false;
+		}
+	
+		if((parseInt(document.getElementById('year').value) - 1900) < error.getYear()) {
+			message = message + "Please enter a date in the future\n";
+			canSubmit = false;
+		} else if ((parseInt(document.getElementById('year').value) - 1900) == error.getYear()){
+			if ((parseInt(document.getElementById('month').value) - 1) < error.getMonth()) {
+				message = message + "Please enter a date in the future\n";
+				canSubmit = false;
+			} else if ((parseInt(document.getElementById('month').value) - 1) == error.getMonth()){
+				if (parseInt(document.getElementById('day').value) < error.getDate()) {
+					message = message + "Please enter a date in the future\n";
+					canSubmit = false;
+				} else if (parseInt(document.getElementById('day').value) == error.getDate()){
+					if (document.getElementById('ampm').value == "am") {
+						if (now_ampm == "pm") {
+							message = message + "Please enter a time in the future\n";
+							canSubmit = false;
+						}
+						else if (parseInt(document.getElementById('hour').value) < now_hour) {
+							message = message + "Please enter a time in the future\n";
+							canSubmit = false;
+						} else if (parseInt(document.getElementById('hour').value) == now_hour) {
+							if (parseInt(document.getElementById('minute').value) < error.getMinutes() ) {
+								message = message + "Please enter a time in the future\n"
+								canSubmit = false;
+							}
+						}
+					} else  { //pm
+						if (now_ampm == "pm") {
+							if (parseInt(document.getElementById('hour').value) < now_hour) {
+								message = message + "Please enter a time in the future\n";
+								canSubmit = false;
+							} else if (parseInt(document.getElementById('hour').value) == now_hour) {
+								if (parseInt(document.getElementById('minute').value) < error.getMinutes() ) {
+									message = message + "Please enter a time in the future\n"
+									canSubmit = false;
+							}
+						}
+							
+						}
+					}
+				}
+			}
+		}
+
+		if (canSubmit) {
+			return true;
+		} else {
+			alert(message);
+			return false;
+		}
+	}
+
 </script>
 </head>
 <body>
@@ -431,7 +479,7 @@ function getMonth(m) {
 						<li>
 							<label for="amount">Event Time</label>
 							<input type="radio" id="radio1" name="radio" checked="checked" onclick=today()><label for="radio1">Today</label>
-							<input type="radio" id="radio2" name="radio" onclick=tomorow()><label for="radio2">Tomorrow</label>
+							<input type="radio" id="radio2" name="radio" onclick=tomorrow()><label for="radio2">Tomorrow</label>
 							<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
 
 							<div id="slider"></div>
@@ -475,7 +523,7 @@ function getMonth(m) {
 					<input type="hidden" name="localTimeZone" id="localTimeZone" />
 					<input type="hidden" name="lat" value="NA" id="lat" />
 					<input type="hidden" name="lon" value="NA" id="lon" />
-
+					<input type="hidden" name="epochtime" id="epochtime" />
 					<input type="hidden" name="ad" value="NA" id="ad" />
 					<input type="hidden" name="country" value="NA" id="country" />
 					<input type="hidden" name="city" value="NA" id="city" />
