@@ -383,7 +383,7 @@
 					<input type="hidden" name="callback" value="/UserPrefs.jsp">
 					<input type="hidden" id="lat" name="lat" value="NA"/>
 					<input type="hidden" id="lon" name="lon" value="NA"/>
-					<input type="submit" class="submit" value="Update Preferences"></input>
+					<input type="submit" class="actionBtn" value="Update Preferences"></input>
 				</fieldset>
 				</form>
 				
