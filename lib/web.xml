@@ -109,6 +109,14 @@
         <servlet-name>Email</servlet-name>
         <url-pattern>/email</url-pattern>
     </servlet-mapping>
+    <servlet>
+	<servlet-name>Sync</servlet-name>
+        <servlet-class>meetupnow.SyncDatabase</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Sync</servlet-name>
+        <url-pattern>/sync</url-pattern>
+    </servlet-mapping>
 
 <servlet>
   <servlet-name>mailhandler</servlet-name>
