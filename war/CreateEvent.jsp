@@ -238,9 +238,6 @@
 	
 	$(function() {
 		verifyAddress();
-		// document.getElementById('month').value = nowtime.getMonth()+1;
-		// 		document.getElementById('day').value = nowtime.getDate();
-		// 		document.getElementById('localTimeZone').value = nowtime.getTimezoneOffset()/60;
 	});
 	
 	$(function() {
@@ -250,13 +247,6 @@
 	
 	$(function() {
 		// Date/Time picker slider
-		
-		//$("#amount").val(minTimeValue);
-		//document.getElementById('month').value = time.getMonth()+1;
-		//document.getElementById('day').value = time.getDate();
-		//document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
-		//document.getElementById('year').value = time.getFullYear();
-		
 		// Pass values to form for post
 		passValues( getMinTime() );
 		
@@ -269,42 +259,20 @@
 				//$("#amount").val('$' + ui.value);
 				slidertime.setTime(ui.value);
 				$("#amount").val(getFormattedTime(slidertime.getHours(),slidertime.getMinutes()) + " " + getFormattedMonth(slidertime.getMonth()) +" "+ slidertime.getDate());
-				// document.getElementById('month').value = time.getMonth()+1;
-				// 				document.getElementById('day').value = time.getDate();
-				// 				document.getElementById('localTimeZone').value = time.getTimezoneOffset()/60;
-				// 				document.getElementById('year').value = time.getFullYear();
-				// 
+
 				if ( slidertime.getDate() >= getTomorrowDate() ) {
 					//document.getElementById('radio1').checked = false;
-					//document.getElementById('radio2').checked = true;
-					document.getElementById('radio2').click();
+					document.getElementById('radio2').checked = true;
+					$("#radio2").button('refresh');
 					$("#amount").val(getFormattedTime(slidertime.getHours(),slidertime.getMinutes()) + " " + getFormattedMonth(slidertime.getMonth()) +" "+ slidertime.getDate());
 				}
 				if ( slidertime.getDate() < getTomorrowDate() ) {
-					//document.getElementById('radio1').checked = true;
-					//document.getElementById('radio2').checked = false;
-					document.getElementById('radio1').click();
+					document.getElementById('radio1').checked = true;
+					$("#radio1").button('refresh');
 					$("#amount").val(getFormattedTime(slidertime.getHours(),slidertime.getMinutes()) + " " + getFormattedMonth(slidertime.getMonth()) +" "+ slidertime.getDate());
-					//today = time.getDate();
 				}
 				
 				passValues( slidertime );
-				
-				
-				// 				var format_hour = time.getHours();
-				// 				var format_ampm = "am";
-				// 				if (format_hour > 12) {
-				// 					format_hour = format_hour - 12;
-				// 					format_ampm = "pm";
-				// 				}
-				// 				if (format_hour == 0) {
-				// 					format_hour = 12;
-				// 				}
-				// 
-				// 				document.getElementById('hour').value = format_hour;
-				// 				document.getElementById('ampm').value = format_ampm;
-				// 				document.getElementById('minute').value = time.getMinutes();
-
 			}
 		});
 		
@@ -478,7 +446,7 @@
 					<ul id="radio_when">
 						<li>
 							<label for="amount">Event Time</label>
-							<input type="radio" id="radio1" name="radio" checked="checked" onclick=today()><label for="radio1">Today</label>
+							<input type="radio" id="radio1" name="radio" checked="true" onclick=today()><label for="radio1">Today</label>
 							<input type="radio" id="radio2" name="radio" onclick=tomorrow()><label for="radio2">Tomorrow</label>
 							<input type="text" id="amount" style="border:0; color:#f6931f; font-weight:bold;" />
 
