@@ -84,7 +84,33 @@ if (request.getQueryString() != null) {
 
 	}
 	</script>
+			<%!
+			public static String timeBetween(Date d1, Date d2){
+				long now = d1.getTime();
+				long then = d2.getTime();
 
+				long seconds = (now - then)/1000;
+				long minutes = seconds/60;
+				long hours = minutes/60;
+				long days = hours/24;
+
+				if (seconds < 60) {
+					if (seconds == 1) {return seconds+" second ago";}
+					else {return seconds+" seconds ago";}
+				}
+				if (minutes < 60) {
+					if (minutes == 1) {return minutes+" minute ago";}
+					else {return minutes+" minutes ago";}
+				}
+				if (hours < 24) {
+					if (hours == 1) {return hours+" hour ago";}
+					else {return hours+" hours ago";}
+				}
+				if (days == 1) {return days+" day ago";}
+				else {return days+" days ago";}
+
+			}
+			%>
 
 <%
 String MUID = "";
@@ -307,7 +333,11 @@ try {
 			</span>
 		</span>
 		<span class="comment_time">
-				<script type="text/javascript">document.write(getTimeString(<%=Long.parseLong(comment.getString("time"))%>));</script>
+		<%
+			Date now = new Date();
+			Date then = new Date(Long.parseLong(comment.getString("time")));
+		%>
+				<%=timeBetween(now,then)%>
 		</span>
 	</div>
 
