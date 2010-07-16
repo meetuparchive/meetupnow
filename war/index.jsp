@@ -409,14 +409,28 @@ if (!searchresults){
 			<% } %>
 			
 			<div id="actionBtns">
+					<%
+					if (!k.equals("empty")) {
+					%>
 			<a href="CreateEvent.jsp" class="actionBtn" style="float:right; margin-left: 12px">Create An Event</a>
+					<%
+					} else {
+					%>
+			<a href="#modal_login" name="modal" class="actionBtn" style="float:right; margin-left: 12px">Create An Event</a>
+					<%
+					}
+					%>
 			<a href="lucky" class="actionBtn" style="float:right; margin-left: 12px">Can't Decide?</a>
 			<a href="AllTopics.jsp" class="actionBtn" style="float:right; margin-left: 12px">Browse Events</a>
 			</div><!-- end #actionBtns -->
 			
 			<!-- <div class="line">
 				<div class="unit size1of3">
-					<a href="CreateEvent.jsp" class="btn_main fltlft">Create An Event</a>
+
+
+					
+
+					
 				</div>
 				<div class="unit size1of3">
 					<a href="lucky" class="btn_main" style="margin: 0 auto;">Roll the Dice!</a>
