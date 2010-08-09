@@ -19,6 +19,7 @@
 <body id="mobileBody" onload="onLoad()">
 	<script type="text/javascript" charset="utf-8">
 		window.location = parent.location.reload();
+
 	</script>
 	<div id="mobileContent">
 		<span id="mobileSuccess">Success</span>

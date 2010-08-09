@@ -45,6 +45,7 @@ public class OAuthServlet extends HttpServlet {
 		prop.setProperty("access.token.url","http://www.meetup.com/oauth/access/");
 		prop.setProperty("callback.url",req.getRequestURL().toString()+"?callback="+callback);
 
+
 		Scribe scribe = new Scribe(prop);				//Create Scribe Object
 		PersistenceManager pm = PMF.get().getPersistenceManager();	//Initialize Persistance Manager
 		if (!token.equals("")) {  //If access key is obtained
@@ -75,7 +76,6 @@ public class OAuthServlet extends HttpServlet {
 					try {
 						json = new JSONObject(APIresponse.getBody());
 						user = json.getJSONArray("results").getJSONObject(0);
-                        System.out.println(user);
 	                    if (user != null) {
 						    users.get(0).setName(user.getString("name"));
 						    users.get(0).setID(user.getString("id"));
