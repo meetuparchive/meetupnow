@@ -64,10 +64,6 @@ public class OAuthServlet extends HttpServlet {
 					users.get(0).setAccToken(accessToken.getToken());
 					users.get(0).setAccTokenSecret(accessToken.getSecret());
 
-					//SETCOOKIE
-					Cookie c = new Cookie("meetup_access", accessToken.getToken());
-      					resp.addCookie(c);
-
 					//GET USER INFO
 					String API_URL = "http://api.meetup.com/members/?relation=self";
 					//Sign request and get user info response
@@ -79,12 +75,18 @@ public class OAuthServlet extends HttpServlet {
 					try {
 						json = new JSONObject(APIresponse.getBody());
 						user = json.getJSONArray("results").getJSONObject(0);
-	
-						users.get(0).setName(user.getString("name"));
-						users.get(0).setID(user.getString("id"));
-						m_id = user.getString("id");
-						users.get(0).setLat(user.getString("lat"));
-						users.get(0).setLon(user.getString("lon"));
+                        System.out.println(user);
+	                    if (user != null) {
+						    users.get(0).setName(user.getString("name"));
+						    users.get(0).setID(user.getString("id"));
+						    m_id = user.getString("id");
+						    users.get(0).setLat(user.getString("lat"));
+						    users.get(0).setLon(user.getString("lon"));
+
+                            //SETCOOKIE - if user exists
+					        Cookie c = new Cookie("meetup_access", accessToken.getToken());
+      					    resp.addCookie(c);
+                        }
 						
 				
 					} catch (JSONException j) {
@@ -118,10 +120,9 @@ public class OAuthServlet extends HttpServlet {
 			}
 			finally {
 				query.closeAll();
-				
+                pm.close();
 				resp.sendRedirect("/setprefs?callback="+callback+"&id="+m_id);
 			}
-			pm.close();
 			
 
 		} else {	//IF NOT LOGGED IN - create new user session in database
@@ -135,9 +136,10 @@ public class OAuthServlet extends HttpServlet {
 				pm.makePersistent(newUser);
 			} finally {
 				pm.close();
+			    //Authorize token and redirect here
+			    resp.sendRedirect("http://www.meetup.com/authenticate/?callback="+callback+"&oauth_token="+requestToken.getToken());
 			}
-			//Authorize token and redirect here
-			resp.sendRedirect("http://www.meetup.com/authenticate/?callback="+callback+"&oauth_token="+requestToken.getToken());
+
 		
 		}
 
