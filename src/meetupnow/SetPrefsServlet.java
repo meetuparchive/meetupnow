@@ -136,8 +136,8 @@ public class SetPrefsServlet extends HttpServlet {
 	//Sets the current user's default MU alerts for the container to false.
 	public void setAlerts(String id, PersistenceManager pm, String key) {
 		Properties prop = new Properties();
-		prop.setProperty("consumer.key","12345");
-		prop.setProperty("consumer.secret","67890");
+		prop.setProperty("consumer.key","830E4150F3098788A8F99282A2E2D93D");
+		prop.setProperty("consumer.secret","E882A57A98B1F5A477B7A4136BEF8A32");
 		Scribe scribe = new Scribe(prop);
 
 		Query query = pm.newQuery(MeetupUser.class);

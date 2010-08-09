@@ -37,8 +37,8 @@ public class OAuthServlet extends HttpServlet {
 
 		//Set the properties of the Scribe Object
 		Properties prop = new Properties();
-		prop.setProperty("consumer.key","12345");
-		prop.setProperty("consumer.secret","67890");
+		prop.setProperty("consumer.key","830E4150F3098788A8F99282A2E2D93D");
+		prop.setProperty("consumer.secret","E882A57A98B1F5A477B7A4136BEF8A32");
 		prop.setProperty("request.token.verb","POST");
 		prop.setProperty("request.token.url","http://www.meetup.com/oauth/request/");
 		prop.setProperty("access.token.verb","POST");
