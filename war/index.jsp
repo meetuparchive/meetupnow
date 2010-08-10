@@ -104,12 +104,13 @@ if (querystring != null && locationquery != null){
 
 			locationquery = locationquery.replace(' ', '+');
 
-			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
-			APIresponse = sg.submitUnsignedURL(GEOCODE_API_URL);
+			//String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
+            String gisgraphy_url = "http://services.gisgraphy.com/fulltext/fulltextsearch?q="+ locationquery +"&format=json&from=1&to=1";
+			APIresponse = sg.submitUnsignedURL(gisgraphy_url);
 			json = new JSONObject(APIresponse.getBody());
 
-			Lat =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
-			Lon =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+			Lat =  json.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("lat");
+			Lon =  json.getJSONObject("response").getJSONArray("docs").getJSONObject(0).getString("lng");
 
 			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&status=upcoming&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon + containers;
 			APIresponse = sg.submitURL(API_URL);
