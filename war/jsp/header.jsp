@@ -67,9 +67,14 @@
 		// Select Register link
 		$('a[name=modal]').click(function(e) {
 			
+			if ( $(this).attr('href') == '#modal_register' ) {
 			// Add necessary DIVs
-			$('body').append('<div id="modal_register" class="modalRounded"><iframe src="http://www.meetup.com/register/" width="720px" height="550px" align="top" frameborder="0" border="0" cellspacing="0" class="modalRounded" scrolling="auto" style="overflow-x: hidden; overflow-y: auto;"></iframe></div>');
-			$('body').append('<div id="modal_login" class=""><iframe src="/oauth?callback=success.jsp" width="680px" height="550px" align="top" frameborder="0" border="0" cellspacing="0" class="modalRounded"></iframe></div>');
+				$('body').append('<div id="modal_register" class="modalRounded"><iframe src="http://www.meetup.com/register/" width="720px" height="550px" align="top" frameborder="0" border="0" cellspacing="0" class="modalRounded" scrolling="auto" style="overflow-x: hidden; overflow-y: auto;"></iframe></div>');
+			}
+			else if ( $(this).attr('href') == '#modal_login' ) {
+				$('body').append('<div id="modal_login" class=""><iframe src="/oauth?callback=success.jsp" width="680px" height="550px" align="top" frameborder="0" border="0" cellspacing="0" class="modalRounded"></iframe></div>');
+			}
+			
 			$( 'body' ).append( '<div id="mask"></div>' );
 			// If mask is clicked, hide mask and activated modal dialogue
 			$('#mask').click(function() {
@@ -108,6 +113,5 @@
 			gId = id;
 		});
 
-
-	});
+});
 </script>

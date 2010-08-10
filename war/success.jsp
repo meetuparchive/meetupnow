@@ -3,7 +3,7 @@
 	<title>Success</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css">
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale-1.0, user-scalable-no"
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale-1.0, user-scalable-no">
 	<script type="text/javascript" charset="utf-8">
 		function onLoad() {
 			//window.location = parent.location.reload();
@@ -18,7 +18,8 @@
 </head>
 <body id="mobileBody" onload="onLoad()">
 	<script type="text/javascript" charset="utf-8">
-		window.location = parent.location.reload();
+		//window.location = parent.location.reload();
+        window.parent.location.reload();
 
 	</script>
 	<div id="mobileContent">
