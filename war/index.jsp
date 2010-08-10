@@ -92,7 +92,7 @@
 			String Lat = "";
 			String Lon = "";
 
-
+			String TopicList = "container_id=";
 if (querystring != null && locationquery != null){
 
 	if (!querystring.equals("")) {
@@ -193,7 +193,7 @@ if (!searchresults){
 			JSONArray top_list;	
 
 		
-			String TopicList = "container_id=";
+
 			Query TopicQuery = pm.newQuery(Topic.class);
 			TopicQuery.setFilter("id != 0");
 			TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
@@ -236,20 +236,19 @@ if (!searchresults){
 								} else {
 			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=10&lat=" + Lat + "&lon=" + Lon +"&" + TopicList;
 								}
+							    APIrequest = new Request(Request.Verb.GET, API_URL);
+							    scribe.signRequest(APIrequest,accessToken);
+							    APIresponse = APIrequest.send();
+							    %>data = <%=APIresponse.getBody().toString()%><%
 							}
 							else {
-								API_URL = "http://api.meetup.com/ew/events.json?lat=40.7142691&lon=-74.0059729&&status=upcoming&radius=5&fields=geo_ip";
-								APIresponse = sg.submitURL(API_URL);
-								json = new JSONObject(APIresponse.getBody());
-								Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
-								Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&status=upcoming&lat=" + Lat + "&lon=" + Lon +"&" + TopicList;
+	                            Lat = null;
+                                Lon = null;
+				                %>var data = null;<%
+
 							}
 
-							APIrequest = new Request(Request.Verb.GET, API_URL);
-							scribe.signRequest(APIrequest,accessToken);
-							APIresponse = APIrequest.send();
-							%>data = <%=APIresponse.getBody().toString()%><%
+
 						}
 					}
 				}
@@ -258,33 +257,69 @@ if (!searchresults){
 				}
 			}
 			else {
-                //Signed generic api request - just to get geo_ip 
-				API_URL = "http://api.meetup.com/members?relation=self&order=name&offset=0&format=json&page=200&fields=geo_ip&sig_id=12219649&sig=c36e74db72bca240652d609ae875821df5ea9418";
-				APIresponse = sg.submitURL(API_URL);
-				json = new JSONObject(APIresponse.getBody());
-				Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
-				Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-				API_URL = "http://api.meetup.com/ew/events?status=upcoming&" + TopicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&fields=rsvp_count&order=time";
-				APIresponse = sg.submitURL(API_URL);
-				%>var data = <%=APIresponse.getBody().toString()%><%
+
+                Lat = null;
+                Lon = null;
+				%>var data = null;
+<%
 
 	
 			}
 }		
-			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
-			APIresponse = sg.submitURL(GEOCODE_API_URL);
-			%>
-        
+			//String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
+			//APIresponse = sg.submitURL(GEOCODE_API_URL);
+            %>Topic_List = "<%=TopicList %>";
+			
 
             User_Lat = <%=Lat + ";\n"%>
 			User_Lon = <%=Lon + ";\n"%>
-			var geocode = <%=APIresponse.getBody().toString()%>
-				var location = 'Events near ' + geocode.results[0].address_components[2].long_name;
+            if (data == null){
 
-				$('#searchResultsHeading').append(location);
-				use_everywhere(data);
+                $.ajax({
+                    dataType: "jsonp", 
+                    url: 'http://api.meetup.com/members?relation=self&order=name&offset=0&format=json&page=200&fields=geo_ip&sig_id=12219649&sig=c36e74db72bca240652d609ae875821df5ea9418',
+                    success: function(data) {
+                        User_Lat = data.meta.geo_ip.lat;
+                        User_Lon = data.meta.geo_ip.lon;
+                        $.ajax({
+                            dataType: "jsonp", 
+                            url: "http://api.meetup.com/ew/events?status=upcoming&lat=" + data.meta.geo_ip.lat + "&lon=" + data.meta.geo_ip.lon + "&" + Topic_List + "&radius=25.0&fields=rsvp_count&key=<%=sg.getKey()%>",
+                            success: function(data2) {
+
+			                    use_everywhere(data2);
+                                eventArray.sort(SortByDistance);
+    				            var location = 'Events near ' + eventArray[0].ev.city;
+                                if (eventArray[0].ev.state){
+                                    location = location + ", " + eventArray[0].ev.state;
+                                }
+                                else{
+                                    location = location + ", " + eventArray[0].ev.country.toUpperCase();
+                                }
+				                $('#searchResultsHeading').append(location);    
+                                eventArray.sort(SortByTime);                      
+                            }   
+                        });
+                    }   
+                });
+
+
+            
+            } else {
+                use_everywhere(data);
+                eventArray.sort(SortByDistance);
+                var location = 'Events near ' + eventArray[0].ev.city;
+                if (eventArray[0].ev.state){
+                    location = location + ", " + eventArray[0].ev.state;
+                }
+                else{
+                   location = location + ", " + eventArray[0].ev.country.toUpperCase();
+                }
+                $('#searchResultsHeading').append(location);    
+                eventArray.sort(SortByTime);          
+
+
 			}
-
+}
 	</script>
 	
 	<script type="text/javascript">

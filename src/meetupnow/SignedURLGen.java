@@ -46,6 +46,10 @@ public class SignedURLGen {
 		return APIresponse;
 	}
 	
+    public String getKey(){
+        return muKey;
+    }
+
 	public Response submitUnsignedURL(String URLin) {
 		Response APIresponse = null;
 		try {
