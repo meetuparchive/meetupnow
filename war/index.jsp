@@ -129,12 +129,13 @@ if (querystring != null && locationquery != null){
 			    API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&status=upcoming&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon + topicList;
 			    APIresponse = sg.submitURL(API_URL);
 			    json = new JSONObject(APIresponse.getBody());
-	            %> var data = <%=json.toString() %> ;<%
+	            %> var data = <%=json.toString() + ";\n" %> <%
             }
             else {
                 Lat = null;
                 Lon = null;
-                %> var data = null; <%
+                %> var data = null;
+<%
             }
 
 
@@ -178,7 +179,7 @@ if (querystring != null && locationquery != null){
 							APIrequest = new Request(Request.Verb.GET, API_URL);
 							scribe.signRequest(APIrequest,accessToken);
 							APIresponse = APIrequest.send();
-							%>data = <%=APIresponse.getBody().toString()%><%
+							%>data = <%=APIresponse.getBody().toString() + ";\n"%><%
 						}
 					}
 				}
@@ -194,7 +195,7 @@ if (querystring != null && locationquery != null){
 				Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
 				API_URL = "http://api.meetup.com/ew/events?status=upcoming"+ topicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&fields=rsvp_count&order=time";
 				APIresponse = sg.submitURL(API_URL);
-				%>var data = <%=APIresponse.getBody().toString()%><%
+				%>var data = <%=APIresponse.getBody().toString() + ";\n"%><%
 	
 			}
 
@@ -207,7 +208,8 @@ if (querystring != null && locationquery != null){
 } else {
 
 }
-
+%>var search = <%=searchresults + ";\n"%>
+<%
 if (!searchresults){
 
 
@@ -292,13 +294,18 @@ if (!searchresults){
 
 			                    use_everywhere(data2);
                                 eventArray.sort(SortByDistance);
-    				            var location = 'Events near ' + eventArray[0].ev.city;
+                                var location = '';
+                                if (search){
+                                    location = 'Location not found.. Showing ';
+                                }
+    				            location = location + 'Events near ' + eventArray[0].ev.city;
                                 if (eventArray[0].ev.state){
                                     location = location + ", " + eventArray[0].ev.state;
                                 }
                                 else{
                                     location = location + ", " + eventArray[0].ev.country.toUpperCase();
                                 }
+
 				                $('#searchResultsHeading').append(location);    
                                 eventArray.sort(SortByTime);                      
                             }   
@@ -318,6 +325,7 @@ if (!searchresults){
                 else{
                    location = location + ", " + eventArray[0].ev.country.toUpperCase();
                 }
+
                 $('#searchResultsHeading').append(location);    
                 eventArray.sort(SortByTime);          
 
