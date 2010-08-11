@@ -44,7 +44,7 @@
 
 				<li><a href ="/UserPrefs.jsp">User Page</a> </li>
 
-				<li><a href ="/logout?callback=">Log Out</a></li>
+				<li><a href ="/logout?callback=http://www.meetup.com/logout/?returnUri=http://eventbent.appspot.com/">Log Out</a></li>
 <%
 			} finally {
 				q.closeAll();
