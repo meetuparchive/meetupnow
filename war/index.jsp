@@ -30,7 +30,17 @@
 
 
 
-		
+		    var data;
+
+            function setData(d) {
+                if (d.results.length > 0) {
+                    data = d;
+                } else {
+                    data = null;
+                }
+            }
+
+
 			function loadEvents(){
 				
 			// Sort Buttons | jQuery UI
@@ -68,7 +78,7 @@
 				else {return days+" days ago";}
 
 			}
-			%>
+%>
 <%
 
 	int numBoxes = 3;
@@ -96,7 +106,7 @@
 	} finally {
         topicQuery.closeAll();
 	}
-
+    String allTopicList = topicList;
 	if (!querystring.equals("0") && !querystring.equals("")){
 		topicList = "&container_id=" + querystring;
 	}
@@ -129,13 +139,12 @@ if (querystring != null && locationquery != null){
 			    API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&status=upcoming&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon + topicList;
 			    APIresponse = sg.submitURL(API_URL);
 			    json = new JSONObject(APIresponse.getBody());
-	            %> var data = <%=json.toString() + ";\n" %> <%
+	            %> setData(<%=json.toString()%>); <%
             }
             else {
                 Lat = null;
                 Lon = null;
-                %> var data = null;
-<%
+                %> setData(null);<%
             }
 
 
@@ -179,7 +188,7 @@ if (querystring != null && locationquery != null){
 							APIrequest = new Request(Request.Verb.GET, API_URL);
 							scribe.signRequest(APIrequest,accessToken);
 							APIresponse = APIrequest.send();
-							%>data = <%=APIresponse.getBody().toString() + ";\n"%><%
+							%>setData(<%=APIresponse.getBody().toString()%>);<%
 						}
 					}
 				}
@@ -195,7 +204,7 @@ if (querystring != null && locationquery != null){
 				Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
 				API_URL = "http://api.meetup.com/ew/events?status=upcoming"+ topicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&fields=rsvp_count&order=time";
 				APIresponse = sg.submitURL(API_URL);
-				%>var data = <%=APIresponse.getBody().toString() + ";\n"%><%
+				%>setData(<%=APIresponse.getBody().toString()%>);<%
 	
 			}
 
@@ -245,12 +254,12 @@ if (!searchresults){
 							    APIrequest = new Request(Request.Verb.GET, API_URL);
 							    scribe.signRequest(APIrequest,accessToken);
 							    APIresponse = APIrequest.send();
-							    %>data = <%=APIresponse.getBody().toString()%><%
+							    %>setData(<%=APIresponse.getBody().toString()%>);<%
 							}
 							else {
 	                            Lat = null;
                                 Lon = null;
-				                %>var data = null;<%
+				                %>setData(null);<%
 
 							}
 
@@ -266,21 +275,21 @@ if (!searchresults){
 
                 Lat = null;
                 Lon = null;
-				%>var data = null;
-<%
+				%>setData(null);<%
 
 	
 			}
 }		
 			//String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
 			//APIresponse = sg.submitURL(GEOCODE_API_URL);
-            %>Topic_List = "<%=topicList %>";
-			
-
+%>
+            Topic_List = "<%=topicList %>";
             User_Lat = <%=Lat + ";\n"%>
 			User_Lon = <%=Lon + ";\n"%>
             if (data == null){
-
+                if (search) {
+                    Topic_List = "<%=allTopicList%>";
+                }
                 $.ajax({
                     dataType: "jsonp", 
                     url: 'http://api.meetup.com/members?relation=self&order=name&offset=0&format=json&page=200&fields=geo_ip&sig_id=12219649&sig=c36e74db72bca240652d609ae875821df5ea9418',
@@ -296,7 +305,7 @@ if (!searchresults){
                                 eventArray.sort(SortByDistance);
                                 var location = '';
                                 if (search){
-                                    location = 'Location not found.. Showing ';
+                                    location = 'Results or location not found... Showing all ';
                                 }
     				            location = location + 'Events near ' + eventArray[0].ev.city;
                                 if (eventArray[0].ev.state){
@@ -506,7 +515,7 @@ if (!searchresults){
 					<form action="index.jsp" method="post" accept-charset="utf-8">
 						<div class="element">
 							<div class="label">
-								<label for="location">City or Postal Code</label>
+								<label for="location">Topic</label>
 							</div> <!-- end .label -->
 							<select class="fltlft" id="topicSelect" name="topic">
 								<option value="0">All Topics</option>
