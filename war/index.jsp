@@ -33,8 +33,10 @@
 		    var data;
 
             function setData(d) {
-                if (d.results.length > 0) {
-                    data = d;
+                if (d != null) {
+                    if (d.results.length > 0) {
+                        data = d;
+                    }
                 } else {
                     data = null;
                 }
@@ -298,7 +300,7 @@ if (!searchresults){
                         User_Lon = data.meta.geo_ip.lon;
                         $.ajax({
                             dataType: "jsonp", 
-                            url: "http://api.meetup.com/ew/events?status=upcoming&lat=" + data.meta.geo_ip.lat + "&lon=" + data.meta.geo_ip.lon + "&" + Topic_List + "&radius=25.0&fields=rsvp_count&key=<%=sg.getKey()%>",
+                            url: "http://api.meetup.com/ew/events?status=upcoming&lat=" + data.meta.geo_ip.lat + "&lon=" + data.meta.geo_ip.lon + Topic_List + "&radius=25.0&fields=rsvp_count&key=<%=sg.getKey()%>",
                             success: function(data2) {
 
 			                    use_everywhere(data2);
