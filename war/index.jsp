@@ -440,7 +440,7 @@ if (!searchresults){
 			
 			<span class="title">Get Started.</span>
 			<div id="actionDesc">
-				<span class="heading">MeetupNow is a site built so that you can find events happening locally, and happening soon. Nothing going on near you? No problem, just start something yourself, and people nearby will hear about it. Now go out and do something.</span>
+				<span class="heading">EventBent helps you discover events happening locally, and happening soon. Nothing going on near you? No problem, just start something yourself, and people nearby will hear about it. Now go out and do something!</span>
 			</div> <!-- end #actionDesc -->
 			
 			<% } %>

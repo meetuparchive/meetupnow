@@ -180,6 +180,7 @@ body {
 	background-color: #022432;
 }
 #header {
+	position: relative;
 	height: 20px;
 	width: 726px;
 	z-index: 2000;
@@ -622,6 +623,7 @@ body {
 	padding: 48px 0 48px;
 }
 #footerBody {
+	position: relative;
 	border-top: 1px dotted #666;
 	width: 726px;
 	margin: 0 auto;
@@ -631,7 +633,6 @@ body {
 }
 #footerSection {
 	border-right: 1px solid #ccc;
-	float: left;
 	margin-right: 1.75em;
 	padding-right: 1.7em;
 }

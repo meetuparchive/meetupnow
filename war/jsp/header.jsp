@@ -15,8 +15,8 @@
 
 <div id="header">
 
-		<div id="header_logo">
-			<ul><li><a href="/">Home</a></li></ul>
+		<div id="header_logo" style="position:absolute; left:0; top:4px; background-color: #022432; padding-right: 6px;">
+			<ul><li><a href="/"><img src="/images/eventbentLogoSm.png" height="auto" width="auto" /	></a></li></ul>
 		</div><!-- header_logo -->
 		<div id="header_usernav">
 			<ul>
