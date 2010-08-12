@@ -243,7 +243,7 @@ body {
 #contentRight {
 	float: right;
 	width: 243px;
-	padding: 0 0 12px 6px;
+	padding: 12px 0 12px 6px;
 	clear: left;
 }
 	#contentRightBody {
@@ -533,7 +533,7 @@ body {
 	float: left;
 	clear: left;
 	width: 493px;
-	padding: 0 6px 12px 0;
+	padding: 12px 6px 12px 0;
 }
 	#contentLeftBody {
 		padding: 12px;
