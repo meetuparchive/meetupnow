@@ -5,6 +5,11 @@
 	<title>EventBent</title>
 	<link rel="stylesheet" href="css/reset.css" type="text/css" />
 	<link rel="stylesheet" href="css/meetupnow.css" type="text/css" />
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<script type="text/javascript">
+			<%@ include file="jsp/cookie.jsp" %>
+			<%@ include file="jsp/declares.jsp" %>
+</script>
 </head>
 <body>
 <div id="wrap">
