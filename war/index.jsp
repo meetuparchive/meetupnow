@@ -30,7 +30,19 @@
 
 
 
-		
+		    var data;
+
+            function setData(d) {
+                if (d != null) {
+                    if (d.results.length > 0) {
+                        data = d;
+                    }
+                } else {
+                    data = null;
+                }
+            }
+
+
 			function loadEvents(){
 				
 			// Sort Buttons | jQuery UI
@@ -68,7 +80,7 @@
 				else {return days+" days ago";}
 
 			}
-			%>
+%>
 <%
 
 	int numBoxes = 3;
@@ -79,20 +91,33 @@
 	String locationquery = request.getParameter("location");
 	if (querystring == null) querystring = "";
 	if (locationquery == null) locationquery = "";
+    String topicList = "&container_id=";
 
-	String containers = "";
-	if (!querystring.equals("0")){
-		containers = "&container_id=" + querystring;
+	Query topicQuery = pm.newQuery(Topic.class);
+	topicQuery.setFilter("id != 0");
+	topicQuery.declareParameters("String reqTokenParam");	//Setup Query
+
+	List<Topic> Topics = new ArrayList<Topic>();
+	try {
+		Topics = (List<Topic>) pm.detachCopyAll((List<Topic>) topicQuery.execute(key));
+		for (int i = 0; i < Topics.size(); i++){
+			topicList = topicList + Integer.toString(Topics.get(i).getId()) + ",";
+		}
+    	if (topicList.charAt(topicList.length() - 1) == ',')
+		    topicList = topicList.substring(0, topicList.length() - 1);
+	} finally {
+        topicQuery.closeAll();
 	}
-	else {
-		containers = "&container_id=936,941,942,943,944,945,946,947,948,949";
+    String allTopicList = topicList;
+	if (!querystring.equals("0") && !querystring.equals("")){
+		topicList = "&container_id=" + querystring;
 	}
 	JSONObject json;
 	Boolean searchresults = false;
 			String Lat = "";
 			String Lon = "";
 
-			String TopicList = "container_id=";
+
 if (querystring != null && locationquery != null){
 
 	if (!querystring.equals("")) {
@@ -104,17 +129,27 @@ if (querystring != null && locationquery != null){
 
 			locationquery = locationquery.replace(' ', '+');
 
-			String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
-			APIresponse = sg.submitUnsignedURL(GEOCODE_API_URL);
+			//String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?address=" + locationquery +"&sensor=true";
+            String gisgraphy_url = "http://services.gisgraphy.com/fulltext/fulltextsearch?q="+ locationquery +"&placetype=city&country=us&format=json&from=1&to=1";
+			APIresponse = sg.submitUnsignedURL(gisgraphy_url);
 			json = new JSONObject(APIresponse.getBody());
+            JSONObject g_response = json.getJSONObject("response");
+            if (Integer.parseInt(g_response.getString("numFound")) > 0) {
+			    Lat =  g_response.getJSONArray("docs").getJSONObject(0).getString("lat");
+			    Lon =  g_response.getJSONArray("docs").getJSONObject(0).getString("lng");
 
-			Lat =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lat");
-			Lon =  json.getJSONArray("results").getJSONObject(0).getJSONObject("geometry").getJSONObject("location").getString("lng");
+			    API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&status=upcoming&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon + topicList;
+			    APIresponse = sg.submitURL(API_URL);
+			    json = new JSONObject(APIresponse.getBody());
+	            %> setData(<%=json.toString()%>); <%
+            }
+            else {
+                Lat = null;
+                Lon = null;
+                %> setData(null);<%
+            }
 
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&status=upcoming&fields=rsvp_count&radius=10&lat=" + Lat + "&lon=" + Lon + containers;
-			APIresponse = sg.submitURL(API_URL);
-			json = new JSONObject(APIresponse.getBody());
-	%> var data = <%=json.toString() %> ;<%
+
 
 
 		} else {
@@ -138,9 +173,9 @@ if (querystring != null && locationquery != null){
 							distance = userInfoList.get(0).getDistance();
 							if ((Lat != null) && (Lon != null)){
 								if (distance != null){
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=" + distance + "&lat=" + Lat + "&lon=" + Lon + containers;
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=" + distance + "&lat=" + Lat + "&lon=" + Lon + topicList;
 								} else {
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=10&lat=" + Lat + "&lon=" + Lon + containers;
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=10&lat=" + Lat + "&lon=" + Lon + topicList;
 								}
 							}
 							else {
@@ -149,13 +184,13 @@ if (querystring != null && locationquery != null){
 								json = new JSONObject(APIresponse.getBody());
 								Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
 								Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&status=upcoming&lat=" + Lat + "&lon=" + Lon + containers;
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&radius=10&status=upcoming&lat=" + Lat + "&lon=" + Lon + topicList;
 							}
 
 							APIrequest = new Request(Request.Verb.GET, API_URL);
 							scribe.signRequest(APIrequest,accessToken);
 							APIresponse = APIrequest.send();
-							%>data = <%=APIresponse.getBody().toString()%><%
+							%>setData(<%=APIresponse.getBody().toString()%>);<%
 						}
 					}
 				}
@@ -169,9 +204,9 @@ if (querystring != null && locationquery != null){
 				json = new JSONObject(APIresponse.getBody());
 				Lat = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lat");
 				Lon = json.getJSONObject("meta").getJSONObject("geo_ip").getString("lon");
-				API_URL = "http://api.meetup.com/ew/events?status=upcoming"+ containers + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&fields=rsvp_count&order=time";
+				API_URL = "http://api.meetup.com/ew/events?status=upcoming"+ topicList + "&lat=" + Lat + "&lon=" + Lon + "&radius=25.0&fields=rsvp_count&order=time";
 				APIresponse = sg.submitURL(API_URL);
-				%>var data = <%=APIresponse.getBody().toString()%><%
+				%>setData(<%=APIresponse.getBody().toString()%>);<%
 	
 			}
 
@@ -184,7 +219,8 @@ if (querystring != null && locationquery != null){
 } else {
 
 }
-
+%>var search = <%=searchresults + ";\n"%>
+<%
 if (!searchresults){
 
 
@@ -192,25 +228,6 @@ if (!searchresults){
 
 			JSONArray top_list;	
 
-		
-
-			Query TopicQuery = pm.newQuery(Topic.class);
-			TopicQuery.setFilter("id != 0");
-			TopicQuery.declareParameters("String reqTokenParam");	//Setup Query
-
-			List<Topic> Topics = new ArrayList<Topic>();
-			try {
-				Topics = (List<Topic>) pm.detachCopyAll((List<Topic>) TopicQuery.execute(key));
-				for (int i = 0; i < Topics.size(); i++){
-					TopicList = TopicList + Integer.toString(Topics.get(i).getId()) + ",";
-				}
-				if (TopicList.charAt(TopicList.length() - 1) == ',')
-					TopicList = TopicList.substring(0, TopicList.length() - 1);
-			} finally {
-
-			}
-
-			Topic NewTopic;
 			
 			if (!key.equals("empty")) {
 
@@ -232,19 +249,19 @@ if (!searchresults){
 							distance = userInfoList.get(0).getDistance();
 							if ((Lat != null) && (Lon != null)){
 								if (distance != null){
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=" + distance + "&lat=" + Lat + "&lon=" + Lon +"&" + TopicList;
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=" + distance + "&lat=" + Lat + "&lon=" + Lon + topicList;
 								} else {
-			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=10&lat=" + Lat + "&lon=" + Lon +"&" + TopicList;
+			API_URL = "http://api.meetup.com/ew/events/?link=http://jake-meetup-test.appspot.com/&fields=rsvp_count&status=upcoming&radius=10&lat=" + Lat + "&lon=" + Lon + topicList;
 								}
 							    APIrequest = new Request(Request.Verb.GET, API_URL);
 							    scribe.signRequest(APIrequest,accessToken);
 							    APIresponse = APIrequest.send();
-							    %>data = <%=APIresponse.getBody().toString()%><%
+							    %>setData(<%=APIresponse.getBody().toString()%>);<%
 							}
 							else {
 	                            Lat = null;
                                 Lon = null;
-				                %>var data = null;<%
+				                %>setData(null);<%
 
 							}
 
@@ -260,21 +277,21 @@ if (!searchresults){
 
                 Lat = null;
                 Lon = null;
-				%>var data = null;
-<%
+				%>setData(null);<%
 
 	
 			}
 }		
 			//String GEOCODE_API_URL = "http://maps.google.com/maps/api/geocode/json?latlng=" + Lat + "," + Lon +"&sensor=true";
 			//APIresponse = sg.submitURL(GEOCODE_API_URL);
-            %>Topic_List = "<%=TopicList %>";
-			
-
+%>
+            Topic_List = "<%=topicList %>";
             User_Lat = <%=Lat + ";\n"%>
 			User_Lon = <%=Lon + ";\n"%>
             if (data == null){
-
+                if (search) {
+                    Topic_List = "<%=allTopicList%>";
+                }
                 $.ajax({
                     dataType: "jsonp", 
                     url: 'http://api.meetup.com/members?relation=self&order=name&offset=0&format=json&page=200&fields=geo_ip&sig_id=12219649&sig=c36e74db72bca240652d609ae875821df5ea9418',
@@ -283,18 +300,23 @@ if (!searchresults){
                         User_Lon = data.meta.geo_ip.lon;
                         $.ajax({
                             dataType: "jsonp", 
-                            url: "http://api.meetup.com/ew/events?status=upcoming&lat=" + data.meta.geo_ip.lat + "&lon=" + data.meta.geo_ip.lon + "&" + Topic_List + "&radius=25.0&fields=rsvp_count&key=<%=sg.getKey()%>",
+                            url: "http://api.meetup.com/ew/events?status=upcoming&lat=" + data.meta.geo_ip.lat + "&lon=" + data.meta.geo_ip.lon + Topic_List + "&radius=25.0&fields=rsvp_count&key=<%=sg.getKey()%>",
                             success: function(data2) {
 
 			                    use_everywhere(data2);
                                 eventArray.sort(SortByDistance);
-    				            var location = 'Events near ' + eventArray[0].ev.city;
+                                var location = '';
+                                if (search){
+                                    location = 'Results or location not found... Showing all ';
+                                }
+    				            location = location + 'Events near ' + eventArray[0].ev.city;
                                 if (eventArray[0].ev.state){
                                     location = location + ", " + eventArray[0].ev.state;
                                 }
                                 else{
                                     location = location + ", " + eventArray[0].ev.country.toUpperCase();
                                 }
+
 				                $('#searchResultsHeading').append(location);    
                                 eventArray.sort(SortByTime);                      
                             }   
@@ -314,6 +336,7 @@ if (!searchresults){
                 else{
                    location = location + ", " + eventArray[0].ev.country.toUpperCase();
                 }
+
                 $('#searchResultsHeading').append(location);    
                 eventArray.sort(SortByTime);          
 
@@ -494,7 +517,7 @@ if (!searchresults){
 					<form action="index.jsp" method="post" accept-charset="utf-8">
 						<div class="element">
 							<div class="label">
-								<label for="location">City or Postal Code</label>
+								<label for="location">Topic</label>
 							</div> <!-- end .label -->
 							<select class="fltlft" id="topicSelect" name="topic">
 								<option value="0">All Topics</option>
